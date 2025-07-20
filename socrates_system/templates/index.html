@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socrates Agent - External Hallucination Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .session-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #e1e8ed;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .file-input:hover {
+            border-color: #667eea;
+            background: #e8f0fe;
+        }
+
+        .file-input input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+
+        .results-section {
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .verification-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .socratic-dialogue {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .dialogue-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .socratic-question {
+            background: #e8f0fe;
+            border-left: 3px solid #4285f4;
+        }
+
+        .verification-result {
+            background: #e8f5e8;
+            border-left: 3px solid #34a853;
+        }
+
+        .contradiction-found {
+            background: #fce8e6;
+            border-left: 3px solid #ea4335;
+        }
+
+        .claim-details {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #e1e8ed;
+        }
+
+        .evidence-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .evidence-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .evidence-list li:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Socrates Agent</h1>
+            <p>Advanced External Hallucination Detection System</p>
+            <p>Multimodal Fact Verification using Socratic Methodology</p>
+        </div>
+
+        <div class="main-content">
+            <div class="session-info">
+                <h3>Session Information</h3>
+                <p><strong>Session ID:</strong> <span id="session-id">Not started</span></p>
+                <p><strong>Status:</strong> <span id="session-status">Ready to begin</span></p>
+                <button class="btn btn-secondary" onclick="startNewSession()">Start New Session</button>
+            </div>
+
+            <form id="verification-form" class="input-section">
+                <div class="input-group">
+                    <label for="user-input">Enter your claim for verification:</label>
+                    <textarea 
+                        id="user-input" 
+                        name="user_input" 
+                        placeholder="Enter a factual claim you'd like me to verify using Socratic methodology. For example: 'The Eiffel Tower is located in Paris, France' or 'Water boils at 100 degrees Celsius'..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="image-upload">Upload an image (optional - for multimodal verification):</label>
+                    <div class="file-input-wrapper">
+                        <div class="file-input">
+                            <input type="file" id="image-upload" name="image" accept="image/*">
+                            <span>Click to upload an image or drag and drop</span>
+                        </div>
+                    </div>
+                    <div id="file-info" class="hidden"></div>
+                </div>
+
+                <button type="submit" class="btn" id="verify-btn">
+                    🔍 Verify Claim with Socratic Analysis
+                </button>
+            </form>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Socrates Agent is analyzing your claim through multiple verification stages...</p>
+                <p><small>This includes claim extraction, cross-alignment checking, external factuality verification, and knowledge graph integration.</small></p>
+            </div>
+
+            <div id="results" class="results-section hidden">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSessionId = null;
+
+        // File upload handling
+        document.getElementById('image-upload').addEventListener('change', function(e) {
+            const fileInfo = document.getElementById('file-info');
+            const file = e.target.files[0];
+            
+            if (file) {
+                fileInfo.innerHTML = `<p><strong>Selected:</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>`;
+                fileInfo.classList.remove('hidden');
+            } else {
+                fileInfo.classList.add('hidden');
+            }
+        });
+
+        // Start new session
+        async function startNewSession() {
+            try {
+                const response = await fetch('/start_session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    currentSessionId = data.session_id;
+                    document.getElementById('session-id').textContent = currentSessionId;
+                    document.getElementById('session-status').textContent = 'Active';
+                    showMessage('New session started successfully!', 'success');
+                } else {
+                    showMessage('Failed to start session: ' + data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error starting session: ' + error.message, 'error');
+            }
+        }
+
+        // Form submission
+        document.getElementById('verification-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const userInput = document.getElementById('user-input').value.trim();
+            if (!userInput) {
+                showMessage('Please enter a claim to verify.', 'error');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('verify-btn').disabled = true;
+
+            try {
+                const formData = new FormData();
+                formData.append('user_input', userInput);
+                if (currentSessionId) {
+                    formData.append('session_id', currentSessionId);
+                }
+                
+                const imageFile = document.getElementById('image-upload').files[0];
+                if (imageFile) {
+                    formData.append('image', imageFile);
+                }
+
+                const response = await fetch('/verify_claim', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    displayResults(data.result);
+                    if (data.result.session_id) {
+                        currentSessionId = data.result.session_id;
+                        document.getElementById('session-id').textContent = currentSessionId;
+                        document.getElementById('session-status').textContent = 'Active';
+                    }
+                } else {
+                    showMessage('Verification failed: ' + data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error during verification: ' + error.message, 'error');
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('verify-btn').disabled = false;
+            }
+        });
+
+        function displayResults(result) {
+            const resultsDiv = document.getElementById('results');
+            
+            let html = `
+                <h3>🔍 Socratic Verification Results</h3>
+                
+                <div class="verification-summary">
+                    <h4>Verification Summary</h4>
+                    <p><strong>Original Input:</strong> ${result.original_input}</p>
+                    <p><strong>Total Claims Analyzed:</strong> ${result.verification_summary.total_claims}</p>
+                    <p><strong>Verified Claims:</strong> ${result.verification_summary.verified_claims}</p>
+                    <p><strong>Failed Claims:</strong> ${result.verification_summary.failed_claims}</p>
+                    <p><strong>Overall Status:</strong> 
+                        <span class="status-badge ${result.verification_summary.overall_status === 'PASS' ? 'status-pass' : 'status-fail'}">
+                            ${result.verification_summary.overall_status}
+                        </span>
+                    </p>
+                </div>
+            `;
+
+            // Socratic Dialogue
+            if (result.socratic_dialogue && result.socratic_dialogue.length > 0) {
+                html += `
+                    <div class="socratic-dialogue">
+                        <h4>🤔 Socratic Dialogue</h4>
+                `;
+                
+                result.socratic_dialogue.forEach(item => {
+                    html += `
+                        <div class="dialogue-item ${item.type}">
+                            <p><strong>${item.type.replace('_', ' ').toUpperCase()}:</strong></p>
+                            <p>${item.content}</p>
+                            ${item.reasoning ? `<p><small><em>Reasoning: ${item.reasoning}</em></small></p>` : ''}
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            }
+
+            // Detailed Results
+            if (result.detailed_results && result.detailed_results.length > 0) {
+                html += `<h4>📋 Detailed Analysis</h4>`;
+                
+                result.detailed_results.forEach((claim, index) => {
+                    html += `
+                        <div class="claim-details">
+                            <h5>Claim ${index + 1}: "${claim.claim}"</h5>
+                            <p><strong>Status:</strong> 
+                                <span class="status-badge ${claim.status === 'PASS' ? 'status-pass' : 'status-fail'}">
+                                    ${claim.status}
+                                </span>
+                            </p>
+                            <p><strong>Confidence:</strong> ${(claim.confidence * 100).toFixed(1)}%</p>
+                            
+                            ${claim.evidence.length > 0 ? `
+                                <p><strong>Supporting Evidence:</strong></p>
+                                <ul class="evidence-list">
+                                    ${claim.evidence.map(e => `<li>✓ ${e}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                            
+                            ${claim.contradictions.length > 0 ? `
+                                <p><strong>Contradictions Found:</strong></p>
+                                <ul class="evidence-list">
+                                    ${claim.contradictions.map(c => `<li>⚠️ ${c}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                            
+                            ${claim.clarification_needed ? `
+                                <p><strong>Clarification Needed:</strong></p>
+                                <p style="background: #fff3cd; padding: 10px; border-radius: 5px; border-left: 3px solid #ffc107;">
+                                    ${claim.clarification_needed}
+                                </p>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            // Next Steps
+            if (result.next_steps && result.next_steps.length > 0) {
+                html += `
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <h4>🎯 Recommended Next Steps</h4>
+                        <ul>
+                            ${result.next_steps.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${type}-message`;
+            messageDiv.textContent = message;
+            
+            const mainContent = document.querySelector('.main-content');
+            mainContent.insertBefore(messageDiv, mainContent.firstChild);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        // Auto-start session on page load
+        window.addEventListener('load', function() {
+            startNewSession();
+        });
+    </script>
+</body>
+</html>
