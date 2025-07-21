@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Socrates System - Advanced Claim Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        #userInput:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .status-bar {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .status-bar.show {
+            display: block;
+        }
+
+        .model-info {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .results-container {
+            margin-top: 30px;
+        }
+
+        .claim-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .claim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .claim-id {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .claim-text {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .claim-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .meta-label {
+            font-size: 0.8em;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+        }
+
+        .verification-result {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .result-verified {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result-contradicted {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result-uncertain {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .checks-performed {
+            margin-top: 15px;
+        }
+
+        .check-tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+
+        .contradictions {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .clarifying-questions {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .question-list li:last-child {
+            border-bottom: none;
+        }
+
+        .reasoning-section {
+            margin-top: 15px;
+        }
+
+        .reasoning-toggle {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .reasoning-content {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            display: none;
+        }
+
+        .session-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .summary-number {
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .claim-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Enhanced Socrates System</h1>
+            <div class="subtitle">Advanced Multimodal LLM Factuality Verification</div>
+            <div class="features">
+                <div class="feature">✅ Latest Llama Model</div>
+                <div class="feature">🔍 Individual Claim Processing</div>
+                <div class="feature">❓ Clarifying Questions</div>
+                <div class="feature">🧠 Session Knowledge</div>
+                <div class="feature">⚖️ Smart Check Selection</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <input type="text" id="userInput" placeholder="Enter your claims here (e.g., 'Water boils at 100°C and Paris is the capital of France')" />
+                    <button class="btn btn-primary" onclick="processClaim()">Analyze Claims</button>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-secondary" onclick="getSessionSummary()">Session Summary</button>
+                    <button class="btn btn-secondary" onclick="clearSession()">Clear Session</button>
+                </div>
+            </div>
+
+            <div class="status-bar" id="statusBar">
+                <div class="model-info" id="modelInfo"></div>
+                <div id="statusMessage"></div>
+            </div>
+
+            <div id="loadingIndicator" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <div>Processing your claims with advanced verification...</div>
+            </div>
+
+            <div id="errorContainer"></div>
+            <div id="resultsContainer" class="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSession = null;
+
+        async function processClaim() {
+            const input = document.getElementById('userInput').value.trim();
+            if (!input) {
+                showError('Please enter a claim to analyze');
+                return;
+            }
+
+            showLoading(true);
+            clearError();
+            
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ input: input })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data);
+                    document.getElementById('userInput').value = '';
+                } else {
+                    showError(data.user_message || data.error || 'Processing failed');
+                }
+            } catch (error) {
+                showError('Network error: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayResults(data) {
+            const container = document.getElementById('resultsContainer');
+            
+            // Show status bar
+            const statusBar = document.getElementById('statusBar');
+            const modelInfo = document.getElementById('modelInfo');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            modelInfo.textContent = `Using Model: ${data.model_used}`;
+            statusMessage.textContent = `Processed ${data.claims_processed} claim(s) in ${data.processing_time.toFixed(2)}s`;
+            statusBar.classList.add('show');
+
+            // Display claims
+            let html = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h2 style="margin: 0; font-size: 1.8em;">🧠 Advanced Socrates Analysis</h2>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Intelligent claim extraction, verification, and Socratic questioning</p>
+                </div>
+            `;
+            
+            data.claims.forEach((claim, index) => {
+                html += `
+                    <div class="claim-card">
+                        <div class="claim-header">
+                            <div class="claim-id">Claim ${claim.id}</div>
+                            <div class="verification-result result-${claim.verification_result.toLowerCase()}">
+                                ${claim.verification_result}
+                            </div>
+                        </div>
+                        
+                        <div class="claim-text">"${claim.text}"</div>
+                        
+                        ${claim.claim_analysis && claim.claim_analysis.implicit ? `
+                            <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 8px; border-radius: 5px; margin-bottom: 15px; font-size: 0.9em;">
+                                💡 <strong>Note:</strong> This claim was extracted implicitly from your input.
+                            </div>
+                        ` : ''}
+                        
+                        <div class="claim-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Type</div>
+                                <div class="meta-value">${claim.claim_type}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Confidence</div>
+                                <div class="meta-value">${(claim.confidence * 100).toFixed(1)}%</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Processing Time</div>
+                                <div class="meta-value">${claim.processing_time.toFixed(2)}s</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Entities</div>
+                                <div class="meta-value">${claim.entities.join(', ') || 'None detected'}</div>
+                            </div>
+                            ${claim.claim_analysis ? `
+                                <div class="meta-item">
+                                    <div class="meta-label">Context</div>
+                                    <div class="meta-value">${claim.claim_analysis.context || 'General'}</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-label">Verifiable</div>
+                                    <div class="meta-value">${claim.claim_analysis.verifiable ? 'Yes' : 'No'}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <div class="checks-performed">
+                            <div class="meta-label">Checks Performed by Socrates Agent:</div>
+                            ${claim.checks_performed.map(check => 
+                                `<span class="check-tag">${check.replace('_', ' ').toUpperCase()}</span>`
+                            ).join('')}
+                        </div>
+
+                        ${claim.contradictions.length > 0 ? `
+                            <div class="contradictions">
+                                <strong>⚠️ Contradictions Found:</strong>
+                                <ul>
+                                    ${claim.contradictions.map(c => `<li>${c}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+
+                        ${claim.socratic_questions && claim.socratic_questions.length > 0 ? `
+                            <div class="clarifying-questions" style="background: #e8f4fd; border: 1px solid #bee5eb;">
+                                <strong>🤔 Socratic Questions Generated:</strong>
+                                <div style="margin-top: 10px;">
+                                    ${claim.socratic_questions.map(sq => `
+                                        <div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 5px;">
+                                            <div style="font-weight: 600; color: #2c3e50;">${sq.question}</div>
+                                            <div style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">
+                                                <span class="check-tag">${sq.type.replace('_', ' ').toUpperCase()}</span>
+                                                Purpose: ${sq.purpose}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        ${claim.clarifying_questions.length > 0 ? `
+                            <div class="clarifying-questions">
+                                <strong>❓ Clarifying Questions:</strong>
+                                <ul class="question-list">
+                                    ${claim.clarifying_questions.map(q => `<li>${q}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+
+                        <div class="reasoning-section">
+                            <button class="reasoning-toggle" onclick="toggleReasoning('${claim.id}')">
+                                Show Detailed Reasoning
+                            </button>
+                            <div class="reasoning-content" id="reasoning-${claim.id}">
+                                ${claim.reasoning}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            currentSession = data.session_knowledge;
+        }
+
+        function toggleReasoning(claimId) {
+            const content = document.getElementById(`reasoning-${claimId}`);
+            const button = content.previousElementSibling;
+            
+            if (content.style.display === 'none' || !content.style.display) {
+                content.style.display = 'block';
+                button.textContent = 'Hide Detailed Reasoning';
+            } else {
+                content.style.display = 'none';
+                button.textContent = 'Show Detailed Reasoning';
+            }
+        }
+
+        async function getSessionSummary() {
+            try {
+                const response = await fetch('/session-summary');
+                const data = await response.json();
+                displaySessionSummary(data);
+            } catch (error) {
+                showError('Failed to get session summary: ' + error.message);
+            }
+        }
+
+        function displaySessionSummary(data) {
+            const container = document.getElementById('resultsContainer');
+            const knowledge = data.session_knowledge;
+            const stats = data.statistics;
+
+            let html = `
+                <div class="session-summary">
+                    <h2>📚 Session Knowledge Summary</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-number">${stats.verified_facts_count}</div>
+                            <div>Verified Facts</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">${stats.contradicted_claims_count}</div>
+                            <div>Contradicted Claims</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">${stats.entities_discovered_count}</div>
+                            <div>Entities Discovered</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">${stats.relationships_found_count}</div>
+                            <div>Relationships Found</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="claim-card">
+                    <h3>✅ Verified Facts</h3>
+                    ${knowledge.verified_facts.length > 0 ? 
+                        `<ul>${knowledge.verified_facts.map(fact => `<li>${fact}</li>`).join('')}</ul>` :
+                        '<p>No verified facts in this session yet.</p>'
+                    }
+                </div>
+
+                <div class="claim-card">
+                    <h3>❌ Contradicted Claims</h3>
+                    ${knowledge.contradicted_claims.length > 0 ? 
+                        `<ul>${knowledge.contradicted_claims.map(claim => `<li>${claim}</li>`).join('')}</ul>` :
+                        '<p>No contradicted claims in this session.</p>'
+                    }
+                </div>
+
+                <div class="claim-card">
+                    <h3>🏷️ Entities Discovered</h3>
+                    ${knowledge.entities_discovered.length > 0 ? 
+                        `<div>${knowledge.entities_discovered.map(entity => 
+                            `<span class="check-tag">${entity}</span>`
+                        ).join('')}</div>` :
+                        '<p>No entities discovered yet.</p>'
+                    }
+                </div>
+
+                <div class="claim-card">
+                    <h3>👤 What I've Learned About You</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">🎯 Your Interests</h4>
+                            ${knowledge.user_interests.length > 0 ? 
+                                knowledge.user_interests.map(interest => `<span class="check-tag">${interest}</span>`).join('') :
+                                '<p style="color: #6c757d;">Still learning...</p>'
+                            }
+                        </div>
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">🧠 Knowledge Areas</h4>
+                            ${knowledge.user_knowledge_areas.length > 0 ? 
+                                knowledge.user_knowledge_areas.map(area => `<span class="check-tag">${area}</span>`).join('') :
+                                '<p style="color: #6c757d;">Still learning...</p>'
+                            }
+                        </div>
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">💭 Thinking Patterns</h4>
+                            ${knowledge.user_belief_patterns.length > 0 ? 
+                                `<ul style="margin: 0; padding-left: 20px;">${knowledge.user_belief_patterns.map(pattern => `<li style="margin-bottom: 5px;">${pattern}</li>`).join('')}</ul>` :
+                                '<p style="color: #6c757d;">Still learning...</p>'
+                            }
+                        </div>
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">❓ Question Patterns</h4>
+                            ${knowledge.user_question_patterns.length > 0 ? 
+                                `<ul style="margin: 0; padding-left: 20px;">${knowledge.user_question_patterns.map(pattern => `<li style="margin-bottom: 5px;">${pattern}</li>`).join('')}</ul>` :
+                                '<p style="color: #6c757d;">Still learning...</p>'
+                            }
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        async function clearSession() {
+            if (confirm('Are you sure you want to clear the session knowledge?')) {
+                try {
+                    await fetch('/clear-session', { method: 'POST' });
+                    document.getElementById('resultsContainer').innerHTML = '';
+                    document.getElementById('statusBar').classList.remove('show');
+                    currentSession = null;
+                    alert('Session cleared successfully!');
+                } catch (error) {
+                    showError('Failed to clear session: ' + error.message);
+                }
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="error-message">❌ ${message}</div>`;
+        }
+
+        function clearError() {
+            document.getElementById('errorContainer').innerHTML = '';
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                processClaim();
+            }
+        });
+    </script>
+</body>
+</html>
