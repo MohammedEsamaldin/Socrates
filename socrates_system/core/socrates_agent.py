@@ -183,6 +183,7 @@ class SocratesAgent:
                 evidence.extend(alignment_result["evidence"])
         
         # Check 2: External factuality (if alignment passed or no image)
+        # need to be changed and understand that not all the claims will be check from external factuality
         if overall_status != CheckStatus.FAIL:
             logger.info("Performing external factuality check...")
             factuality_result = self.external_factuality_checker.verify_claim(claim)
@@ -274,6 +275,7 @@ class SocratesAgent:
                                  original_input: str) -> Dict[str, Any]:
         """
         Compile a comprehensive Socratic response based on verification results
+        to provide a complete answer for the verification process
         """
         logger.info("Compiling Socratic response...")
         
