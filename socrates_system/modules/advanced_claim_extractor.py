@@ -1,6 +1,14 @@
 """
 Advanced Claim Extractor - Zero-shot Faithful Factual Error Correction inspired
 Implements sophisticated claim extraction with relationships and attributes using local LLM
+
+------
+ How does this code work:
+ it defines several data structures and a class named AdvancedClaimExtractor. 
+ This class coordinates with a local LLM (language model) through llm_manager.py to find claims in text, 
+ detect entities and relationships, classify each claim, and generate verification questions.
+
+
 """
 import logging
 import asyncio
@@ -32,6 +40,7 @@ class ClaimType(Enum):
 
 class VerifiabilityLevel(Enum):
     """Levels of claim verifiability"""
+    #in this context, verifiability refers to how easily a claim can be verified or falsified based on available evidence.
     HIGH = "high"         # Easily verifiable with external sources
     MEDIUM = "medium"     # Requires some interpretation or context
     LOW = "low"          # Difficult to verify objectively
@@ -40,6 +49,7 @@ class VerifiabilityLevel(Enum):
 @dataclass
 class Entity:
     """Represents an entity extracted from text"""
+    # This class represents an entity extracted from text, such as a person, organization, or location.
     text: str
     entity_type: str
     confidence: float

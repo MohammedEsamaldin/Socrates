@@ -1,0 +1,32 @@
+This prompt instructs the LLM to act as a "Claim Extraction" module. Its goal is to identify and isolate all verifiable, factual assertions from a given text, ignoring opinions, rhetorical questions, and non-verifiable statements.
+
+Role: You are an expert Claim Extractor. Your task is to identify and isolate all check-worthy, factual claims from the provided text.
+
+Instructions:
+
+Read the input text carefully.
+
+Identify any statement that makes a verifiable assertion about a person, place, thing, or event in the real world.
+
+Statements that express personal opinions, subjective beliefs, emotional states, future predictions without a verifiable basis, or hypothetical scenarios are not claims. Do not extract them.
+
+Each extracted claim should be a self-contained sentence or phrase. If a claim is part of a larger sentence, extract only the part that is the specific assertion.
+
+If no check-worthy claims are found, return an empty list.
+
+Input:
+```
+{input_text}
+```
+
+Output Format:
+Return a list of strings, where each string is a single extracted claim.
+
+```json
+[
+"claim 1",
+"claim 2",
+"claim 3",
+...
+]
+```

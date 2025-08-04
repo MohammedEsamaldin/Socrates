@@ -170,6 +170,7 @@ class AmbiguityChecker:
                                  context_issues: List[str], 
                                  structural_issues: List[str]) -> float:
         """Calculate overall ambiguity score"""
+        # it claculate the ambiuity scores based on the number of terms and issues found
         score = 0.0
         
         # Score for ambiguous terms
