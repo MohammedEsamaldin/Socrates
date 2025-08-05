@@ -38,7 +38,7 @@ class LLMRequest:
     prompt: str
     context: Dict[str, Any]
     temperature: float = 0.7
-    max_tokens: int = 1024
+    max_tokens: int = 4096
     system_prompt: Optional[str] = None
 
 @dataclass
@@ -52,7 +52,7 @@ class LLMResponse:
     processing_time: float = 0.0
     error: Optional[str] = None
 
-class LocalLLMManager:
+class LLMManager:
     """
     Local LLM Manager for Llama 3.1 integration
     Handles all local LLM operations with specialized prompting strategies
@@ -82,7 +82,19 @@ class LocalLLMManager:
         # Test connection
         self._test_connection()
         
-        logger.info(f"LocalLLMManager initialized with model: {model_name}")
+        logger.info(f"LLMManager initialized with model: {model_name}")
+
+    def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.7, system_prompt: str = None) -> str:
+        """Synchronous wrapper for generating text. For easy integration with non-async code."""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            response = loop.run_until_complete(
+                self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+            )
+            return response
+        finally:
+            loop.close()
     
     def _init_prompt_templates(self):
         """Initialize specialized prompt templates for different tasks"""
@@ -335,7 +347,7 @@ Response format: JSON with 'faithfulness_score', 'accuracy_assessment', 'evidenc
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(
             self.executor,
-            lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=60)
+            lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
         )
         
         if response.status_code == 200:
@@ -464,16 +476,16 @@ Response format: JSON with 'faithfulness_score', 'accuracy_assessment', 'evidenc
     def shutdown(self):
         """Shutdown the LLM manager"""
         self.executor.shutdown(wait=True)
-        logger.info("LocalLLMManager shutdown complete")
+        logger.info("LLMManager shutdown complete")
 
 # Global instance for easy access
 _llm_manager = None
 
-def get_llm_manager() -> LocalLLMManager:
+def get_llm_manager() -> LLMManager:
     """Get global LLM manager instance"""
     global _llm_manager
     if _llm_manager is None:
-        _llm_manager = LocalLLMManager()
+        _llm_manager = LLMManager()
     return _llm_manager
 
 def shutdown_llm_manager():

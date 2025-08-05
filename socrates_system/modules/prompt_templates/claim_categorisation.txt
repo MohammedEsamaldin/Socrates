@@ -1,93 +1,38 @@
-This prompt instructs the LLM to act as a "Claim Categorization" module. It takes the extracted claims and assigns one or more labels from a predefined set of categories.
+You are a JSON-only API for claim categorization.
+Your entire response MUST be a single, valid JSON array and nothing else.
+Do not include any explanations, apologies, or introductory text.
+Do not wrap the JSON in markdown backticks.
 
-Role: You are an expert Multi-Label Claim Classifier. Your task is to analyze each claim and assign one or more appropriate categories from a predefined list.
+**TASK:**
+Analyze the user-provided claim and generate a JSON array containing a single object with the categorization details.
 
-Instructions:
+**AVAILABLE CATEGORIES:**
+{categories}
 
-Read each claim in the provided list.
+**JSON OUTPUT STRUCTURE:**
+Return a JSON array containing a single object with the following keys:
+- `categories`: A list of applicable category names from the list above.
+- `confidence`: Your confidence in the categorization (0.0 to 1.0).
+- `justification`: A brief explanation for the assigned categories.
 
-Assign the most relevant category or categories to each claim. A claim can have multiple labels (e.g., a claim about a statistic in a specific year is both QUANTITATIVE and TEMPORAL).
+**RULES:**
+- A claim can belong to multiple categories.
+- If the claim fits no category, use "AMBIGUOUS/UNCLEAR" and explain why.
+- Your entire output must be only the JSON array.
+- **ABSOLUTE RULE**: If a claim mentions a visual element (e.g., 'picture', 'image', 'photo', 'graph'), it MUST be categorized as `CROSS_MODAL`. This rule overrides all others.
 
-The only valid categories are: FACTUAL, QUANTITATIVE, TEMPORAL, RELATIONAL, CAUSAL, COMPARATIVE, DEFINITIONAL, SUBJECTIVE/OPINION, CROSS-MODAL, HYPOTHETICAL/PREDICTIVE, SELF-REFERENTIAL, AMBIGUOUS/UNCLEAR.
-
-Provide a brief, single-sentence justification for each assigned category.
-
-Category Definitions:
-
-FACTUAL: A general statement of fact that can be verified as true or false. It typically describes an event, an attribute, or an existing state of affairs.
-
-Example: "The Earth revolves around the Sun."
-
-QUANTITATIVE: A claim that involves a specific number, statistic, measurement, or quantity.
-
-Example: "Over 50% of the world's population lives in urban areas."
-
-TEMPORAL: A claim that is tied to a specific time, date, period, or sequence of events.
-
-Example: "The company was founded in 1998."
-
-RELATIONAL: A claim that describes a relationship between two or more entities, such as a person and an organization, or two concepts.
-
-Example: "Barack Obama served as the President of the United States."
-
-CAUSAL: A claim that asserts a cause-and-effect relationship, stating that one event or entity directly caused another.
-
-Example: "The new policy led to a reduction in crime rates."
-
-COMPARATIVE: A claim that makes a direct or indirect comparison between two or more things. It often uses words like "more than," "less than," "better," or "worse."
-
-Example: "The new model is more fuel-efficient than the previous one."
-
-DEFINITIONAL: A claim that provides a definition for a term or concept.
-
-Example: "An amphibian is a cold-blooded vertebrate animal."
-
-SUBJECTIVE/OPINION: A statement that expresses a personal belief, feeling, or preference that cannot be objectively proven.
-
-Example: "Vanilla ice cream is the best flavor."
-
-CROSS-MODAL: A claim that refers to or is made about a visual or auditory element, such as an image or a video.
-
-Example: "The person in the picture is wearing a red hat."
-
-HYPOTHETICAL/PREDICTIVE: A claim that speculates about a future event or a hypothetical situation.
-
-Example: "Temperatures will be higher next year."
-
-SELF-REFERENTIAL: A claim that refers directly to the current conversation or the user's own actions or state.
-
-Example: "You asked me a question about fact-checking."
-
-AMBIGUOUS/UNCLEAR: A claim that is too vague, poorly defined, or lacks sufficient context to be verified. This label is used when the claim is extracted but its meaning is not precise.
-
-Example: "The big event was a huge success."
-
-Input:
-```json
+**EXAMPLE:**
+Input: "The population of Tokyo is over 37 million people."
+Output:
 [
-"claim 1",
-"claim 2",
-"claim 3",
-...
+  {{
+    "categories": ["FACTUAL", "QUANTITATIVE"],
+    "confidence": 0.95,
+    "justification": "This is a verifiable statement about a specific population figure, making it both FACTUAL and QUANTITATIVE."
+  }}
 ]
-```
 
-Output Format:
-Return a JSON array of objects. Each object should contain the original claim, a list of assigned categories, and the justification.
+**ANALYZE THIS CLAIM:**
+{claim_text}
 
-```json
-[
-{
-"claim": "claim 1",
-"categories": ["CATEGORY_1", "CATEGORY_2"],
-"justification": "This claim is CATEGORY_1 because... and CATEGORY_2 because..."
-},
-{
-"claim": "claim 2",
-"categories": ["CATEGORY_3"],
-"justification": "This claim is CATEGORY_3 because..."
-},
-...
-]
-```
-
+**Output JSON:**

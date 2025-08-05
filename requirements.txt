@@ -1,0 +1,7 @@
+spacy
+sentence-transformers
+litellm
+fastapi
+uvicorn[standard]
+python-dotenv
+demjson3

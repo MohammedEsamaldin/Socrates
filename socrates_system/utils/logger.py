@@ -4,7 +4,7 @@ Logging utility for the Socrates Agent System
 import logging
 import sys
 from pathlib import Path
-from ..config import LOG_LEVEL, LOG_FORMAT, LOGS_DIR
+from socrates_system.config import LOG_LEVEL, LOG_FORMAT, LOGS_DIR
 
 def setup_logger(name: str) -> logging.Logger:
     """Set up a logger with consistent formatting"""
