@@ -1,4 +1,7 @@
-/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/google_API_key.txt
-*.env
+.env
+.env.*
+*.key
+*_API_key.txt
+socrates_system/google_API_key.txt
 /Users/mohammed/Desktop/Socrates/Socrates/graphrag/
 /Users/mohammed/Desktop/Socrates/Socrates/ragtest/
