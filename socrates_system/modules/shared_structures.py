@@ -46,19 +46,28 @@ class VerificationRoute:
     estimated_latency: float
 
 class ClaimCategoryType(Enum):
-    """Enum for different types of claims."""
-    FACTUAL = "A general statement of fact that can be verified as true or false and does not fall into a more specific category like QUANTITATIVE or TEMPORAL. For example: 'The sky is blue.' or 'Water freezes at 0 degrees Celsius.'",
-    QUANTITATIVE = "Involves specific numbers, statistics, measurements, quantities, percentages, currency, or dimensions. The claim's primary assertion relies on this numerical data. For example: 'The population is over 1 million' or 'The project cost $20,000.'",
-    TEMPORAL = "Tied to specific times, dates, periods, or the sequence of events. This includes historical events, durations, and chronological assertions. For example: 'The event occurred in 1999' or 'The meeting lasted for two hours.'",
-    RELATIONAL = "Describes a relationship between two or more entities or concepts, such as 'is part of,' 'is the capital of,' 'is the founder of,' or 'is a member of'. For example: 'Paris is the capital of France.'",
-    CAUSAL = "Asserts a cause-and-effect relationship between events or conditions. Look for keywords like 'causes,' 'leads to,' 'because,' 'due to,' 'as a result of,' 'therefore,' or 'consequently.'",
-    COMPARATIVE = "Makes a direct or indirect comparison between two or more entities. This can be explicit ('more than,' 'less than') or implicit ('taller,' 'bigger,' 'better'). For example: 'New York is bigger than London.'",
-    DEFINITIONAL = "Provides a definition, classification, or explanation of a term or concept. Look for phrases like 'is defined as,' 'means,' 'refers to,' or 'is a type of.' For example: 'A democracy is a system of government...'",
-    SUBJECTIVE_OPINION = "Expresses a personal belief, feeling, preference, or value judgment that cannot be objectively verified. Look for phrases like 'I think,' 'in my opinion,' or words like 'beautiful,' 'best,' or 'important.'",
-    CROSS_MODAL = "Relates to or references a piece of information that is not in the text, such as a visual element, an image, or a video that needs to be analyzed to verify the claim. For example: 'The graph shows a steady increase' or 'In the picture, the building is red.'",
-    HYPOTHETICAL_PREDICTIVE = "Speculates about future events or hypothetical situations. Claims that cannot be verified at the present time because they have not happened yet. Look for keywords like 'will be,' 'might happen,' 'could,' or 'if... then...'",
-    SELF_REFERENTIAL = "Refers to the current conversation, the user, or the agent's own state. These claims are usually not meant for external fact-checking. For example: 'You just asked me about...' or 'I am an AI assistant.'",
-    AMBIGUOUS_UNCLEAR = "The claim is too vague, poorly defined, or lacks sufficient context to be categorized or verified by an automated system. This is a crucial fallback category for claims that require human clarification or are unprocessable."
+    """Enum for MLLM Hallucination Detection claim categories.
+    
+    Categories are designed for detecting and mitigating factual hallucinations
+    in Multimodal Large Language Models through targeted verification approaches.
+    """
+    VISUAL_GROUNDING_REQUIRED = ("Claims that make assertions about visual elements, objects, scenes, or spatial relationships "
+                               "that can be directly verified against the source image through visual analysis.")
+    
+    EXTERNAL_KNOWLEDGE_REQUIRED = ("Claims that require verification against external world knowledge, factual databases, "
+                                 "or common sense that cannot be determined from the image alone.")
+    
+    SELF_CONSISTENCY_REQUIRED = ("Claims about entities or concepts that should be checked against previously established "
+                               "and verified knowledge within the system's knowledge graph.")
+    
+    AMBIGUOUS_RESOLUTION_REQUIRED = ("Claims that lack sufficient clarity, specificity, or context to be properly "
+                                   "categorized or verified without additional clarification.")
+    
+    SUBJECTIVE_OPINION = ("Claims expressing personal opinions, preferences, aesthetic judgments, or subjective "
+                        "interpretations that cannot be factually verified.")
+    
+    PROCEDURAL_DESCRIPTIVE = ("Claims describing processes, methods, or step-by-step procedures that are "
+                            "context-dependent and not easily fact-checkable.")
 
 @dataclass
 class ClaimCategory:
@@ -81,3 +90,10 @@ class ExtractedClaim:
     verification_route: Optional[VerificationRoute] = None
     context_window: Optional[str] = None
     ambiguity_reason: Optional[str] = None # e.g., "PRONOUN_REFERENCE", "VAGUE_DEMONSTRATIVE"
+    # External factuality outcome (populated when routed to EXTERNAL_SOURCE)
+    factuality_status: Optional[str] = None  # PASS | FAIL | UNCERTAIN | ERROR
+    factuality_confidence: float = 0.0
+    factuality_verdict: Optional[bool] = None  # True for PASS, False for FAIL, None for UNCERTAIN/ERROR
+    factuality_evidence: List[str] = field(default_factory=list)
+    factuality_sources: List[str] = field(default_factory=list)
+    factuality_reasoning: Optional[str] = None

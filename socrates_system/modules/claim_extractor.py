@@ -135,7 +135,7 @@ class ClaimExtractor:
             List of extracted claims
         """
         try:
-            # Define the JSON example programmatically to avoid formatting errors
+            # Create a JSON example for the prompt
             json_example = {
                 "claims": [
                     {
@@ -157,10 +157,12 @@ class ClaimExtractor:
                     }
                 ]
             }
+            # Format JSON example safely to avoid KeyError with curly braces
+            json_example_str = json.dumps(json_example, indent=2)
             # Format the prompt, injecting both the input text and the JSON example
             prompt = CLAIM_EXTRACTION_PROMPT.format(
                 input_text=text, 
-                json_example=json.dumps(json_example, indent=2)
+                json_example=json_example_str
             )
             llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
             logger.info(f"RAW LLM RESPONSE: '{llm_response_str}'")

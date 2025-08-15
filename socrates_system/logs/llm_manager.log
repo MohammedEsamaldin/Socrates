@@ -126,3 +126,98 @@
 2025-08-05 19:14:26,041 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
 2025-08-05 19:16:30,008 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
 2025-08-05 19:16:30,009 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-13 02:10:54,626 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-13 02:10:54,626 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-13 02:13:16,652 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-13 02:13:16,652 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:34:53,190 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:34:53,190 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:42:10,112 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:42:10,112 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:46:01,158 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:46:01,158 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:47:43,104 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:47:43,104 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:50:25,471 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:50:25,471 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:54:30,950 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:54:30,951 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 21:56:09,055 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 21:56:09,055 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-14 23:21:18,978 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-14 23:21:18,979 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 02:01:49,418 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 02:01:49,418 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 02:05:32,679 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 02:05:32,679 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 03:37:55,310 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 03:37:55,310 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 03:42:03,474 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 03:42:03,474 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:05:36,369 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:05:36,369 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:18:05,906 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:18:05,907 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:43:38,432 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:43:38,432 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:44:45,166 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:44:45,166 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:47:18,001 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:47:18,001 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:50:09,622 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:50:09,622 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:53:38,090 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:53:38,091 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:55:19,332 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:55:19,333 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 04:56:46,401 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 04:56:46,401 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 19:20:46,052 - socrates_system.modules.llm_manager - ERROR - Failed to connect to Ollama: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x167275be0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-08-15 19:20:46,053 - socrates_system.modules.llm_manager - INFO - Make sure Ollama is running: 'ollama serve'
+2025-08-15 19:20:46,053 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 19:21:42,300 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 19:21:42,300 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 19:22:49,540 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 19:22:49,541 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 19:31:01,150 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 19:31:01,150 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 19:32:22,190 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 19:32:22,190 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:04:43,752 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:04:43,752 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:07:04,746 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:07:04,746 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:12:11,073 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:12:11,074 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:16:48,992 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:16:48,992 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:39:31,845 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:39:31,846 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:40:09,950 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:40:09,950 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:40:12,262 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:40:12,262 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:40:55,678 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:40:55,679 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 20:40:58,060 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 20:40:58,060 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:05:31,178 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:05:31,178 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:05:34,877 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:05:34,877 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:08:04,180 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:08:04,180 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:08:06,873 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:08:06,874 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:10:17,403 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:10:17,403 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:10:19,722 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:10:19,722 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:14:32,984 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:14:32,984 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:14:35,334 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:14:35,334 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:23:51,974 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:23:51,974 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b
+2025-08-15 21:23:54,690 - socrates_system.modules.llm_manager - INFO - Successfully connected to Ollama. Model llama3.1:8b is available.
+2025-08-15 21:23:54,690 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with model: llama3.1:8b

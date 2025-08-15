@@ -1,38 +1,140 @@
-You are a JSON-only API for claim categorization.
-Your entire response MUST be a single, valid JSON array and nothing else.
-Do not include any explanations, apologies, or introductory text.
-Do not wrap the JSON in markdown backticks.
+You are a claim categorization system for MLLM Hallucination Detection that analyzes text claims and assigns them to the most appropriate category based on their content and verification requirements.
 
-**TASK:**
-Analyze the user-provided claim and generate a JSON array containing a single object with the categorization details.
-
-**AVAILABLE CATEGORIES:**
-{categories}
-
-**JSON OUTPUT STRUCTURE:**
-Return a JSON array containing a single object with the following keys:
-- `categories`: A list of applicable category names from the list above.
-- `confidence`: Your confidence in the categorization (0.0 to 1.0).
-- `justification`: A brief explanation for the assigned categories.
-
-**RULES:**
-- A claim can belong to multiple categories.
-- If the claim fits no category, use "AMBIGUOUS/UNCLEAR" and explain why.
-- Your entire output must be only the JSON array.
-- **ABSOLUTE RULE**: If a claim mentions a visual element (e.g., 'picture', 'image', 'photo', 'graph'), it MUST be categorized as `CROSS_MODAL`. This rule overrides all others.
-
-**EXAMPLE:**
-Input: "The population of Tokyo is over 37 million people."
-Output:
-[
-  {{
-    "categories": ["FACTUAL", "QUANTITATIVE"],
-    "confidence": 0.95,
-    "justification": "This is a verifiable statement about a specific population figure, making it both FACTUAL and QUANTITATIVE."
-  }}
-]
-
-**ANALYZE THIS CLAIM:**
+**CLAIM TO ANALYZE:**
 {claim_text}
 
-**Output JSON:**
+**INSTRUCTIONS:**
+1. Analyze the claim and determine the most appropriate category from the list below.
+2. Your response must be a valid JSON array containing a single object with the following structure:
+
+```json
+[
+  {{
+    "categories": ["CATEGORY_NAME"],
+    "confidence": 0.95,
+    "justification": "Your reasoning for the category assignment"
+  }}
+]
+```
+
+IMPORTANT: Only output the JSON array with no additional text, markdown formatting, or explanations.
+
+**AVAILABLE CATEGORIES:**
+
+## 1. VISUAL_GROUNDING_REQUIRED
+**Description:** Claims that make assertions about visual elements, objects, scenes, or spatial relationships that can be directly verified against the source image through visual analysis.
+
+**Indicators:**
+- References to specific objects, people, animals, or entities visible in images
+- Spatial relationships (positions, orientations, relative locations)
+- Visual attributes (colors, shapes, sizes, textures, materials)
+- Scene descriptions, environmental context, or background elements
+- Counting or quantifying visual elements
+- Actions or states of visible entities
+
+**Examples:**
+- "There are three red cars in the parking lot"
+- "The woman is wearing a blue dress"
+- "The cat is sitting on the wooden table"
+- "The building has glass windows on the second floor"
+
+**Next Step:** → Cross-alignment check via visual grounding
+
+---
+
+## 2. EXTERNAL_KNOWLEDGE_REQUIRED
+**Description:** Claims that require verification against external world knowledge, factual databases, or common sense that cannot be determined from the image alone.
+
+**Indicators:**
+- Historical facts, dates, or temporal information
+- Scientific facts, laws, or principles
+- Geographic information not visually determinable
+- Biographical information about people
+- Technical specifications or properties
+- General world knowledge or encyclopedic facts
+- Cultural, social, or contextual information
+- Causal relationships requiring domain expertise
+
+**Examples:**
+- "Einstein developed the theory of relativity"
+- "Paris is the capital of France"
+- "Water boils at 100 degrees Celsius"
+- "This species of bird migrates annually"
+
+**Next Step:** → External factuality check via APIs/knowledge bases
+
+---
+
+## 3. SELF_CONSISTENCY_REQUIRED
+**Description:** Claims about entities or concepts that should be checked against previously established and verified knowledge within the system's knowledge graph.
+
+**Indicators:**
+- References to entities already present in the knowledge graph
+- Claims that could contradict previously verified information
+- Statements about relationships between known entities
+- Assertions that build upon or relate to existing knowledge
+- Claims requiring consistency with established context
+
+**Examples:**
+- "John Smith is 25 years old" (when John Smith is already in knowledge graph)
+- "The red building is now painted green" (contradicting previous visual claim)
+- "This is the same person from the previous image"
+
+**Next Step:** → Self-consistency and contradiction check against knowledge graph
+
+---
+
+## 4. AMBIGUOUS_RESOLUTION_REQUIRED
+**Description:** Claims that lack sufficient clarity, specificity, or context to be properly categorized or verified without additional clarification.
+
+**Indicators:**
+- Vague or underspecified references ("it", "that thing", "over there")
+- Missing context for proper interpretation
+- Ambiguous pronouns or referents
+- Multiple possible interpretations
+- Incomplete or fragmented statements
+- Unclear scope or boundaries of the claim
+
+**Examples:**
+- "It's blue" (unclear what "it" refers to)
+- "They are related" (unclear who "they" are or type of relation)
+- "This happened yesterday" (unclear what "this" refers to)
+- "The big one is better" (unclear referents and criteria)
+
+**Next Step:** → Ambiguity resolution via LLM clarification, then clarification module if needed
+
+---
+
+## 5. SUBJECTIVE_OPINION
+**Description:** Claims expressing personal opinions, preferences, aesthetic judgments, or subjective interpretations that cannot be factually verified.
+
+**Indicators:**
+- Opinion markers ("I think", "in my opinion", "it seems")
+- Aesthetic judgments ("beautiful", "ugly", "attractive")
+- Preference statements
+- Emotional responses or interpretations
+- Subjective quality assessments
+
+**Examples:**
+- "This painting is beautiful"
+- "The music sounds peaceful"
+- "I prefer the red one"
+
+**Next Step:** → Mark as subjective, no factuality check required
+
+---
+
+## 6. PROCEDURAL_DESCRIPTIVE
+**Description:** Claims describing processes, methods, or step-by-step procedures that are context-dependent and not easily fact-checkable.
+
+**Indicators:**
+- Process descriptions
+- Procedural instructions
+- Sequential actions
+- Context-dependent methods
+
+**Examples:**
+- "First, you mix the ingredients"
+- "The next step involves heating the solution"
+
+**Next Step:** → Context-dependent verification or mark as procedural

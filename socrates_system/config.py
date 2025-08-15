@@ -22,6 +22,15 @@ SESSION_KG_PATH = DATA_DIR / "session_kg.json"
 WIKIPEDIA_API_URL = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 SEARCH_API_URL = "https://api.duckduckgo.com/"
 
+# API Keys (set these as environment variables or update directly)
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')  # For OpenAI API if needed
+GOOGLE_FACT_CHECK_API_KEY = os.getenv('GOOGLE_FACT_CHECK_API_KEY', '')  # For Google Fact Check API
+ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')  # For Claude API if needed
+
+# Alternative: Set keys directly (NOT recommended for production)
+# OPENAI_API_KEY = "your-openai-api-key-here"
+# GOOGLE_FACT_CHECK_API_KEY = "your-google-fact-check-api-key-here"
+
 # Multimodal model settings
 VISION_MODEL_NAME = "Salesforce/blip-image-captioning-base"
 NLP_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
@@ -41,5 +50,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
 
 # Logging configuration
-LOG_LEVEL = "INFO"
+LOG_LEVEL = "INFO"  # File logs level
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+# Console log level (controls how much appears in the terminal). Keep important only by default.
+CONSOLE_LOG_LEVEL = "WARNING"

@@ -19,7 +19,7 @@ class TestCheckRouter(unittest.TestCase):
             text="The tower is 330 meters tall.",
             start_char=0, end_char=29, confidence=0.9, source_text="",
             categories=[
-                ClaimCategory(name=ClaimCategoryType.QUANTITATIVE, confidence=0.8, justification="...")
+                ClaimCategory(name=ClaimCategoryType.NUMERICAL_QUANTITATIVE, confidence=0.8, justification="...")
             ]
         )
 

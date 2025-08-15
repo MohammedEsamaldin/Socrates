@@ -3530,3 +3530,1570 @@ Note: I've set the `ambiguity_reason` field to "VAGUE_DEMONSTRATIVE" because the
     '
 2025-08-05 19:16:44,577 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
 2025-08-05 19:16:44,577 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-13 02:10:54,626 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-13 02:10:57,271 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-13 02:10:57,274 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: 
+    president of Sudan said "War is a good thing", did I read that correct?
+    ...
+2025-08-13 02:11:29,180 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "president of Sudan said 'War is a good thing'",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "president of Sudan",
+          "label": "ORG"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE"
+    },
+    {
+      "claim_text": "did I read that correct?",
+      "confidence": 0.8,
+      "entities": []
+    }
+  ]
+}'
+2025-08-13 02:11:30,237 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.94): 'president of Sudan said 'War is a good thing'' -> 'president of Sudan said "War is a good thing", did I read that correct?
+    '
+2025-08-13 02:11:30,238 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.23): 'did I read that correct'
+2025-08-13 02:11:30,238 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-13 02:11:30,239 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-13 02:13:16,652 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-13 02:13:19,262 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-13 02:13:19,264 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: 
+    in this image I was standing in front of a London Big Ben tower, which is in Germany.
+    ...
+2025-08-13 02:13:35,893 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the JSON output based on the input text:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "In this image I was standing in front of a London Big Ben tower.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "London",
+          "label": "LOC"
+        },
+        {
+          "text": "Big Ben",
+          "label": "BUILDING"
+        }
+      ],
+      "ambiguity_reason": "VAGUE_DEMONSTRATIVE"  // 'this' is a vague demonstrative without clear antecedent
+    },
+    {
+      "claim_text": "Which is in Germany.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "Germany",
+          "label": "LOC"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Note that the confidence scores are subjective and may vary based on your interpretation of the input text. The `ambiguity_reason` field is set for the first claim because it contains a vague demonstrative ('this') without clear antecedent within the claim itself.'
+2025-08-13 02:13:36,445 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.91): 'In this image I was standing in front of a London Big Ben tower' -> '
+    in this image I was standing in front of a London Big Ben tower, which is in Germany.
+    '
+2025-08-13 02:13:36,447 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.43): 'Which is in Germany' -> '
+    in this image I was standing in front of a London Big Ben tower, which is in Germany.
+    '
+2025-08-13 02:13:36,447 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-13 02:13:36,447 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:34:53,191 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:34:56,190 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:34:57,730 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Big Ben is in Germany....
+2025-08-14 21:35:14,729 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "RIVER"
+        }
+      ]
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.1,
+      "ambiguity_reason": "INCORRECT_LOCATION_INFORMATION",
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "LANDMARK"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-14 21:35:15,781 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:35:15,782 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'Big Ben is in Germany' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:35:15,782 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-14 21:35:15,782 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:42:10,112 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:42:12,507 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:42:13,995 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Big Ben is in Germany....
+2025-08-14 21:42:33,941 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the JSON output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "LOCATION"
+        },
+        {
+          "text": "world",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "BUILDING"
+        },
+        {
+          "text": "Germany",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "VAGUE_DEMONSTRATIVE"  // 'is' is a vague demonstrative
+    }
+  ]
+}
+```
+
+Note that I've flagged the second claim as ambiguous because it uses the vague demonstrative "Big Ben", which doesn't have a clear antecedent within the claim itself. The first claim, however, is clear and unambiguous.'
+2025-08-14 21:42:34,792 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:42:34,793 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'Big Ben is in Germany' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:42:34,793 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-14 21:42:34,793 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:46:01,159 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:46:03,882 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:46:05,426 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Big Ben is in Germany....
+2025-08-14 21:46:17,633 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "The Nile",
+          "label": "EVENT"
+        }
+      ]
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Germany",
+          "label": "LOC"
+        }
+      ],
+      "ambiguity_reason": "VAGUE_DEMONSTRATIVE"
+    }
+  ]
+}'
+2025-08-14 21:46:18,457 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:46:18,458 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'Big Ben is in Germany' -> 'The Nile is the longest river in the world, and Big Ben is in Germany.'
+2025-08-14 21:46:18,458 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-14 21:46:18,458 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:47:43,104 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:47:55,663 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:47:57,493 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Obama was the president of Canada...
+2025-08-14 21:48:32,859 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's a Python solution that adheres to the provided rules:
+
+```python
+import re
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from spacy import displacy
+import en_core_web_sm
+
+# Load the spaCy English model for entity recognition
+nlp = en_core_web_sm.load()
+
+def extract_claims(text):
+    # Tokenize the text into sentences
+    sentences = re.split(r'[.!?]', text)
+
+    claims = []
+    for sentence in sentences:
+        if not sentence.strip():  # Ignore empty strings
+            continue
+
+        # Tokenize the sentence
+        tokens = word_tokenize(sentence)
+
+        # Remove stopwords and punctuation
+        filtered_tokens = [token for token in tokens if token.isalpha() or token.istitle()]
+
+        # Check for ambiguity (e.g., pronouns like 'he,' 'she,' 'it')
+        has_ambiguity = any(token.lower().endswith(('[.*]')) for token in filtered_tokens)
+
+        claim_text = ' '.join(filtered_tokens)
+        confidence = 1.0
+
+        if not has_ambiguity:
+            # Perform entity recognition
+            doc = nlp(sentence)
+            entities = [{'text': ent.text, 'label': ent.label_} for ent in doc.ents]
+
+            claims.append({
+                'claim_text': claim_text,
+                'confidence': confidence,
+                'entities': entities
+            })
+        else:
+            # If the sentence contains ambiguity, mark it as such and omit entity recognition
+            claims.append({
+                'claim_text': claim_text,
+                'confidence': confidence,
+                'ambiguity_reason': "VAGUE_DEMONSTRATIVE" if any(token.endswith(('this', 'that')) for token in filtered_tokens) else "PRONOUN_REFERENCE"
+            })
+
+    return {'claims': claims}
+
+input_text = """
+The Nile is the longest river in the world, and Obama was the president of Canada
+"""
+
+result = extract_claims(input_text)
+print(result)
+```
+
+When you run this code with the provided input text, it should output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Canada",
+      "confidence": 1.0,
+      "ambiguity_reason": "PRONOUN_REFERENCE"
+    },
+    {
+      "claim_text": "The Nile is the longest river in the world",
+      "confidence": 1.0,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "ORG"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This code adheres to all provided rules and accurately extracts claims from the input text, flagging ambiguity where applicable. The extracted claims are represented as JSON objects with fields for claim text, confidence, entities (if available), and an optional ambiguity reason.'
+2025-08-14 21:48:32,870 - socrates_system.modules.claim_extractor - ERROR - Failed to decode or parse LLM JSON response: ('Unknown identifier', 'ent')
+Response: 'Here's a Python solution that adheres to the provided rules:
+
+```python
+import re
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from spacy import displacy
+import en_core_web_sm
+
+# Load the spaCy English model for entity recognition
+nlp = en_core_web_sm.load()
+
+def extract_claims(text):
+    # Tokenize the text into sentences
+    sentences = re.split(r'[.!?]', text)
+
+    claims = []
+    for sentence in sentences:
+        if not sentence.strip():  # Ignore empty strings
+            continue
+
+        # Tokenize the sentence
+        tokens = word_tokenize(sentence)
+
+        # Remove stopwords and punctuation
+        filtered_tokens = [token for token in tokens if token.isalpha() or token.istitle()]
+
+        # Check for ambiguity (e.g., pronouns like 'he,' 'she,' 'it')
+        has_ambiguity = any(token.lower().endswith(('[.*]')) for token in filtered_tokens)
+
+        claim_text = ' '.join(filtered_tokens)
+        confidence = 1.0
+
+        if not has_ambiguity:
+            # Perform entity recognition
+            doc = nlp(sentence)
+            entities = [{'text': ent.text, 'label': ent.label_} for ent in doc.ents]
+
+            claims.append({
+                'claim_text': claim_text,
+                'confidence': confidence,
+                'entities': entities
+            })
+        else:
+            # If the sentence contains ambiguity, mark it as such and omit entity recognition
+            claims.append({
+                'claim_text': claim_text,
+                'confidence': confidence,
+                'ambiguity_reason': "VAGUE_DEMONSTRATIVE" if any(token.endswith(('this', 'that')) for token in filtered_tokens) else "PRONOUN_REFERENCE"
+            })
+
+    return {'claims': claims}
+
+input_text = """
+The Nile is the longest river in the world, and Obama was the president of Canada
+"""
+
+result = extract_claims(input_text)
+print(result)
+```
+
+When you run this code with the provided input text, it should output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Canada",
+      "confidence": 1.0,
+      "ambiguity_reason": "PRONOUN_REFERENCE"
+    },
+    {
+      "claim_text": "The Nile is the longest river in the world",
+      "confidence": 1.0,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "ORG"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This code adheres to all provided rules and accurately extracts claims from the input text, flagging ambiguity where applicable. The extracted claims are represented as JSON objects with fields for claim text, confidence, entities (if available), and an optional ambiguity reason.'
+2025-08-14 21:48:32,870 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2025-08-14 21:48:32,870 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-14 21:50:25,471 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:50:28,196 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:50:29,863 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Obama was the president of Canada...
+2025-08-14 21:50:44,763 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the processed output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world",
+      "confidence": 0.92,
+      "entities": [
+        {
+          "text": "the Nile",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada",
+      "confidence": 0.05,
+      "ambiguity_reason": "INACCURATE_INFORMATION, PRONOUN_REFERENCE"
+    }
+  ]
+}
+```
+
+Explanation:
+
+1. The first claim is extracted from the text and has a confidence score of 0.92.
+2. The second claim also contains an ambiguous reference ("Obama was the president of Canada") since Obama was never the president of Canada (he was the President of the United States), which makes this claim have low confidence. The `ambiguity_reason` field is set to "INACCURATE_INFORMATION, PRONOUN_REFERENCE" indicating that the claim contains incorrect information and a pronoun reference without clear antecedent.
+
+Note: As per your rules, if no relevant assertions or inquiries are found, an empty list should be returned, but in this case, there are two claims extracted from the text.'
+2025-08-14 21:50:45,493 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world, and Obama was the president of Canada'
+2025-08-14 21:50:45,493 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{the Nile}' not found verbatim in source sentence: '{The Nile is the longest river in the world, and Obama was the president of Canada}'. Skipping entity.
+2025-08-14 21:50:45,494 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'Obama was the president of Canada' -> 'The Nile is the longest river in the world, and Obama was the president of Canada'
+2025-08-14 21:50:45,494 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-14 21:50:45,494 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:54:30,951 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:54:33,569 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:54:35,073 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world, and Obama was the president of Canada...
+2025-08-14 21:54:47,566 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "RIVER"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.05, // low confidence due to ambiguity
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        }
+      ],
+      "ambiguity_reason": "COUNTRY_REFERENCE" // Obama was never the President of Canada
+    }
+  ]
+}'
+2025-08-14 21:54:48,400 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world, and Obama was the president of Canada'
+2025-08-14 21:54:48,401 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'Obama was the president of Canada' -> 'The Nile is the longest river in the world, and Obama was the president of Canada'
+2025-08-14 21:54:48,401 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-14 21:54:48,401 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-14 21:56:09,055 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 21:56:11,496 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 21:56:13,059 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Sudan won the world cup in 2014...
+2025-08-14 21:56:22,315 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Sudan won the world cup in 2014",
+      "confidence": 0.75,
+      "entities": [
+        {
+          "text": "Sudan",
+          "label": "LOCATION"
+        },
+        {
+          "text": "world cup",
+          "label": "EVENT"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-14 21:56:22,820 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Sudan won the world cup in 2014' -> 'Sudan won the world cup in 2014'
+2025-08-14 21:56:22,821 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-14 21:56:22,821 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-14 23:21:18,979 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-14 23:21:21,873 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-14 23:21:23,211 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Sudan won the world cup in 2014...
+2025-08-14 23:21:39,753 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Sudan won the world cup in 2014",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Sudan",
+          "label": "COUNTRY"
+        },
+        {
+          "text": "world cup",
+          "label": "EVENT"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-14 23:21:40,583 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Sudan won the world cup in 2014' -> 'Sudan won the world cup in 2014'
+2025-08-14 23:21:40,583 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-14 23:21:40,584 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-15 02:01:49,418 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 02:01:52,301 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 02:01:53,807 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Sudan won the world cup in 2014...
+2025-08-15 02:02:13,932 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the output as a valid JSON object with a "claims" list containing a single extracted item:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "Sudan won the world cup in 2014",
+      "confidence": 0.5,
+      "entities": [],
+      "ambiguity_reason": "INACCURATE_STATEMENT"
+    }
+  ]
+}
+```
+
+Explanation:
+
+* The claim text is extracted verbatim from the source.
+* I have a low confidence of 0.5 because the statement about Sudan winning the world cup in 2014 seems to be incorrect (the 2014 World Cup was won by Germany).
+* There are no named entities found in this claim, so an empty list `[]` is returned for the `entities`.
+* I have flagged ambiguity_reason as "INACCURATE_STATEMENT" because the statement appears to be false.'
+2025-08-15 02:02:14,713 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Sudan won the world cup in 2014' -> 'Sudan won the world cup in 2014'
+2025-08-15 02:02:14,713 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-15 02:02:14,713 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-15 02:05:32,679 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 02:05:35,467 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 02:05:36,929 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I look young as I was in university...
+2025-08-15 02:05:45,225 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "I was in university",
+      "confidence": 0.8,
+      "entities": [],
+      "ambiguity_reason": "VAGUE_DEMONSTRATIVE"
+    }
+  ]
+}'
+2025-08-15 02:05:46,008 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.53): 'I was in university' -> 'in this image I look young as I was in university'
+2025-08-15 02:05:46,008 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-15 02:05:46,008 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-15 03:37:55,310 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 03:37:58,047 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 03:37:59,642 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 03:38:20,086 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the JSON output with the extracted claims:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.99,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "RIVER"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.75,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE"
+    }
+  ]
+}
+```
+
+Note that the second claim has an `ambiguity_reason` field because the pronoun "he" is not present in the claim itself, and it's unclear who or what Obama refers to.'
+2025-08-15 03:38:20,796 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 03:38:20,797 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 03:38:20,797 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 03:38:20,797 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 03:42:03,474 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 03:42:06,059 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 03:42:07,467 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 03:42:27,531 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the processed output as a valid JSON object:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "the Nile",
+          "label": "LOCATION"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.5,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE"
+    }
+  ]
+}
+```
+
+Explanation:
+
+* The first claim is a clear assertion about the Nile River being the longest in the world. It has high confidence (0.98) and contains one entity, which is labeled as a LOCATION.
+* The second claim appears to be an inquiry/assertion but is ambiguous due to "Obama" having multiple roles (former US President Barack Obama vs. possibly referring to someone else), and it inaccurately states he was the president of Canada. This results in a lower confidence score (0.5) and ambiguity reason (PRONOUN_REFERENCE). It also contains two entities, which are labeled as PERSON and COUNTRY respectively.'
+2025-08-15 03:42:28,363 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 03:42:28,363 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{the Nile}' not found verbatim in source sentence: '{The Nile is the longest river in the world.}'. Skipping entity.
+2025-08-15 03:42:28,364 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 03:42:28,364 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 03:42:28,364 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:05:36,369 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:05:38,951 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:05:40,562 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:06:01,802 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "LOCATION"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "LOCATION"
+        }
+      ],
+      "ambiguity_reason": "AMBIGUOUS_LOCATION_REFERENCE" // Obama is a well-known person, but it's not clear which location he was president of.
+    }
+  ]
+}
+```
+
+Note that I've added an `ambiguity_reason` field to the second claim because it contains an ambiguous reference to Canada.'
+2025-08-15 04:06:02,652 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:06:02,653 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:06:02,653 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:06:02,653 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:18:05,907 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:18:08,666 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:18:10,267 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:18:34,213 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the JSON output with extracted claims:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "the Nile",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.8,
+      "ambiguity_reason": "COUNTRY_LABELING_ERROR",
+      "entities": [
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ]
+    }
+  ]
+}
+```
+
+I extracted two claims:
+
+1. The Nile is the longest river in the world.
+2. Obama was the president of Canada.
+
+For claim 1, I have a high confidence level (0.95) that it's a relevant assertion, and I identified "the Nile" as a location entity.
+
+For claim 2, I have a moderate confidence level (0.8), but I also detected an ambiguity reason: "COUNTRY_LABELING_ERROR". This is because Barack Obama was the president of the United States, not Canada. I still extracted the country label for "Canada", but the claim itself is likely incorrect or misleading.'
+2025-08-15 04:18:35,101 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:18:35,101 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{the Nile}' not found verbatim in source sentence: '{The Nile is the longest river in the world.}'. Skipping entity.
+2025-08-15 04:18:35,102 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:18:35,102 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:18:35,102 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:43:38,432 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:43:41,061 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:43:42,618 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:44:03,726 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the JSON output based on the input text:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 1.0,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "RIVER"
+        },
+        {
+          "text": "world",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE" // 'he' is implied but not explicitly mentioned
+    }
+  ]
+}
+```'
+2025-08-15 04:44:04,700 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:44:04,702 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:44:04,702 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:44:04,702 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:44:45,166 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:44:47,556 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:44:48,998 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:45:00,560 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.99,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "LOCATION"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.5,
+      "ambiguity_reason": "COUNTRY_REFERENCE_AMBIGUITY (Canada is not Obama's country of origin, and this may be a mistake or confusion)"
+    }
+  ]
+}
+```
+
+Note that I've set the confidence for the second claim to 0.5 because it appears to be an error - Barack Obama was never the President of Canada, but rather the President of the United States. The `ambiguity_reason` field indicates that this is due to a reference ambiguity (i.e., Obama's nationality).'
+2025-08-15 04:45:01,311 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:45:01,313 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:45:01,313 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:45:01,313 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:47:18,001 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:47:20,669 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:47:22,043 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:47:32,714 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here is the JSON output with the extracted claims:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "The Nile",
+          "label": "RIVER"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.6,
+      "ambiguity_reason": "PRONOUN_REFERENCE" // Obama is a pronoun without clear antecedent within the claim itself
+    }
+  ]
+}
+```
+
+Note: I have set the confidence to 0.95 for the first claim as it is a verifiable assertion, and 0.6 for the second claim due to ambiguity in "Obama's" reference.'
+2025-08-15 04:47:33,592 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:47:33,593 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:47:33,593 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:47:33,593 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:50:09,623 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:50:12,275 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:50:13,710 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:50:32,500 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the output according to the rules:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "The Nile",
+          "label": "LOCATION"
+        },
+        {
+          "text": "the world",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.2,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE"  // Obama refers to a person, but we don't know which one
+    }
+  ]
+}
+```
+
+This output indicates that there are two claims in the input text. The first claim is about the Nile River being the longest river in the world, with high confidence (0.98). The second claim is about Obama's presidency of Canada, with lower confidence (0.2) due to ambiguity (Obama refers to a person, but we don't know which one).'
+2025-08-15 04:50:33,270 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:50:33,271 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:50:33,271 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:50:33,271 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:53:38,091 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:53:40,688 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:53:42,425 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:54:38,760 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's a Python solution using NLTK for entity recognition and Stanford CoreNLP for part-of-speech tagging (to identify ambiguity reasons):
+
+```python
+import nltk
+from nltk import word_tokenize, pos_tag
+import json
+from stanfordcorenlp import StanfordCoreNLP
+
+# Initialize the Stanford NLP server
+nlp = StanfordCoreNLP('http://localhost:9000')
+
+def extract_claims(text):
+    # Tokenize and remove punctuation
+    tokens = [t for t in word_tokenize(text) if t.isalpha()]
+    
+    # Identify entities (using NLTK's default entity recognition model)
+    entities = []
+    chunker = nltk.RegexpParser(nltk.data.load('help/taggers/maxent_ne_chunker.pkl'))
+    tree = chunker.parse(tokens)
+    entities.extend([c.label() for c in tree if c.label()])
+    
+    # Identify ambiguity reasons (using Stanford CoreNLP's part-of-speech tagging)
+    ambiguity_reasons = []
+    pos_tags = nlp.pos_tag(text.split())
+    for i, tag in enumerate(pos_tags):
+        if 'NN' not in tag[1]:  # Not a noun or pronoun
+            continue
+        if i + 1 < len(pos_tags) and ('PRP$' in pos_tags[i+1][1] or 'VBZ' in pos_tags[i+1][1]):  # Ambiguous pronoun reference
+            ambiguity_reasons.append('PRONOUN_REFERENCE')
+        elif 'DT' in tag[1]:  # Vague demonstrative (this, that)
+            ambiguity_reasons.append('VAGUE_DEMONSTRATIVE')
+    
+    # Identify relevant claims
+    claims = []
+    for i in range(len(tokens)):
+        if tokens[i].isupper() or tokens[i] == 'Why':
+            claim_text = ''
+            start_i = i
+            while start_i > 0 and tokens[start_i - 1].lower() not in ['the', 'a', 'an']:
+                start_i -= 1
+            end_i = i + 1
+            while end_i < len(tokens) and (tokens[end_i] != '.' or claim_text.endswith('...')):
+                if tokens[end_i].isalpha():
+                    claim_text += tokens[end_i] + ' '
+                elif 'WH' in pos_tags[end_i][1]:  # Possible question
+                    claim_text = tokens[i]
+                    break
+                end_i += 1
+            
+            # Skip ambiguous claims with pronoun references or vague demonstratives
+            if ambiguity_reasons and any(r in ambiguity_reasons for r in ['PRONOUN_REFERENCE', 'VAGUE_DEMONSTRATIVE']):
+                continue
+            
+            # Extract entities relevant to the claim
+            claim_entities = []
+            for j, token in enumerate(tokens[start_i:end_i]):
+                if tokens[j] == '.':
+                    break
+                elif token.isalpha():
+                    claim_entities.append({'text': token, 'label': nltk.pos_tag([token])[0][1]})
+            
+            claims.append({
+                'claim_text': claim_text.strip(),
+                'confidence': 0.8,  # Assign a default confidence score (you can adjust this based on your model's performance)
+                'entities': claim_entities
+            })
+    
+    nlp.close()
+    
+    return {'claims': claims}
+
+# Example usage:
+input_text = "The Nile is the longest river in the world. Obama was the president of Canada."
+output_json = json.dumps(extract_claims(input_text))
+print(output_json)
+
+```
+
+**Your JSON Output:**
+```json
+{"claims": [
+  {"claim_text": "The Nile is the longest river in the world.", 
+   "confidence": 0.8, 
+   "entities": [
+     {"text": "Nile", "label": "NN"}, 
+     {"text": "world", "label": "NN"}
+    ]
+  }, 
+  {"claim_text": "Obama was the president of Canada.", 
+   "confidence": 0.8, 
+   "entities": [
+     {"text": "Obama", "label": "NP"}, 
+     {"text": "Canada", "label": "NNP"}
+    ]
+  }
+]}
+```
+
+This code assumes you have Stanford CoreNLP and NLTK installed in your Python environment. It uses the `stanfordcorenlp` library to connect to the Stanford NLP server, which provides part-of-speech tagging and named entity recognition functionality.
+
+Please note that this is a basic implementation, and you may need to adjust it based on your specific requirements (e.g., tweaking confidence scores or adding more sophisticated ambiguity detection).'
+2025-08-15 04:54:38,765 - socrates_system.modules.claim_extractor - ERROR - Failed to decode or parse LLM JSON response: ('Unknown identifier', 'token')
+Response: 'Here's a Python solution using NLTK for entity recognition and Stanford CoreNLP for part-of-speech tagging (to identify ambiguity reasons):
+
+```python
+import nltk
+from nltk import word_tokenize, pos_tag
+import json
+from stanfordcorenlp import StanfordCoreNLP
+
+# Initialize the Stanford NLP server
+nlp = StanfordCoreNLP('http://localhost:9000')
+
+def extract_claims(text):
+    # Tokenize and remove punctuation
+    tokens = [t for t in word_tokenize(text) if t.isalpha()]
+    
+    # Identify entities (using NLTK's default entity recognition model)
+    entities = []
+    chunker = nltk.RegexpParser(nltk.data.load('help/taggers/maxent_ne_chunker.pkl'))
+    tree = chunker.parse(tokens)
+    entities.extend([c.label() for c in tree if c.label()])
+    
+    # Identify ambiguity reasons (using Stanford CoreNLP's part-of-speech tagging)
+    ambiguity_reasons = []
+    pos_tags = nlp.pos_tag(text.split())
+    for i, tag in enumerate(pos_tags):
+        if 'NN' not in tag[1]:  # Not a noun or pronoun
+            continue
+        if i + 1 < len(pos_tags) and ('PRP$' in pos_tags[i+1][1] or 'VBZ' in pos_tags[i+1][1]):  # Ambiguous pronoun reference
+            ambiguity_reasons.append('PRONOUN_REFERENCE')
+        elif 'DT' in tag[1]:  # Vague demonstrative (this, that)
+            ambiguity_reasons.append('VAGUE_DEMONSTRATIVE')
+    
+    # Identify relevant claims
+    claims = []
+    for i in range(len(tokens)):
+        if tokens[i].isupper() or tokens[i] == 'Why':
+            claim_text = ''
+            start_i = i
+            while start_i > 0 and tokens[start_i - 1].lower() not in ['the', 'a', 'an']:
+                start_i -= 1
+            end_i = i + 1
+            while end_i < len(tokens) and (tokens[end_i] != '.' or claim_text.endswith('...')):
+                if tokens[end_i].isalpha():
+                    claim_text += tokens[end_i] + ' '
+                elif 'WH' in pos_tags[end_i][1]:  # Possible question
+                    claim_text = tokens[i]
+                    break
+                end_i += 1
+            
+            # Skip ambiguous claims with pronoun references or vague demonstratives
+            if ambiguity_reasons and any(r in ambiguity_reasons for r in ['PRONOUN_REFERENCE', 'VAGUE_DEMONSTRATIVE']):
+                continue
+            
+            # Extract entities relevant to the claim
+            claim_entities = []
+            for j, token in enumerate(tokens[start_i:end_i]):
+                if tokens[j] == '.':
+                    break
+                elif token.isalpha():
+                    claim_entities.append({'text': token, 'label': nltk.pos_tag([token])[0][1]})
+            
+            claims.append({
+                'claim_text': claim_text.strip(),
+                'confidence': 0.8,  # Assign a default confidence score (you can adjust this based on your model's performance)
+                'entities': claim_entities
+            })
+    
+    nlp.close()
+    
+    return {'claims': claims}
+
+# Example usage:
+input_text = "The Nile is the longest river in the world. Obama was the president of Canada."
+output_json = json.dumps(extract_claims(input_text))
+print(output_json)
+
+```
+
+**Your JSON Output:**
+```json
+{"claims": [
+  {"claim_text": "The Nile is the longest river in the world.", 
+   "confidence": 0.8, 
+   "entities": [
+     {"text": "Nile", "label": "NN"}, 
+     {"text": "world", "label": "NN"}
+    ]
+  }, 
+  {"claim_text": "Obama was the president of Canada.", 
+   "confidence": 0.8, 
+   "entities": [
+     {"text": "Obama", "label": "NP"}, 
+     {"text": "Canada", "label": "NNP"}
+    ]
+  }
+]}
+```
+
+This code assumes you have Stanford CoreNLP and NLTK installed in your Python environment. It uses the `stanfordcorenlp` library to connect to the Stanford NLP server, which provides part-of-speech tagging and named entity recognition functionality.
+
+Please note that this is a basic implementation, and you may need to adjust it based on your specific requirements (e.g., tweaking confidence scores or adding more sophisticated ambiguity detection).'
+2025-08-15 04:54:38,766 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2025-08-15 04:54:38,766 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-15 04:55:19,333 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:55:21,871 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:55:23,233 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:55:37,932 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: 'Here's the output:
+
+```json
+{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "RIVER"
+        },
+        {
+          "text": "world",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.80,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "COUNTRY"
+        }
+      ],
+      "ambiguity_reason": "PRONOUN_REFERENCE" // Note: This is a potential ambiguity due to the pronoun 'he' not present in this specific claim, but it's related to the fact that Obama was never the president of Canada
+    }
+  ]
+}
+```'
+2025-08-15 04:55:38,851 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 04:55:38,852 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 04:55:38,853 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 04:55:38,853 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 04:56:46,401 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 04:56:49,066 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 04:56:50,459 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 04:56:50,477 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: '\n  "claims"', falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 161, in _extract_claims_with_llm
+    prompt = CLAIM_EXTRACTION_PROMPT.format(
+        input_text=text,
+        json_example=json.dumps(json_example, indent=2)
+    )
+KeyError: '\n  "claims"'
+2025-08-15 04:56:50,478 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 19:20:46,053 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 19:20:48,856 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 19:20:50,309 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 19:20:50,326 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: '\n  "claims"', falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 161, in _extract_claims_with_llm
+    prompt = CLAIM_EXTRACTION_PROMPT.format(
+        input_text=text,
+        json_example=json.dumps(json_example, indent=2)
+    )
+KeyError: '\n  "claims"'
+2025-08-15 19:20:50,327 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 19:21:42,300 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 19:21:44,964 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 19:21:46,454 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 19:21:46,471 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: '\n  "claims"', falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 161, in _extract_claims_with_llm
+    prompt = CLAIM_EXTRACTION_PROMPT.format(
+        input_text=text,
+        json_example=json.dumps(json_example, indent=2)
+    )
+KeyError: '\n  "claims"'
+2025-08-15 19:21:46,472 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 19:22:49,541 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 19:22:51,897 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 19:22:53,727 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 19:22:53,743 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: '\n  "claims"', falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 161, in _extract_claims_with_llm
+    prompt = CLAIM_EXTRACTION_PROMPT.format(
+        input_text=text,
+        json_example=json.dumps(json_example, indent=2)
+    )
+KeyError: '\n  "claims"'
+2025-08-15 19:22:53,744 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 19:31:01,151 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 19:31:03,735 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 19:31:05,150 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 19:31:05,167 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: '\n  "claims"', falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 163, in _extract_claims_with_llm
+    prompt = CLAIM_EXTRACTION_PROMPT.format(
+        input_text=text,
+        json_example=json_example_str
+    )
+KeyError: '\n  "claims"'
+2025-08-15 19:31:05,168 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 19:32:22,190 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 19:32:24,930 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 19:32:26,640 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 19:32:38,605 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 1,
+      "entities": [
+        {
+          "text": "Nile",
+          "label": "LOC"
+        },
+        {
+          "text": "world",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Canada",
+          "label": "LOC"
+        }
+      ],
+      "ambiguity_reason": "Vague term 'was' and unclear context for 'president'"
+    }
+  ]
+}'
+2025-08-15 19:32:39,040 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 19:32:39,042 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 19:32:39,042 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 19:32:39,042 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 20:04:43,752 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:04:46,322 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:04:47,687 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Nile is the longest river in the world. Obama was the president of Canada....
+2025-08-15 20:05:01,665 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Nile is the longest river in the world.",
+      "confidence": 0.99,
+      "ambiguity_reason": null
+    },
+    {
+      "claim_text": "Obama was the president of Canada.",
+      "confidence": 0.01,
+      "ambiguity_reason": "Ambiguous reference to Obama's nationality and political position"
+    }
+  ]
+}'
+2025-08-15 20:05:02,374 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Nile is the longest river in the world' -> 'The Nile is the longest river in the world.'
+2025-08-15 20:05:02,375 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Obama was the president of Canada' -> 'Obama was the president of Canada.'
+2025-08-15 20:05:02,375 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 20:05:02,375 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 20:07:04,746 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:07:07,268 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:07:08,656 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The woman in the image is wearing a red dress. Einstein developed the theory of relativity. This pai...
+2025-08-15 20:07:19,613 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The woman in the image is wearing a red dress.",
+      "confidence": 0.95,
+      "entities": []
+    },
+    {
+      "claim_text": "Einstein developed the theory of relativity.",
+      "confidence": 0.98,
+      "ambiguity_reason": null,
+      "entities": [
+        {
+          "text": "Einstein",
+          "label": "PERSON"
+        }
+      ]
+    },
+    {
+      "claim_text": "This painting is beautiful.",
+      "confidence": 0.9,
+      "ambiguity_reason": "Ambiguous reference to 'this'"
+    }
+  ]
+}'
+2025-08-15 20:07:20,415 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The woman in the image is wearing a red dress' -> 'The woman in the image is wearing a red dress.'
+2025-08-15 20:07:20,417 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Einstein developed the theory of relativity' -> 'Einstein developed the theory of relativity.'
+2025-08-15 20:07:20,417 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'This painting is beautiful' -> 'This painting is beautiful.'
+2025-08-15 20:07:20,417 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-15 20:07:20,417 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-15 20:12:11,074 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:12:13,634 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:12:15,080 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The woman in the image is wearing a red dress. Einstein developed the theory of relativity. This pai...
+2025-08-15 20:12:31,204 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The woman in the image is wearing a red dress.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Einstein developed the theory of relativity.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Einstein",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "This painting is beautiful.",
+      "confidence": 0.7,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "ambiguity_reason": "Subjective opinion"
+    }
+  ]
+}
+```'
+2025-08-15 20:12:31,803 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The woman in the image is wearing a red dress' -> 'The woman in the image is wearing a red dress.'
+2025-08-15 20:12:31,804 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Einstein developed the theory of relativity' -> 'Einstein developed the theory of relativity.'
+2025-08-15 20:12:31,805 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'This painting is beautiful' -> 'This painting is beautiful.'
+2025-08-15 20:12:31,805 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-15 20:12:31,805 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-15 20:16:48,992 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:16:51,756 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:16:53,769 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Obama was the president of Sudan, he visited me in my home as you can see in the picture....
+2025-08-15 20:17:20,221 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Sudan.",
+      "confidence": 0.05,
+      "ambiguity_reason": "Sudan is not mentioned as a country Obama presided over",
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM"
+    },
+    {
+      "claim_text": "Obama visited the speaker in their home.",
+      "confidence": 0.95,
+      "dependencies": [
+        {
+          "text": "the picture",
+          "label": "CONTEXTUAL_CLAIM"
+        }
+      ],
+      "entities": [],
+      "type_hint": "IMPLICIT_FACTUAL_CLAIM"
+    },
+    {
+      "claim_text": "The speaker has a picture of Obama visiting them.",
+      "confidence": 0.8,
+      "dependencies": [
+        {
+          "text": "the picture",
+          "label": "CONTEXTUAL_CLAIM"
+        }
+      ],
+      "entities": [],
+      "type_hint": "IMPLICIT_FACTUAL_CLAIM"
+    },
+    {
+      "claim_text": "What is the relationship between Obama and the speaker?",
+      "confidence": 0.9,
+      "dependencies": [
+        {
+          "text": "visited me in my home",
+          "label": "CONTEXTUAL_CLAIM"
+        }
+      ],
+      "entities": [],
+      "type_hint": "RELATIONAL_CLAIM"
+    },
+    {
+      "claim_text": "Who took the picture?",
+      "confidence": 0.7,
+      "dependencies": [
+        {
+          "text": "the picture",
+          "label": "CONTEXTUAL_CLAIM"
+        }
+      ],
+      "entities": [],
+      "type_hint": "IMPLICIT_FACTUAL_CLAIM"
+    }
+  ]
+}'
+2025-08-15 20:17:20,925 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'Obama was the president of Sudan' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 20:17:20,928 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.58): 'Obama visited the speaker in their home' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 20:17:20,929 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.58): 'The speaker has a picture of Obama visiting them' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 20:17:20,929 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.35): 'What is the relationship between Obama and the speaker'
+2025-08-15 20:17:20,930 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.24): 'Who took the picture'
+2025-08-15 20:17:20,930 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-15 20:17:20,930 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-15 20:39:31,846 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:39:34,379 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:40:09,950 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:40:12,257 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:40:55,679 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 20:40:58,056 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 20:40:58,060 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Obama was the president of Sudan, he visited me in my home as you can see in the picture....
+2025-08-15 20:41:18,945 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Sudan.",
+      "confidence": 0.2,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "ambiguity_reason": "Incorrect country reference"
+    },
+    {
+      "claim_text": "He visited me in my home as you can see in the picture.",
+      "confidence": 0.5,
+      "entities": [
+        {
+          "text": "me",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": ["picture"]
+    },
+    {
+      "claim_text": "You can see the picture.",
+      "confidence": 0.5,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM"
+    }
+  ]
+}
+```'
+2025-08-15 20:41:19,743 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'Obama was the president of Sudan' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 20:41:19,744 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'He visited me in my home as you can see in the picture' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 20:41:19,745 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.24): 'You can see the picture'
+2025-08-15 20:41:19,745 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 20:41:19,745 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 21:05:31,178 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:05:34,872 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:05:34,877 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Obama was the president of Sudan, he visited me in my home as you can see in the picture....
+2025-08-15 21:05:54,213 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Sudan.",
+      "confidence": "Low",
+      "ambiguity_reason": "Incorrect country association",
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "He visited me in my home as you can see in the picture.",
+      "confidence": "Medium",
+      "dependencies": ["picture"],
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIMS"
+    }
+  ]
+}
+```'
+2025-08-15 21:05:55,357 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'Obama was the president of Sudan' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:05:55,360 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'He visited me in my home as you can see in the picture' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:05:55,360 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 21:05:55,360 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 21:08:04,180 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:08:06,868 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:08:06,874 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Obama was the president of Sudan, he visited me in my home as you can see in the picture....
+2025-08-15 21:08:23,799 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Sudan.",
+      "confidence": "Low",
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "ambiguity_reason": "referential ambiguity"
+    },
+    {
+      "claim_text": "He visited me in my home.",
+      "confidence": "Low",
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "There is a picture of the visit.",
+      "confidence": "Medium",
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS"
+    }
+  ]
+}'
+2025-08-15 21:08:24,772 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'Obama was the president of Sudan' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:08:24,774 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.57): 'He visited me in my home' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:08:24,775 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.39): 'There is a picture of the visit'
+2025-08-15 21:08:24,775 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 21:08:24,775 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 21:10:17,403 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:10:19,719 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:10:19,723 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Obama was the president of Sudan, he visited me in my home as you can see in the picture....
+2025-08-15 21:10:39,429 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "Obama was the president of Sudan",
+      "confidence": 0.3,
+      "ambiguity_reason": "Multiple countries have had a President Obama, and this sentence is likely referring to Barack Obama's birthplace or country of origin rather than his presidency.",
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "Sudan",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "I have a picture of Obama visiting me in my home.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Obama",
+          "label": "PERSON"
+        },
+        {
+          "text": "my home",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Barack Obama was the President of the United States.",
+      "confidence": 0.99,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-15 21:10:40,041 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'Obama was the president of Sudan' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:10:40,042 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'I have a picture of Obama visiting me in my home' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:10:40,043 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.49): 'Barack Obama was the President of the United States' -> 'when Obama was the president of Sudan, he visited me in my home as you can see in the picture.'
+2025-08-15 21:10:40,043 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-15 21:10:40,043 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-15 21:14:32,984 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:14:35,329 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:14:35,335 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this picture I was playing with my mom, the picture is in front of london bridge in germany....
+2025-08-15 21:14:51,145 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "I was playing with my mom.",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": ""
+    },
+    {
+      "claim_text": "The picture is in front of London Bridge.",
+      "confidence": "Low",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": [
+        {"text": "London Bridge", "label": "LOC"}
+      ],
+      "ambiguity_reason": ""
+    },
+    {
+      "claim_text": "The picture is in Germany.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {"text": "Germany", "label": "LOC"}
+      ],
+      "ambiguity_reason": ""
+    }
+  ]
+}'
+2025-08-15 21:14:51,574 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.48): 'I was playing with my mom' -> 'In this picture I was playing with my mom, the picture is in front of london bridge in germany.'
+2025-08-15 21:14:51,575 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The picture is in front of London Bridge' -> 'In this picture I was playing with my mom, the picture is in front of london bridge in germany.'
+2025-08-15 21:14:51,576 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The picture is in Germany' -> 'In this picture I was playing with my mom, the picture is in front of london bridge in germany.'
+2025-08-15 21:14:51,576 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-15 21:14:51,576 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-15 21:23:51,974 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:23:54,687 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:23:54,691 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this picture I was playing with my mom, the picture is in front of london bridge in germany....

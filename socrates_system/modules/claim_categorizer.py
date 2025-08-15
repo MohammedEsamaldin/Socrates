@@ -29,201 +29,225 @@ class ClaimCategory:
 
 class ClaimCategorizer:
     """
-    Categorizes claims into one or more categories using LLM-based classification
-    with rule-based fallback mechanisms.
-    """
-    CATEGORIES = {cat.name: cat.value for cat in ClaimCategoryType}
+    Categorizes claims into one or more categories using LLM-based classification.
     
-    def __init__(self, llm_manager: Optional[LLMManager] = None):
+    This implementation uses a detailed prompt template to guide the LLM in accurately
+    categorizing claims according to predefined categories, with special attention to
+    identifying ambiguous claims based on the user's specific definition.
+    """
+    
+    def __init__(self, llm_manager: LLMManager):
         """Initialize the Claim Categorizer.
         
         Args:
-            llm_manager: Optional LLMManager instance for LLM-based categorization.
-                        If None, will use rule-based fallback only.
+            llm_manager: Required LLMManager instance for LLM-based categorization.
         """
+        if not llm_manager:
+            raise ValueError("LLMManager is required for LLM-based categorization")
+            
         self.llm_manager = llm_manager
-        self.compiled_patterns = {}
-        self._initialize_patterns()
-        logger.info("Claim Categorizer initialized")
+        logger.info("LLM-based Claim Categorizer initialized")
     
-    def _initialize_patterns(self) -> None:
-        """Initialize regex patterns for rule-based categorization"""
-        raw_patterns = {
-            "SELF_REFERENTIAL": [
-                r'\b(I am|my name is|I am an AI assistant|you just asked me)\b',
-                r'\b(you said|you mentioned|your question)\b'
-            ],
-            "SUBJECTIVE_OPINION": [
-                r'\b(I think|I believe|in my opinion|my view is|I feel|it seems|appears to be)\b',
-                r'\b(good|bad|great|terrible|beautiful|ugly|best|worst|important|trivial|happy|sad)\b',
-            ],
-            "QUANTITATIVE": [
-                r'\b(\d+(\.\d+)?%?|\$?\d+(\.\d+)?|\d+[km]?\b)',
-                r'\b(percent|percentage|ratio|fraction|average|mean|median)\b',
-            ],
-            "TEMPORAL": [
-                r'\b(\d{4}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2},? \d{4})\b',
-                r'\b(yesterday|today|tomorrow|now|recently|previously|initially|finally|after|before|during|since|until|when|while|as)\b',
-            ],
-            "COMPARATIVE": [
-                r'\b(than|compared to|versus|vs\.?|as (?:much|many|long|far|little) as|more|less|fewer|better|worse|higher|lower|faster|slower|stronger|weaker)\b',
-            ],
-            "DEFINITIONAL": [
-                r'\b(is defined as|means|refers to|is a type of|is a kind of|is an example of|is called|known as)\b',
-            ],
-            "CAUSAL": [
-                r'\b(causes?|leads? to|results? in|because|due to|as a result|therefore|thus|hence|consequently|since|as|so)\b',
-            ],
-            "CROSS_MODAL": [
-                r'\b(picture|image|photo|graph|chart|diagram|video|figure|illustration|this scene)\b',
-                r'\b(shows|depicts|illustrates|contains|in this picture)\b'
-            ],
-            "HYPOTHETICAL_PREDICTIVE": [
-                r'\b(if|when|will|would|could|should|might|may|predict|expect|hypothesize|assume|imagine)\b',
-                r'\b(future|potential|possibility|hypothetical)\b'
-            ],
-            "AMBIGUOUS_UNCLEAR": [
-                r'\b(something|somehow|somewhat|maybe|perhaps|unclear|vague|it seems)\b',
-                r'\?$' # Ends with a question mark
-            ],
-        }
-
-        # Compile patterns for efficiency
-        self.compiled_patterns = {
-            category: [re.compile(p, re.IGNORECASE) for p in patterns]
-            for category, patterns in raw_patterns.items()
-        }
+    def _format_categories_for_prompt(self) -> str:
+        """Format the category information for the prompt template."""
+        # This is just a fallback - the main prompt template already contains detailed descriptions
+        return "\n".join([f"- {cat.name}: {cat.value}" for cat in ClaimCategoryType])
     
     def categorize_claim(self, claim: ExtractedClaim) -> ExtractedClaim:
         """
-        Categorize a single claim into one or more categories.
+        Categorize a claim using LLM-based classification for MLLM hallucination detection.
         
         Args:
-            claim: The claim to categorize
+            claim: The extracted claim to categorize
             
         Returns:
-            The claim object, updated with categories.
+            The input claim with updated categories
         """
-        if not claim or not claim.text.strip():
-            return []
+        if not claim.text.strip():
+            logger.warning("Received empty claim text for categorization")
+            claim.categories = [ClaimCategory(
+                name=ClaimCategoryType.AMBIGUOUS_RESOLUTION_REQUIRED,
+                confidence=0.0,
+                justification="Empty claim text requires clarification"
+            )]
+            return claim
             
         try:
-            # Try LLM-based categorization first if available
-            if self.llm_manager:
-                categories = self._categorize_with_llm(claim)
-                if categories:  # Only use LLM results if we got valid categories
-                    claim.categories = categories
-                    return claim
+            # Use LLM-based categorization - it will handle all validation and conversion
+            llm_categories = self._categorize_with_llm(claim)
             
-            # Fall back to rule-based categorization
-            categories = self._categorize_with_rules(claim)
-            claim.categories = categories
+            if not llm_categories:
+                raise ValueError("LLM returned no valid categories")
+                
+            # The categories are already validated and converted in _categorize_with_llm
+            claim.categories = llm_categories
             return claim
             
         except Exception as e:
-            logger.error(f"Error categorizing claim '{claim.text}': {str(e)}", exc_info=True)
-            # Return a default category if something goes wrong
-            claim.categories = [
-                ClaimCategory(
-                    name="AMBIGUOUS/UNCLEAR",
-                    confidence=0.5,
-                    justification="Error occurred during categorization"
-                )
-            ]
-    
+            logger.error(f"Error categorizing claim with LLM: {e}", exc_info=True)
+            # Fallback to ambiguous resolution required if LLM fails
+            claim.categories = [ClaimCategory(
+                name=ClaimCategoryType.AMBIGUOUS_RESOLUTION_REQUIRED,
+                confidence=0.0,
+                justification=f"Error during LLM categorization, requires manual review: {str(e)[:200]}"
+            )]
+            return claim
+
     def _categorize_with_llm(self, claim: ExtractedClaim) -> List[ClaimCategory]:
-        """Categorize a claim using the LLM"""
+        """
+        Categorize a claim using the LLM with the detailed prompt template.
+        
+        The prompt template provides comprehensive guidance on claim categorization,
+        with special attention to identifying ambiguous claims based on the user's definition.
+        """
         try:
-            # Format the prompt with claim text and available categories
-            prompt = CLAIM_CATEGORIZATION_PROMPT.format(
-                claim_text=claim.text,
-                categories=json.dumps(self.CATEGORIES, indent=2)
+            # Prepare the prompt with the claim text
+            prompt = CLAIM_CATEGORIZATION_PROMPT.format(claim_text=claim.text)
+            
+            # Get the LLM response with conservative settings for reliability
+            response = self.llm_manager.generate_text(
+                prompt=prompt,
+                max_tokens=1000,  # Increased for detailed justifications
+                temperature=0.2   # Lower temperature for more consistent results
             )
             
-            # Get response from LLM
-            response = self.llm_manager.generate_text(prompt)
+            # Clean and parse the response
+            response_text = response.strip()
             
-            # Parse the response
-            return self._parse_llm_response(response)
+            # Handle potential markdown code blocks
+            if '```json' in response_text:
+                response_text = response_text.split('```json')[1].split('```')[0].strip()
+            elif '```' in response_text:
+                response_text = response_text.split('```')[1].strip()
             
+            # Parse the JSON response
+            try:
+                categories_data = json.loads(response_text)
+                if not isinstance(categories_data, list) or not categories_data:
+                    raise ValueError("Expected a non-empty list of categories")
+                
+                # Process each category in the response
+                result = []
+                for cat_data in categories_data:
+                    try:
+                        # Get and validate category names
+                        category_names = cat_data.get('categories', [])
+                        if isinstance(category_names, str):
+                            category_names = [category_names]
+                        
+                        if not category_names or not all(isinstance(c, str) for c in category_names):
+                            logger.warning(f"Invalid category names in response: {category_names}")
+                            continue
+                            
+                        # Convert string category names to ClaimCategoryType enums
+                        category_enums = []
+                        for cat_name in category_names:
+                            try:
+                                # Convert string to enum using the name lookup
+                                cat_enum = ClaimCategoryType[cat_name.upper()]
+                                category_enums.append(cat_enum)
+                            except (KeyError, AttributeError) as e:
+                                logger.warning(f"Invalid category name '{cat_name}': {e}")
+                                continue
+                        
+                        if not category_enums:
+                            logger.warning("No valid category enums after processing")
+                            continue
+                        
+                        # Get and validate confidence
+                        confidence = float(cat_data.get('confidence', 0.7))
+                        confidence = max(0.0, min(1.0, confidence))  # Clamp to [0, 1]
+                        
+                        # Get justification or provide a default
+                        justification = str(cat_data.get('justification', 'No justification provided'))
+                        
+                        # Create separate category objects for each enum (ClaimCategory.name expects single enum)
+                        for cat_enum in category_enums:
+                            result.append(ClaimCategory(
+                                name=cat_enum,
+                                confidence=confidence,
+                                justification=justification
+                            ))
+                        
+                    except (ValueError, TypeError, KeyError) as e:
+                        logger.warning(f"Error processing category data {cat_data}: {e}")
+                        continue
+                
+                if not result:
+                    raise ValueError("No valid categories after processing")
+                    
+                return result
+                
+            except (json.JSONDecodeError, ValueError) as e:
+                logger.error(f"Error parsing LLM response as JSON: {e}\nResponse: {response_text}")
+                raise ValueError(f"Invalid JSON response from LLM: {str(e)}")
+                
         except Exception as e:
-            logger.warning(f"LLM-based categorization failed: {str(e)}")
-            # Return a default category in the correct format on failure
-            return [ClaimCategory(name=[ClaimCategoryType.FACTUAL], confidence=0.5, justification="Default fallback due to LLM error")]
-    
-    def _parse_llm_response(self, response: str) -> List[ClaimCategory]:
-        """Parse the LLM's response into ClaimCategory objects"""
-        try:
-            # Try to extract JSON from the response
-            if '```json' in response:
-                json_str = response.split('```json')[1].split('```')[0].strip()
-                data = json.loads(json_str)
-            else:
-                # Try to find a JSON array in the response
-                json_match = re.search(r'\[.*\]', response, re.DOTALL)
-                if json_match:
-                    data = json.loads(json_match.group(0))
-                else:
-                    # If no JSON found, return empty list
-                    return []
-            
-            # Convert to ClaimCategory objects
-            categories = []
-            for item in data:
-                if not isinstance(item, dict) or 'categories' not in item:
-                    continue
-
-                # Create a single ClaimCategory object that holds all categories
-                # This seems to be what the calling code expects.
-                cats_from_llm = item.get('categories', [])
-                valid_cats = []
-                for cat_name in cats_from_llm:
-                    # Normalize the category name to match the enum members (uppercase, no slashes)
-                    normalized_cat = cat_name.upper().strip().replace('/', '_')
-                    if normalized_cat in self.CATEGORIES:
-                        valid_cats.append(ClaimCategoryType[normalized_cat])
-
-                if valid_cats:
-                    categories.append(ClaimCategory(
-                        name=valid_cats, # list of enums
-                        confidence=item.get('confidence', 0.85),
-                        justification=item.get('justification', 'Categorized by LLM.')
-                    ))
-            
-            return categories
-            
-        except (json.JSONDecodeError, KeyError, AttributeError) as e:
-            logger.warning(f"LLM categorization failed or returned empty for response: '{response}'. Using default categorization.")
-            return [ClaimCategory(name=[ClaimCategoryType.FACTUAL], confidence=0.5, justification="Default fallback")]
+            logger.error(f"LLM categorization failed: {e}", exc_info=True)
+            raise  # Re-raise to be handled by the callerClaimCategory(name=[ClaimCategoryType.FACTUAL], confidence=0.5, justification="Default fallback")]
     
     def _categorize_with_rules(self, claim: ExtractedClaim) -> List[ClaimCategory]:
-        """Categorize a claim using rule-based patterns"""
-        categories = set()
+        """Simple rule-based fallback for MLLM hallucination detection categories"""
+        # Note: This is a basic fallback - LLM categorization is strongly preferred
+        # for the sophisticated MLLM hallucination detection categories
+        
         text = claim.text.lower()
-        logger.debug(f"Categorizing with rules: '{text}'")
         
-        # Check each category's patterns
-        for category, patterns in self.compiled_patterns.items():
-            for pattern in patterns:
-                if pattern.search(text):
-                    logger.debug(f"  MATCH: '{pattern.pattern}' -> {category}")
-                    categories.add(category)
-                    break  # No need to check other patterns for this category
+        # Check for visual grounding indicators
+        visual_indicators = ['color', 'shape', 'size', 'position', 'wearing', 'holding', 'sitting', 'standing', 
+                           'visible', 'shown', 'depicted', 'image', 'picture', 'see', 'look', 'appears']
+        if any(indicator in text for indicator in visual_indicators):
+            return [ClaimCategory(
+                name=ClaimCategoryType.VISUAL_GROUNDING_REQUIRED,
+                confidence=0.6,
+                justification="Contains visual reference indicators (rule-based fallback)"
+            )]
         
-        # If no categories matched, use default
-        if not categories:
-            categories.add("FACTUAL")
+        # Check for external knowledge indicators
+        knowledge_indicators = ['born', 'died', 'invented', 'discovered', 'capital', 'president', 'founded',
+                              'temperature', 'speed', 'distance', 'weight', 'height', 'population']
+        if any(indicator in text for indicator in knowledge_indicators):
+            return [ClaimCategory(
+                name=ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED,
+                confidence=0.6,
+                justification="Contains external knowledge indicators (rule-based fallback)"
+            )]
         
-        # Convert to ClaimCategory objects with confidence scores
-        return [
-            ClaimCategory(
-                name=[ClaimCategoryType[cat]],  # Ensure name is a list of enums
-                confidence=0.7,  # Lower confidence for rule-based categorization
-                justification=f"Matched rule-based patterns for {cat}"
-            )
-            for cat in categories
-        ]
-    
+        # Check for ambiguous indicators
+        ambiguous_indicators = ['it', 'this', 'that', 'they', 'he', 'she', 'thing', 'one', 'over there']
+        if any(indicator in text.split() for indicator in ambiguous_indicators):
+            return [ClaimCategory(
+                name=ClaimCategoryType.AMBIGUOUS_RESOLUTION_REQUIRED,
+                confidence=0.7,
+                justification="Contains ambiguous references (rule-based fallback)"
+            )]
+        
+        # Check for opinion indicators
+        opinion_indicators = ['beautiful', 'ugly', 'good', 'bad', 'better', 'worse', 'prefer', 'like', 'dislike',
+                            'think', 'believe', 'opinion', 'seems', 'appears to be']
+        if any(indicator in text for indicator in opinion_indicators):
+            return [ClaimCategory(
+                name=ClaimCategoryType.SUBJECTIVE_OPINION,
+                confidence=0.6,
+                justification="Contains subjective opinion indicators (rule-based fallback)"
+            )]
+        
+        # Check for procedural indicators
+        procedural_indicators = ['first', 'then', 'next', 'step', 'process', 'method', 'procedure', 'instructions']
+        if any(indicator in text for indicator in procedural_indicators):
+            return [ClaimCategory(
+                name=ClaimCategoryType.PROCEDURAL_DESCRIPTIVE,
+                confidence=0.6,
+                justification="Contains procedural indicators (rule-based fallback)"
+            )]
+        
+        # Default fallback to external knowledge required
+        return [ClaimCategory(
+            name=ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED,
+            confidence=0.3,
+            justification="Default external knowledge categorization (rule-based fallback)"
+        )]
+
     def get_category_descriptions(self) -> Dict[str, str]:
         """Get descriptions of all available categories"""
         return self.CATEGORIES.copy()
