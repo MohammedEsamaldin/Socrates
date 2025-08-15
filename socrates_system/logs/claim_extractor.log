@@ -5097,3 +5097,44 @@ KeyError: '\n  "claims"'
 2025-08-15 21:23:51,974 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
 2025-08-15 21:23:54,687 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
 2025-08-15 21:23:54,691 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this picture I was playing with my mom, the picture is in front of london bridge in germany....
+2025-08-15 21:24:13,986 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The picture is in front of London Bridge.",
+      "confidence": 0.9,
+      "entities": [],
+      "source_context": "In this picture I was playing with my mom, the picture is in front of london bridge in germany.",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The location of the picture is Germany.",
+      "confidence": 0.8,
+      "entities": [],
+      "source_context": "In this picture I was playing with my mom, the picture is in front of london bridge in germany.",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-15 21:24:14,878 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The picture is in front of London Bridge' -> 'In this picture I was playing with my mom, the picture is in front of london bridge in germany.'
+2025-08-15 21:24:14,880 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'The location of the picture is Germany' -> 'In this picture I was playing with my mom, the picture is in front of london bridge in germany.'
+2025-08-15 21:24:14,880 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-15 21:24:14,880 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-15 21:26:14,007 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-15 21:26:16,780 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-15 21:26:16,789 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Sudan is the biggest country in the world when it comes to economy...
+2025-08-15 21:26:25,995 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Sudan is the biggest country in the world when it comes to economy",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-15 21:26:26,282 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Sudan is the biggest country in the world when it comes to economy' -> 'Sudan is the biggest country in the world when it comes to economy'
+2025-08-15 21:26:26,283 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-15 21:26:26,283 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
