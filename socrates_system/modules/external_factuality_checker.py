@@ -155,7 +155,7 @@ class GoogleFactCheckClient(ExternalAPIClient):
 
     def __init__(self, api_key: str, **kwargs):
         super().__init__(**kwargs)
-        self.api_key = "AIzaSyCOZXq2HzkIClX4Ujt1DSQTKEESqwtt0hg" #api_key
+        self.api_key = api_key
         self.endpoint = "https://factchecktools.googleapis.com/v1alpha1/claims:search"
 
     def _build_requests(self, claim: str) -> List[Dict[str, Any]]:
@@ -318,7 +318,7 @@ class ExternalFactualityChecker:
                 ]
                 # Optional Google Fact Check Tools API
                 try:
-                    google_key = "AIzaSyCOZXq2HzkIClX4Ujt1DSQTKEESqwtt0hg" #self._load_google_factcheck_key()
+                    google_key = self._load_google_factcheck_key()
                     if google_key:
                         self.clients.append(
                             GoogleFactCheckClient(api_key=google_key, session=session, max_retries=self.max_retries, backoff_sec=self.backoff_sec, timeout=self.timeout)
