@@ -154,3 +154,47 @@
 2025-08-16 01:46:31,768 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
 2025-08-16 01:46:31,774 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
 2025-08-16 01:46:31,774 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 03:44:29,827 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 03:44:29,869 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 03:44:29,869 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 03:51:56,545 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 03:51:56,549 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 03:51:56,549 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 03:52:34,213 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in Germany
+2025-08-16 03:52:52,401 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 03:53:02,360 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is a nickname for the Great Bell of the Great Clock of Westminster, located at the north end of the Palace of Westminster in London, United Kingdom.
+2025-08-16 03:53:14,858 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-16 04:08:37,961 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:08:37,966 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:08:37,966 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:09:09,170 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The tower is in Germany
+2025-08-16 04:09:27,954 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 04:13:09,435 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:13:09,439 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:13:09,439 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:14:38,804 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:14:38,809 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:14:38,809 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:16:11,779 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:16:11,784 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:16:11,785 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:17:39,239 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:17:39,248 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:17:39,248 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:17:55,003 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This policy will save billions
+2025-08-16 04:18:14,453 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.90)
+2025-08-16 04:47:49,649 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:47:49,658 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:47:49,658 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:48:16,424 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This policy will save billions
+2025-08-16 04:48:35,847 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 04:51:05,349 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:51:05,353 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:51:05,353 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:51:25,181 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Crime is up
+2025-08-16 04:51:50,168 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 04:55:10,772 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 04:55:10,777 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 04:55:10,777 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 04:55:33,670 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: My first car is a BMW.
+2025-08-16 04:55:49,572 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)

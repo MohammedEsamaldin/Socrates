@@ -5176,3 +5176,231 @@ KeyError: '\n  "claims"'
 2025-08-16 01:46:56,090 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The photo contain a ball bouncing' -> 'The photo contain a ball bouncing'
 2025-08-16 01:46:56,091 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
 2025-08-16 01:46:56,091 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-16 03:44:26,805 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 03:44:29,823 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 03:44:29,870 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-16 03:44:48,357 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Big Ben is located in London.",
+      "confidence": Low,
+      "type_hint": EXPLICIT_FACTUAL_CLAIMS,
+      "dependencies": null
+    },
+    {
+      "claim_text": "The tower is in Germany.",
+      "confidence": Medium,
+      "type_hint": IMPLICIT_CLAIMS,
+      "dependencies": [
+        {
+          "text": "London",
+          "label": "LOC"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-16 03:44:48,364 - socrates_system.modules.claim_extractor - ERROR - Failed to decode or parse LLM JSON response: ('Unknown identifier', 'Low')
+Response: '{
+  "claims": [
+    {
+      "claim_text": "Big Ben is located in London.",
+      "confidence": Low,
+      "type_hint": EXPLICIT_FACTUAL_CLAIMS,
+      "dependencies": null
+    },
+    {
+      "claim_text": "The tower is in Germany.",
+      "confidence": Medium,
+      "type_hint": IMPLICIT_CLAIMS,
+      "dependencies": [
+        {
+          "text": "London",
+          "label": "LOC"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-16 03:44:48,364 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2025-08-16 03:44:48,364 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 03:51:54,148 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 03:51:56,545 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 03:51:56,549 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-16 03:52:14,837 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "I was standing in front of a London Big Ben tower",
+      "confidence": "Low",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": ["image context"],
+      "ambiguity_reason": "Possible reference to multiple locations"
+    },
+    {
+      "claim_text": "Big Ben is in Germany",
+      "confidence": "Medium",
+      "source_context": "The image shows the tower, which I believe is in Germany.",
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": ["image context"]
+    }
+  ]
+}'
+2025-08-16 03:52:15,704 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'I was standing in front of a London Big Ben tower' -> 'In this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-16 03:52:15,705 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.58): 'Big Ben is in Germany' -> 'In this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-16 03:52:15,706 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-16 03:52:15,706 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-16 04:08:35,320 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:08:37,960 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:08:37,967 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-16 04:08:57,984 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The tower is in Germany.",
+      "confidence": 0.5,
+      "type_hint": "RELATIONAL_CLAIM",
+      "dependencies": [],
+      "ambiguity_reason": "Geographical ambiguity: Big Ben is actually located in London, UK"
+    },
+    {
+      "claim_text": "I was standing in front of the tower.",
+      "confidence": 0.9,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": [],
+      "source_context": "In this image I was standing..."
+    }
+  ]
+}'
+2025-08-16 04:08:58,896 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.67): 'The tower is in Germany' -> 'In this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-16 04:08:58,898 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.65): 'I was standing in front of the tower' -> 'In this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-16 04:08:58,898 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-16 04:08:58,898 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-16 04:13:06,968 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:13:09,434 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:13:09,440 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I dont know why it look like this, but in the image it was yellow....
+2025-08-16 04:13:18,772 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The color of the object in the image is yellow.",
+      "confidence": 0.7,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-16 04:13:19,288 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The color of the object in the image is yellow' -> 'I dont know why it look like this, but in the image it was yellow.'
+2025-08-16 04:13:19,289 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 04:13:19,289 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 04:14:36,452 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:14:38,804 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:14:38,809 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I dont know why it look like this...
+2025-08-16 04:14:48,823 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "I don't know",
+      "confidence": 0.75,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    }
+  ]
+}
+```
+
+Note: The input text is quite short and doesn't contain any specific factual information, so the extracted claim is simply a statement of ignorance with low confidence.'
+2025-08-16 04:14:49,275 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.31): 'I don't know'
+2025-08-16 04:14:49,276 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2025-08-16 04:14:49,276 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 04:16:09,414 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:16:11,779 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:16:11,785 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: this looks different...
+2025-08-16 04:16:16,215 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "This sentence is a statement.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": ""
+    }
+  ]
+}'
+2025-08-16 04:16:17,206 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.07): 'This sentence is a statement'
+2025-08-16 04:16:17,206 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2025-08-16 04:16:17,206 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 04:17:36,767 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:17:39,238 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:17:39,249 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: This policy will save billions....
+2025-08-16 04:17:44,577 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "This policy will save billions.",
+      "confidence": "Low",
+      "type_hint": "IMPLICIT_CLAIM",
+      "dependencies": [],
+      "source_context": "This policy will save billions.",
+      "ambiguity_reason": ""
+    }
+  ]
+}'
+2025-08-16 04:17:45,193 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'This policy will save billions' -> 'This policy will save billions.'
+2025-08-16 04:17:45,194 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 04:17:45,194 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 04:47:46,909 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:47:49,649 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:47:49,658 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: This policy will save billions....
+2025-08-16 04:48:06,216 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "This policy will save billions.",
+      "confidence": 0.7,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": null
+    }
+  ]
+}'
+2025-08-16 04:48:07,123 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'This policy will save billions' -> 'This policy will save billions.'
+2025-08-16 04:48:07,124 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 04:48:07,124 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 04:51:02,822 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:51:05,348 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:51:05,353 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Crime is up....
+2025-08-16 04:51:15,638 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Crime is up.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "source_context": "The input text mentions an increase in crime.",
+      "ambiguity_reason": "Lack of specificity regarding what type of crime or time frame"
+    }
+  ]
+}'
+2025-08-16 04:51:16,376 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Crime is up' -> 'Crime is up.'
+2025-08-16 04:51:16,376 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 04:51:16,376 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 04:55:08,460 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 04:55:10,772 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 04:55:10,777 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Last week I bought my first car it was red  BMW. Today I took my first car in a ride and it blue col...
+2025-08-16 04:55:24,027 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "My first car is a BMW.",
+      "source_context": "Last week I bought my first car it was red  BMW.",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The color of my car is blue.",
+      "source_context": "Today I took my first car in a ride and it blue color was shiny ",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-16 04:55:25,210 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.79): 'My first car is a BMW.' -> 'Last week I bought my first car it was red  BMW.'
+2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The color of my car is blue' -> 'Today I took my first car in a ride and it blue color was shiny'
+2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims

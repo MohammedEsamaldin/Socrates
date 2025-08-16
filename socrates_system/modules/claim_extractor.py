@@ -252,8 +252,27 @@ class ClaimExtractor:
             else:
                 json_str = response
 
-            # Use demjson3 for tolerant parsing
-            data = demjson3.decode(json_str)
+            # Sanitize common LLM JSON mistakes (unquoted identifiers)
+            # Quote common confidence tokens
+            json_sanitized = re.sub(r'("confidence"\s*:\s*)(Low|Medium|High)(\s*[,}])', r'\1"\2"\3', json_str)
+            # Quote common enum-like fields (e.g., type_hint)
+            json_sanitized = re.sub(r'("type_hint"\s*:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', r'\1"\2"\3', json_sanitized)
+            # First parse attempt
+            try:
+                data = demjson3.decode(json_sanitized)
+            except (demjson3.JSONDecodeError, Exception):
+                # General fallback: quote bare word identifiers after ':' unless true/false/null/number
+                def _quote_bare_ident(m):
+                    leading, ident, trailing = m.group(1), m.group(2), m.group(3)
+                    low = ident.lower()
+                    if low in {"true", "false", "null"}:
+                        return f"{leading}{ident}{trailing}"
+                    # Leave numbers alone
+                    if re.fullmatch(r"-?\d+(?:\.\d+)?", ident):
+                        return f"{leading}{ident}{trailing}"
+                    return f"{leading}\"{ident}\"{trailing}"
+                generic_sanitized = re.sub(r'(:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', _quote_bare_ident, json_sanitized)
+                data = demjson3.decode(generic_sanitized)
             claim_data_list = data.get('claims', [])
             if not isinstance(claim_data_list, list):
                 logger.error(f"LLM 'claims' field is not a list: {claim_data_list}")
@@ -321,7 +340,15 @@ class ClaimExtractor:
                     text=claim_text,
                     start_char=best_match_sent.start_char,
                     end_char=best_match_sent.end_char,
-                    confidence=llm_claim.get('confidence', best_score),
+                    confidence=(
+                        (lambda raw: (
+                            0.2 if isinstance(raw, str) and raw.lower() == 'low' else
+                            0.5 if isinstance(raw, str) and raw.lower() == 'medium' else
+                            0.8 if isinstance(raw, str) and raw.lower() == 'high' else
+                            float(raw) if isinstance(raw, (int, float)) else
+                            best_score
+                        ))(llm_claim.get('confidence', best_score))
+                    ),
                     source_text=doc.text,
                     entities=entities,
                     context_window=self._get_context_window(doc, best_match_sent.start_char, best_match_sent.end_char),
