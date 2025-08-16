@@ -5138,3 +5138,41 @@ KeyError: '\n  "claims"'
 2025-08-15 21:26:26,282 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Sudan is the biggest country in the world when it comes to economy' -> 'Sudan is the biggest country in the world when it comes to economy'
 2025-08-15 21:26:26,283 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
 2025-08-15 21:26:26,283 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 01:46:29,250 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 01:46:31,767 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 01:46:31,774 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The ship was on the backyard, I am so happy. The photo contain a ball bouncing...
+2025-08-16 01:46:54,961 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The ship was on the backyard",
+      "confidence": 0.7,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "entities": [],
+      "dependencies": []
+    },
+    {
+      "claim_text": "I am so happy",
+      "confidence": 0.3,
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "entities": [],
+      "dependencies": ["The ship was on the backyard"]
+    },
+    {
+      "claim_text": "The photo contain a ball bouncing",
+      "confidence": 0.9,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "entities": [
+        {
+          "text": "a ball",
+          "label": "ENTITY"
+        }
+      ],
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-16 01:46:56,088 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The ship was on the backyard' -> 'The ship was on the backyard, I am so happy.'
+2025-08-16 01:46:56,089 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.50): 'I am so happy' -> 'The ship was on the backyard, I am so happy.'
+2025-08-16 01:46:56,090 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The photo contain a ball bouncing' -> 'The photo contain a ball bouncing'
+2025-08-16 01:46:56,091 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-16 01:46:56,091 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
