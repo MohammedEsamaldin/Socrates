@@ -198,3 +198,101 @@
 2025-08-16 04:55:10,777 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
 2025-08-16 04:55:33,670 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: My first car is a BMW.
 2025-08-16 04:55:49,572 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 16:26:29,811 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 16:26:29,825 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 16:26:29,825 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 16:27:52,034 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 16:27:52,040 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 16:27:52,040 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 16:36:39,815 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 16:36:39,845 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 16:36:39,846 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 16:40:44,739 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 16:40:44,757 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 16:40:44,758 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 16:41:07,136 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: today is the birthday of Trump
+2025-08-16 16:41:30,785 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-16 22:59:25,292 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-16 22:59:25,350 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-16 22:59:25,350 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-16 22:59:57,671 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Trump's birthday is today
+2025-08-16 23:00:20,576 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 02:08:40,410 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 02:08:40,419 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 02:08:40,419 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 02:09:05,432 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The red car is faster than the blue car
+2025-08-17 02:09:21,465 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-17 02:34:40,766 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 02:34:40,777 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 02:34:40,777 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 02:36:14,831 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The location of Big Ben is not clear
+2025-08-17 02:36:33,486 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.98)
+2025-08-17 02:37:51,550 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 02:37:51,558 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 02:37:51,558 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 02:40:00,082 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 02:40:00,090 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 02:40:00,090 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 02:40:25,614 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The red car is faster than the blue car
+2025-08-17 02:40:42,714 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 02:43:20,763 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 02:43:20,769 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 02:43:20,769 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 02:43:47,245 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The policy will generate billions of dollars for the country
+2025-08-17 02:44:09,637 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.90)
+2025-08-17 02:45:54,063 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in UK.
+2025-08-17 02:46:09,639 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 03:07:13,128 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 03:07:13,140 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 03:07:13,141 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 03:07:54,847 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is located in Germany
+2025-08-17 03:08:10,300 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 03:47:38,489 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 03:47:38,500 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 03:47:38,500 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 03:48:10,326 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The policy will generate billions of dollars for the country
+2025-08-17 03:48:27,293 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 03:49:43,940 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in the UK.
+2025-08-17 03:50:00,255 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 1.00)
+2025-08-17 04:36:39,229 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 04:36:39,235 - socrates_system.modules.external_factuality_checker - ERROR - Error initializing External Factuality Checker: name 'wikipedia' is not defined
+2025-08-17 04:42:49,752 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 04:42:49,765 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 04:42:49,766 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 04:43:47,314 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The policy will generate billions of dollars for the country
+2025-08-17 04:44:06,194 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.90)
+2025-08-17 04:44:34,539 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in UK.
+2025-08-17 04:44:57,762 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 04:45:55,252 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 04:45:55,257 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 04:45:55,258 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 04:46:21,915 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The policy will generate billions of dollars
+2025-08-17 04:46:40,193 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 04:47:50,836 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in the UK
+2025-08-17 04:48:08,406 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 04:58:00,870 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 04:58:00,877 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 04:58:00,877 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 04:58:35,367 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The policy will generate billions of dollars for the country
+2025-08-17 04:58:53,916 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.85)
+2025-08-17 04:59:48,239 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in UK.
+2025-08-17 05:00:05,849 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 18:10:07,144 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 18:10:07,148 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 18:10:07,148 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 18:11:48,042 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Paris
+2025-08-17 18:12:05,197 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 18:12:25,136 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Alexander Fleming discovered penicillin in 1928
+2025-08-17 18:12:52,860 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:13:13,307 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Water boils at 100°C at sea level
+2025-08-17 18:13:31,153 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:18:05,419 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in Germany
+2025-08-17 18:18:21,062 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 18:19:17,588 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Eiffel Tower was completed in 1990
+2025-08-17 18:19:40,289 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 18:24:57,920 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Plato described Atlantis as "an island situated in front of the straits which are by you called the Pillars of Hercules"
+2025-08-17 18:25:15,065 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:26:16,828 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: As previously stated, Paris remains the capital of France
+2025-08-17 18:26:33,019 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:26:50,756 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Berlin
+2025-08-17 18:27:09,941 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)

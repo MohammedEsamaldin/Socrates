@@ -1,10 +1,23 @@
 import unittest
-import spacy
+# spaCy model is optional; skip tests if 'en_core_web_sm' is not available
+try:
+    import spacy
+    try:
+        _NLP = spacy.load("en_core_web_sm")
+        _HAS_SPACY_MODEL = True
+    except Exception:
+        _NLP = None
+        _HAS_SPACY_MODEL = False
+except Exception:
+    spacy = None  # type: ignore
+    _NLP = None
+    _HAS_SPACY_MODEL = False
 import json
 from unittest.mock import MagicMock, patch
 from socrates_system.modules.claim_extractor import ClaimExtractor
 from socrates_system.modules.shared_structures import ExtractedClaim, ExtractedEntity, ExtractedRelationship
 
+@unittest.skipIf(not _HAS_SPACY_MODEL, "spaCy model 'en_core_web_sm' not installed; skipping ClaimExtractor tests.")
 class TestClaimExtractor(unittest.TestCase):
 
     @classmethod

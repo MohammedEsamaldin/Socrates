@@ -90,7 +90,7 @@ The Socrates Agent implements a comprehensive 4-stage verification process:
 - Maintains persistent storage using SQLite
 
 ## Features
-
+- run python -m socrates_system.pipeline --help for full CLI command list
 ### Multimodal Support
 - Image upload and processing capabilities
 - Vision-language model integration (BLIP)

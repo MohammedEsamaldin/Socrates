@@ -13,8 +13,12 @@ from socrates_system.modules.check_router import CheckRouter
 from socrates_system.modules.llm_manager import LLMManager
 from socrates_system.modules.shared_structures import ExtractedClaim, VerificationMethod, VerificationRoute
 from socrates_system.modules.external_factuality_checker import ExternalFactualityChecker
+from socrates_system.modules.knowledge_graph_manager import KnowledgeGraphManager
+from socrates_system.modules.self_contradiction_checker import SelfContradictionChecker
+from socrates_system.modules.conflict_resolver import ConflictResolver
 import os
 import argparse
+import uuid
 from socrates_system.clarification_resolution import ClarificationResolutionModule
 from socrates_system.clarification_resolution.data_models import (
     ClarificationContext as ClarContext,
@@ -22,18 +26,128 @@ from socrates_system.clarification_resolution.data_models import (
     IssueType,
 )
 
+# Socratic Question Generator
+from socrates_system.modules.question_generator import (
+    SocraticQuestionGenerator,
+    SocraticConfig,
+    VerificationCapabilities,
+    LLMInterfaceAdapter,
+)
+
 # Setup basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# ---------------- Console Colors (centralized) ----------------
+# Simple ANSI color helper with env overrides, e.g. SOC_COLOR_HEADING=cyan
+import sys
+
+class ConsoleColors:
+    _ANSI = {
+        'reset': "\033[0m",
+        'bold': "\033[1m",
+        'black': "\033[30m",
+        'red': "\033[31m",
+        'green': "\033[32m",
+        'yellow': "\033[33m",
+        'blue': "\033[34m",
+        'magenta': "\033[35m",
+        'cyan': "\033[36m",
+        'white': "\033[37m",
+        'bright_black': "\033[90m",
+        'bright_red': "\033[91m",
+        'bright_green': "\033[92m",
+        'bright_yellow': "\033[93m",
+        'bright_blue': "\033[94m",
+        'bright_magenta': "\033[95m",
+        'bright_cyan': "\033[96m",
+        'bright_white': "\033[97m",
+    }
+
+    # Default role->color mapping; override via env SOC_COLOR_<ROLE>=<color>
+    _ROLE_DEFAULTS = {
+        'heading': 'bright_cyan',
+        'claim': 'bright_white',
+        'label': 'bright_black',
+        'value': 'white',
+        'entity': 'bright_blue',
+        'category': 'bright_magenta',
+        'question': 'bright_yellow',
+        'route': 'bright_green',
+        'clarification': 'bright_cyan',
+        'factuality_pass': 'green',
+        'factuality_fail': 'red',
+        'factuality_uncertain': 'yellow',
+        'summary': 'bright_cyan',
+    }
+
+    @staticmethod
+    def _supports_color() -> bool:
+        if os.getenv('NO_COLOR'):
+            return False
+        try:
+            return sys.stdout.isatty()
+        except Exception:
+            return False
+
+    @classmethod
+    def c(cls, role: str, text: str) -> str:
+        if not cls._supports_color():
+            return text
+        # Resolve color name for role (env override wins)
+        env_key = f"SOC_COLOR_{role.upper()}"
+        color_name = os.getenv(env_key, cls._ROLE_DEFAULTS.get(role, 'white'))
+        code = cls._ANSI.get(color_name, '')
+        reset = cls._ANSI['reset']
+        return f"{code}{text}{reset}" if code else text
+
 
 class SocratesPipeline:
     """Orchestrates the claim processing pipeline."""
 
-    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None):
+    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None):
         """Initializes the pipeline with all necessary components."""
         logging.info("Initializing Socrates Pipeline...")
         self.claim_extractor = ClaimExtractor(llm_manager=llm_manager)
         self.claim_categorizer = ClaimCategorizer(llm_manager=llm_manager)
         self.llm_manager = llm_manager
+        
+        # Session management for Knowledge Graph / self-consistency
+        try:
+            self.session_id = os.getenv("SOC_SESSION_ID") or str(uuid.uuid4())
+            logging.info(f"Using session_id={self.session_id}")
+        except Exception:
+            self.session_id = str(uuid.uuid4())
+            logging.info(f"Using generated session_id={self.session_id}")
+        
+        # Initialize Knowledge Graph Manager and session
+        try:
+            self.kg_manager = KnowledgeGraphManager()
+            try:
+                self.kg_manager.initialize_session(self.session_id)
+            except Exception as e:
+                logging.warning(f"Failed to initialize KG session: {e}")
+        except Exception as e:
+            logging.warning(f"KnowledgeGraphManager unavailable: {e}")
+            self.kg_manager = None
+        
+        # Initialize Self-Contradiction Checker and attach KG
+        try:
+            self.self_checker = SelfContradictionChecker()
+        except Exception as e:
+            logging.warning(f"SelfContradictionChecker unavailable: {e}")
+            self.self_checker = None
+        if getattr(self, "self_checker", None) and getattr(self, "kg_manager", None):
+            try:
+                self.self_checker.set_kg_manager(self.kg_manager)
+            except Exception as e:
+                logging.warning(f"Failed attaching KG to SelfContradictionChecker: {e}")
+        
+        # Initialize Conflict Resolver
+        try:
+            self.conflict_resolver = ConflictResolver()
+        except Exception as e:
+            logging.warning(f"ConflictResolver unavailable: {e}")
+            self.conflict_resolver = None
         
         # Initialize with a set of available verification methods
         available_methods = {
@@ -67,6 +181,89 @@ class SocratesPipeline:
         else:
             self.clarifier = None
         self._clarification_results: Dict[int, Any] = {}
+
+        # Socratic question generation toggle from CLI/env
+        if question_gen_enabled is None:
+            question_gen_enabled = os.getenv("QUESTION_GEN_ENABLED", "true").lower() == "true"
+        self.question_gen_enabled = question_gen_enabled
+
+        # Initialize Socratic Question Generator if enabled
+        if self.question_gen_enabled:
+            try:
+                # Configure capabilities based on available downstream modules
+                capabilities = VerificationCapabilities(
+                    visual_grounding=[
+                        "object_detection",
+                        "text_recognition",
+                        "scene_description",
+                        "spatial_relationships",
+                    ],
+                    external_knowledge=[
+                        "wikipedia",
+                        "google_fact_check",
+                        "wikidata",
+                        "news_articles",
+                    ],
+                    self_consistency=[
+                        "knowledge_graph",
+                        "previous_session_claims",
+                    ],
+                )
+                qg_config = SocraticConfig()
+                # Apply CLI overrides where provided
+                if isinstance(questions_per_category, int) and questions_per_category > 0:
+                    qg_config.update(questions_per_category=questions_per_category)
+                if isinstance(qg_min_threshold, (int, float)) and qg_min_threshold is not None:
+                    qg_config.update(min_confidence_threshold=float(qg_min_threshold))
+                if isinstance(qg_max_complexity, (int, float)) and qg_max_complexity is not None:
+                    qg_config.update(max_question_complexity_ratio=float(qg_max_complexity))
+                if isinstance(qg_enable_fallback, bool):
+                    qg_config.update(enable_fallback=bool(qg_enable_fallback))
+                if isinstance(qg_prioritize_visual, bool):
+                    qg_config.update(prioritize_visual_grounding=bool(qg_prioritize_visual))
+
+                # Apply environment variable overrides (if present)
+                env_min = os.getenv("QG_MIN_CONFIDENCE_THRESHOLD")
+                if qg_min_threshold is None and env_min is not None:
+                    try:
+                        qg_config.update(min_confidence_threshold=float(env_min))
+                    except Exception:
+                        logging.warning("Invalid QG_MIN_CONFIDENCE_THRESHOLD env; ignoring")
+                env_max = os.getenv("QG_MAX_COMPLEXITY_RATIO")
+                if qg_max_complexity is None and env_max is not None:
+                    try:
+                        qg_config.update(max_question_complexity_ratio=float(env_max))
+                    except Exception:
+                        logging.warning("Invalid QG_MAX_COMPLEXITY_RATIO env; ignoring")
+                env_fb = os.getenv("QG_ENABLE_FALLBACK")
+                if qg_enable_fallback is None and env_fb is not None:
+                    qg_config.update(enable_fallback=(env_fb.lower() == "true"))
+                env_pv = os.getenv("QG_PRIORITIZE_VISUAL")
+                if qg_prioritize_visual is None and env_pv is not None:
+                    qg_config.update(prioritize_visual_grounding=(env_pv.lower() == "true"))
+                # Questions per category via env (only if CLI not provided)
+                if not (isinstance(questions_per_category, int) and questions_per_category > 0):
+                    env_qpc = os.getenv("QG_QUESTIONS_PER_CATEGORY")
+                    if env_qpc is not None:
+                        try:
+                            qg_config.update(questions_per_category=int(env_qpc))
+                        except Exception:
+                            logging.warning("Invalid QG_QUESTIONS_PER_CATEGORY env; ignoring")
+
+                # Use shared LLM manager via adapter
+                llm_adapter = LLMInterfaceAdapter(llm_manager=self.llm_manager)
+                self.question_generator = SocraticQuestionGenerator(
+                    verification_capabilities=capabilities,
+                    llm_interface=llm_adapter,
+                    config=qg_config,
+                )
+            except Exception as e:
+                logging.warning(f"Question generator unavailable: {e}")
+                self.question_generator = None
+        else:
+            self.question_generator = None
+        # Initialize QG stats
+        self._qg_stats: Dict[str, Any] = {"total": 0, "fallback": 0}
         logging.info("Socrates Pipeline initialized successfully.")
 
     def run(self, text: str) -> List[ExtractedClaim]:
@@ -100,8 +297,25 @@ class SocratesPipeline:
 
             # 2.1 Clarify ambiguous claims before routing (LLM-only per spec)
             try:
-                if self.clarifier and any(getattr(c.name, 'name', str(c.name)) == 'AMBIGUOUS_RESOLUTION_REQUIRED' for c in categorized_claim.categories):
-                    logging.info("Ambiguity detected; invoking Clarification Resolution Module (pre-routing)...")
+                # Determine if clarification is needed
+                amb_cat = any(
+                    getattr(c.name, 'name', str(c.name)) == 'AMBIGUOUS_RESOLUTION_REQUIRED'
+                    for c in (categorized_claim.categories or [])
+                )
+                amb_reason = bool(getattr(categorized_claim, 'ambiguity_reason', None))
+                no_cats = not bool(categorized_claim.categories)
+                should_clarify = amb_cat or amb_reason or no_cats
+                if self.clarifier and should_clarify:
+                    logging.info(
+                        "Pre-routing clarification triggered (reasons: %s)",
+                        ", ".join([
+                            r for r, ok in [
+                                ("AMBIGUOUS_CATEGORY", amb_cat),
+                                ("AMBIGUITY_REASON", amb_reason),
+                                ("NO_CATEGORIES", no_cats),
+                            ] if ok
+                        ]) or "UNKNOWN"
+                    )
                     # Build fact-check result placeholder
                     fc = ClarFactCheckResult(
                         verdict="UNCERTAIN",
@@ -132,6 +346,69 @@ class SocratesPipeline:
                         logging.info(f"Re-categorized as: {[c.name for c in categorized_claim.categories]}")
             except Exception as e:
                 logging.warning(f"Pre-routing clarification failed: {e}")
+
+            # 2.5 Generate Socratic questions (after clarification/re-categorization, before routing)
+            if getattr(self, "question_generator", None):
+                try:
+                    logging.info("Generating Socratic questions after clarification and before routing...")
+                    # Select relevant categories (exclude unverifiable and ambiguity)
+                    cat_names = []
+                    for c in categorized_claim.categories:
+                        try:
+                            cname = getattr(c.name, 'name', str(c.name))
+                        except Exception:
+                            cname = str(getattr(c, 'name', ''))
+                        if not cname:
+                            continue
+                        if cname in ("SUBJECTIVE_OPINION", "PROCEDURAL_DESCRIPTIVE", "AMBIGUOUS_RESOLUTION_REQUIRED"):
+                            continue
+                        if cname not in cat_names:
+                            cat_names.append(cname)
+                    if cat_names:
+                        # Prioritize visual grounding if configured and present
+                        prioritize = None
+                        try:
+                            if self.question_generator.config.prioritize_visual_grounding and "VISUAL_GROUNDING_REQUIRED" in cat_names:
+                                prioritize = "VISUAL_GROUNDING_REQUIRED"
+                        except Exception:
+                            prioritize = None
+                        num_q = getattr(self.question_generator.config, 'questions_per_category', 1) or 1
+                        q_results = self.question_generator.generate_questions(
+                            categorized_claim.text,
+                            categories=cat_names,
+                            num_questions=num_q,
+                            prioritize_category=prioritize,
+                        )
+                        # Store as plain dicts for portability
+                        sq: Dict[str, List[Dict[str, Any]]] = {}
+                        for cat, qs in q_results.items():
+                            sq[cat] = [
+                                {
+                                    "question": q.question,
+                                    "category": q.category,
+                                    "verification_hint": q.verification_hint,
+                                    "confidence_score": q.confidence_score,
+                                    "fallback": q.fallback,
+                                }
+                                for q in qs
+                            ]
+                        categorized_claim.socratic_questions = sq
+                        # Update QG stats
+                        try:
+                            for _cat, _qs in sq.items():
+                                self._qg_stats["total"] += len(_qs)
+                                self._qg_stats["fallback"] += sum(1 for _q in _qs if _q.get("fallback"))
+                        except Exception:
+                            pass
+                        logging.info(
+                            "Generated %d Socratic question groups for categories: %s",
+                            sum(len(v) for v in sq.values()),
+                            ", ".join(sq.keys()),
+                        )
+                    else:
+                        logging.info("No eligible categories for question generation; skipping.")
+                except Exception as e:
+                    logging.warning(f"Question generation failed: {e}")
 
             # 3. Route each claim for verification
             # 3. Route each claim for verification
@@ -268,6 +545,36 @@ class SocratesPipeline:
                     categorized_claim.factuality_sources = []
                     categorized_claim.factuality_reasoning = "Exception during factuality check"
             
+            # 5. Self-Consistency (KG) check and evidence-weighted conflict resolution
+            if getattr(self, "self_checker", None) and getattr(self, "conflict_resolver", None):
+                try:
+                    sc_result = self.self_checker.check_contradiction(categorized_claim.text, self.session_id)
+                    ext_result = factuality_results.get(i)
+                    final_result = self.conflict_resolver.resolve(categorized_claim.text, ext_result, sc_result)
+                    # Merge into factuality_results for unified CLI display
+                    factuality_results[i] = final_result
+                    # Persist onto claim for downstream consumers
+                    categorized_claim.factuality_status = final_result.get("status")
+                    categorized_claim.factuality_confidence = final_result.get("confidence", 0.0)
+                    categorized_claim.factuality_verdict = True if final_result.get("status") == "PASS" else (False if final_result.get("status") == "FAIL" else None)
+                    categorized_claim.factuality_evidence = final_result.get("evidence", [])
+                    categorized_claim.factuality_sources = final_result.get("sources", [])
+                    categorized_claim.factuality_reasoning = final_result.get("reasoning")
+                    # Add to KG if recommended
+                    if getattr(self, "kg_manager", None) and final_result.get("should_add_to_kg"):
+                        try:
+                            self.kg_manager.add_claim(
+                                claim=categorized_claim.text,
+                                evidence=final_result.get("evidence", []),
+                                confidence=float(final_result.get("confidence", 0.8)),
+                                session_id=self.session_id,
+                            )
+                            logging.info("Claim added to Knowledge Graph (session)")
+                        except Exception as e:
+                            logging.warning(f"Failed to add claim to Knowledge Graph: {e}")
+                except Exception as e:
+                    logging.warning(f"Self-consistency/conflict resolution failed: {e}")
+
             processed_claims.append(categorized_claim)
 
         # Summary metrics for factuality stage
@@ -278,6 +585,17 @@ class SocratesPipeline:
             uncertain_n = sum(1 for r in factuality_results.values() if r.get("status") == "UNCERTAIN")
             avg_conf = sum(r.get("confidence", 0.0) for r in factuality_results.values()) / max(total, 1)
             logging.info(f"Factuality summary: total={total}, PASS={pass_n}, FAIL={fail_n}, UNCERTAIN={uncertain_n}, avg_conf={avg_conf:.2f}")
+
+        # Summary metrics for question generation stage
+        if getattr(self, "question_generator", None):
+            try:
+                q_total = int(self._qg_stats.get("total", 0))
+                q_fallback = int(self._qg_stats.get("fallback", 0))
+                if q_total > 0:
+                    fb_rate = (q_fallback / q_total) * 100.0
+                    logging.info(f"Socratic QG summary: total_questions={q_total}, fallback_used={q_fallback} ({fb_rate:.1f}%)")
+            except Exception:
+                pass
 
         logging.info("Claim processing pipeline finished.")
         # Note: keeping return type as list to avoid breaking external callers
@@ -294,6 +612,17 @@ if __name__ == '__main__':
     parser.add_argument("--enable-clarification", dest="enable_clarification", action="store_true", help="Enable clarification module")
     parser.add_argument("--disable-clarification", dest="disable_clarification", action="store_true", help="Disable clarification module")
     parser.add_argument("--clar-dev", dest="clar_dev", action="store_true", help="Enable clarification dev mode")
+    # Socratic question generation toggles
+    parser.add_argument("--enable-question-gen", dest="enable_qg", action="store_true", help="Enable Socratic question generation")
+    parser.add_argument("--disable-question-gen", dest="disable_qg", action="store_true", help="Disable Socratic question generation")
+    parser.add_argument("--questions-per-category", dest="qg_per_cat", type=int, default=None, help="Number of Socratic questions to generate per relevant category")
+    # Socratic question validation tuning
+    parser.add_argument("--qg-min-threshold", dest="qg_min_threshold", type=float, default=None, help="Minimum confidence threshold for accepting generated questions (0-1)")
+    parser.add_argument("--qg-max-complexity", dest="qg_max_complexity", type=float, default=None, help="Maximum allowed question/claim length ratio before penalization")
+    parser.add_argument("--qg-enable-fallback", dest="qg_enable_fallback", action="store_true", help="Enable fallback question templates if validation fails")
+    parser.add_argument("--qg-disable-fallback", dest="qg_disable_fallback", action="store_true", help="Disable fallback question templates")
+    parser.add_argument("--qg-prioritize-visual", dest="qg_prioritize_visual", action="store_true", help="Prioritize VISUAL_GROUNDING_REQUIRED category when present")
+    parser.add_argument("--qg-deprioritize-visual", dest="qg_deprioritize_visual", action="store_true", help="Do not prioritize VISUAL_GROUNDING_REQUIRED category")
     args = parser.parse_args()
 
     # Resolve factuality toggle from CLI overriding env
@@ -315,6 +644,15 @@ if __name__ == '__main__':
         clarification_enabled = env_clar
     clarification_dev_mode = True if args.clar_dev else env_clar_dev
 
+    # Resolve question generation toggle
+    env_qg = os.getenv("QUESTION_GEN_ENABLED", "true").lower() == "true"
+    if args.enable_qg:
+        question_gen_enabled = True
+    elif args.disable_qg:
+        question_gen_enabled = False
+    else:
+        question_gen_enabled = env_qg
+
     # To run with a real LLM, instantiate a configured LLMManager
     llm_manager = LLMManager()
     pipeline = SocratesPipeline(
@@ -322,13 +660,19 @@ if __name__ == '__main__':
         factuality_enabled=factuality_enabled,
         clarification_enabled=clarification_enabled,
         clarification_dev_mode=clarification_dev_mode,
+        question_gen_enabled=question_gen_enabled,
+        questions_per_category=args.qg_per_cat,
+        qg_min_threshold=args.qg_min_threshold,
+        qg_max_complexity=args.qg_max_complexity,
+        qg_enable_fallback=True if args.qg_enable_fallback else (False if args.qg_disable_fallback else None),
+        qg_prioritize_visual=True if args.qg_prioritize_visual else (False if args.qg_deprioritize_visual else None),
     )
 
     final_claims = pipeline.run(args.text)
 
-    print("\n--- Final Processed Claims ---")
+    print("\n" + ConsoleColors.c('heading', '--- Final Processed Claims ---'))
     for i, claim in enumerate(final_claims, 1):
-        print(f"\nClaim {i}: {claim.text}")
+        print("\n" + ConsoleColors.c('label', f"Claim {i}: ") + ConsoleColors.c('claim', f"{claim.text}"))
         # Handle confidence conversion from string to float
         if isinstance(claim.confidence, str):
             confidence_map = {
@@ -339,52 +683,74 @@ if __name__ == '__main__':
             confidence = confidence_map.get(claim.confidence, 0.5)
         else:
             confidence = float(claim.confidence)
-        print(f"  - Confidence: {confidence:.2f}")
-        print(f"  - Context: {claim.context_window}")
-        print("  - Entities:")
+        print("  - " + ConsoleColors.c('label', 'Confidence: ') + ConsoleColors.c('value', f"{confidence:.2f}"))
+        print("  - " + ConsoleColors.c('label', 'Context: ') + ConsoleColors.c('value', f"{claim.context_window}"))
+        print("  - " + ConsoleColors.c('label', 'Entities:'))
         for entity in claim.entities:
-            print(f"    - '{entity.text}' ({entity.label})")
+            print("    - " + ConsoleColors.c('entity', f"'{entity.text}'") + ConsoleColors.c('label', f" ({entity.label})"))
         if claim.relationships:
-            print("  - Relationships:")
+            print("  - " + ConsoleColors.c('label', 'Relationships:'))
             for rel in claim.relationships:
-                print(f"    - ({rel.subject}) -> [{rel.relation}] -> ({rel.object})")
-        print("  - Categories:")
+                print(ConsoleColors.c('value', f"    - ({rel.subject}) -> ") + ConsoleColors.c('label', f"[{rel.relation}]") + ConsoleColors.c('value', f" -> ({rel.object})"))
+        print("  - " + ConsoleColors.c('label', 'Categories:'))
         for category in claim.categories:
-            print(f"    - {category.name} (Confidence: {category.confidence:.2f}): {category.justification}")
+            print("    - " + ConsoleColors.c('category', f"{getattr(category.name, 'name', str(category.name))}") +
+                  ConsoleColors.c('label', f" (Confidence: ") + ConsoleColors.c('value', f"{category.confidence:.2f}") + ConsoleColors.c('label', "):") +
+                  " " + ConsoleColors.c('value', f"{category.justification}"))
+        if getattr(claim, 'socratic_questions', None):
+            print("  - " + ConsoleColors.c('label', 'Socratic Questions:'))
+            try:
+                for cat, qs in claim.socratic_questions.items():
+                    print("    - " + ConsoleColors.c('category', f"{cat}") + ConsoleColors.c('label', ":"))
+                    for q in qs:
+                        print("      • " + ConsoleColors.c('question', f"{q.get('question')}") +
+                              ConsoleColors.c('label', " (conf ") + ConsoleColors.c('value', f"{q.get('confidence_score', 0.0):.2f}") + ConsoleColors.c('label', ")"))
+                        if q.get('verification_hint'):
+                            print("        " + ConsoleColors.c('label', 'hint: ') + ConsoleColors.c('value', f"{q.get('verification_hint')}"))
+            except Exception:
+                pass
         if claim.verification_route:
             route = claim.verification_route
-            print(f"  - Verification Route: {route.method.name}")
-            print(f"    - Justification: {route.justification}")
-            print(f"    - Estimated Cost: {route.estimated_cost}, Latency: {route.estimated_latency}s")
+            print("  - " + ConsoleColors.c('label', 'Verification Route: ') + ConsoleColors.c('route', f"{route.method.name}"))
+            print("    - " + ConsoleColors.c('label', 'Justification: ') + ConsoleColors.c('value', f"{route.justification}"))
+            print("    - " + ConsoleColors.c('label', 'Estimated Cost: ') + ConsoleColors.c('value', f"{route.estimated_cost}") +
+                  ConsoleColors.c('label', ', Latency: ') + ConsoleColors.c('value', f"{route.estimated_latency}s"))
         # Clarification results (if available)
         clr = getattr(pipeline, "_clarification_results", {}).get(i)
         if clr:
-            print("  - Clarifications:")
+            print("  - " + ConsoleColors.c('clarification', 'Clarifications:'))
             pre = clr.get("pre")
             post = clr.get("post")
             if pre:
-                print("    - Pre-routing:")
-                print(f"      corrected: {getattr(pre, 'corrected_claim', None)}")
-                print(f"      confidence: {getattr(pre, 'resolution_confidence', 0.0):.2f}")
-                print(f"      next_action: {getattr(getattr(pre, 'next_action', ''), 'name', str(getattr(pre, 'next_action', '')))}")
+                print("    - " + ConsoleColors.c('label', 'Pre-routing:'))
+                print("      " + ConsoleColors.c('label', 'corrected: ') + ConsoleColors.c('value', f"{getattr(pre, 'corrected_claim', None)}"))
+                print("      " + ConsoleColors.c('label', 'confidence: ') + ConsoleColors.c('value', f"{getattr(pre, 'resolution_confidence', 0.0):.2f}"))
+                print("      " + ConsoleColors.c('label', 'next_action: ') + ConsoleColors.c('clarification', f"{getattr(getattr(pre, 'next_action', ''), 'name', str(getattr(pre, 'next_action', '')))}"))
             if post:
-                print("    - Post-factuality:")
-                print(f"      corrected: {getattr(post, 'corrected_claim', None)}")
-                print(f"      confidence: {getattr(post, 'resolution_confidence', 0.0):.2f}")
-                print(f"      next_action: {getattr(getattr(post, 'next_action', ''), 'name', str(getattr(post, 'next_action', '')))}")
+                print("    - " + ConsoleColors.c('label', 'Post-factuality:'))
+                print("      " + ConsoleColors.c('label', 'corrected: ') + ConsoleColors.c('value', f"{getattr(post, 'corrected_claim', None)}"))
+                print("      " + ConsoleColors.c('label', 'confidence: ') + ConsoleColors.c('value', f"{getattr(post, 'resolution_confidence', 0.0):.2f}"))
+                print("      " + ConsoleColors.c('label', 'next_action: ') + ConsoleColors.c('clarification', f"{getattr(getattr(post, 'next_action', ''), 'name', str(getattr(post, 'next_action', '')))}"))
         # Factuality result (if available)
         fr = getattr(pipeline, "_last_factuality_results", {}).get(i)
         if fr:
-            print("  - Factuality:")
-            print(f"    - Status: {fr.get('status')}, Confidence: {fr.get('confidence', 0.0):.2f}")
+            print("  - " + ConsoleColors.c('label', 'Factuality:'))
+            status = fr.get('status')
+            status_role = 'factuality_pass' if status == 'PASS' else ('factuality_fail' if status == 'FAIL' else 'factuality_uncertain')
+            print("    - " + ConsoleColors.c('label', 'Status: ') + ConsoleColors.c(status_role, f"{status}") +
+                  ConsoleColors.c('label', ', Confidence: ') + ConsoleColors.c('value', f"{fr.get('confidence', 0.0):.2f}"))
             verdict = (True if fr.get('status') == 'PASS' else (False if fr.get('status') == 'FAIL' else None))
-            print(f"    - Verdict: {verdict}")
+            print("    - " + ConsoleColors.c('label', 'Verdict: ') + ConsoleColors.c('value', f"{verdict}"))
+            if fr.get('reasoning'):
+                print("    - " + ConsoleColors.c('label', 'Reasoning: ') + ConsoleColors.c('value', f"{fr.get('reasoning')}"))
             if fr.get("external_facts"):
-                print(f"    - External Facts: {fr['external_facts'][:2]}")
+                print("    - " + ConsoleColors.c('label', 'External Facts: ') + ConsoleColors.c('value', f"{fr['external_facts'][:2]}"))
+            elif fr.get("evidence"):
+                print("    - " + ConsoleColors.c('label', 'Evidence: ') + ConsoleColors.c('value', f"{fr['evidence'][:2]}"))
             if fr.get("contradictions"):
-                print(f"    - Contradictions: {fr['contradictions'][:2]}")
+                print("    - " + ConsoleColors.c('label', 'Contradictions: ') + ConsoleColors.c('value', f"{fr['contradictions'][:2]}"))
             if fr.get("sources"):
-                print(f"    - Sources: {fr['sources'][:3]}")
+                print("    - " + ConsoleColors.c('label', 'Sources: ') + ConsoleColors.c('value', f"{fr['sources'][:3]}"))
 
     # Summary metrics (also logged above)
     if getattr(pipeline, "_last_factuality_results", None):
@@ -394,5 +760,19 @@ if __name__ == '__main__':
         fail_n = sum(1 for r in frs.values() if r.get("status") == "FAIL")
         uncertain_n = sum(1 for r in frs.values() if r.get("status") == "UNCERTAIN")
         avg_conf = sum(r.get("confidence", 0.0) for r in frs.values()) / max(total, 1)
-        print("\n--- Factuality Summary ---")
-        print(f"Total checked: {total} | PASS: {pass_n} | FAIL: {fail_n} | UNCERTAIN: {uncertain_n} | Avg conf: {avg_conf:.2f}")
+        print("\n" + ConsoleColors.c('summary', '--- Factuality Summary ---'))
+        print(ConsoleColors.c('label', 'Total checked: ') + ConsoleColors.c('value', f"{total}") +
+              ConsoleColors.c('label', ' | PASS: ') + ConsoleColors.c('factuality_pass', f"{pass_n}") +
+              ConsoleColors.c('label', ' | FAIL: ') + ConsoleColors.c('factuality_fail', f"{fail_n}") +
+              ConsoleColors.c('label', ' | UNCERTAIN: ') + ConsoleColors.c('factuality_uncertain', f"{uncertain_n}") +
+              ConsoleColors.c('label', ' | Avg conf: ') + ConsoleColors.c('value', f"{avg_conf:.2f}"))
+    # Socratic QG Summary
+    if getattr(pipeline, "_qg_stats", None):
+        q_total = int(pipeline._qg_stats.get("total", 0))
+        q_fallback = int(pipeline._qg_stats.get("fallback", 0))
+        if q_total > 0:
+            fb_rate = (q_fallback / q_total) * 100.0
+            print("\n" + ConsoleColors.c('summary', '--- Socratic Question Generation Summary ---'))
+            print(ConsoleColors.c('label', 'Total questions: ') + ConsoleColors.c('value', f"{q_total}") +
+                  ConsoleColors.c('label', ' | Fallback used: ') + ConsoleColors.c('value', f"{q_fallback}") +
+                  ConsoleColors.c('label', ' (') + ConsoleColors.c('value', f"{fb_rate:.1f}") + ConsoleColors.c('label', '%)'))

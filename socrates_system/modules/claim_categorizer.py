@@ -20,13 +20,6 @@ logger = logging.getLogger(__name__)
 PROMPT_TEMPLATES_DIR = Path(__file__).parent / "prompt_templates"
 CLAIM_CATEGORIZATION_PROMPT = (PROMPT_TEMPLATES_DIR / "claim_categorisation.txt").read_text(encoding="utf-8")
 
-@dataclass
-class ClaimCategory:
-    """Represents a category assigned to a claim"""
-    name: str
-    confidence: float
-    justification: str
-
 class ClaimCategorizer:
     """
     Categorizes claims into one or more categories using LLM-based classification.
@@ -36,17 +29,19 @@ class ClaimCategorizer:
     identifying ambiguous claims based on the user's specific definition.
     """
     
-    def __init__(self, llm_manager: LLMManager):
+    def __init__(self, llm_manager: Optional[LLMManager]):
         """Initialize the Claim Categorizer.
         
         Args:
             llm_manager: Required LLMManager instance for LLM-based categorization.
         """
+        # Allow None: fall back to rule-based categorization when LLM is not available
         if not llm_manager:
-            raise ValueError("LLMManager is required for LLM-based categorization")
-            
-        self.llm_manager = llm_manager
-        logger.info("LLM-based Claim Categorizer initialized")
+            self.llm_manager = None
+            logger.warning("LLMManager not provided; ClaimCategorizer will use rule-based fallback.")
+        else:
+            self.llm_manager = llm_manager
+            logger.info("LLM-based Claim Categorizer initialized")
     
     def _format_categories_for_prompt(self) -> str:
         """Format the category information for the prompt template."""
@@ -72,6 +67,11 @@ class ClaimCategorizer:
             )]
             return claim
             
+        if self.llm_manager is None:
+            # Use simple rules when no LLM
+            claim.categories = self._categorize_with_rules(claim)
+            return claim
+        
         try:
             # Use LLM-based categorization - it will handle all validation and conversion
             llm_categories = self._categorize_with_llm(claim)
@@ -184,7 +184,8 @@ class ClaimCategorizer:
                 
         except Exception as e:
             logger.error(f"LLM categorization failed: {e}", exc_info=True)
-            raise  # Re-raise to be handled by the callerClaimCategory(name=[ClaimCategoryType.FACTUAL], confidence=0.5, justification="Default fallback")]
+            # Re-raise to be handled by the caller
+            raise
     
     def _categorize_with_rules(self, claim: ExtractedClaim) -> List[ClaimCategory]:
         """Simple rule-based fallback for MLLM hallucination detection categories"""
@@ -204,25 +205,15 @@ class ClaimCategorizer:
             )]
         
         # Check for external knowledge indicators
-        knowledge_indicators = ['born', 'died', 'invented', 'discovered', 'capital', 'president', 'founded',
-                              'temperature', 'speed', 'distance', 'weight', 'height', 'population']
-        if any(indicator in text for indicator in knowledge_indicators):
+        knowledge_indicators = ['was', 'were', 'is', 'are', 'has', 'have', 'in', 'on', 'at', 'during', 'between']
+        if any(ind in text for ind in knowledge_indicators) or re.search(r"\b\d{3,4}\b", text):
             return [ClaimCategory(
                 name=ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED,
-                confidence=0.6,
-                justification="Contains external knowledge indicators (rule-based fallback)"
+                confidence=0.55,
+                justification="Contains factual assertions likely requiring external knowledge (rule-based)"
             )]
         
-        # Check for ambiguous indicators
-        ambiguous_indicators = ['it', 'this', 'that', 'they', 'he', 'she', 'thing', 'one', 'over there']
-        if any(indicator in text.split() for indicator in ambiguous_indicators):
-            return [ClaimCategory(
-                name=ClaimCategoryType.AMBIGUOUS_RESOLUTION_REQUIRED,
-                confidence=0.7,
-                justification="Contains ambiguous references (rule-based fallback)"
-            )]
-        
-        # Check for opinion indicators
+        # Default to self-consistency
         opinion_indicators = ['beautiful', 'ugly', 'good', 'bad', 'better', 'worse', 'prefer', 'like', 'dislike',
                             'think', 'believe', 'opinion', 'seems', 'appears to be']
         if any(indicator in text for indicator in opinion_indicators):
@@ -250,4 +241,4 @@ class ClaimCategorizer:
 
     def get_category_descriptions(self) -> Dict[str, str]:
         """Get descriptions of all available categories"""
-        return self.CATEGORIES.copy()
+        return {cat.name: cat.value for cat in ClaimCategoryType}

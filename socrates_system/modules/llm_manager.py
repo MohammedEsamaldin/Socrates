@@ -30,6 +30,7 @@ class LLMTaskType(Enum):
     RELATIONSHIP_EXTRACTION = "relationship_extraction"
     KNOWLEDGE_INTEGRATION = "knowledge_integration"
     FAITHFULNESS_ASSESSMENT = "faithfulness_assessment"
+    CONTRADICTION_DETECTION = "contradiction_detection"
 
 @dataclass
 class LLMRequest:
@@ -59,7 +60,7 @@ class LLMManager:
     """
     
     def __init__(self, 
-                 model_name: str = "llama3.1:8b",
+                 model_name: str =  "llama3.1:8b", #"gpt-oss:20b",
                  base_url: str = "http://localhost:11434",
                  max_concurrent: int = 3):
         """
@@ -84,7 +85,7 @@ class LLMManager:
         
         logger.info(f"LLMManager initialized with model: {model_name}")
 
-    def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.7, system_prompt: str = None) -> str:
+    def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.2, system_prompt: str = None) -> str:
         """Synchronous wrapper for generating text. For easy integration with non-async code."""
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -263,6 +264,36 @@ Assess the faithfulness of the correction. Provide:
 5. Correction quality evaluation
 
 Response format: JSON with 'faithfulness_score', 'accuracy_assessment', 'evidence_consistency', 'errors_identified', 'correction_quality', 'reasoning'."""
+            }
+            ,
+            LLMTaskType.CONTRADICTION_DETECTION: {
+                "system": """You are a strict self-contradiction detection engine.
+Your job: given a current claim and a list of previously asserted claims from the same session, determine whether the current claim contradicts any of them.
+
+Rules:
+- Output STRICT JSON ONLY. No prose, no code fences, no extra text.
+- Consider paraphrases and negations. Prefer high precision: only flag true contradictions.
+- Types may include: negation, entity_conflict, numeric_mismatch, temporal_conflict, causal_conflict, other.
+- If there are no contradictions, set status to "PASS" and return an empty contradictions array.
+- Confidence is 0.0-1.0.
+
+Required JSON schema:
+{
+  "status": "PASS" | "FAIL",
+  "confidence": float,
+  "contradictions": [
+    {"against": string, "type": string, "explanation": string, "severity": float}
+  ],
+  "conflicting_claims": [string],
+  "evidence": [string]
+}
+""",
+                "template": """Current Claim: "{claim}"
+Existing Claims: {existing_claims}
+Context: {context}
+
+Respond ONLY with the JSON object matching the required schema. If Existing Claims is empty, return status "PASS" with confidence >= 0.9.
+"""
             }
         }
     
@@ -472,6 +503,30 @@ Response format: JSON with 'faithfulness_score', 'accuracy_assessment', 'evidenc
             }
         )
         return await self.process_request(request)
+    
+    async def detect_contradictions(self, claim: str, existing_claims: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+        """Detect contradictions between a claim and existing session claims (async)."""
+        request = LLMRequest(
+            task_type=LLMTaskType.CONTRADICTION_DETECTION,
+            prompt="",
+            context={
+                "claim": claim,
+                "existing_claims": json.dumps(existing_claims),
+                "context": json.dumps(context or {})
+            }
+        )
+        return await self.process_request(request)
+    
+    def detect_contradictions_sync(self, claim: str, existing_claims: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+        """Synchronous wrapper for contradiction detection (for non-async callers)."""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(
+                self.detect_contradictions(claim, existing_claims, context)
+            )
+        finally:
+            loop.close()
     
     def shutdown(self):
         """Shutdown the LLM manager"""

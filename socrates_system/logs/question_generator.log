@@ -1,0 +1,11 @@
+2025-08-17 04:03:30,187 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:06:19,575 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:06:41,887 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:10:53,216 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:11:29,500 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:14:49,050 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:29:12,328 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:29:28,123 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:31:17,428 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:33:00,181 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure
+2025-08-17 04:55:39,208 - socrates_system.modules.question_generator - ERROR - LLM generation failed for category EXTERNAL_KNOWLEDGE_REQUIRED: LLM failure

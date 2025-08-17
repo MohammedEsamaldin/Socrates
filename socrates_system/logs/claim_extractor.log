@@ -5404,3 +5404,1132 @@ Note: The input text is quite short and doesn't contain any specific factual inf
 2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The color of my car is blue' -> 'Today I took my first car in a ride and it blue color was shiny'
 2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
 2025-08-16 04:55:25,212 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-16 16:26:27,020 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 16:26:29,809 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 16:26:29,827 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text:  today is the birthday of Trump...
+2025-08-16 16:26:29,852 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x157a2c2d0>: Failed to establish a new connection: [Errno 61] Connection refused')), falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x157a2c2d0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x157a2c2d0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 167, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 92, in generate_text
+    response = loop.run_until_complete(
+        self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 348, in _call_ollama
+    response = await loop.run_in_executor(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 350, in <lambda>
+    lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x157a2c2d0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-08-16 16:26:29,861 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 16:27:49,270 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 16:27:52,033 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 16:27:52,043 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text:  today is the birthday of Trump...
+2025-08-16 16:27:52,066 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1544ec190>: Failed to establish a new connection: [Errno 61] Connection refused')), falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x1544ec190>: Failed to establish a new connection: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1544ec190>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 167, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 92, in generate_text
+    response = loop.run_until_complete(
+        self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 348, in _call_ollama
+    response = await loop.run_in_executor(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 350, in <lambda>
+    lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1544ec190>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-08-16 16:27:52,074 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 16:36:37,131 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 16:36:39,815 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 16:36:39,847 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text:  today is the birthday of Trump...
+2025-08-16 16:39:40,216 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180), falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connection.py", line 565, in getresponse
+    httplib_response = super().getresponse()
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/util/util.py", line 39, in reraise
+    raise value
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/urllib3/connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 167, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 92, in generate_text
+    response = loop.run_until_complete(
+        self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 348, in _call_ollama
+    response = await loop.run_in_executor(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 350, in <lambda>
+    lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/socrates_env/lib/python3.13/site-packages/requests/adapters.py", line 532, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)
+2025-08-16 16:39:40,570 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-16 16:40:42,011 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 16:40:44,739 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 16:40:44,758 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text:  today is the birthday of Trump...
+2025-08-16 16:40:58,149 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "today is the birthday of Trump",
+      "confidence": 0.5,
+      "ambiguity_reason": "unclear reference to 'Trump'",
+      "entities": [],
+      "source_context": "Input Text: today is the birthday of Trump"
+    }
+  ]
+}'
+2025-08-16 16:40:58,433 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'today is the birthday of Trump' -> ' today is the birthday of Trump'
+2025-08-16 16:40:58,434 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 16:40:58,434 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-16 22:59:22,271 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-16 22:59:25,286 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-16 22:59:25,352 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text:  today is the birthday of Trump...
+2025-08-16 22:59:44,495 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "Trump's birthday is today.",
+      "confidence": 0.95,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": null
+    }
+  ]
+}
+```'
+2025-08-16 22:59:45,389 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Trump's birthday is today' -> ' today is the birthday of Trump'
+2025-08-16 22:59:45,389 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-16 22:59:45,389 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 02:08:37,615 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 02:08:40,410 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 02:08:40,420 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the red car in the image is faster than blue car...
+2025-08-17 02:08:55,014 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The red car is faster than the blue car.",
+      "confidence": "Medium",
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": ""
+    }
+  ]
+}
+```'
+2025-08-17 02:08:55,945 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.95): 'The red car is faster than the blue car' -> 'the red car in the image is faster than blue car'
+2025-08-17 02:08:55,946 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 02:08:55,946 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 02:34:37,962 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 02:34:40,766 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 02:34:40,778 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image there is a red stop sign next to a cafe. Also, Big Ben...
+2025-08-17 02:35:11,303 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "There is a red stop sign in the image.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "red",
+          "label": "COLOR"
+        },
+        {
+          "text": "stop sign",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "A cafe is next to the red stop sign.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "cafe",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "Big Ben is present in the scene.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "The stop sign is next to the cafe.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "stop sign",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "RELATIONAL_CLAIMS"
+    },
+    {
+      "claim_text": "The location of Big Ben is not clear.",
+      "confidence": 0.7,
+      "ambiguity_reason": "Unclear reference to location",
+      "type_hint": "CONTEXTUAL_CLAIMS"
+    }
+  ]
+}
+```'
+2025-08-17 02:35:12,165 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.92): 'There is a red stop sign in the image' -> 'In this image there is a red stop sign next to a cafe.'
+2025-08-17 02:35:12,166 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'A cafe is next to the red stop sign' -> 'In this image there is a red stop sign next to a cafe.'
+2025-08-17 02:35:12,167 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.78): 'Big Ben is present in the scene' -> 'Also, Big Ben'
+2025-08-17 02:35:12,168 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The stop sign is next to the cafe' -> 'In this image there is a red stop sign next to a cafe.'
+2025-08-17 02:35:12,169 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'The location of Big Ben is not clear' -> 'Also, Big Ben'
+2025-08-17 02:35:12,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 5 claims using LLM.
+2025-08-17 02:35:12,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 5 claims
+2025-08-17 02:37:48,934 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 02:37:51,550 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 02:37:51,559 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image there is a red stop sign next to a cafe. Also, Big Ben...
+2025-08-17 02:38:06,066 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a red stop sign.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A cafe is present in the scene.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": [
+        "There is a red stop sign."
+      ]
+    },
+    {
+      "claim_text": "Big Ben is visible.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 02:38:06,809 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'There is a red stop sign' -> 'In this image there is a red stop sign next to a cafe.'
+2025-08-17 02:38:06,810 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'A cafe is present in the scene' -> 'In this image there is a red stop sign next to a cafe.'
+2025-08-17 02:38:06,811 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.75): 'Big Ben is visible' -> 'Also, Big Ben'
+2025-08-17 02:38:06,811 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-17 02:38:06,811 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 02:39:57,298 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 02:40:00,081 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 02:40:00,091 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the red car in the image is faster than the blue car...
+2025-08-17 02:40:10,805 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The red car is faster than the blue car.",
+      "source_context": "the red car in the image is faster than the blue car",
+      "confidence": "Medium",
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-17 02:40:11,975 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'The red car is faster than the blue car' -> 'the red car in the image is faster than the blue car'
+2025-08-17 02:40:11,975 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 02:40:11,975 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 02:43:18,137 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 02:43:20,763 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 02:43:20,770 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the policy will generate billions of dollors for the country. Big ben is in UK...
+2025-08-17 02:43:33,745 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The policy will generate billions of dollars for the country.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": ""
+    },
+    {
+      "claim_text": "Big Ben is in UK.",
+      "confidence": "Medium",
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": [
+        "the policy"
+      ],
+      "ambiguity_reason": ""
+    }
+  ]
+}'
+2025-08-17 02:43:34,485 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The policy will generate billions of dollars for the country' -> 'the policy will generate billions of dollors for the country.'
+2025-08-17 02:43:34,486 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in UK.' -> 'Big ben is in UK'
+2025-08-17 02:43:34,486 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 02:43:34,487 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 03:07:10,517 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 03:07:13,126 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 03:07:13,141 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany.
+...
+2025-08-17 03:07:32,530 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The image shows a person standing in front of Big Ben.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "source_context": "in this image I was standing in front of a London Big Ben tower",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is located in Germany.",
+      "confidence": 0.5,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "source_context": "in this image I was standing in front of a London Big Ben tower, which is in Germany.",
+      "ambiguity_reason": "Geographic location ambiguity: 'London' and 'Germany'",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 03:07:33,367 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'The image shows a person standing in front of Big Ben' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.
+'
+2025-08-17 03:07:33,368 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'Big Ben is located in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.
+'
+2025-08-17 03:07:33,368 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 03:07:33,368 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 03:47:35,565 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 03:47:38,488 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 03:47:38,501 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the policy will generate billions of dollors for the country. Big ben is in UK...
+2025-08-17 03:47:57,895 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The policy will generate billions of dollars for the country.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is in the UK.",
+      "confidence": 0.7,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "PROPER_NOUN"
+        },
+        {
+          "text": "UK",
+          "label": "PROPER_NOUN"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 03:47:58,800 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The policy will generate billions of dollars for the country' -> 'the policy will generate billions of dollors for the country.'
+2025-08-17 03:47:58,801 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Big Ben is in the UK.' -> 'Big ben is in UK'
+2025-08-17 03:47:58,802 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Big Ben}' not found verbatim in source sentence: '{Big ben is in UK}'. Skipping entity.
+2025-08-17 03:47:58,802 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 03:47:58,802 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 04:03:23,909 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:03:26,529 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:03:26,600 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:03:28,380 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:03:28,392 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:03:30,175 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:03,186 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:03,187 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2025-08-17 04:06:16,922 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:16,947 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:16,948 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2025-08-17 04:06:18,200 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:18,212 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:18,212 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2025-08-17 04:06:19,563 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:32,887 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:38,253 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:38,267 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:40,059 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:06:40,072 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:06:41,873 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:10:43,645 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:10:49,486 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:10:49,497 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:10:51,390 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:10:51,391 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:10:53,215 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:20,924 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:11:26,014 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:26,025 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:11:27,774 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:27,775 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:11:29,498 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:46,506 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:11:46,507 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:11:56,714 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:56,714 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:11:56,715 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:11:57,766 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:11:57,767 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by ...
+2025-08-17 04:11:57,768 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Mona Lisa was painted by Leonardo da Vinci.", "confidence": 0.99, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Leonardo da Vinci", "label": "PERSON"}]}, {"claim_text": "The Mona Lisa was painted between 1503 and 1506.", "confidence": 0.95, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "1503", "label": "DATE"}, {"text": "1506", "label": "DATE"}]}, {"claim_text": "The Mona Lisa is housed at the Louvre Museum in Paris.", "confidence": 0.98, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Louvre Museum", "label": "ORG"}, {"text": "Paris", "label": "GPE"}]}, {"claim_text": "The Louvre Museum opened in 1793.", "confidence": 0.92, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "1793", "label": "DATE"}]}, {"claim_text": "The Louvre Museum displays the Venus de Milo.", "confidence": 0.9, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "Venus de Milo", "label": "WORK_OF_ART"}]}, {"claim_text": "The Mona Lisa is valued at over $860 million.", "confidence": 0.85, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "$860 million", "label": "MONEY"}]}]}
+```'
+2025-08-17 04:12:01,399 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'The Mona Lisa was painted by Leonardo da Vinci' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:12:01,399 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: name 'text' is not defined, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 190, in _extract_claims_with_llm
+    claims = self._parse_llm_response(llm_response_str, doc)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 391, in _parse_llm_response
+    source_text=getattr(doc, "text", text),
+                                     ^^^^
+NameError: name 'text' is not defined. Did you mean: 'next'?
+2025-08-17 04:12:01,401 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 04:12:01,402 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:12:01,402 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:12:02,700 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:12:02,702 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower was completed in 1889....
+2025-08-17 04:12:02,702 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Eiffel Tower was completed in 1889.", "confidence": 0.98, "entities": [{"text": "The Eiffel Tower", "label": "FAC", "start_char": 0, "end_char": 16}, {"text": "1889", "label": "DATE", "start_char": 32, "end_char": 36}], "relationships": [{"subject": "The Eiffel Tower", "relation": "was completed in", "object": "1889"}]}]}
+```'
+2025-08-17 04:12:04,526 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1889' -> 'The Eiffel Tower was completed in 1889.'
+2025-08-17 04:12:04,526 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: name 'text' is not defined, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 190, in _extract_claims_with_llm
+    claims = self._parse_llm_response(llm_response_str, doc)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 391, in _parse_llm_response
+    source_text=getattr(doc, "text", text),
+                                     ^^^^
+NameError: name 'text' is not defined. Did you mean: 'next'?
+2025-08-17 04:12:04,527 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 04:12:04,527 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:12:04,527 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:12:05,611 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:12:05,611 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower, located in Paris, is 330 meters tall. It was completed in 1889. Its height is grea...
+2025-08-17 04:12:05,611 - socrates_system.modules.claim_extractor - INFO - LLM not available, using rule-based extraction
+2025-08-17 04:12:05,611 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 04:14:39,135 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:14:45,417 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:14:45,424 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:14:47,296 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:14:47,298 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:14:49,048 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:28:56,363 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:28:56,363 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:29:07,688 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:07,688 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:07,689 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:29:08,753 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:08,754 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by ...
+2025-08-17 04:29:08,754 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Mona Lisa was painted by Leonardo da Vinci.", "confidence": 0.99, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Leonardo da Vinci", "label": "PERSON"}]}, {"claim_text": "The Mona Lisa was painted between 1503 and 1506.", "confidence": 0.95, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "1503", "label": "DATE"}, {"text": "1506", "label": "DATE"}]}, {"claim_text": "The Mona Lisa is housed at the Louvre Museum in Paris.", "confidence": 0.98, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Louvre Museum", "label": "ORG"}, {"text": "Paris", "label": "GPE"}]}, {"claim_text": "The Louvre Museum opened in 1793.", "confidence": 0.92, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "1793", "label": "DATE"}]}, {"claim_text": "The Louvre Museum displays the Venus de Milo.", "confidence": 0.9, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "Venus de Milo", "label": "WORK_OF_ART"}]}, {"claim_text": "The Mona Lisa is valued at over $860 million.", "confidence": 0.85, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "$860 million", "label": "MONEY"}]}]}
+```'
+2025-08-17 04:29:09,393 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'The Mona Lisa was painted by Leonardo da Vinci' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:29:09,394 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'The Mona Lisa was painted between 1503 and 1506' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:29:09,395 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is housed at the Louvre Museum in Paris' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:29:09,395 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:29:09,396 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'The Louvre Museum opened in 1793' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:29:09,396 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{1793}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:29:09,396 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'The Louvre Museum displays the Venus de Milo' -> 'The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.'
+2025-08-17 04:29:09,396 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Louvre Museum}' not found verbatim in source sentence: '{The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.}'. Skipping entity.
+2025-08-17 04:29:09,397 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is valued at over $860 million' -> 'Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.'
+2025-08-17 04:29:09,397 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.}'. Skipping entity.
+2025-08-17 04:29:09,397 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims using LLM.
+2025-08-17 04:29:09,397 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims
+2025-08-17 04:29:09,398 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:09,398 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:29:10,963 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:10,963 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower was completed in 1889....
+2025-08-17 04:29:10,964 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Eiffel Tower was completed in 1889.", "confidence": 0.98, "entities": [{"text": "The Eiffel Tower", "label": "FAC", "start_char": 0, "end_char": 16}, {"text": "1889", "label": "DATE", "start_char": 32, "end_char": 36}], "relationships": [{"subject": "The Eiffel Tower", "relation": "was completed in", "object": "1889"}]}]}
+```'
+2025-08-17 04:29:11,197 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:11,256 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1889' -> 'The Eiffel Tower was completed in 1889.'
+2025-08-17 04:29:11,256 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 04:29:11,256 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 04:29:11,257 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:11,257 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:29:12,326 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:12,326 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower, located in Paris, is 330 meters tall. It was completed in 1889. Its height is grea...
+2025-08-17 04:29:12,326 - socrates_system.modules.claim_extractor - INFO - LLM not available, using rule-based extraction
+2025-08-17 04:29:12,326 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 04:29:16,981 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:16,981 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:18,677 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:18,677 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by ...
+2025-08-17 04:29:18,713 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Mona Lisa was painted by Leonardo da Vinci.", "confidence": 0.99, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Leonardo da Vinci", "label": "PERSON"}]}, {"claim_text": "The Mona Lisa was painted between 1503 and 1506.", "confidence": 0.95, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "1503", "label": "DATE"}, {"text": "1506", "label": "DATE"}]}, {"claim_text": "The Mona Lisa is housed at the Louvre Museum in Paris.", "confidence": 0.98, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Louvre Museum", "label": "ORG"}, {"text": "Paris", "label": "GPE"}]}, {"claim_text": "The Louvre Museum opened in 1793.", "confidence": 0.92, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "1793", "label": "DATE"}]}, {"claim_text": "The Louvre Museum displays the Venus de Milo.", "confidence": 0.9, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "Venus de Milo", "label": "WORK_OF_ART"}]}, {"claim_text": "The Mona Lisa is valued at over $860 million.", "confidence": 0.85, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "$860 million", "label": "MONEY"}]}]}
+```'
+2025-08-17 04:29:19,085 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'The Mona Lisa was painted by Leonardo da Vinci' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:29:19,086 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'The Mona Lisa was painted between 1503 and 1506' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:29:19,087 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is housed at the Louvre Museum in Paris' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:29:19,087 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:29:19,088 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'The Louvre Museum opened in 1793' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:29:19,088 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{1793}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:29:19,089 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'The Louvre Museum displays the Venus de Milo' -> 'The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.'
+2025-08-17 04:29:19,089 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Louvre Museum}' not found verbatim in source sentence: '{The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.}'. Skipping entity.
+2025-08-17 04:29:19,091 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is valued at over $860 million' -> 'Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.'
+2025-08-17 04:29:19,092 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.}'. Skipping entity.
+2025-08-17 04:29:19,092 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims using LLM.
+2025-08-17 04:29:19,092 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims
+2025-08-17 04:29:19,094 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:20,961 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:20,961 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower was completed in 1889....
+2025-08-17 04:29:20,968 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Eiffel Tower was completed in 1889.", "confidence": 0.98, "entities": [{"text": "The Eiffel Tower", "label": "FAC", "start_char": 0, "end_char": 16}, {"text": "1889", "label": "DATE", "start_char": 32, "end_char": 36}], "relationships": [{"subject": "The Eiffel Tower", "relation": "was completed in", "object": "1889"}]}]}
+```'
+2025-08-17 04:29:21,171 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1889' -> 'The Eiffel Tower was completed in 1889.'
+2025-08-17 04:29:21,171 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 04:29:21,171 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 04:29:21,173 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:23,070 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:23,072 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower, located in Paris, is 330 meters tall. It was completed in 1889. Its height is grea...
+2025-08-17 04:29:23,100 - socrates_system.modules.claim_extractor - INFO - LLM not available, using rule-based extraction
+2025-08-17 04:29:23,100 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 04:29:23,103 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:24,797 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:24,799 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:26,409 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:29:26,411 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:29:28,121 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:30:59,147 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:30:59,147 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:10,047 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:10,050 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:10,051 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:11,147 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:11,147 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by ...
+2025-08-17 04:31:11,148 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Mona Lisa was painted by Leonardo da Vinci.", "confidence": 0.99, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Leonardo da Vinci", "label": "PERSON"}]}, {"claim_text": "The Mona Lisa was painted between 1503 and 1506.", "confidence": 0.95, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "1503", "label": "DATE"}, {"text": "1506", "label": "DATE"}]}, {"claim_text": "The Mona Lisa is housed at the Louvre Museum in Paris.", "confidence": 0.98, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "Louvre Museum", "label": "ORG"}, {"text": "Paris", "label": "GPE"}]}, {"claim_text": "The Louvre Museum opened in 1793.", "confidence": 0.92, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "1793", "label": "DATE"}]}, {"claim_text": "The Louvre Museum displays the Venus de Milo.", "confidence": 0.9, "entities": [{"text": "Louvre Museum", "label": "ORG"}, {"text": "Venus de Milo", "label": "WORK_OF_ART"}]}, {"claim_text": "The Mona Lisa is valued at over $860 million.", "confidence": 0.85, "entities": [{"text": "Mona Lisa", "label": "WORK_OF_ART"}, {"text": "$860 million", "label": "MONEY"}]}]}
+```'
+2025-08-17 04:31:11,658 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'The Mona Lisa was painted by Leonardo da Vinci' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:31:11,659 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'The Mona Lisa was painted between 1503 and 1506' -> 'While many consider the Mona Lisa to be the most beautiful painting ever created, it was painted by Leonardo da Vinci between 1503 and 1506.'
+2025-08-17 04:31:11,659 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is housed at the Louvre Museum in Paris' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:31:11,659 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:31:11,660 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.62): 'The Louvre Museum opened in 1793' -> 'Isn't it amazing that it's housed at the Louvre Museum in Paris?'
+2025-08-17 04:31:11,660 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{1793}' not found verbatim in source sentence: '{Isn't it amazing that it's housed at the Louvre Museum in Paris?}'. Skipping entity.
+2025-08-17 04:31:11,661 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'The Louvre Museum displays the Venus de Milo' -> 'The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.'
+2025-08-17 04:31:11,661 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Louvre Museum}' not found verbatim in source sentence: '{The museum, which opened in 1793, also displays the Venus de Milo, but the Mona Lisa's enigmatic smile is surely its most famous feature.}'. Skipping entity.
+2025-08-17 04:31:11,662 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'The Mona Lisa is valued at over $860 million' -> 'Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.'
+2025-08-17 04:31:11,662 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Mona Lisa}' not found verbatim in source sentence: '{Some reports suggest the painting is valued at over $860 million, a figure that seems almost unbelievable for a single artwork.}'. Skipping entity.
+2025-08-17 04:31:11,662 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims using LLM.
+2025-08-17 04:31:11,662 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 6 claims
+2025-08-17 04:31:11,663 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:11,663 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:12,733 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:12,734 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower was completed in 1889....
+2025-08-17 04:31:12,734 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{"claims": [{"claim_text": "The Eiffel Tower was completed in 1889.", "confidence": 0.98, "entities": [{"text": "The Eiffel Tower", "label": "FAC", "start_char": 0, "end_char": 16}, {"text": "1889", "label": "DATE", "start_char": 32, "end_char": 36}], "relationships": [{"subject": "The Eiffel Tower", "relation": "was completed in", "object": "1889"}]}]}
+```'
+2025-08-17 04:31:13,049 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1889' -> 'The Eiffel Tower was completed in 1889.'
+2025-08-17 04:31:13,049 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 04:31:13,049 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 04:31:13,049 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:13,050 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:14,249 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:14,249 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower, located in Paris, is 330 meters tall. It was completed in 1889. Its height is grea...
+2025-08-17 04:31:14,249 - socrates_system.modules.claim_extractor - INFO - LLM not available, using rule-based extraction
+2025-08-17 04:31:14,249 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-17 04:31:14,251 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:14,252 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:15,337 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:15,339 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:15,339 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:16,398 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:31:16,399 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:31:16,400 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:31:17,428 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:32:46,784 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:32:46,784 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:32:57,832 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:32:57,834 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:32:57,835 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:32:58,903 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:32:58,904 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:32:58,904 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:33:00,181 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:36:31,546 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:36:39,229 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:42:36,767 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:42:39,043 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:42:49,751 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:42:49,768 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the policy will generate billions of dollors for the country. Big ben is in UK...
+2025-08-17 04:43:28,470 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The policy will generate billions of dollars for the country.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is in UK.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "LOCATION"
+        },
+        {
+          "text": "UK",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 04:43:32,853 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The policy will generate billions of dollars for the country' -> 'the policy will generate billions of dollors for the country.'
+2025-08-17 04:43:32,854 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in UK.' -> 'Big ben is in UK'
+2025-08-17 04:43:32,854 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Big Ben}' not found verbatim in source sentence: '{Big ben is in UK}'. Skipping entity.
+2025-08-17 04:43:32,855 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 04:43:32,855 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 04:45:47,811 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:45:55,252 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:45:55,258 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the policy will generate billions of dollors for the country. Big ben is in UK...
+2025-08-17 04:46:08,998 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The policy will generate billions of dollars",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is in the UK",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 04:46:10,030 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'The policy will generate billions of dollars' -> 'the policy will generate billions of dollors for the country.'
+2025-08-17 04:46:10,031 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in the UK' -> 'Big ben is in UK'
+2025-08-17 04:46:10,031 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{Big Ben}' not found verbatim in source sentence: '{Big ben is in UK}'. Skipping entity.
+2025-08-17 04:46:10,032 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 04:46:10,032 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 04:55:26,498 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:55:26,498 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:55:37,111 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:55:37,113 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:55:37,114 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:55:38,175 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:55:38,176 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:55:38,176 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_sm' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-17 04:55:39,207 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:57:53,514 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 04:58:00,870 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 04:58:00,878 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: the policy will generate billions of dollors for the country. Big ben is in UK...
+2025-08-17 04:58:19,428 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The policy will generate billions of dollars for the country.",
+      "confidence": 0.9,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": ""
+    },
+    {
+      "claim_text": "Big Ben is in UK.",
+      "confidence": 0.95,
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": [
+        {
+          "text": "UK",
+          "label": "LOC"
+        }
+      ],
+      "ambiguity_reason": ""
+    }
+  ]
+}
+```'
+2025-08-17 04:58:20,199 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The policy will generate billions of dollars for the country' -> 'the policy will generate billions of dollors for the country.'
+2025-08-17 04:58:20,200 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in UK.' -> 'Big ben is in UK'
+2025-08-17 04:58:20,200 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-17 04:58:20,200 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-17 16:09:31,529 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 16:09:40,169 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 16:09:40,171 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: They won the championship last year....
+2025-08-17 16:09:54,063 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "They won the championship last year.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 16:09:54,735 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'They won the championship last year' -> 'They won the championship last year.'
+2025-08-17 16:09:54,735 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 16:09:54,735 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 16:10:30,314 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 16:10:37,222 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 16:10:37,223 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: He did it....
+2025-08-17 16:10:45,702 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "He did it.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Unclear subject and action"
+    }
+  ]
+}'
+2025-08-17 16:10:46,065 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'He did it' -> 'He did it.'
+2025-08-17 16:10:46,065 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 16:10:46,065 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 16:27:29,605 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 16:27:36,751 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 16:27:36,752 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: He did it....
+2025-08-17 16:27:58,350 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "He did it.",
+      "confidence": "Low",
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    }
+  ]
+}
+```
+
+**Rationale:**
+
+1. The input text is a simple statement, and the primary objective is to extract atomic, verifiable claims.
+2. The claim "He did it." is a direct factual statement but lacks specificity (e.g., what was done). However, considering the extraction principles, we prioritize extracting all relevant items and maintain referential clarity.
+3. Since there are no specific details or context provided in the input text, the extracted claim has a low confidence level ("Low").
+4. As per the rules, we set the `type_hint` to "EXPLICIT_FACTUAL_CLAIMS" based on the nature of the statement.
+
+Note that this output could be further improved by adding more context or refining the claims extraction process. However, given the simplicity and lack of specific details in the input text, the above JSON object represents a basic extraction attempt according to the provided guidelines.'
+2025-08-17 16:27:59,001 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'He did it' -> 'He did it.'
+2025-08-17 16:27:59,002 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 16:27:59,002 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 16:33:09,018 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 16:33:15,721 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 16:33:15,722 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: He did it....
+2025-08-17 16:33:25,887 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "He did it.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": null
+    }
+  ]
+}'
+2025-08-17 16:33:26,475 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'He did it' -> 'He did it.'
+2025-08-17 16:33:26,476 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 16:33:26,476 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 16:35:25,513 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 16:35:33,125 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 16:35:33,126 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: He did it....
+2025-08-17 16:35:41,710 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "He did it.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Unclear subject"
+    }
+  ]
+}'
+2025-08-17 16:35:42,105 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'He did it' -> 'He did it.'
+2025-08-17 16:35:42,106 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-17 16:35:42,106 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-17 18:10:02,569 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 18:10:05,202 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 18:10:07,149 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sit...
+2025-08-17 18:10:53,327 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "A red double-decker bus is passing by Big Ben under a cloudy sky.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "red double-decker bus",
+          "label": "EVENT"
+        },
+        {
+          "text": "Big Ben",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "A small dog sits to the left of the bus.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "small dog",
+          "label": "EVENT"
+        },
+        {
+          "text": "the bus",
+          "label": "LOC"
+        }
+      ]
+    },
+    {
+      "claim_text": "The capital of France is Paris.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Paris",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "Alexander Fleming discovered penicillin in 1928.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Alexander Fleming",
+          "label": "PERSON"
+        }
+      ]
+    },
+    {
+      "claim_text": "Water boils at 100°C at sea level.",
+      "confidence": 0.98
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.8,
+      "ambiguity_reason": "Possible confusion with London"
+    },
+    {
+      "claim_text": "The Eiffel Tower was completed in 1990.",
+      "confidence": 0.9
+    },
+    {
+      "claim_text": "Atlantis is located in the Atlantic Ocean.",
+      "confidence": 0.7,
+      "ambiguity_reason": "Mythical location"
+    },
+    {
+      "claim_text": "It is the tallest one.",
+      "confidence": 0.6
+    },
+    {
+      "claim_text": "The painting is beautiful and deeply moving.",
+      "confidence": 0.5,
+      "type_hint": "CONTEXTUAL_CLAIMS"
+    },
+    {
+      "claim_text": "First, boil water and then add pasta, stirring for 10 minutes.",
+      "confidence": 0.9
+    },
+    {
+      "claim_text": "As previously stated, Paris remains the capital of France.",
+      "confidence": 0.8,
+      "dependencies": [
+        {
+          "text": "The capital of France is Paris.",
+          "label": "CLAIM"
+        }
+      ]
+    },
+    {
+      "claim_text": "The capital of France is Berlin.",
+      "confidence": 0.2
+    }
+  ]
+}
+```'
+2025-08-17 18:10:54,720 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'A red double-decker bus is passing by Big Ben under a cloudy sky' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 18:10:54,722 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'A small dog sits to the left of the bus' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 18:10:54,722 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Paris' -> 'The capital of France is Paris.'
+2025-08-17 18:10:54,723 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Alexander Fleming discovered penicillin in 1928' -> 'Alexander Fleming discovered penicillin in 1928.'
+2025-08-17 18:10:54,724 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'Water boils at 100°C at sea level' -> 'Water boils at 100°C at sea level.'
+2025-08-17 18:10:54,724 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in Germany' -> 'Big Ben is in Germany.'
+2025-08-17 18:10:54,725 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1990' -> 'The Eiffel Tower was completed in 1990.'
+2025-08-17 18:10:54,725 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Atlantis is located in the Atlantic Ocean' -> 'Atlantis is located in the Atlantic Ocean.'
+2025-08-17 18:10:54,726 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'It is the tallest one' -> 'It is the tallest one.'
+2025-08-17 18:10:54,727 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The painting is beautiful and deeply moving' -> 'The painting is beautiful and deeply moving.'
+2025-08-17 18:10:54,728 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'First, boil water and then add pasta, stirring for 10 minutes' -> 'First, boil water and then add pasta, stirring for 10 minutes.'
+2025-08-17 18:10:54,729 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'As previously stated, Paris remains the capital of France' -> 'As previously stated, Paris remains the capital of France.'
+2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Berlin' -> 'The capital of France is Berlin.'
+2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims using LLM.
+2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims

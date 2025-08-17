@@ -14,11 +14,11 @@ class TestClaimCategorizer(unittest.TestCase):
         
         # Set up the default mock response
         self.mock_response = {
-            'categories': ['NUMERICAL_QUANTITATIVE'],
+            'categories': ['EXTERNAL_KNOWLEDGE_REQUIRED'],
             'confidence': 0.9,
-            'justification': 'The claim contains numerical data (330 meters)'
+            'justification': 'Requires external knowledge to verify'
         }
-        self.mock_llm_manager.generate.return_value = json.dumps([self.mock_response])
+        self.mock_llm_manager.generate_text.return_value = json.dumps([self.mock_response])
         
     def _setup_mock_response(self, categories, confidence=0.9, justification="Test justification"):
         """Helper to set up a mock response with specific categories."""
@@ -42,7 +42,7 @@ class TestClaimCategorizer(unittest.TestCase):
         }
         
         # The LLM returns a JSON string with the category names as strings
-        self.mock_llm_manager.generate.return_value = json.dumps([{
+        self.mock_llm_manager.generate_text.return_value = json.dumps([{
             'categories': [cat.name for cat in category_enums],
             'confidence': confidence,
             'justification': justification
@@ -52,8 +52,8 @@ class TestClaimCategorizer(unittest.TestCase):
         """Test categorization of a claim with numerical data."""
         # Setup mock response for numerical data
         self._setup_mock_response(
-            categories=['NUMERICAL_QUANTITATIVE', 'FACTUAL'],
-            justification="The claim contains numerical data (330 meters)"
+            categories=['EXTERNAL_KNOWLEDGE_REQUIRED'],
+            justification="The claim contains numerical data (330 meters) requiring external knowledge"
         )
         
         claim = ExtractedClaim(
@@ -69,16 +69,16 @@ class TestClaimCategorizer(unittest.TestCase):
         self.assertIsNotNone(categorized_claim.categories)
         self.assertGreaterEqual(len(categorized_claim.categories), 1)
         
-        # Check that the categories include NUMERICAL_QUANTITATIVE
+        # Check that the categories include EXTERNAL_KNOWLEDGE_REQUIRED
         category_names = [cat.name[0] if isinstance(cat.name, list) else cat.name for cat in categorized_claim.categories]
-        self.assertIn(ClaimCategoryType.NUMERICAL_QUANTITATIVE, category_names)
+        self.assertIn(ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED, category_names)
 
     def test_temporal_categorization(self):
         """Test categorization of a temporal claim."""
         # Setup mock response for temporal data
         self._setup_mock_response(
-            categories=['TEMPORAL', 'FACTUAL'],
-            justification="The claim contains a specific year (2023)"
+            categories=['EXTERNAL_KNOWLEDGE_REQUIRED'],
+            justification="The claim contains a specific year (2023) requiring external knowledge"
         )
         
         claim = ExtractedClaim(
@@ -99,14 +99,13 @@ class TestClaimCategorizer(unittest.TestCase):
             else:
                 category_names.append(cat.name)
         
-        self.assertIn(ClaimCategoryType.TEMPORAL, category_names)
-        self.assertIn(ClaimCategoryType.FACTUAL, category_names)
+        self.assertIn(ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED, category_names)
         
     def test_ambiguous_claim_handling(self):
         """Test handling of ambiguous claims."""
         # Setup mock response for ambiguous claim
         self._setup_mock_response(
-            categories=['AMBIGUOUS_UNCLEAR'],
+            categories=['AMBIGUOUS_RESOLUTION_REQUIRED'],
             confidence=0.8,
             justification="The claim is too vague to categorize definitively"
         )
@@ -123,9 +122,9 @@ class TestClaimCategorizer(unittest.TestCase):
         self.assertIsNotNone(categorized_claim.categories)
         self.assertGreaterEqual(len(categorized_claim.categories), 1)
         
-        # Check that the categories include AMBIGUOUS_UNCLEAR
+        # Check that the categories include AMBIGUOUS_RESOLUTION_REQUIRED
         category_names = [cat.name[0] if isinstance(cat.name, list) else cat.name for cat in categorized_claim.categories]
-        self.assertIn(ClaimCategoryType.AMBIGUOUS_UNCLEAR, category_names)
+        self.assertIn(ClaimCategoryType.AMBIGUOUS_RESOLUTION_REQUIRED, category_names)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)

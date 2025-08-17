@@ -90,6 +90,8 @@ class ExtractedClaim:
     verification_route: Optional[VerificationRoute] = None
     context_window: Optional[str] = None
     ambiguity_reason: Optional[str] = None # e.g., "PRONOUN_REFERENCE", "VAGUE_DEMONSTRATIVE"
+    # Generated Socratic questions keyed by category (stored as plain dicts for portability)
+    socratic_questions: Dict[str, List[Dict[str, Any]]] = field(default_factory=dict)
     # External factuality outcome (populated when routed to EXTERNAL_SOURCE)
     factuality_status: Optional[str] = None  # PASS | FAIL | UNCERTAIN | ERROR
     factuality_confidence: float = 0.0

@@ -8,13 +8,14 @@ stage of the Socrates Agent pipeline, focusing on identifying check-worthy factu
 import json
 import re
 import logging
-import demjson3
+# demjson3 is optional; fall back to strict json if unavailable
+try:
+    import demjson3  # type: ignore
+except Exception:  # pragma: no cover
+    demjson3 = None  # type: ignore
 from typing import List, Dict, Any, Optional
 from dataclasses import asdict
-from sentence_transformers import SentenceTransformer, util
 from socrates_system.modules.shared_structures import ExtractedClaim, ExtractedEntity, ExtractedRelationship, ClaimCategory, VerificationRoute
-import spacy
-from spacy.tokens import Span
 from pathlib import Path
 
 from ..utils.logger import setup_logger
@@ -47,8 +48,15 @@ class ClaimExtractor:
         logger.info("Initializing Claim Extractor...")
 
         try:
-            # Load spaCy model for entity recognition and sentence splitting
-            self.nlp = spacy.load(ENTITY_MODEL_NAME)
+            # Attempt to load spaCy model for entity recognition and sentence splitting
+            try:
+                import spacy  # lazy import
+                self.nlp = spacy.load(ENTITY_MODEL_NAME)
+                self._spacy_available = True
+            except Exception as e:
+                logger.warning(f"spaCy not available or model '{ENTITY_MODEL_NAME}' not found; using fallback sentence splitter. Error: {e}")
+                self.nlp = None
+                self._spacy_available = False
 
             # Initialize LLM manager if provided
             self.llm_manager = llm_manager
@@ -70,7 +78,17 @@ class ClaimExtractor:
             # Compile regex patterns for fallback extraction
             self.compiled_patterns = [re.compile(pattern, re.IGNORECASE) for pattern in self.fallback_patterns]
 
-            self.similarity_model = SentenceTransformer('all-MiniLM-L6-v2')
+            # Attempt to load sentence-transformers for semantic matching (optional)
+            try:
+                from sentence_transformers import SentenceTransformer, util  # lazy import
+                self.similarity_model = SentenceTransformer('all-MiniLM-L6-v2')
+                self._st_util = util
+                self._similarity_available = True
+            except Exception as e:
+                logger.warning(f"sentence-transformers not available; disabling semantic matching. Error: {e}")
+                self.similarity_model = None
+                self._st_util = None
+                self._similarity_available = False
             self.similarity_threshold = SIMILARITY_THRESHOLD
 
             logger.info("Claim Extractor initialized successfully")
@@ -100,8 +118,11 @@ class ClaimExtractor:
             return []
 
         try:
-            # Process text with spaCy for sentence splitting and entity recognition
-            doc = self.nlp(text)
+            # Process text with spaCy for sentence splitting and entity recognition if available
+            if self.nlp is not None:
+                doc = self.nlp(text)
+            else:
+                doc = self._make_fallback_doc(text)
 
             # Use LLM-based extraction if available, otherwise fall back to rule-based
             if self.llm_manager:
@@ -110,7 +131,7 @@ class ClaimExtractor:
                 logger.info("LLM not available, using rule-based extraction")
                 claims = self._extract_claims_with_rules(text, doc)
 
-            # Post-process claims to ensure atomicity and remove duplicates
+            # Post-process claims to ensure quality and remove duplicates
             claims = self._post_process_claims(claims, text)
 
             logger.info(f"Successfully extracted {len(claims)} claims")
@@ -174,7 +195,7 @@ class ClaimExtractor:
             logger.error(f"Error in LLM-based claim extraction: {e}, falling back to rule-based extraction.", exc_info=True)
             return self._extract_claims_with_rules(text, doc)
 
-    def _extract_claims_with_rules(self, text: str, doc: spacy.tokens.Doc) -> List[ExtractedClaim]:
+    def _extract_claims_with_rules(self, text: str, doc) -> List[ExtractedClaim]:
         """
         Fallback method to extract claims using rule-based patterns.
 
@@ -189,7 +210,7 @@ class ClaimExtractor:
             List of extracted claims
         """
         claims = []
-        for sent in doc.sents:
+        for sent in getattr(doc, "sents", []):
             sent_text = sent.text.strip()
             if len(sent_text.split()) < 4:
                 continue
@@ -200,15 +221,18 @@ class ClaimExtractor:
                     # If a pattern matches, treat the whole sentence as a potential claim
                     confidence = self._score_confidence(sent)
                     if confidence > 0.5:
-                        entities = [
-                            ExtractedEntity(
-                                text=ent.text,
-                                label=ent.label_,
-                                start_char=ent.start_char,
-                                end_char=ent.end_char
-                            )
-                            for ent in sent.ents
-                        ]
+                        # Entities only available with spaCy; otherwise empty
+                        entities = []
+                        for ent in getattr(sent, "ents", []) or []:
+                            try:
+                                entities.append(ExtractedEntity(
+                                    text=ent.text,
+                                    label=getattr(ent, "label_", "UNKNOWN"),
+                                    start_char=getattr(ent, "start_char", 0),
+                                    end_char=getattr(ent, "end_char", 0),
+                                ))
+                            except Exception:
+                                continue
                         context_window = self._get_context_window(doc, sent.start_char, sent.end_char)
                         claim = ExtractedClaim(
                             text=self._normalize_claim_text(sent.text.strip()),
@@ -224,7 +248,7 @@ class ClaimExtractor:
                         break
         return claims
 
-    def _parse_llm_response(self, llm_response_str: str, doc: spacy.tokens.Doc) -> List[ExtractedClaim]:
+    def _parse_llm_response(self, llm_response_str: str, doc) -> List[ExtractedClaim]:
         """Parse the JSON response from the LLM into a list of ExtractedClaim objects."""
         try:
             response = llm_response_str
@@ -259,8 +283,11 @@ class ClaimExtractor:
             json_sanitized = re.sub(r'("type_hint"\s*:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', r'\1"\2"\3', json_sanitized)
             # First parse attempt
             try:
-                data = demjson3.decode(json_sanitized)
-            except (demjson3.JSONDecodeError, Exception):
+                if demjson3 is not None:
+                    data = demjson3.decode(json_sanitized)
+                else:
+                    data = json.loads(json_sanitized)
+            except Exception:
                 # General fallback: quote bare word identifiers after ':' unless true/false/null/number
                 def _quote_bare_ident(m):
                     leading, ident, trailing = m.group(1), m.group(2), m.group(3)
@@ -272,7 +299,11 @@ class ClaimExtractor:
                         return f"{leading}{ident}{trailing}"
                     return f"{leading}\"{ident}\"{trailing}"
                 generic_sanitized = re.sub(r'(:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', _quote_bare_ident, json_sanitized)
-                data = demjson3.decode(generic_sanitized)
+                try:
+                    data = demjson3.decode(generic_sanitized) if demjson3 is not None else json.loads(generic_sanitized)
+                except Exception:
+                    logger.error("Failed to decode LLM JSON even after sanitization")
+                    return []
             claim_data_list = data.get('claims', [])
             if not isinstance(claim_data_list, list):
                 logger.error(f"LLM 'claims' field is not a list: {claim_data_list}")
@@ -287,7 +318,7 @@ class ClaimExtractor:
             return []
 
         # Optimized Clause-Based Matching
-        source_sents = list(doc.sents)
+        source_sents = list(getattr(doc, "sents", []))
         source_units, sent_map = [], []
         for i, sent in enumerate(source_sents):
             clauses = [sent.text] + [conj.text for conj in sent.conjuncts]
@@ -301,16 +332,24 @@ class ClaimExtractor:
 
         llm_claims_text = [self._normalize_claim_text(c.get('claim_text', '')) for c in claim_data_list]
         
-        llm_claim_embeddings = self.similarity_model.encode(llm_claims_text, convert_to_tensor=True)
-        source_unit_embeddings = self.similarity_model.encode(source_units, convert_to_tensor=True)
-        cosine_scores = util.pytorch_cos_sim(llm_claim_embeddings, source_unit_embeddings)
+        if self._similarity_available and self.similarity_model is not None and self._st_util is not None:
+            llm_claim_embeddings = self.similarity_model.encode(llm_claims_text, convert_to_tensor=True)
+            source_unit_embeddings = self.similarity_model.encode(source_units, convert_to_tensor=True)
+            cosine_scores = self._st_util.pytorch_cos_sim(llm_claim_embeddings, source_unit_embeddings)
+        else:
+            cosine_scores = None
 
         extracted_claims = []
         for i, llm_claim in enumerate(claim_data_list):
             if not llm_claims_text[i]: continue # Skip if claim text is empty
 
-            best_match_unit_idx = cosine_scores[i].argmax().item()
-            best_score = cosine_scores[i][best_match_unit_idx].item()
+            if cosine_scores is not None:
+                best_match_unit_idx = cosine_scores[i].argmax().item()
+                best_score = cosine_scores[i][best_match_unit_idx].item()
+            else:
+                # Fallback: match to first available sentence/unit
+                best_match_unit_idx = 0
+                best_score = 0.8
 
             if best_score >= self.similarity_threshold:
                 original_sent_idx = sent_map[best_match_unit_idx]
@@ -325,7 +364,7 @@ class ClaimExtractor:
                         continue
                     try:
                         start_char_in_sent = best_match_sent.text.index(entity_text)
-                        start_char = start_char_in_sent + best_match_sent.start_char
+                        start_char = start_char_in_sent + getattr(best_match_sent, "start_char", 0)
                         end_char = start_char + len(entity_text)
                         entities.append(ExtractedEntity(
                             text=entity_text,
@@ -338,8 +377,8 @@ class ClaimExtractor:
 
                 claim = ExtractedClaim(
                     text=claim_text,
-                    start_char=best_match_sent.start_char,
-                    end_char=best_match_sent.end_char,
+                    start_char=getattr(best_match_sent, "start_char", 0),
+                    end_char=getattr(best_match_sent, "end_char", len(claim_text)),
                     confidence=(
                         (lambda raw: (
                             0.2 if isinstance(raw, str) and raw.lower() == 'low' else
@@ -349,9 +388,9 @@ class ClaimExtractor:
                             best_score
                         ))(llm_claim.get('confidence', best_score))
                     ),
-                    source_text=doc.text,
+                    source_text=getattr(doc, "text", ""),
                     entities=entities,
-                    context_window=self._get_context_window(doc, best_match_sent.start_char, best_match_sent.end_char),
+                    context_window=self._get_context_window(doc, getattr(best_match_sent, "start_char", 0), getattr(best_match_sent, "end_char", len(claim_text))),
                     ambiguity_reason=llm_claim.get('ambiguity_reason')
                 )
                 extracted_claims.append(claim)
@@ -373,9 +412,9 @@ class ClaimExtractor:
             text = text[:-1].strip()
         return text
 
-    def _get_context_window(self, doc: spacy.tokens.Doc, start_char: int, end_char: int, window_size: int = 2) -> str:
+    def _get_context_window(self, doc, start_char: int, end_char: int, window_size: int = 2) -> str:
         """Get a context window of sentences around a given character span."""
-        all_sents = list(doc.sents)
+        all_sents = list(getattr(doc, "sents", []))
         if not all_sents:
             return ""
 
@@ -393,14 +432,24 @@ class ClaimExtractor:
         context_sents = [s.text for s in all_sents[start_index:end_index]]
         return " ".join(context_sents).strip()
 
-    def _score_confidence(self, sent: Span) -> float:
+    def _score_confidence(self, sent) -> float:
         """More sophisticated confidence scoring based on linguistic features."""
         base_score = 0.6
-        if any(tok.dep_ == 'nsubj' for tok in sent) and any(tok.dep_ in ('dobj', 'pobj', 'attr') for tok in sent):
-            base_score += 0.15
-        if any(ent.label_ == 'CARDINAL' for ent in sent.ents):
-            base_score += 0.1
-        if len(sent) < 5 or len(sent) > 40:
+        try:
+            if any(getattr(tok, 'dep_', None) == 'nsubj' for tok in sent) and any(getattr(tok, 'dep_', None) in ('dobj', 'pobj', 'attr') for tok in sent):
+                base_score += 0.15
+        except Exception:
+            pass
+        try:
+            if any(getattr(ent, 'label_', '') == 'CARDINAL' for ent in getattr(sent, 'ents', []) or []):
+                base_score += 0.1
+        except Exception:
+            pass
+        try:
+            length = len(sent)
+        except Exception:
+            length = len(getattr(sent, 'text', '').split())
+        if length < 5 or length > 40:
             base_score -= 0.1
         return min(1.0, max(0.0, base_score))
 
@@ -458,7 +507,36 @@ class ClaimExtractor:
             "total_entities": total_entities,
             "avg_entities_per_claim": total_entities / len(claims) if claims else 0,
             "avg_confidence": avg_confidence,
-            "claim_types": claim_types,
-            "highest_confidence": max(claim.confidence for claim in claims) if claims else 0,
-            "lowest_confidence": min(claim.confidence for claim in claims) if claims else 0
         }
+
+    # ---------------
+    # Fallback helpers
+    # ---------------
+    class _SimpleSentence:
+        def __init__(self, text: str, start: int, end: int):
+            self.text = text
+            self.start_char = start
+            self.end_char = end
+            self.ents: List[Any] = []
+            self.conjuncts: List[Any] = []
+            self.noun_chunks: List[Any] = []
+        def __len__(self) -> int:
+            return len(self.text.split())
+        def __iter__(self):
+            return iter(())
+    class _FallbackDoc:
+        def __init__(self, text: str, sents: List['ClaimExtractor._SimpleSentence']):
+            self.text = text
+            self.sents = sents
+    def _make_fallback_doc(self, text: str):
+        """Create a minimal doc-like object with sentence spans when spaCy is unavailable."""
+        sents: List[ClaimExtractor._SimpleSentence] = []
+        idx = 0
+        for part in re.split(r"(?<=[.!?])\s+", text.strip()):
+            if not part:
+                continue
+            start = idx
+            end = idx + len(part)
+            sents.append(ClaimExtractor._SimpleSentence(part, start, end))
+            idx = end + 1
+        return ClaimExtractor._FallbackDoc(text, sents)

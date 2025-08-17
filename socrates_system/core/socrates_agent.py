@@ -10,7 +10,20 @@ import json
 from datetime import datetime
 
 from ..modules.claim_extractor import ClaimExtractor
-from ..modules.question_generator import QuestionGenerator
+from ..modules.question_generator import (
+    SocraticQuestionGenerator,
+    VerificationCapabilities,
+    SocraticConfig,
+)
+from ..modules.claim_categorizer import ClaimCategorizer
+from ..modules.check_router import CheckRouter
+from ..modules.shared_structures import (
+    ExtractedClaim,
+    ClaimCategory,
+    ClaimCategoryType,
+    VerificationMethod,
+)
+from ..modules.llm_manager import get_llm_manager
 from ..modules.cross_alignment_checker import CrossAlignmentChecker
 from ..modules.external_factuality_checker import ExternalFactualityChecker
 from ..modules.self_contradiction_checker import SelfContradictionChecker
@@ -59,7 +72,33 @@ class SocratesAgent:
         
         # Initialize all modules
         self.claim_extractor = ClaimExtractor()
-        self.question_generator = QuestionGenerator()
+
+        # LLM and categorization/routing
+        self.llm_manager = get_llm_manager()
+        self.claim_categorizer = ClaimCategorizer(llm_manager=self.llm_manager)
+        self.check_router = CheckRouter()
+
+        # Capability-aware Socratic question generator
+        self.verification_capabilities = VerificationCapabilities(
+            visual_grounding=[
+                "object_detection",
+                "text_recognition",
+                "spatial_relationships",
+            ],
+            external_knowledge=[
+                "wikipedia_api",
+                "wikidata_api",
+                "google_fact_check_api",
+            ],
+            self_consistency=[
+                "session_knowledge_graph",
+                "prior_verified_claims",
+            ],
+        )
+        self.socratic_generator = SocraticQuestionGenerator(
+            verification_capabilities=self.verification_capabilities,
+            config=SocraticConfig(),
+        )
         self.cross_alignment_checker = CrossAlignmentChecker()
         self.external_factuality_checker = ExternalFactualityChecker()
         self.self_contradiction_checker = SelfContradictionChecker()
@@ -117,11 +156,26 @@ class SocratesAgent:
             logger.info("Stage 1: Claim Extraction")
             claims = self.claim_extractor.extract_claims(user_input)
             
+            # Stage 1.5: Claim Categorization and Routing
+            logger.info("Stage 1.5: Claim Categorization and Routing")
+            categorized_claims: List[ExtractedClaim] = []
+            for c in claims:
+                try:
+                    c = self.claim_categorizer.categorize_claim(c)
+                except Exception as e:
+                    logger.error(f"Claim categorization failed: {e}")
+                try:
+                    route = self.check_router.route_claim(c)
+                    c.verification_route = route
+                except Exception as e:
+                    logger.error(f"Claim routing failed: {e}")
+                categorized_claims.append(c)
+
             # Stage 2: Factuality Checks - Apply Socratic methodology
             logger.info("Stage 2: Factuality Checks")
             verification_results = []
             
-            for claim in claims:
+            for claim in categorized_claims:
                 result = self._verify_claim_socratically(claim, user_input, image_path)
                 verification_results.append(result)
             
@@ -143,12 +197,13 @@ class SocratesAgent:
                 "timestamp": datetime.now().isoformat()
             }
     
-    def _verify_claim_socratically(self, claim: str, original_input: str, image_path: Optional[str]) -> ClaimVerificationResult:
+    def _verify_claim_socratically(self, claim: ExtractedClaim, original_input: str, image_path: Optional[str]) -> ClaimVerificationResult:
         """
         Apply Socratic methodology to verify a single claim
         Implements the four-stage verification process
         """
-        logger.info(f"Verifying claim: {claim}")
+        claim_text = claim.text if isinstance(claim, ExtractedClaim) else str(claim)
+        logger.info(f"Verifying claim: {claim_text}")
         
         socratic_questions = []
         evidence = []
@@ -156,97 +211,139 @@ class SocratesAgent:
         overall_status = CheckStatus.PASS
         confidence = 1.0
         clarification_needed = None
-        
-        # Generate initial Socratic inquiry
-        initial_inquiry = self.question_generator.generate_socratic_inquiry(claim, "verification")
-        socratic_questions.append(initial_inquiry)
-        
-        # Check 1: Cross-alignment (if image provided)
-        if image_path:
-            logger.info("Performing cross-alignment check...")
-            alignment_result = self.cross_alignment_checker.check_alignment(claim, image_path)
-            
-            if alignment_result["status"] == CheckStatus.FAIL:
-                overall_status = CheckStatus.FAIL
-                confidence *= alignment_result["confidence"]
-                contradictions.extend(alignment_result["contradictions"])
-                
-                # Generate clarification inquiry
-                clarification_inquiry = self.question_generator.generate_socratic_inquiry(
-                    claim, "clarification", context=alignment_result
-                )
-                socratic_questions.append(clarification_inquiry)
-                clarification_needed = self.clarification_handler.generate_clarification(
-                    claim, alignment_result["visual_description"]
-                )
-            else:
-                evidence.extend(alignment_result["evidence"])
-        
-        # Check 2: External factuality (if alignment passed or no image)
-        # need to be changed and understand that not all the claims will be check from external factuality
-        if overall_status != CheckStatus.FAIL:
-            logger.info("Performing external factuality check...")
-            factuality_result = self.external_factuality_checker.verify_claim(claim)
-            
-            if factuality_result["status"] == CheckStatus.FAIL:
-                overall_status = CheckStatus.FAIL
-                confidence *= factuality_result["confidence"]
-                contradictions.extend(factuality_result["contradictions"])
-                
-                # Generate deeper Socratic inquiry
-                deeper_inquiry = self.question_generator.generate_socratic_inquiry(
-                    claim, "deeper_analysis", context=factuality_result
-                )
-                socratic_questions.append(deeper_inquiry)
-                
-                if not clarification_needed:
-                    clarification_needed = self.clarification_handler.generate_clarification(
-                        claim, factuality_result["external_facts"]
-                    )
-            else:
-                evidence.extend(factuality_result["evidence"])
-        
-        # Check 3: Self-contradiction (if previous checks passed)
-        if overall_status != CheckStatus.FAIL:
-            logger.info("Performing self-contradiction check...")
-            contradiction_result = self.self_contradiction_checker.check_contradiction(
-                claim, self.session_id
+
+        # Determine categories and routing
+        categories = [cat.name for cat in (claim.categories or [])]
+        route = getattr(claim, "verification_route", None)
+
+        # Handle unverifiable categories (SUBJECTIVE_OPINION, PROCEDURAL_DESCRIPTIVE)
+        if any(cat in {ClaimCategoryType.SUBJECTIVE_OPINION, ClaimCategoryType.PROCEDURAL_DESCRIPTIVE} for cat in categories):
+            overall_status = CheckStatus.SKIP
+            confidence = getattr(route, "confidence", 1.0)
+            return ClaimVerificationResult(
+                claim=claim_text,
+                status=overall_status,
+                confidence=confidence,
+                evidence=evidence,
+                contradictions=contradictions,
+                socratic_questions=socratic_questions,
+                clarification_needed=clarification_needed,
+                timestamp=datetime.now()
             )
-            
+
+        # Generate capability-aware Socratic questions
+        try:
+            # If ambiguous, generator will handle disambiguation flow internally when asked per-category
+            gen_results = self.socratic_generator.handle_multi_category_claims(
+                claim_text,
+                categories,
+                num_questions_per_category=1,
+            ) if categories else {}
+            socratic_questions.extend(self._map_socratic_questions(gen_results))
+        except Exception as e:
+            logger.error(f"Error generating capability-aware Socratic questions: {e}")
+
+        # Execute verification based on routing decision
+        # If no route is available fall back to original sequence
+        if route and route.method == VerificationMethod.CROSS_MODAL:
+            # Cross-alignment requires image; if missing, skip
+            if not image_path:
+                overall_status = CheckStatus.SKIP
+            else:
+                logger.info("Performing cross-alignment check...")
+                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
+                if alignment_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= alignment_result["confidence"]
+                    contradictions.extend(alignment_result["contradictions"])
+                    clarification_inquiry = self._fallback_clarification_inquiry(claim_text, alignment_result)
+                    socratic_questions.append(clarification_inquiry)
+                    clarification_needed = self.clarification_handler.generate_clarification(
+                        claim_text, alignment_result.get("visual_description")
+                    )
+                else:
+                    evidence.extend(alignment_result.get("evidence", []))
+
+        elif route and route.method == VerificationMethod.EXTERNAL_SOURCE:
+            logger.info("Performing cross-alignment check...")
+            # Optionally still do cross alignment first if image present and helpful
+            if image_path:
+                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
+                if alignment_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= alignment_result["confidence"]
+                    contradictions.extend(alignment_result["contradictions"])
+                else:
+                    evidence.extend(alignment_result.get("evidence", []))
+
+            if overall_status != CheckStatus.FAIL:
+                logger.info("Performing external factuality check...")
+                factuality_result = self.external_factuality_checker.verify_claim(claim_text)
+                if factuality_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= factuality_result["confidence"]
+                    contradictions.extend(factuality_result["contradictions"])
+                else:
+                    evidence.extend(factuality_result.get("evidence", []))
+
+        elif route and route.method == VerificationMethod.KNOWLEDGE_GRAPH:
+            logger.info("Performing self-contradiction (knowledge graph) check...")
+            contradiction_result = self.self_contradiction_checker.check_contradiction(
+                claim_text, self.session_id
+            )
             if contradiction_result["status"] == CheckStatus.FAIL:
                 overall_status = CheckStatus.FAIL
                 confidence *= contradiction_result["confidence"]
                 contradictions.extend(contradiction_result["contradictions"])
-                
-                # Generate consistency inquiry
-                consistency_inquiry = self.question_generator.generate_socratic_inquiry(
-                    claim, "consistency", context=contradiction_result
-                )
-                socratic_questions.append(consistency_inquiry)
-                
-                if not clarification_needed:
-                    clarification_needed = self.clarification_handler.generate_clarification(
-                        claim, contradiction_result["conflicting_claims"]
-                    )
             else:
-                evidence.extend(contradiction_result["evidence"])
-        
-        # Check 4: Ambiguity check
-        logger.info("Performing ambiguity check...")
-        ambiguity_result = self.ambiguity_checker.check_ambiguity(claim, original_input)
-        
-        if ambiguity_result["needs_clarification"]:
-            # Generate clarification inquiry
-            ambiguity_inquiry = self.question_generator.generate_socratic_inquiry(
-                claim, "ambiguity", context=ambiguity_result
-            )
-            socratic_questions.append(ambiguity_inquiry)
-            
-            if not clarification_needed:
-                clarification_needed = ambiguity_result["clarification_questions"]
-        
+                evidence.extend(contradiction_result.get("evidence", []))
+        elif route and route.method == VerificationMethod.EXPERT_VERIFICATION:
+            # Ambiguous: ask for clarification questions via ambiguity checker and generator
+            logger.info("Claim marked as ambiguous - generating clarification questions")
+            ambiguity_result = self.ambiguity_checker.check_ambiguity(claim_text, original_input)
+            clarification_needed = ambiguity_result.get("clarification_questions")
+        else:
+            # Fallback to original sequence if no routing info
+            if image_path:
+                logger.info("Performing cross-alignment check...")
+                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
+                if alignment_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= alignment_result["confidence"]
+                    contradictions.extend(alignment_result["contradictions"])
+                else:
+                    evidence.extend(alignment_result.get("evidence", []))
+            if overall_status != CheckStatus.FAIL:
+                logger.info("Performing external factuality check...")
+                factuality_result = self.external_factuality_checker.verify_claim(claim_text)
+                if factuality_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= factuality_result["confidence"]
+                    contradictions.extend(factuality_result["contradictions"])
+                else:
+                    evidence.extend(factuality_result.get("evidence", []))
+            if overall_status != CheckStatus.FAIL:
+                logger.info("Performing self-contradiction check...")
+                contradiction_result = self.self_contradiction_checker.check_contradiction(
+                    claim_text, self.session_id
+                )
+                if contradiction_result["status"] == CheckStatus.FAIL:
+                    overall_status = CheckStatus.FAIL
+                    confidence *= contradiction_result["confidence"]
+                    contradictions.extend(contradiction_result["contradictions"])
+                else:
+                    evidence.extend(contradiction_result.get("evidence", []))
+
+        # Ambiguity check (final pass) for non-ambiguous routed claims
+        if not (route and route.method == VerificationMethod.EXPERT_VERIFICATION):
+            logger.info("Performing ambiguity check...")
+            ambiguity_result = self.ambiguity_checker.check_ambiguity(claim_text, original_input)
+            if ambiguity_result["needs_clarification"]:
+                # Create a simple clarification inquiry
+                clarification_needed = clarification_needed or ambiguity_result["clarification_questions"]
+
         return ClaimVerificationResult(
-            claim=claim,
+            claim=claim_text,
             status=overall_status,
             confidence=confidence,
             evidence=evidence,
@@ -254,6 +351,46 @@ class SocratesAgent:
             socratic_questions=socratic_questions,
             clarification_needed=clarification_needed,
             timestamp=datetime.now()
+        )
+
+    def _map_socratic_questions(self, generated: Dict[str, List[Any]]) -> List[SocraticInquiry]:
+        """Convert category-aware SocraticQuestion objects to SocraticInquiry for dialogue."""
+        mapped: List[SocraticInquiry] = []
+        if not generated:
+            return mapped
+        category_to_answer_type = {
+            "VISUAL_GROUNDING_REQUIRED": "visual_evidence",
+            "EXTERNAL_KNOWLEDGE_REQUIRED": "external_evidence",
+            "SELF_CONSISTENCY_REQUIRED": "consistency_check",
+            "AMBIGUOUS_RESOLUTION_REQUIRED": "clarification",
+        }
+        for category, questions in generated.items():
+            for q in questions:
+                try:
+                    question_text = getattr(q, "question", str(q))
+                    confidence_score = float(getattr(q, "confidence_score", 0.7))
+                    verification_hint = getattr(q, "verification_hint", "")
+                    mapped.append(
+                        SocraticInquiry(
+                            question=question_text,
+                            reasoning=f"Auto-generated for {category}. {verification_hint}",
+                            expected_answer_type=category_to_answer_type.get(category, "general_response"),
+                            confidence=confidence_score,
+                            context={"category": category, "verification_hint": verification_hint},
+                        )
+                    )
+                except Exception:
+                    continue
+        return mapped
+
+    def _fallback_clarification_inquiry(self, claim_text: str, context: Dict[str, Any]) -> SocraticInquiry:
+        """Create a basic clarification inquiry when deeper generation isn't available."""
+        return SocraticInquiry(
+            question=f"Could you clarify the aspect that conflicts with the image regarding: '{claim_text}'?",
+            reasoning="Clarify mismatch between textual claim and visual evidence.",
+            expected_answer_type="clarification_and_context",
+            confidence=0.6,
+            context=context,
         )
     
     def _update_knowledge_base(self, verification_results: List[ClaimVerificationResult]):

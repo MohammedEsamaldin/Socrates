@@ -9,7 +9,6 @@ import logging
 from dataclasses import dataclass
 import time
 from urllib.parse import quote
-import wikipedia
 import os
 from pathlib import Path
 
@@ -300,9 +299,7 @@ class ExternalFactualityChecker:
             # Initialize LLM manager for factuality verdicts
             self.llm_manager = LLMManager()
 
-            # Initialize Wikipedia helper
-            wikipedia.set_lang("en")
-            wikipedia.set_rate_limiting(True)
+            # Wikipedia python package optional; using HTTP API instead
 
             # Register external clients (can be extended by the user)
             self.clients: List[ExternalAPIClient] = []
@@ -510,59 +507,64 @@ class ExternalFactualityChecker:
             return None
     
     def _verify_with_wikipedia(self, claim: str) -> Optional[Dict[str, Any]]:
-        """Verify claim using Wikipedia search and page content"""
+        """Verify claim using Wikipedia via HTTP API (no wikipedia package)."""
         try:
-            # Extract key terms from claim for search
-            search_terms = self._extract_search_terms(claim)
-            search_results = wikipedia.search(search_terms, results=3)
-            
+            terms = self._extract_search_terms(claim)
+            if not terms:
+                return None
+            # Search API
+            search_url = (
+                "https://en.wikipedia.org/w/api.php?action=query&list=search"
+                f"&srsearch={quote(terms)}&format=json&srlimit=3"
+            )
+            resp = requests.get(search_url, timeout=self.timeout)
+            if resp.status_code != 200:
+                return None
+            data = resp.json()
+            search_results = (data.get("query", {}) or {}).get("search", []) or []
             if not search_results:
                 return None
-            
-            evidence = []
-            sources = []
-            
-            for title in search_results[:2]:  # Check top 2 results
-                try:
-                    page = wikipedia.page(title)
-                    summary = page.summary[:500]  # First 500 chars
-                    
-                    # Always collect evidence for LLM analysis (no semantic similarity filtering)
-                    evidence.append(f"Wikipedia ({title}): {summary[:300]}...")
-                    sources.append(f"Wikipedia: {title}")
-                    
-                    time.sleep(0.1)  # Rate limiting
-                    
-                except wikipedia.exceptions.DisambiguationError as e:
-                    # Try first disambiguation option
-                    try:
-                        page = wikipedia.page(e.options[0])
-                        summary = page.summary[:500]
-                        
-                        evidence.append(f"Wikipedia ({e.options[0]}): {summary[:300]}...")
-                        sources.append(f"Wikipedia: {e.options[0]}")
-                    except:
-                        continue
-                        
-                except:
+            evidence: List[str] = []
+            sources: List[str] = []
+            # Fetch extracts for top 2 titles
+            for result in search_results[:2]:
+                title = result.get("title")
+                if not title:
                     continue
-            
+                extract_url = (
+                    "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro"
+                    f"&explaintext&format=json&titles={quote(title)}"
+                )
+                try:
+                    pr = requests.get(extract_url, timeout=self.timeout)
+                    if pr.status_code != 200:
+                        continue
+                    pdata = pr.json()
+                    pages = (pdata.get("query", {}) or {}).get("pages", {}) or {}
+                    # pages is a dict keyed by pageid
+                    for _, p in pages.items():
+                        extract = p.get("extract") or ""
+                        if extract:
+                            snippet = extract[:300]
+                            evidence.append(f"Wikipedia ({title}): {snippet}...")
+                            sources.append(f"https://en.wikipedia.org/wiki/{quote(title.replace(' ', '_'))}")
+                            break
+                except Exception:
+                    continue
+                # Gentle throttle
+                time.sleep(0.1)
             if evidence:
-                # Return evidence for LLM analysis (no pre-filtering)
                 confidence = min(len(evidence) * 0.4, 0.8)
-                
                 return {
                     "source": "Wikipedia",
-                    "status": "EVIDENCE_FOUND",  # Let LLM decide if it supports or contradicts
+                    "status": "EVIDENCE_FOUND",
                     "confidence": confidence,
                     "evidence": evidence,
                     "sources": sources,
-                    "content": " ".join(evidence)
+                    "content": " ".join(evidence),
                 }
-            
         except Exception as e:
             logger.warning(f"Wikipedia verification failed: {str(e)}")
-        
         return None
     
     def _verify_with_web_search(self, claim: str) -> Optional[Dict[str, Any]]:

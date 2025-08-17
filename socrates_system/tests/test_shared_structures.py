@@ -33,11 +33,11 @@ class TestSharedStructures(unittest.TestCase):
 
     def test_claim_category_creation(self):
         category = ClaimCategory(
-            name=ClaimCategoryType.FACTUAL,
+            name=ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED,
             confidence=0.95,
             justification="This is a factual statement."
         )
-        self.assertEqual(category.name, ClaimCategoryType.FACTUAL)
+        self.assertEqual(category.name, ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED)
 
     def test_verification_route_creation(self):
         route = VerificationRoute(
