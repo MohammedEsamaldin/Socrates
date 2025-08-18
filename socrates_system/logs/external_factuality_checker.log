@@ -296,3 +296,63 @@
 2025-08-17 18:26:33,019 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
 2025-08-17 18:26:50,756 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Berlin
 2025-08-17 18:27:09,941 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 18:54:35,042 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 18:54:35,046 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 18:54:35,046 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 18:56:33,848 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Paris
+2025-08-17 18:56:53,046 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 18:57:14,505 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Alexander Fleming discovered penicillin in 1928
+2025-08-17 18:57:38,738 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:57:55,774 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Water boils at 100°C at sea level
+2025-08-17 18:58:13,764 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 18:58:30,782 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in Germany
+2025-08-17 18:58:48,909 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 19:00:28,904 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Eiffel Tower was completed in 1990
+2025-08-17 19:00:35,994 - socrates_system.modules.external_factuality_checker - WARNING - Wikipedia verification failed: HTTPSConnectionPool(host='en.wikipedia.org', port=443): Max retries exceeded with url: /w/api.php?action=query&list=search&srsearch=Eiffel%20Tower%20completed%201990&format=json&srlimit=3 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1693bce10>, 'Connection to en.wikipedia.org timed out. (connect timeout=6.0)'))
+2025-08-17 19:00:50,702 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 19:02:12,431 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Atlantis is located in the Atlantic Ocean
+2025-08-17 19:02:36,994 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-17 19:04:42,081 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: As previously stated, Paris remains the capital of France
+2025-08-17 19:04:49,249 - socrates_system.modules.external_factuality_checker - WARNING - Wikipedia verification failed: HTTPSConnectionPool(host='en.wikipedia.org', port=443): Max retries exceeded with url: /w/api.php?action=query&list=search&srsearch=previously%20stated%2C%20Paris%20remains%20capital&format=json&srlimit=3 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x16c21c190>, 'Connection to en.wikipedia.org timed out. (connect timeout=6.0)'))
+2025-08-17 19:04:58,384 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 19:05:19,565 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Berlin
+2025-08-17 19:05:38,379 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.99)
+2025-08-17 21:37:30,848 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 21:37:30,851 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 21:37:30,851 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 22:53:23,063 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-17 22:53:23,072 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-17 22:53:23,072 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-17 22:56:41,307 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The capital of France is Paris
+2025-08-17 22:57:09,486 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-17 22:57:47,953 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Alexander Fleming discovered penicillin in 1928
+2025-08-17 22:58:15,454 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 22:58:59,712 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Water boils at 100°C at sea level
+2025-08-17 22:59:20,962 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-17 23:00:00,578 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Big Ben is in Germany
+2025-08-17 23:00:20,580 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.99)
+2025-08-17 23:01:59,480 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Eiffel Tower was completed in 1990
+2025-08-17 23:02:26,455 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-18 01:42:14,720 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-18 01:42:14,726 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-18 01:42:14,726 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-18 01:54:35,858 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-18 01:54:35,862 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-18 01:54:35,862 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-18 01:58:07,944 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Golden Retrievers originated in Scotland
+2025-08-18 01:58:21,476 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-18 01:58:39,901 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: McDonald's was founded in 2010
+2025-08-18 01:58:59,203 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-18 01:59:56,814 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Broadway runs the entire length of Manhattan
+2025-08-18 02:00:20,508 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-18 03:09:38,468 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-18 03:09:38,471 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-18 03:09:38,471 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-18 03:10:19,560 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Sujood Khalid studies at LSE
+2025-08-18 03:10:20,777 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-18 03:10:20,777 - socrates_system.modules.external_factuality_checker - INFO - OpenAI API key not set; skipping OpenAI fallback
+2025-08-18 03:10:20,777 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.00)
+2025-08-18 03:11:49,636 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Will Sujood pass this verification
+2025-08-18 03:11:50,499 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-18 03:11:50,499 - socrates_system.modules.external_factuality_checker - INFO - OpenAI API key not set; skipping OpenAI fallback
+2025-08-18 03:11:50,499 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.00)

@@ -1,0 +1,99 @@
+from typing import Any, Dict, List, Tuple
+from dataclasses import asdict
+
+from socrates_system.pipeline import SocratesPipeline
+from socrates_system.modules.llm_manager import LLMManager
+
+
+def _compute_corrected_text(original_text: str,
+                            claims: List[Any],
+                            clar_results: Dict[int, Dict[str, Any]],
+                            stage: str = "pre") -> Tuple[str, List[Dict[str, Any]]]:
+    """
+    Build minimally-edited text by replacing only hallucinated tokens at claim spans.
+
+    Args:
+        original_text: the text used for extraction
+        claims: list of ExtractedClaim objects returned by pipeline.run
+        clar_results: pipeline._clarification_results mapping (1-indexed claim_id -> {"pre": obj, "post": obj})
+        stage: "pre" to apply pre-routing corrections (for user input), "post" for post-factuality (for model output)
+
+    Returns:
+        (corrected_text, corrections)
+        corrections: list of {claim_index, span, original, corrected}
+    """
+    # Gather replacements as (start, end, replacement, original, idx)
+    repls: List[Tuple[int, int, str, str, int]] = []
+    for i, cl in enumerate(claims, 1):
+        cr = (clar_results or {}).get(i, {})
+        ctx_obj = cr.get(stage)
+        corrected = getattr(ctx_obj, "corrected_claim", None) if ctx_obj else None
+        if corrected and isinstance(corrected, str) and corrected.strip() and corrected != cl.text:
+            start, end = int(getattr(cl, "start_char", 0)), int(getattr(cl, "end_char", 0))
+            if 0 <= start < end <= len(original_text):
+                repls.append((start, end, corrected, cl.text, i))
+    if not repls:
+        return original_text, []
+
+    # Apply replacements left-to-right without overlap
+    repls.sort(key=lambda x: x[0])
+    out_parts: List[str] = []
+    cursor = 0
+    corrections: List[Dict[str, Any]] = []
+    for start, end, new_text, old_text, idx in repls:
+        if start < cursor:
+            # overlapping claim spans; skip to avoid corrupting text
+            continue
+        out_parts.append(original_text[cursor:start])
+        out_parts.append(new_text)
+        corrections.append({
+            "claim_index": idx,
+            "span": [start, end],
+            "original": old_text,
+            "corrected": new_text,
+        })
+        cursor = end
+    out_parts.append(original_text[cursor:])
+    return ("".join(out_parts), corrections)
+
+
+def process_user_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
+    """Run pipeline on user text, and minimally correct the text based on pre-routing clarifications."""
+    claims = pipeline.run(text)
+    clar = getattr(pipeline, "_clarification_results", {})
+    corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="pre")
+    return {
+        "claims": claims,
+        "clarification": clar,
+        "corrected_text": corrected_text,
+        "corrections": corrections,
+        "factuality": getattr(pipeline, "_last_factuality_results", {}),
+    }
+
+
+def process_model_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
+    """Run pipeline on model output, and minimally correct the text based on post-factuality clarifications."""
+    claims = pipeline.run(text)
+    clar = getattr(pipeline, "_clarification_results", {})
+    corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="post")
+    return {
+        "claims": claims,
+        "clarification": clar,
+        "corrected_text": corrected_text,
+        "corrections": corrections,
+        "factuality": getattr(pipeline, "_last_factuality_results", {}),
+    }
+
+
+def build_pipeline(llm_manager: LLMManager,
+                   factuality_enabled: bool = True,
+                   clarification_enabled: bool = True,
+                   clarification_dev_mode: bool = False,
+                   question_gen_enabled: bool = False) -> SocratesPipeline:
+    return SocratesPipeline(
+        llm_manager=llm_manager,
+        factuality_enabled=factuality_enabled,
+        clarification_enabled=clarification_enabled,
+        clarification_dev_mode=clarification_dev_mode,
+        question_gen_enabled=question_gen_enabled,
+    )

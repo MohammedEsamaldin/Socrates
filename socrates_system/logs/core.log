@@ -50,3 +50,19 @@
 2025-08-17 18:19:51,226 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
 2025-08-17 18:22:25,589 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
 2025-08-17 18:27:19,211 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 18:54:35,046 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-17 18:58:57,971 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 19:01:00,914 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 19:02:47,985 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 19:05:48,151 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 21:37:30,852 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-17 22:53:23,073 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-17 23:00:32,814 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-17 23:02:41,223 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 01:42:14,726 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 01:54:35,862 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 01:59:09,567 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 02:00:31,973 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 03:09:38,471 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 03:10:29,048 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 03:11:58,096 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range

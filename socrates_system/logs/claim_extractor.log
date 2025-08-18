@@ -6533,3 +6533,817 @@ Note that this output could be further improved by adding more context or refini
 2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Berlin' -> 'The capital of France is Berlin.'
 2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims using LLM.
 2025-08-17 18:10:54,730 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims
+2025-08-17 18:54:30,764 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 18:54:33,361 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 18:54:35,047 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sit...
+2025-08-17 18:55:38,699 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "A red double-decker bus is passing by Big Ben under a cloudy sky.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "red double-decker bus",
+          "label": "EVENT"
+        },
+        {
+          "text": "Big Ben",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A small dog sits to the left of the bus.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "small dog",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The capital of France is Paris.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Paris",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Alexander Fleming discovered penicillin in 1928.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Alexander Fleming",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Water boils at 100°C at sea level.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "100°C",
+          "label": "TEMP"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Germany",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The Eiffel Tower was completed in 1990.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "Eiffel Tower",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Atlantis is located in the Atlantic Ocean.",
+      "confidence": 0.7,
+      "entities": [
+        {
+          "text": "Atlantic Ocean",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "It is the tallest one.",
+      "confidence": 0.6,
+      "entities": [],
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The painting is beautiful and deeply moving.",
+      "confidence": 0.5,
+      "entities": [],
+      "type_hint": "SUBJECTIVE_OPINION",
+      "dependencies": []
+    },
+    {
+      "claim_text": "First, boil water and then add pasta, stirring for 10 minutes.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "water",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "As previously stated, Paris remains the capital of France.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Paris",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The capital of France is Berlin.",
+      "confidence": 0.7,
+      "entities": [
+        {
+          "text": "Berlin",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 18:55:39,619 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'A red double-decker bus is passing by Big Ben under a cloudy sky' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 18:55:39,620 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'A small dog sits to the left of the bus' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 18:55:39,621 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Paris' -> 'The capital of France is Paris.'
+2025-08-17 18:55:39,623 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Alexander Fleming discovered penicillin in 1928' -> 'Alexander Fleming discovered penicillin in 1928.'
+2025-08-17 18:55:39,624 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'Water boils at 100°C at sea level' -> 'Water boils at 100°C at sea level.'
+2025-08-17 18:55:39,624 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in Germany' -> 'Big Ben is in Germany.'
+2025-08-17 18:55:39,625 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1990' -> 'The Eiffel Tower was completed in 1990.'
+2025-08-17 18:55:39,626 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Atlantis is located in the Atlantic Ocean' -> 'Atlantis is located in the Atlantic Ocean.'
+2025-08-17 18:55:39,626 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'It is the tallest one' -> 'It is the tallest one.'
+2025-08-17 18:55:39,627 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The painting is beautiful and deeply moving' -> 'The painting is beautiful and deeply moving.'
+2025-08-17 18:55:39,628 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'First, boil water and then add pasta, stirring for 10 minutes' -> 'First, boil water and then add pasta, stirring for 10 minutes.'
+2025-08-17 18:55:39,629 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'As previously stated, Paris remains the capital of France' -> 'As previously stated, Paris remains the capital of France.'
+2025-08-17 18:55:39,630 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Berlin' -> 'The capital of France is Berlin.'
+2025-08-17 18:55:39,631 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims using LLM.
+2025-08-17 18:55:39,631 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims
+2025-08-17 21:37:26,537 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 21:37:29,167 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 21:37:30,852 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows a busy street scene in downtown Manhattan. There is a red Toyota Camry parked on the...
+2025-08-17 21:38:13,484 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The image shows a busy street scene in downtown Manhattan.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "red Toyota Camry",
+          "label": "VEHICLE"
+        },
+        {
+          "text": "blue Honda Civic",
+          "label": "VEHICLE"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "tall businessman",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The McDonald's restaurant has a bright yellow sign with red lettering.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "McDonald's",
+          "label": "ORGANIZATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There are three traffic lights visible - one is showing green, and two are showing red.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The street sign reads 'Broadway' and '42nd Street'.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Broadway",
+          "label": "LOCATION"
+        },
+        {
+          "text": "42nd Street",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "small dog",
+          "label": "ANIMAL"
+        },
+        {
+          "text": "Golden Retriever",
+          "label": "BREED"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The weather appears cloudy with some sunlight filtering through the clouds.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-17 21:38:14,581 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The image shows a busy street scene in downtown Manhattan' -> 'The image shows a busy street scene in downtown Manhattan.'
+2025-08-17 21:38:14,582 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic' -> 'There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic.'
+2025-08-17 21:38:14,583 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk' -> 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.'
+2025-08-17 21:38:14,584 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The McDonald's restaurant has a bright yellow sign with red lettering' -> 'The McDonald's restaurant has a bright yellow sign with red lettering.'
+2025-08-17 21:38:14,585 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'There are three traffic lights visible - one is showing green, and two are showing red' -> 'There are three traffic lights visible - one is showing green, and two are showing red.'
+2025-08-17 21:38:14,586 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The street sign reads 'Broadway' and '42nd Street'' -> 'The street sign reads 'Broadway' and '42nd Street'.'
+2025-08-17 21:38:14,587 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat' -> 'A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat.'
+2025-08-17 21:38:14,587 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'The weather appears cloudy with some sunlight filtering through the clouds' -> 'The weather appears cloudy with some sunlight filtering through the clouds.'
+2025-08-17 21:38:14,588 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 8 claims using LLM.
+2025-08-17 21:38:14,588 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 8 claims
+2025-08-17 22:53:18,523 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-17 22:53:21,350 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-17 22:53:23,073 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sit...
+2025-08-17 22:54:51,364 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "A red double-decker bus is passing by Big Ben under a cloudy sky.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "red double-decker bus",
+          "label": "EVENT"
+        },
+        {
+          "text": "Big Ben",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A small dog sits to the left of the bus.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "small dog",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The capital of France is Paris.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Paris",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Alexander Fleming discovered penicillin in 1928.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Alexander Fleming",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Water boils at 100°C at sea level.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "100°C",
+          "label": "TEMP"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Big Ben is in Germany.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Germany",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The Eiffel Tower was completed in 1990.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Eiffel Tower",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Atlantis is located in the Atlantic Ocean.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Atlantic Ocean",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "It is the tallest one.",
+      "confidence": 0.7,
+      "entities": [],
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The painting is beautiful and deeply moving.",
+      "confidence": 0.6,
+      "entities": [],
+      "type_hint": "SUBJECTIVE_OPINION",
+      "dependencies": []
+    },
+    {
+      "claim_text": "First, boil water and then add pasta, stirring for 10 minutes.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "pasta",
+          "label": "EVENT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "As previously stated, Paris remains the capital of France.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Paris",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The capital of France is Berlin.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "Berlin",
+          "label": "LOC"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-17 22:54:52,396 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'A red double-decker bus is passing by Big Ben under a cloudy sky' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 22:54:52,397 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'A small dog sits to the left of the bus' -> 'In this image, a red double-decker bus is passing by Big Ben under a cloudy sky, and a small dog sits to the left of the bus.'
+2025-08-17 22:54:52,718 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Paris' -> 'The capital of France is Paris.'
+2025-08-17 22:54:52,719 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Alexander Fleming discovered penicillin in 1928' -> 'Alexander Fleming discovered penicillin in 1928.'
+2025-08-17 22:54:52,720 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'Water boils at 100°C at sea level' -> 'Water boils at 100°C at sea level.'
+2025-08-17 22:54:52,721 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Big Ben is in Germany' -> 'Big Ben is in Germany.'
+2025-08-17 22:54:52,722 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower was completed in 1990' -> 'The Eiffel Tower was completed in 1990.'
+2025-08-17 22:54:52,723 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Atlantis is located in the Atlantic Ocean' -> 'Atlantis is located in the Atlantic Ocean.'
+2025-08-17 22:54:52,725 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'It is the tallest one' -> 'It is the tallest one.'
+2025-08-17 22:54:52,726 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The painting is beautiful and deeply moving' -> 'The painting is beautiful and deeply moving.'
+2025-08-17 22:54:52,727 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'First, boil water and then add pasta, stirring for 10 minutes' -> 'First, boil water and then add pasta, stirring for 10 minutes.'
+2025-08-17 22:54:52,728 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'As previously stated, Paris remains the capital of France' -> 'As previously stated, Paris remains the capital of France.'
+2025-08-17 22:54:52,729 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The capital of France is Berlin' -> 'The capital of France is Berlin.'
+2025-08-17 22:54:52,729 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims using LLM.
+2025-08-17 22:54:52,729 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 13 claims
+2025-08-18 01:42:10,531 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 01:42:13,120 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 01:42:14,727 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows a busy street scene in downtown Manhattan. There is a red Toyota Camry parked on the...
+2025-08-18 01:42:58,644 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The image shows a busy street scene in downtown Manhattan.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "red Toyota Camry",
+          "label": "VEHICLE"
+        },
+        {
+          "text": "blue Honda Civic",
+          "label": "VEHICLE"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The McDonald's restaurant has a bright yellow sign with red lettering.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "McDonald's",
+          "label": "ORGANIZATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There are three traffic lights visible - one is showing green, and two are showing red.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The street sign reads 'Broadway' and '42nd Street'.",
+      "confidence": 0.98,
+      "entities": [
+        {
+          "text": "Broadway",
+          "label": "LOCATION"
+        },
+        {
+          "text": "42nd Street",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Golden Retriever",
+          "label": "BREED"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The weather appears cloudy with some sunlight filtering through the clouds.",
+      "confidence": 0.98,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-18 01:42:59,661 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The image shows a busy street scene in downtown Manhattan' -> 'The image shows a busy street scene in downtown Manhattan.'
+2025-08-18 01:42:59,663 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic' -> 'There is a red Toyota Camry parked on the left side of the street next to a blue Honda Civic.'
+2025-08-18 01:42:59,849 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk' -> 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.'
+2025-08-18 01:42:59,850 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The McDonald's restaurant has a bright yellow sign with red lettering' -> 'The McDonald's restaurant has a bright yellow sign with red lettering.'
+2025-08-18 01:42:59,851 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'There are three traffic lights visible - one is showing green, and two are showing red' -> 'There are three traffic lights visible - one is showing green, and two are showing red.'
+2025-08-18 01:42:59,852 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The street sign reads 'Broadway' and '42nd Street'' -> 'The street sign reads 'Broadway' and '42nd Street'.'
+2025-08-18 01:42:59,853 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat' -> 'A small dog, which appears to be a Golden Retriever, is being walked by an elderly woman wearing a purple coat.'
+2025-08-18 01:42:59,867 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'The weather appears cloudy with some sunlight filtering through the clouds' -> 'The weather appears cloudy with some sunlight filtering through the clouds.'
+2025-08-18 01:42:59,867 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 8 claims using LLM.
+2025-08-18 01:42:59,867 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 8 claims
+2025-08-18 01:54:31,741 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 01:54:34,060 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 01:54:35,862 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows a busy street scene in downtown Manhattan near Times Square. There is a red car on t...
+2025-08-18 01:55:52,369 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The image shows a busy street scene in downtown Manhattan near Times Square.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a red car on the left side of the street.",
+      "confidence": 0.90,
+      "entities": [
+        {
+          "text": "red car",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A red Toyota Camry is parked next to a blue Honda Civic.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "red Toyota Camry",
+          "label": "OBJECT"
+        },
+        {
+          "text": "blue Honda Civic",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.",
+      "confidence": 0.80,
+      "entities": [
+        {
+          "text": "tall businessman",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The street sign reads 'Broadway' and '42nd Street'.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Broadway",
+          "label": "LOCATION"
+        },
+        {
+          "text": "42nd Street",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The traffic light is red.",
+      "confidence": 0.90,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Golden Retrievers originated in Scotland.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Golden Retrievers",
+          "label": "BREED"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "McDonald's was founded in 2010.",
+      "confidence": 0.90,
+      "entities": [
+        {
+          "text": "McDonald's",
+          "label": "COMPANY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Broadway runs the entire length of Manhattan.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Broadway",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The person looks like a manager.",
+      "confidence": 0.80,
+      "entities": [],
+      "type_hint": "SUBJECTIVE_OPINION",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The McDonald's sign looks beautiful.",
+      "confidence": 0.75,
+      "entities": [
+        {
+          "text": "McDonald's",
+          "label": "COMPANY"
+        }
+      ],
+      "type_hint": "SUBJECTIVE_OPINION",
+      "dependencies": []
+    },
+    {
+      "claim_text": "To reach the subway from here, take the second left and walk for three minutes.",
+      "confidence": 0.90,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There are no pedestrians in the scene.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The car is blue.",
+      "confidence": 0.90,
+      "entities": [
+        {
+          "text": "car",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "This scene is in Brooklyn, not Manhattan.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "Brooklyn",
+          "label": "LOCATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "A large object is blocking something on the right.",
+      "confidence": 0.80,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Someone is holding something.",
+      "confidence": 0.75,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-18 01:55:53,292 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The image shows a busy street scene in downtown Manhattan near Times Square' -> 'The image shows a busy street scene in downtown Manhattan near Times Square.'
+2025-08-18 01:55:53,293 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'There is a red car on the left side of the street' -> 'There is a red car on the left side of the street.'
+2025-08-18 01:55:53,294 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'A red Toyota Camry is parked next to a blue Honda Civic' -> 'A red Toyota Camry is parked next to a blue Honda Civic.'
+2025-08-18 01:55:53,294 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk' -> 'A tall businessman wearing a black suit and carrying a brown leather briefcase is walking on the sidewalk.'
+2025-08-18 01:55:53,295 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The street sign reads 'Broadway' and '42nd Street'' -> 'The street sign reads 'Broadway' and '42nd Street'.'
+2025-08-18 01:55:53,296 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The traffic light is red' -> 'The traffic light is red.'
+2025-08-18 01:55:53,296 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Golden Retrievers originated in Scotland' -> 'Golden Retrievers originated in Scotland.'
+2025-08-18 01:55:53,297 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'McDonald's was founded in 2010' -> 'McDonald's was founded in 2010.'
+2025-08-18 01:55:53,299 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Broadway runs the entire length of Manhattan' -> 'Broadway runs the entire length of Manhattan.'
+2025-08-18 01:55:53,300 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The person looks like a manager' -> 'The person looks like a manager.'
+2025-08-18 01:55:53,300 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The McDonald's sign looks beautiful' -> 'The McDonald's sign looks beautiful.'
+2025-08-18 01:55:53,301 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'To reach the subway from here, take the second left and walk for three minutes' -> 'To reach the subway from here, take the second left and walk for three minutes.'
+2025-08-18 01:55:53,302 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'There are no pedestrians in the scene' -> 'There are no pedestrians in the scene.'
+2025-08-18 01:55:53,303 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The car is blue' -> 'The car is blue.'
+2025-08-18 01:55:53,305 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'This scene is in Brooklyn, not Manhattan' -> 'This scene is in Brooklyn, not Manhattan.'
+2025-08-18 01:55:53,305 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'A large object is blocking something on the right' -> 'A large object is blocking something on the right.'
+2025-08-18 01:55:53,307 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Someone is holding something' -> 'Someone is holding something.'
+2025-08-18 01:55:53,307 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 17 claims using LLM.
+2025-08-18 01:55:53,308 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 17 claims
+2025-08-18 03:09:33,967 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 03:09:36,707 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 03:09:38,471 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I know Sujood Khalid she studies at LSE, her friends says that Sujood is drama queen, will Sujood pa...
+2025-08-18 03:10:04,287 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Sujood Khalid studies at LSE",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "Sujood Khalid",
+          "label": "PERSON"
+        },
+        {
+          "text": "LSE",
+          "label": "ORGANIZATION"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Sujood Khalid is a drama queen",
+      "confidence": 0.7,
+      "entities": [
+        {
+          "text": "Sujood Khalid",
+          "label": "PERSON"
+        }
+      ],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Will Sujood pass this verification?",
+      "confidence": 0.5,
+      "entities": [],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "this verification",
+          "label": "EVENT"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-18 03:10:05,183 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.65): 'Sujood Khalid studies at LSE' -> 'I know Sujood Khalid she studies at LSE, her friends says that Sujood is drama queen, will Sujood pass this verification?'
+2025-08-18 03:10:05,184 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'Sujood Khalid is a drama queen' -> 'I know Sujood Khalid she studies at LSE, her friends says that Sujood is drama queen, will Sujood pass this verification?'
+2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.65): 'Will Sujood pass this verification' -> 'I know Sujood Khalid she studies at LSE, her friends says that Sujood is drama queen, will Sujood pass this verification?'
+2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims

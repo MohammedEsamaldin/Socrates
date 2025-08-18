@@ -5,6 +5,7 @@ Provides unified interface for claim extraction, Socratic questioning, and reaso
 import logging
 import json
 import asyncio
+import re
 from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass
 from enum import Enum
@@ -31,6 +32,11 @@ class LLMTaskType(Enum):
     KNOWLEDGE_INTEGRATION = "knowledge_integration"
     FAITHFULNESS_ASSESSMENT = "faithfulness_assessment"
     CONTRADICTION_DETECTION = "contradiction_detection"
+
+class LLMProvider(Enum):
+    OLLAMA = "ollama"
+    OPENAI = "openai"
+    CLAUDE = "claude"
 
 @dataclass
 class LLMRequest:
@@ -59,20 +65,58 @@ class LLMManager:
     Handles all local LLM operations with specialized prompting strategies
     """
     
-    def __init__(self, 
-                 model_name: str =  "llama3.1:8b", #"gpt-oss:20b",
-                 base_url: str = "http://localhost:11434",
+    def __init__(self,
+                 model_name: Optional[str] = None,
+                 provider: Union[LLMProvider, str, None] = None,
+                 base_url: Optional[str] = None,
+                 openai_api_key: Optional[str] = None,
+                 openai_base_url: Optional[str] = None,
+                 anthropic_api_key: Optional[str] = None,
+                 anthropic_base_url: Optional[str] = None,
                  max_concurrent: int = 3):
         """
         Initialize Local LLM Manager
         
         Args:
-            model_name: Ollama model name (e.g., "llama3.1:8b")
-            base_url: Ollama server URL
+            model_name: Model name for the selected provider
+            provider: One of {"ollama","openai","claude"} (or LLMProvider)
+            base_url: Ollama server URL (if provider=ollama)
+            openai_api_key: OpenAI API key (or env OPENAI_API_KEY)
+            openai_base_url: OpenAI base URL (default https://api.openai.com/v1)
+            anthropic_api_key: Anthropic API key (or env ANTHROPIC_API_KEY)
+            anthropic_base_url: Anthropic base URL (default https://api.anthropic.com)
             max_concurrent: Maximum concurrent requests
         """
-        self.model_name = model_name
-        self.base_url = base_url
+        # Resolve provider
+        prov_str = (provider.value if isinstance(provider, LLMProvider) else provider) or os.getenv("SOC_LLM_PROVIDER", "ollama").lower()
+        try:
+            self.provider = LLMProvider(prov_str)
+        except Exception:
+            logger.warning(f"Unknown provider '{prov_str}', defaulting to 'ollama'")
+            self.provider = LLMProvider.OLLAMA
+
+        # Resolve model
+        env_model = os.getenv("SOC_LLM_MODEL")
+        if model_name:
+            self.model_name = model_name
+        elif env_model:
+            self.model_name = env_model
+        else:
+            # Reasonable defaults per provider
+            if self.provider == LLMProvider.OLLAMA:
+                self.model_name = "llama3.1:8b"
+            elif self.provider == LLMProvider.OPENAI:
+                self.model_name = "gpt-4o-mini"
+            else:  # CLAUDE
+                self.model_name = "claude-3-haiku-20240307"
+
+        # Provider-specific endpoints/keys
+        self.base_url = base_url or os.getenv("OLLAMA_BASE_URL") or os.getenv("OLLAMA_URL") or "http://localhost:11434"
+        self.openai_api_key = openai_api_key or os.getenv("OPENAI_API_KEY")
+        self.openai_base_url = openai_base_url or os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE") or "https://api.openai.com/v1"
+        self.anthropic_api_key = anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
+        self.anthropic_base_url = anthropic_base_url or os.getenv("ANTHROPIC_BASE_URL") or "https://api.anthropic.com"
+
         self.max_concurrent = max_concurrent
         self.executor = ThreadPoolExecutor(max_workers=max_concurrent)
         self._lock = threading.Lock()
@@ -83,7 +127,7 @@ class LLMManager:
         # Test connection
         self._test_connection()
         
-        logger.info(f"LLMManager initialized with model: {model_name}")
+        logger.info(f"LLMManager initialized with provider={self.provider.value}, model={self.model_name}")
 
     def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.2, system_prompt: str = None) -> str:
         """Synchronous wrapper for generating text. For easy integration with non-async code."""
@@ -91,7 +135,7 @@ class LLMManager:
         asyncio.set_event_loop(loop)
         try:
             response = loop.run_until_complete(
-                self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+                self._call_llm(prompt, system_prompt, temperature, max_tokens)
             )
             return response
         finally:
@@ -267,20 +311,31 @@ Response format: JSON with 'faithfulness_score', 'accuracy_assessment', 'evidenc
             }
             ,
             LLMTaskType.CONTRADICTION_DETECTION: {
-                "system": """You are a strict self-contradiction detection engine.
-Your job: given a current claim and a list of previously asserted claims from the same session, determine whether the current claim contradicts any of them.
+    "system": """You are a high-precision self-contradiction detection engine that relies ONLY on the provided session knowledge.
 
-Rules:
-- Output STRICT JSON ONLY. No prose, no code fences, no extra text.
-- Consider paraphrases and negations. Prefer high precision: only flag true contradictions.
-- Types may include: negation, entity_conflict, numeric_mismatch, temporal_conflict, causal_conflict, other.
-- If there are no contradictions, set status to "PASS" and return an empty contradictions array.
-- Confidence is 0.0-1.0.
+Your job: analyze a current claim against previously established session knowledge to detect contradictions.
+
+IMPORTANT CONSTRAINT: Use ONLY the information given in Existing Claims and Entity Knowledge. Do NOT use external world knowledge or assumptions. If a potential contradiction would require outside knowledge (e.g., geography, domain facts) that is not present in the provided knowledge, treat it as NOT a contradiction.
+
+Consider contradictions when there is strong, explicit conflict in the provided session knowledge:
+- Direct negations ("is red" vs "is not red")
+- Mutually exclusive attributes for the SAME entity ("is blue" vs "is red"), supported by the provided knowledge
+- Relationship contradictions ("A is part of B" vs "A is separate from B") present in the session knowledge
+- Numeric/temporal mismatches for the SAME event/entity in the provided knowledge
+
+Consistency Rules (avoid false positives):
+- Specialization is NOT a contradiction: specific instances/details that refine a general description (e.g., "red Toyota Camry" is compatible with "red car").
+- Elaboration is NOT a contradiction: details that fit within a broader scene/context (e.g., "a businessman on the sidewalk" is compatible with "a busy street scene").
+- Location within a broader area is NOT a contradiction unless the provided knowledge explicitly states it is elsewhere. Do not use outside maps.
+- Unspecified vs specified is NOT a contradiction (e.g., existing claim lacks color; new claim adds color).
+- When in doubt, default to PASS (no contradiction).
+
+Output STRICT JSON ONLY. No prose, no code fences, no extra text.
 
 Required JSON schema:
 {
   "status": "PASS" | "FAIL",
-  "confidence": float,
+  "confidence": float (0.0-1.0),
   "contradictions": [
     {"against": string, "type": string, "explanation": string, "severity": float}
   ],
@@ -288,31 +343,60 @@ Required JSON schema:
   "evidence": [string]
 }
 """,
-                "template": """Current Claim: "{claim}"
-Existing Claims: {existing_claims}
-Context: {context}
+    
+    "template": """Current Claim: "{claim}"
 
-Respond ONLY with the JSON object matching the required schema. If Existing Claims is empty, return status "PASS" with confidence >= 0.9.
-"""
+Existing Claims from Session:
+{existing_claims}
+
+Entity Knowledge Available:
+Entities: {entities}
+Entity Knowledge: {entity_knowledge}
+
+Context (may include compatibility_hints): {context}
+
+Analyze the current claim against ONLY the provided existing claims AND the rich entity knowledge. Apply the Consistency Rules. If entity knowledge shows an explicit attribute for the SAME entity that conflicts with the claim, flag a contradiction; otherwise default to PASS.
+
+Respond ONLY with the JSON object matching the required schema."""
             }
         }
     
     def _test_connection(self):
         """Test connection to Ollama server"""
         try:
-            response = requests.get(f"{self.base_url}/api/tags", timeout=5)
-            if response.status_code == 200:
-                models = response.json().get('models', [])
-                model_names = [model['name'] for model in models]
-                if self.model_name not in model_names:
-                    logger.warning(f"Model {self.model_name} not found. Available models: {model_names}")
+            if self.provider == LLMProvider.OLLAMA:
+                response = requests.get(f"{self.base_url}/api/tags", timeout=5)
+                if response.status_code == 200:
+                    models = response.json().get('models', [])
+                    model_names = [model.get('name') for model in models]
+                    if self.model_name not in model_names:
+                        logger.warning(f"Model {self.model_name} not found. Available models: {model_names}")
+                    else:
+                        logger.info(f"Connected to Ollama @ {self.base_url}. Model {self.model_name} is available.")
                 else:
-                    logger.info(f"Successfully connected to Ollama. Model {self.model_name} is available.")
-            else:
-                logger.error(f"Failed to connect to Ollama: HTTP {response.status_code}")
+                    logger.error(f"Failed to connect to Ollama: HTTP {response.status_code}")
+            elif self.provider == LLMProvider.OPENAI:
+                if not self.openai_api_key:
+                    logger.warning("OPENAI_API_KEY not set; OpenAI calls will fail")
+                # Try a lightweight models list
+                url = f"{self.openai_base_url.rstrip('/')}/models"
+                resp = requests.get(url, headers={"Authorization": f"Bearer {self.openai_api_key}"}, timeout=5)
+                if resp.status_code == 200:
+                    logger.info(f"Connected to OpenAI @ {self.openai_base_url} (model={self.model_name})")
+                else:
+                    logger.warning(f"OpenAI connectivity check failed: HTTP {resp.status_code}")
+            elif self.provider == LLMProvider.CLAUDE:
+                if not self.anthropic_api_key:
+                    logger.warning("ANTHROPIC_API_KEY not set; Claude calls will fail")
+                # Try models endpoint if available
+                url = f"{self.anthropic_base_url.rstrip('/')}/v1/models"
+                resp = requests.get(url, headers={"x-api-key": self.anthropic_api_key, "anthropic-version": "2023-06-01"}, timeout=5)
+                if resp.status_code == 200:
+                    logger.info(f"Connected to Anthropic @ {self.anthropic_base_url} (model={self.model_name})")
+                else:
+                    logger.warning(f"Anthropic connectivity check failed: HTTP {resp.status_code}")
         except Exception as e:
-            logger.error(f"Failed to connect to Ollama: {e}")
-            logger.info("Make sure Ollama is running: 'ollama serve'")
+            logger.warning(f"LLM connectivity check encountered an error: {e}")
     
     async def process_request(self, request: LLMRequest) -> LLMResponse:
         """Process a single LLM request asynchronously"""
@@ -328,8 +412,8 @@ Respond ONLY with the JSON object matching the required schema. If Existing Clai
             system_prompt = request.system_prompt or template_config["system"]
             full_prompt = template_config["template"].format(**request.context) if request.context else request.prompt
             
-            # Make request to Ollama
-            response = await self._call_ollama(
+            # Make request to configured provider
+            response = await self._call_llm(
                 prompt=full_prompt,
                 system_prompt=system_prompt,
                 temperature=request.temperature,
@@ -362,6 +446,17 @@ Respond ONLY with the JSON object matching the required schema. If Existing Clai
                 error=str(e)
             )
     
+    async def _call_llm(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+        """Dispatch call to the configured LLM provider."""
+        if self.provider == LLMProvider.OLLAMA:
+            return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+        elif self.provider == LLMProvider.OPENAI:
+            return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+        elif self.provider == LLMProvider.CLAUDE:
+            return await self._call_claude(prompt, system_prompt, temperature, max_tokens)
+        else:
+            raise RuntimeError(f"Unsupported provider: {self.provider}")
+
     async def _call_ollama(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
         """Make async call to Ollama API"""
         payload = {
@@ -374,39 +469,115 @@ Respond ONLY with the JSON object matching the required schema. If Existing Clai
                 "num_predict": max_tokens
             }
         }
-        
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(
             self.executor,
             lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
         )
-        
         if response.status_code == 200:
-            return response.json()["response"]
-        else:
-            raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+            return response.json().get("response", "")
+        raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+
+    async def _call_openai(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+        """Make async call to OpenAI Chat Completions API."""
+        if not self.openai_api_key:
+            raise RuntimeError("OPENAI_API_KEY not provided")
+        url = f"{self.openai_base_url.rstrip('/')}/chat/completions"
+        payload = {
+            "model": self.model_name,
+            "messages": [
+                {"role": "system", "content": system_prompt or ""},
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        headers = {
+            "Authorization": f"Bearer {self.openai_api_key}",
+            "Content-Type": "application/json",
+        }
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(
+            self.executor,
+            lambda: requests.post(url, json=payload, headers=headers, timeout=180)
+        )
+        if response.status_code == 200:
+            data = response.json()
+            try:
+                return data["choices"][0]["message"]["content"]
+            except Exception:
+                return json.dumps(data)
+        raise Exception(f"OpenAI API error: {response.status_code} - {response.text}")
+
+    async def _call_claude(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+        """Make async call to Anthropic Claude Messages API."""
+        if not self.anthropic_api_key:
+            raise RuntimeError("ANTHROPIC_API_KEY not provided")
+        url = f"{self.anthropic_base_url.rstrip('/')}/v1/messages"
+        payload = {
+            "model": self.model_name,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "system": system_prompt or "",
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        headers = {
+            "x-api-key": self.anthropic_api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        }
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(
+            self.executor,
+            lambda: requests.post(url, json=payload, headers=headers, timeout=180)
+        )
+        if response.status_code == 200:
+            data = response.json()
+            try:
+                # Claude returns a list of content blocks
+                blocks = data.get("content", [])
+                text_parts = []
+                for b in blocks:
+                    if isinstance(b, dict) and b.get("type") == "text":
+                        text_parts.append(b.get("text", ""))
+                return "\n".join([t for t in text_parts if t]) or json.dumps(data)
+            except Exception:
+                return json.dumps(data)
+        raise Exception(f"Claude API error: {response.status_code} - {response.text}")
     
     def _parse_response(self, response: str, task_type: LLMTaskType) -> Dict[str, Any]:
-        """Parse LLM response based on task type"""
+        """Parse LLM response based on task type. Attempts to robustly parse JSON, including code-fenced blocks."""
+        raw = response or ""
+        s = raw.strip()
+        # Strip code fences like ```json ... ```
+        if s.startswith("```"):
+            # Remove opening ```json or ```
+            s = re.sub(r'^```[a-zA-Z]*\n', '', s)
+            # Remove closing ```
+            s = re.sub(r'\n```\s*$', '', s)
+            s = s.strip()
+        
         try:
-            # Try to parse as JSON first
-            if response.strip().startswith('{') or response.strip().startswith('['):
-                return json.loads(response)
-            
-            # For non-JSON responses, create structured output
-            return {
-                "content": response,
-                "confidence": 0.8,  # Default confidence
-                "reasoning": "Generated by LLM"
-            }
-            
+            # Try direct JSON
+            if s.startswith('{') or s.startswith('['):
+                return json.loads(s)
         except json.JSONDecodeError:
-            # Fallback for malformed JSON
-            return {
-                "content": response,
-                "confidence": 0.7,
-                "reasoning": "Response parsing failed, using raw content"
-            }
+            # Try to extract the largest JSON object within the string
+            try:
+                start = s.find('{')
+                end = s.rfind('}')
+                if start != -1 and end != -1 and end > start:
+                    candidate = s[start:end+1]
+                    return json.loads(candidate)
+            except Exception:
+                pass
+        
+        # Fallback for non-JSON responses
+        return {
+            "content": raw,
+            "confidence": 0.8,  # Default confidence
+            "reasoning": "Generated by LLM"
+        }
     
     async def batch_process(self, requests: List[LLMRequest]) -> List[LLMResponse]:
         """Process multiple requests concurrently"""
@@ -503,27 +674,51 @@ Respond ONLY with the JSON object matching the required schema. If Existing Clai
             }
         )
         return await self.process_request(request)
-    
-    async def detect_contradictions(self, claim: str, existing_claims: List[str], context: Dict[str, Any] = None) -> LLMResponse:
-        """Detect contradictions between a claim and existing session claims (async)."""
+
+    async def detect_contradictions(
+        self,
+        claim: str,
+        existing_claims: List[str],
+        context: Dict[str, Any] = None,
+        entities: Optional[List[Dict[str, Any]]] = None,
+        entity_knowledge: Optional[Dict[str, Any]] = None,
+    ) -> LLMResponse:
+        """Detect contradictions between a claim and existing session claims (async). Accepts optional entities and entity_knowledge for richer analysis."""
         request = LLMRequest(
             task_type=LLMTaskType.CONTRADICTION_DETECTION,
             prompt="",
             context={
                 "claim": claim,
-                "existing_claims": json.dumps(existing_claims),
+                "existing_claims": json.dumps(existing_claims or []),
+                "entities": json.dumps(entities or []),
+                "entity_knowledge": json.dumps(entity_knowledge or {}),
                 "context": json.dumps(context or {})
-            }
+            },
+            temperature=0.2,
+            max_tokens=800,
         )
         return await self.process_request(request)
-    
-    def detect_contradictions_sync(self, claim: str, existing_claims: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+
+    def detect_contradictions_sync(
+        self,
+        claim: str,
+        existing_claims: List[str],
+        context: Dict[str, Any] = None,
+        entities: Optional[List[Dict[str, Any]]] = None,
+        entity_knowledge: Optional[Dict[str, Any]] = None,
+    ) -> LLMResponse:
         """Synchronous wrapper for contradiction detection (for non-async callers)."""
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
             return loop.run_until_complete(
-                self.detect_contradictions(claim, existing_claims, context)
+                self.detect_contradictions(
+                    claim,
+                    existing_claims,
+                    context,
+                    entities=entities,
+                    entity_knowledge=entity_knowledge,
+                )
             )
         finally:
             loop.close()

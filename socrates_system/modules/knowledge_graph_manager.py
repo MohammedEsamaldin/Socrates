@@ -545,6 +545,154 @@ class KnowledgeGraphManager:
         
         return [{"text": r[0], "confidence": r[1], "evidence": json.loads(r[2])} for r in results]
     
+    def query_entity_knowledge(self, entity_names: List[str], context: str) -> Dict[str, Any]:
+        """Query all stored knowledge about specific entities.
+        
+        Args:
+            entity_names: List of entity names to search for ["car", "person", "building"]
+            context: Context string to help with disambiguation ("image_description", "conversation", etc.)
+        
+        Returns:
+            Dict with entities, relationships, and related claims about those entities
+            {
+                'entities': {'car': {'attributes': {...}, 'confidence': 0.9, ...}},
+                'relationships': [{'subject': 'car', 'predicate': 'has_color', 'object': 'red', ...}],
+                'related_claims': [{'text': 'The car is red', 'confidence': 0.9, ...}]
+            }
+        """
+        logger.info(f"Querying entity knowledge for: {entity_names}")
+        
+        results: Dict[str, Any] = {
+            'entities': {},
+            'relationships': [],
+            'related_claims': []
+        }
+        
+        for entity_name in entity_names:
+            matching_entities = self._find_entities_by_name(entity_name)
+            
+            for entity in matching_entities:
+                # Store entity details keyed by the requested name
+                results['entities'][entity_name] = {
+                    'id': entity.id,
+                    'text': entity.text,
+                    'label': entity.label,
+                    'attributes': entity.attributes,
+                    'confidence': entity.confidence,
+                    'session_id': entity.session_id,
+                    'timestamp': entity.timestamp.isoformat()
+                }
+                
+                # Get relationships involving this entity
+                relationships = self._get_entity_relationships(entity.id)
+                results['relationships'].extend(relationships)
+                
+                # Get claims mentioning this entity
+                claims = self._get_claims_with_entity(entity.id)
+                results['related_claims'].extend(claims)
+        
+        logger.info(f"Found knowledge for {len(results['entities'])} entities")
+        return results
+
+    def _find_entities_by_name(self, entity_name: str) -> List[Entity]:
+        """Find entities by name from database (case-insensitive partial match)."""
+        conn = sqlite3.connect(KG_DATABASE_PATH)
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            SELECT id, text, label, confidence, attributes, session_id, timestamp
+            FROM entities 
+            WHERE LOWER(text) LIKE LOWER(?)
+            ORDER BY confidence DESC
+            LIMIT 10
+        ''', (f'%{entity_name}%',))
+        
+        rows = cursor.fetchall()
+        conn.close()
+        
+        entities: List[Entity] = []
+        for row in rows:
+            entity = Entity(
+                id=row[0],
+                text=row[1],
+                label=row[2],
+                confidence=row[3],
+                attributes=json.loads(row[4]) if row[4] else {},
+                session_id=row[5],
+                timestamp=datetime.fromisoformat(row[6])
+            )
+            entities.append(entity)
+        
+        return entities
+
+    def _get_entity_relationships(self, entity_id: str) -> List[Dict[str, Any]]:
+        """Get all relationships where entity is subject or object, including readable entity texts."""
+        conn = sqlite3.connect(KG_DATABASE_PATH)
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            SELECT r.subject_id, s.text as subject_text, r.predicate, r.object_id, o.text as object_text, r.confidence, r.evidence
+            FROM relations r
+            LEFT JOIN entities s ON r.subject_id = s.id
+            LEFT JOIN entities o ON r.object_id = o.id
+            WHERE r.subject_id = ? OR r.object_id = ?
+        ''', (entity_id, entity_id))
+        
+        rows = cursor.fetchall()
+        conn.close()
+        
+        relationships: List[Dict[str, Any]] = []
+        for row in rows:
+            relationships.append({
+                'subject': row[0],
+                'subject_text': row[1],
+                'predicate': row[2], 
+                'object': row[3],
+                'object_text': row[4],
+                'confidence': row[5],
+                'evidence': json.loads(row[6]) if row[6] else []
+            })
+        
+        return relationships
+
+    def _get_claims_with_entity(self, entity_id: str) -> List[Dict[str, Any]]:
+        """Get all claims that mention this entity"""
+        conn = sqlite3.connect(KG_DATABASE_PATH)
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            SELECT text, confidence, evidence
+            FROM claims 
+            WHERE entities LIKE ?
+        ''', (f'%"{entity_id}"%',))
+        
+        rows = cursor.fetchall()
+        conn.close()
+        
+        claims: List[Dict[str, Any]] = []
+        for row in rows:
+            claims.append({
+                'text': row[0],
+                'confidence': row[1],
+                'evidence': json.loads(row[2]) if row[2] else []
+            })
+        
+        return claims
+
+    def extract_entities_from_claim(self, claim_text: str, context: str = "") -> List[Dict[str, Any]]:
+        """Extract entities from claim text and return structured data.
+        
+        Returns a list of entity dictionaries: 
+        [{'name': 'car', 'type': 'VEHICLE', 'confidence': 0.9, 'attributes': {...}}]
+        """
+        entities, _ = self.extract_entities_and_relations(claim_text)
+        return [{
+            'name': entity.text,
+            'type': entity.label,
+            'confidence': entity.confidence,
+            'attributes': entity.attributes
+        } for entity in entities]
+
     def _load_session_data(self, session_id: str):
         """Load existing session data into memory"""
         if session_id not in self.session_graphs:

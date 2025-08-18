@@ -77,7 +77,7 @@ class ConsoleColors:
         'factuality_pass': 'green',
         'factuality_fail': 'red',
         'factuality_uncertain': 'yellow',
-        'summary': 'bright_cyan',
+        'summary': 'bright_cyan'
     }
 
     @staticmethod
@@ -623,6 +623,13 @@ if __name__ == '__main__':
     parser.add_argument("--qg-disable-fallback", dest="qg_disable_fallback", action="store_true", help="Disable fallback question templates")
     parser.add_argument("--qg-prioritize-visual", dest="qg_prioritize_visual", action="store_true", help="Prioritize VISUAL_GROUNDING_REQUIRED category when present")
     parser.add_argument("--qg-deprioritize-visual", dest="qg_deprioritize_visual", action="store_true", help="Do not prioritize VISUAL_GROUNDING_REQUIRED category")
+    # Knowledge Graph display toggles
+    parser.add_argument("--show-kg", dest="show_kg", action="store_true", help="Display session knowledge graph after processing")
+    parser.add_argument("--kg-max-items", dest="kg_max_items", type=int, default=None, help="Maximum entities/relations to display for KG output")
+    parser.add_argument("--kg-query", dest="kg_query", type=str, default=None, help="Optional free-text query to match entities/relations in the session KG")
+    # LLM selection
+    parser.add_argument("--llm-provider", dest="llm_provider", type=str, choices=["ollama", "openai", "claude"], default=None, help="LLM provider to use (overrides SOC_LLM_PROVIDER)")
+    parser.add_argument("--llm-model", dest="llm_model", type=str, default=None, help="Model name for the selected provider (overrides SOC_LLM_MODEL)")
     args = parser.parse_args()
 
     # Resolve factuality toggle from CLI overriding env
@@ -653,8 +660,11 @@ if __name__ == '__main__':
     else:
         question_gen_enabled = env_qg
 
-    # To run with a real LLM, instantiate a configured LLMManager
-    llm_manager = LLMManager()
+    # Resolve LLM selection (CLI overrides env)
+    selected_provider = args.llm_provider or os.getenv("SOC_LLM_PROVIDER")
+    selected_model = args.llm_model or os.getenv("SOC_LLM_MODEL")
+    # Instantiate LLMManager with selected provider/model
+    llm_manager = LLMManager(model_name=selected_model, provider=selected_provider)
     pipeline = SocratesPipeline(
         llm_manager=llm_manager,
         factuality_enabled=factuality_enabled,
@@ -667,6 +677,12 @@ if __name__ == '__main__':
         qg_enable_fallback=True if args.qg_enable_fallback else (False if args.qg_disable_fallback else None),
         qg_prioritize_visual=True if args.qg_prioritize_visual else (False if args.qg_deprioritize_visual else None),
     )
+
+    # Inform about selected LLM
+    try:
+        print(ConsoleColors.c('label', 'Using LLM: ') + ConsoleColors.c('value', f"{getattr(llm_manager, 'provider').value}:{getattr(llm_manager, 'model_name')}"))
+    except Exception:
+        pass
 
     final_claims = pipeline.run(args.text)
 
@@ -776,3 +792,61 @@ if __name__ == '__main__':
             print(ConsoleColors.c('label', 'Total questions: ') + ConsoleColors.c('value', f"{q_total}") +
                   ConsoleColors.c('label', ' | Fallback used: ') + ConsoleColors.c('value', f"{q_fallback}") +
                   ConsoleColors.c('label', ' (') + ConsoleColors.c('value', f"{fb_rate:.1f}") + ConsoleColors.c('label', '%)'))
+
+    # Knowledge Graph display (toggle via CLI or env SOC_SHOW_KG=true)
+    env_show_kg = os.getenv("SOC_SHOW_KG", "false").lower() == "true"
+    show_kg = True if args.show_kg else env_show_kg
+    if show_kg and getattr(pipeline, "kg_manager", None):
+        try:
+            print("\n" + ConsoleColors.c('summary', '--- Session Knowledge Graph ---'))
+            print(ConsoleColors.c('label', 'Session: ') + ConsoleColors.c('value', f"{pipeline.session_id}"))
+            kg_export = pipeline.kg_manager.export_session_graph(pipeline.session_id) or {}
+            stats = kg_export.get('statistics', {"nodes": 0, "edges": 0})
+            print(ConsoleColors.c('label', 'Entities: ') + ConsoleColors.c('value', f"{stats.get('nodes', 0)}") +
+                  ConsoleColors.c('label', ' | Relations: ') + ConsoleColors.c('value', f"{stats.get('edges', 0)}"))
+
+            # Optional structured query over KG
+            if args.kg_query:
+                qres = pipeline.kg_manager.query_knowledge_graph(args.kg_query, pipeline.session_id)
+                print(ConsoleColors.c('label', 'Query: ') + ConsoleColors.c('value', f"{args.kg_query}"))
+                print(ConsoleColors.c('label', 'Matched entities: ') + ConsoleColors.c('value', f"{', '.join(qres.get('query_entities', []) or [])}"))
+                if qres.get('results'):
+                    max_items = args.kg_max_items or int(os.getenv("SOC_KG_MAX_ITEMS", "10"))
+                    for idx, item in enumerate(qres['results'][:max_items], 1):
+                        ent = item.get('entity', {})
+                        print("  - " + ConsoleColors.c('entity', f"{ent.get('text', ent.get('id', ''))}") +
+                              ConsoleColors.c('label', f" ({ent.get('label', '')}) ") +
+                              ConsoleColors.c('label', 'connections: ') + ConsoleColors.c('value', f"{item.get('connections', 0)}"))
+                        rels = item.get('relations', [])
+                        for r in rels[:max_items]:
+                            print("      • " + ConsoleColors.c('value', f"{r.get('target')} ") + ConsoleColors.c('label', f"[{r.get('relation')}]"))
+                else:
+                    print(ConsoleColors.c('label', 'Query results: ') + ConsoleColors.c('value', 'none'))
+            else:
+                # Compact dump of nodes and edges
+                nodes = kg_export.get('nodes', {})
+                edges = kg_export.get('edges', [])
+                id_to_text = {nid: (ndata.get('text') or nid) for nid, ndata in nodes.items()}
+                max_items = args.kg_max_items or int(os.getenv("SOC_KG_MAX_ITEMS", "10"))
+                if nodes:
+                    print(ConsoleColors.c('label', f"Entities (showing up to {max_items}):"))
+                    for i, (nid, ndata) in enumerate(list(nodes.items())[:max_items], 1):
+                        txt = ndata.get('text', nid)
+                        lbl = ndata.get('label', '')
+                        conf = ndata.get('confidence', 0.0)
+                        print(f"  - {ConsoleColors.c('entity', txt)}{ConsoleColors.c('label', f' ({lbl}) ')}" +
+                              ConsoleColors.c('label', 'conf: ') + ConsoleColors.c('value', f"{conf:.2f}") +
+                              ConsoleColors.c('label', ' | id: ') + ConsoleColors.c('value', f"{nid}"))
+                if edges:
+                    print(ConsoleColors.c('label', f"Relations (showing up to {max_items}):"))
+                    for e in edges[:max_items]:
+                        try:
+                            src, dst, data = e
+                            pred = data.get('predicate', 'related_to')
+                            print("  - " + ConsoleColors.c('entity', f"{id_to_text.get(src, src)}") +
+                                  ConsoleColors.c('label', f" -> [{pred}] -> ") +
+                                  ConsoleColors.c('entity', f"{id_to_text.get(dst, dst)}"))
+                        except Exception:
+                            pass
+        except Exception as e:
+            print(ConsoleColors.c('label', 'KG display error: ') + ConsoleColors.c('value', f"{e}"))
