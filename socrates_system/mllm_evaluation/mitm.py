@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Optional
 from dataclasses import asdict
 
 from socrates_system.pipeline import SocratesPipeline
@@ -57,9 +57,15 @@ def _compute_corrected_text(original_text: str,
     return ("".join(out_parts), corrections)
 
 
-def process_user_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
-    """Run pipeline on user text, and minimally correct the text based on pre-routing clarifications."""
-    claims = pipeline.run(text)
+def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optional[str] = None) -> Dict[str, Any]:
+    """Run pipeline on user text, and minimally correct the text based on pre-routing clarifications.
+
+    Args:
+        pipeline: SocratesPipeline instance
+        text: user text
+        image_path: optional image path for multimodal verification
+    """
+    claims = pipeline.run(text, image_path=image_path)
     clar = getattr(pipeline, "_clarification_results", {})
     corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="pre")
     return {
@@ -68,12 +74,19 @@ def process_user_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
         "corrected_text": corrected_text,
         "corrections": corrections,
         "factuality": getattr(pipeline, "_last_factuality_results", {}),
+        "image_path": image_path,
     }
 
 
-def process_model_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
-    """Run pipeline on model output, and minimally correct the text based on post-factuality clarifications."""
-    claims = pipeline.run(text)
+def process_model_turn(pipeline: SocratesPipeline, text: str, image_path: Optional[str] = None) -> Dict[str, Any]:
+    """Run pipeline on model output, and minimally correct the text based on post-factuality clarifications.
+
+    Args:
+        pipeline: SocratesPipeline instance
+        text: model output text
+        image_path: optional image path for multimodal verification
+    """
+    claims = pipeline.run(text, image_path=image_path)
     clar = getattr(pipeline, "_clarification_results", {})
     corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="post")
     return {
@@ -82,6 +95,7 @@ def process_model_turn(pipeline: SocratesPipeline, text: str) -> Dict[str, Any]:
         "corrected_text": corrected_text,
         "corrections": corrections,
         "factuality": getattr(pipeline, "_last_factuality_results", {}),
+        "image_path": image_path,
     }
 
 

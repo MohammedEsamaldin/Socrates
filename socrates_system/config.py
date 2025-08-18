@@ -22,6 +22,14 @@ SESSION_KG_PATH = DATA_DIR / "session_kg.json"
 WIKIPEDIA_API_URL = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 SEARCH_API_URL = "https://api.duckduckgo.com/"
 
+# Remote AGLA API settings (if set, Socrates will call the remote service instead of local AGLA models)
+AGLA_API_URL = os.getenv('AGLA_API_URL', '').strip()  # e.g., "https://<modal-app>.modal.run"
+AGLA_API_VERIFY_PATH = os.getenv('AGLA_API_VERIFY_PATH', '/verify')
+try:
+    AGLA_API_TIMEOUT = int(os.getenv('AGLA_API_TIMEOUT', '120'))
+except Exception:
+    AGLA_API_TIMEOUT = 120
+
 # API Keys (set these as environment variables or update directly)
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')  # For OpenAI API if needed
 GOOGLE_FACT_CHECK_API_KEY = os.getenv('GOOGLE_FACT_CHECK_API_KEY', '')  # For Google Fact Check API

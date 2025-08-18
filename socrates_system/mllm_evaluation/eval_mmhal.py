@@ -22,6 +22,8 @@ class MMHalEvaluator(BaseEvaluator):
                 return sample[k]
         return super().sample_to_prompt(sample)
 
+    # Use BaseEvaluator.sample_to_image_path by default; override could be added here if needed
+
 
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Evaluate MMHal-Bench with Socrates MITM pipeline")
@@ -35,6 +37,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--temperature", type=float, default=0.2)
     p.add_argument("--prompt-key", default=None, help="Override prompt field name in dataset")
     p.add_argument("--id-key", default=None, help="Override id field name in dataset")
+    p.add_argument("--image-key", default=None, help="Override image field name in dataset (e.g., image/image_path)")
+    p.add_argument("--image-root", default=None, help="Directory to resolve relative image paths")
     return p
 
 
@@ -52,6 +56,8 @@ def main():
         temperature=args.temperature,
         prompt_key=args.prompt_key,
         id_key=args.id_key,
+        image_key=args.image_key,
+        image_root=args.image_root,
     )
     evaluator.run()
 

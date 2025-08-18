@@ -19,6 +19,7 @@ class CheckpointManager:
         self.run_dir = run_dir
         ensure_dir(self.run_dir)
         self.results_path = os.path.join(self.run_dir, "results.jsonl")
+        self.mmhal_results_path = os.path.join(self.run_dir, "mmhal_results.jsonl")
         self.state_path = os.path.join(self.run_dir, "state.json")
         self.meta_path = os.path.join(self.run_dir, "meta.json")
 
@@ -28,6 +29,9 @@ class CheckpointManager:
                 f.write("")
         if not os.path.exists(self.state_path):
             self._write_json(self.state_path, {"last_index": -1, "last_sample_id": None, "count": 0})
+        if not os.path.exists(self.mmhal_results_path):
+            with open(self.mmhal_results_path, "w", encoding="utf-8") as f:
+                f.write("")
 
     def write_meta(self, meta: Dict[str, Any]) -> None:
         self._write_json(self.meta_path, {**meta, "start_time": utc_timestamp()})
@@ -39,6 +43,18 @@ class CheckpointManager:
             f.write(line + "\n")
             f.flush()
             os.fsync(f.fileno())
+        # If MMHal block present, mirror it into a dedicated JSONL for downstream tools
+        mmhal = record.get("mmhal") if isinstance(record, dict) else None
+        if mmhal is not None:
+            try:
+                mm_line = json.dumps(mmhal, ensure_ascii=False)
+                with open(self.mmhal_results_path, "a", encoding="utf-8") as mf:
+                    mf.write(mm_line + "\n")
+                    mf.flush()
+                    os.fsync(mf.fileno())
+            except Exception:
+                # Non-fatal; continue
+                pass
         self._write_json(self.state_path, {"last_index": index, "last_sample_id": sample_id, "count": index + 1, "updated": utc_timestamp()})
 
     def load_processed_ids(self) -> Set[Any]:

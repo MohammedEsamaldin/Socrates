@@ -30,6 +30,8 @@ from ..modules.self_contradiction_checker import SelfContradictionChecker
 from ..modules.ambiguity_checker import AmbiguityChecker
 from ..modules.clarification_handler import ClarificationHandler
 from ..modules.knowledge_graph_manager import KnowledgeGraphManager
+from ..modules.agla_client import AGLAClient
+from ..config import AGLA_API_URL, AGLA_API_VERIFY_PATH, AGLA_API_TIMEOUT
 from ..utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -105,6 +107,15 @@ class SocratesAgent:
         self.ambiguity_checker = AmbiguityChecker()
         self.clarification_handler = ClarificationHandler()
         self.kg_manager = KnowledgeGraphManager()
+        # Remote AGLA client (remote-only)
+        self.agla_client = None
+        if AGLA_API_URL:
+            try:
+                self.agla_client = AGLAClient(AGLA_API_URL, AGLA_API_VERIFY_PATH, AGLA_API_TIMEOUT)
+                logger.info(f"Configured remote AGLA API: {AGLA_API_URL}{AGLA_API_VERIFY_PATH}")
+            except Exception as e:
+                logger.warning(f"Failed to configure AGLAClient: {e}")
+                self.agla_client = None
         
         # Session state
         self.session_id = None
@@ -246,23 +257,57 @@ class SocratesAgent:
         # Execute verification based on routing decision
         # If no route is available fall back to original sequence
         if route and route.method == VerificationMethod.CROSS_MODAL:
-            # Cross-alignment requires image; if missing, skip
+            # Cross-modal verification requires an image; if missing, skip
             if not image_path:
                 overall_status = CheckStatus.SKIP
             else:
-                logger.info("Performing cross-alignment check...")
-                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
-                if alignment_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= alignment_result["confidence"]
-                    contradictions.extend(alignment_result["contradictions"])
-                    clarification_inquiry = self._fallback_clarification_inquiry(claim_text, alignment_result)
-                    socratic_questions.append(clarification_inquiry)
-                    clarification_needed = self.clarification_handler.generate_clarification(
-                        claim_text, alignment_result.get("visual_description")
-                    )
-                else:
-                    evidence.extend(alignment_result.get("evidence", []))
+                # Prefer remote AGLA API if configured; fallback to local AGLA, then cross-alignment
+                used_remote = False
+                if self.agla_client is not None:
+                    try:
+                        logger.info("Calling remote AGLA API for cross-modal verification...")
+                        # Pass the first Socratic question if available for context
+                        soc_q = socratic_questions[0].question if socratic_questions else None
+                        agla_out = self.agla_client.verify(
+                            image=image_path,
+                            claim=claim_text,
+                            socratic_question=soc_q,
+                            return_debug=False,
+                        )
+                        used_remote = True
+                        verdict = agla_out.get("verdict", "Uncertain")
+                        if verdict == "False":
+                            overall_status = CheckStatus.FAIL
+                            confidence *= 0.85
+                            truth = agla_out.get("truth") or ""
+                            if truth:
+                                contradictions.append(f"AGLA correction: {truth}")
+                            else:
+                                contradictions.append("AGLA indicates the claim is false.")
+                            clarification_inquiry = self._fallback_clarification_inquiry(
+                                claim_text, {"agla_verdict": verdict}
+                            )
+                            socratic_questions.append(clarification_inquiry)
+                        else:
+                            evidence.append(f"AGLA verdict: {verdict}")
+                    except Exception as e:
+                        logger.error(f"Remote AGLA API error: {e}")
+                        used_remote = False
+
+                if not used_remote:
+                    logger.info("Remote AGLA unavailable; skipping local fallback as configured. Performing cross-alignment check...")
+                    alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
+                    if alignment_result["status"] == CheckStatus.FAIL:
+                        overall_status = CheckStatus.FAIL
+                        confidence *= alignment_result["confidence"]
+                        contradictions.extend(alignment_result["contradictions"])
+                        clarification_inquiry = self._fallback_clarification_inquiry(claim_text, alignment_result)
+                        socratic_questions.append(clarification_inquiry)
+                        clarification_needed = self.clarification_handler.generate_clarification(
+                            claim_text, alignment_result.get("visual_description")
+                        )
+                    else:
+                        evidence.extend(alignment_result.get("evidence", []))
 
         elif route and route.method == VerificationMethod.EXTERNAL_SOURCE:
             logger.info("Performing cross-alignment check...")

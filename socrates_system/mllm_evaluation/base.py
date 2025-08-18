@@ -34,6 +34,8 @@ class BaseEvaluator:
         prompt_key: Optional[str] = None,
         id_key: Optional[str] = None,
         fallback_keys: Optional[List[str]] = None,
+        image_key: Optional[str] = None,
+        image_root: Optional[str] = None,
     ) -> None:
         self.dataset_path = dataset_path
         self.run_dir = os.path.join(run_dir, self.BENCHMARK_NAME)
@@ -59,6 +61,8 @@ class BaseEvaluator:
         self.prompt_key = prompt_key
         self.id_key = id_key
         self.fallback_keys = fallback_keys
+        self.image_key = image_key
+        self.image_root = image_root
 
         # Write meta
         self.ckpt.write_meta({
@@ -68,6 +72,8 @@ class BaseEvaluator:
             "model": getattr(self.llm_manager, "model_name"),
             "max_gen_tokens": self.max_gen_tokens,
             "temperature": self.temperature,
+            "image_key": self.image_key,
+            "image_root": self.image_root,
         })
 
     # ------ to be implemented by subclasses ------
@@ -77,6 +83,83 @@ class BaseEvaluator:
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
         return get_prompt_text(sample, key_override=self.prompt_key, fallback_keys=self.fallback_keys)
     # ------------------------------------------------
+
+    def sample_to_image_path(self, sample: Dict[str, Any]) -> Optional[str]:
+        """Hook to extract an image path/URL from a sample. May be overridden by subclasses.
+
+        Default behavior checks a few common keys and resolves relative paths against
+        image_root or the dataset directory.
+        """
+        # Preferred override
+        keys: List[Optional[str]] = [self.image_key, "image", "image_path", "image_file", "img", "imageUrl", "imageURL", "image_uri"]
+        val: Optional[str] = None
+        for k in keys:
+            if k and isinstance(sample.get(k), str) and sample[k].strip():
+                val = sample[k].strip()
+                break
+        if not val:
+            return None
+        # URLs are returned as-is (caller may handle downloading if needed)
+        if val.startswith("http://") or val.startswith("https://"):
+            return val
+        # Resolve relative paths
+        if os.path.isabs(val):
+            return val
+        root = self.image_root or os.path.dirname(os.path.abspath(self.dataset_path))
+        candidate = os.path.join(root, val)
+        return candidate
+
+    def _claims_to_mmhal(self,
+                         claims: List[Any],
+                         clar_results: Dict[int, Dict[str, Any]],
+                         factuality: Dict[int, Any],
+                         stage: str) -> List[Dict[str, Any]]:
+        """Convert pipeline claims + clarifications + factuality into MMHal-style items.
+
+        Each item contains: index, text, span, categories, corrected_text (if any),
+        factuality (status/confidence/evidence/etc), clarification (stage-specific).
+        """
+        items: List[Dict[str, Any]] = []
+        if not claims:
+            return items
+        for i, cl in enumerate(claims, 1):
+            # categories -> names
+            cat_names: List[str] = []
+            try:
+                for c in getattr(cl, "categories", []) or []:
+                    nm = getattr(c, "name", None)
+                    if nm is None:
+                        continue
+                    try:
+                        cat_names.append(nm.name)
+                    except Exception:
+                        cat_names.append(str(nm))
+            except Exception:
+                pass
+
+            # clarification at stage
+            clar = (clar_results or {}).get(i, {})
+            clar_stage_obj = clar.get(stage)
+            corrected_text = None
+            if clar_stage_obj is not None:
+                try:
+                    ct = getattr(clar_stage_obj, "corrected_claim", None)
+                    if isinstance(ct, str) and ct.strip():
+                        corrected_text = ct
+                except Exception:
+                    pass
+
+            item = {
+                "index": i,
+                "text": getattr(cl, "text", None),
+                "span": [int(getattr(cl, "start_char", -1)), int(getattr(cl, "end_char", -1))],
+                "categories": cat_names,
+                "corrected_text": corrected_text,
+                "clarification": to_jsonable(clar_stage_obj) if clar_stage_obj is not None else None,
+                "factuality": to_jsonable((factuality or {}).get(i)),
+            }
+            items.append(item)
+        return items
 
     def get_sample_id(self, sample: Dict[str, Any]):
         """Hook for subclasses to extract a stable sample identifier."""
@@ -88,8 +171,9 @@ class BaseEvaluator:
         sample_id = self.get_sample_id(sample)
         prompt = self.sample_to_prompt(sample)
 
-        # 1) User turn: correct minimally
-        user_res = process_user_turn(self.pipeline, prompt)
+        # 1) User turn: correct minimally (with optional image)
+        image_path = self.sample_to_image_path(sample)
+        user_res = process_user_turn(self.pipeline, prompt, image_path=image_path)
         edited_prompt = user_res["corrected_text"] or prompt
 
         # 2) Model generation on edited prompt
@@ -103,11 +187,49 @@ class BaseEvaluator:
             self.logger.error(f"Generation error for sample {sample_id}: {e}")
             model_out = ""
 
-        # 3) Model turn: correct minimally
-        model_res = process_model_turn(self.pipeline, model_out)
+        # 3) Model turn: correct minimally (with optional image)
+        model_res = process_model_turn(self.pipeline, model_out, image_path=image_path)
+
+        # Build MMHal-style output focusing on model turn claims
+        mmhal_claims = self._claims_to_mmhal(
+            model_res.get("claims", []),
+            model_res.get("clarification", {}),
+            model_res.get("factuality", {}),
+            stage="post",
+        )
+        mmhal_prompt_claims = self._claims_to_mmhal(
+            user_res.get("claims", []),
+            user_res.get("clarification", {}),
+            user_res.get("factuality", {}),
+            stage="pre",
+        )
+
+        # Summary statistics
+        num_pass = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+        num_fail = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+        num_uncertain = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+
+        mmhal = {
+            "version": "0.1",
+            "id": sample_id,
+            "image": image_path,
+            "question": prompt,
+            "response_original": model_out,
+            "response_corrected": model_res.get("corrected_text", model_out),
+            "claims": mmhal_claims,
+            "prompt_claims": mmhal_prompt_claims or None,
+            "summary": {
+                "num_claims": len(mmhal_claims),
+                "num_pass": num_pass,
+                "num_fail": num_fail,
+                "num_uncertain": num_uncertain,
+                "has_hallucination": num_fail > 0,
+            },
+        }
 
         record = {
             "sample_id": sample_id,
+            "image_path": image_path,
             "input_original": prompt,
             "input_corrected": user_res.get("corrected_text", prompt),
             "input_corrections": user_res.get("corrections", []),
@@ -120,6 +242,7 @@ class BaseEvaluator:
             "model_output_factuality": model_res.get("factuality", {}),
             "model_output_claims": to_jsonable(model_res.get("claims", [])),
             "model_output_clarification": to_jsonable(model_res.get("clarification", {})),
+            "mmhal": mmhal,
         }
         return record
 

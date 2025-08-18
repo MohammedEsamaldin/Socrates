@@ -5,7 +5,7 @@ This script demonstrates how to use the claim extractor, categorizer, and router
 modules together to process a piece of text and prepare claims for verification.
 """
 import logging
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 from socrates_system.modules.claim_extractor import ClaimExtractor
 from socrates_system.modules.claim_categorizer import ClaimCategorizer
@@ -32,6 +32,25 @@ from socrates_system.modules.question_generator import (
     SocraticConfig,
     VerificationCapabilities,
     LLMInterfaceAdapter,
+)
+
+# Cross-Alignment Checker (advanced preferred, fallback to simplified)
+try:
+    from socrates_system.modules.cross_alignment_checker import (
+        CrossAlignmentChecker as AdvancedCrossAlignmentChecker,
+    )
+except Exception:
+    AdvancedCrossAlignmentChecker = None
+from socrates_system.modules.cross_alignment_checker_simple import (
+    CrossAlignmentChecker as SimpleCrossAlignmentChecker,
+)
+
+# Remote AGLA API client (preferred for cross-modal when configured)
+from socrates_system.modules.agla_client import AGLAClient
+from socrates_system.config import (
+    AGLA_API_URL,
+    AGLA_API_VERIFY_PATH,
+    AGLA_API_TIMEOUT,
 )
 
 # Setup basic logging
@@ -160,6 +179,29 @@ class SocratesPipeline:
         }
         self.check_router = CheckRouter(available_methods=available_methods)
 
+        # Initialize Cross-Alignment checker
+        self.cross_checker = None
+        try:
+            if AdvancedCrossAlignmentChecker is not None:
+                self.cross_checker = AdvancedCrossAlignmentChecker()
+                logging.info("Using Advanced Cross-Alignment Checker")
+            else:
+                self.cross_checker = SimpleCrossAlignmentChecker()
+                logging.info("Using Simplified Cross-Alignment Checker")
+        except Exception as e:
+            logging.warning(f"CrossAlignmentChecker unavailable: {e}")
+            self.cross_checker = None
+
+        # Initialize remote AGLA API client if configured (preferred for cross-modal)
+        self.agla_client = None
+        try:
+            if AGLA_API_URL:
+                self.agla_client = AGLAClient(AGLA_API_URL, AGLA_API_VERIFY_PATH, AGLA_API_TIMEOUT)
+                logging.info(f"AGLA remote API configured: {AGLA_API_URL}{AGLA_API_VERIFY_PATH}")
+        except Exception as e:
+            logging.warning(f"AGLAClient initialization failed: {e}")
+            self.agla_client = None
+
         # Factuality check toggle from CLI/env
         if factuality_enabled is None:
             factuality_enabled = os.getenv("FACTUALITY_ENABLED", "true").lower() == "true"
@@ -266,12 +308,13 @@ class SocratesPipeline:
         self._qg_stats: Dict[str, Any] = {"total": 0, "fallback": 0}
         logging.info("Socrates Pipeline initialized successfully.")
 
-    def run(self, text: str) -> List[ExtractedClaim]:
+    def run(self, text: str, image_path: Optional[str] = None) -> List[ExtractedClaim]:
         """
         Runs the full claim processing pipeline on a given text.
 
         Args:
             text: The input text to process.
+            image_path: Optional path to an image for multimodal verification.
 
         Returns:
             A list of processed claims, ready for verification.
@@ -432,6 +475,186 @@ class SocratesPipeline:
                         logging.info("Route overridden to KNOWLEDGE_GRAPH by Clarification Module (pre)")
                 except Exception as e:
                     logging.warning(f"Failed to apply pre-clarification routing override: {e}")
+
+            # 4. Cross-modal alignment check when visual grounding is required
+            if route.method == VerificationMethod.CROSS_MODAL:
+                logging.info("Performing cross-modal alignment check for this claim...")
+                try:
+                    if not getattr(self, "cross_checker", None) and not getattr(self, "agla_client", None):
+                        raise RuntimeError("No cross-modal verifier available (AGLA/local)")
+                    if not image_path:
+                        result = {
+                            "status": "UNCERTAIN",
+                            "confidence": 0.0,
+                            "evidence": [],
+                            "sources": [],
+                            "contradictions": [],
+                            "reasoning": "No image provided for cross-modal verification",
+                        }
+                    else:
+                        # Prefer remote AGLA API when available; fallback to local checker
+                        if getattr(self, "agla_client", None) is not None:
+                            try:
+                                out = self.agla_client.verify(
+                                    image=image_path,
+                                    claim=categorized_claim.text,
+                                    return_debug=False,
+                                )
+                                verdict_str = (out or {}).get("verdict", "Uncertain")
+                                if verdict_str == "True":
+                                    _status, _conf = "PASS", 0.85
+                                elif verdict_str == "False":
+                                    _status, _conf = "FAIL", 0.85
+                                else:
+                                    _status, _conf = "UNCERTAIN", 0.5
+                                _truth = (out or {}).get("truth") or ""
+                                ev = []
+                                if _status == "FAIL" and _truth:
+                                    ev.append(f"AGLA correction: {_truth}")
+                                ev.append(f"AGLA verdict: {verdict_str}")
+                                srcs = []
+                                try:
+                                    if AGLA_API_URL:
+                                        srcs.append(f"{AGLA_API_URL}{AGLA_API_VERIFY_PATH}")
+                                except Exception:
+                                    pass
+                                result = {
+                                    "status": _status,
+                                    "confidence": _conf,
+                                    "evidence": ev,
+                                    "sources": srcs,
+                                    "contradictions": [] if _status != "FAIL" else ([_truth] if _truth else ["Image contradicts claim"]),
+                                    "reasoning": "Remote AGLA verification",
+                                }
+                            except Exception as ae:
+                                logging.warning(f"AGLA API error, falling back to local cross-checker: {ae}")
+                                if getattr(self, "cross_checker", None) is not None:
+                                    result = self.cross_checker.check_alignment(categorized_claim.text, image_path)
+                                else:
+                                    raise
+                        else:
+                            result = self.cross_checker.check_alignment(categorized_claim.text, image_path)
+                    factuality_results[i] = result
+                    status = result.get("status")
+                    conf = result.get("confidence", 0.0)
+                    logging.info(f"Cross-modal: {status} (conf {conf:.2f})")
+                    # Persist onto claim
+                    categorized_claim.factuality_status = status
+                    categorized_claim.factuality_confidence = conf
+                    categorized_claim.factuality_verdict = True if status == "PASS" else (False if status == "FAIL" else None)
+                    categorized_claim.factuality_evidence = result.get("evidence", [])
+                    categorized_claim.factuality_sources = result.get("sources", [])
+                    categorized_claim.factuality_reasoning = result.get("reasoning")
+                except Exception as e:
+                    logging.error(f"Cross-modal check error: {e}")
+                    factuality_results[i] = {
+                        "status": "ERROR",
+                        "confidence": 0.0,
+                        "external_facts": [],
+                        "contradictions": [str(e)],
+                        "evidence": [],
+                        "sources": [],
+                        "reasoning": "Exception during cross-modal check",
+                    }
+                    categorized_claim.factuality_status = "ERROR"
+                    categorized_claim.factuality_confidence = 0.0
+                    categorized_claim.factuality_verdict = None
+                    categorized_claim.factuality_evidence = []
+                    categorized_claim.factuality_sources = []
+                    categorized_claim.factuality_reasoning = "Exception during cross-modal check"
+                else:
+                    # Post-factuality clarification for cross-modal uncertainties/conflicts
+                    try:
+                        if self.clarifier and status in ("FAIL", "UNCERTAIN"):
+                            logging.info("Invoking Clarification Module for cross-modal conflict/uncertainty (post-factuality)...")
+                            ev_list = []
+                            for ev in (result.get("evidence", []) or []):
+                                if isinstance(ev, str):
+                                    ev_list.append({"summary": ev})
+                                elif isinstance(ev, dict):
+                                    ev_list.append(ev)
+                            fc = ClarFactCheckResult(
+                                verdict=status,
+                                confidence=float(conf) if not isinstance(conf, str) else float(conf or 0.0),
+                                reasoning=result.get("reasoning"),
+                                evidence=ev_list,
+                                sources=result.get("sources", []),
+                            )
+                            cat_enum = next((c.name for c in categorized_claim.categories), None)
+                            ctx = ClarContext(
+                                claim_text=categorized_claim.text,
+                                category=cat_enum,
+                                fact_check=fc,
+                                failed_check_type="CROSS_MODAL",
+                                issue_type=IssueType.VISUAL_CONFLICT,
+                                claim_id=str(i),
+                                metadata={"stage": "post_factuality"},
+                            )
+                            clr_res_cm = self.clarifier.resolve_claim(ctx)
+                            self._clarification_results.setdefault(i, {})["post"] = clr_res_cm
+                            if clr_res_cm.corrected_claim and clr_res_cm.corrected_claim.strip() and clr_res_cm.corrected_claim.strip() != categorized_claim.text.strip():
+                                logging.info("Applying corrected claim from cross-modal clarification (post-factuality)")
+                                categorized_claim.text = clr_res_cm.corrected_claim.strip()
+                                # Optionally re-run cross-modal check if requested
+                                if getattr(clr_res_cm, 'rerun_verification', False):
+                                    try:
+                                        if image_path:
+                                            logging.info("Re-running cross-modal check on corrected claim...")
+                                            # Prefer AGLA again on rerun
+                                            if getattr(self, "agla_client", None) is not None:
+                                                try:
+                                                    out2 = self.agla_client.verify(
+                                                        image=image_path,
+                                                        claim=categorized_claim.text,
+                                                        return_debug=False,
+                                                    )
+                                                    verdict2 = (out2 or {}).get("verdict", "Uncertain")
+                                                    if verdict2 == "True":
+                                                        _status2, _conf2 = "PASS", 0.85
+                                                    elif verdict2 == "False":
+                                                        _status2, _conf2 = "FAIL", 0.85
+                                                    else:
+                                                        _status2, _conf2 = "UNCERTAIN", 0.5
+                                                    _truth2 = (out2 or {}).get("truth") or ""
+                                                    ev2 = []
+                                                    if _status2 == "FAIL" and _truth2:
+                                                        ev2.append(f"AGLA correction: {_truth2}")
+                                                    ev2.append(f"AGLA verdict: {verdict2}")
+                                                    srcs2 = []
+                                                    try:
+                                                        if AGLA_API_URL:
+                                                            srcs2.append(f"{AGLA_API_URL}{AGLA_API_VERIFY_PATH}")
+                                                    except Exception:
+                                                        pass
+                                                    result2 = {
+                                                        "status": _status2,
+                                                        "confidence": _conf2,
+                                                        "evidence": ev2,
+                                                        "sources": srcs2,
+                                                        "contradictions": [] if _status2 != "FAIL" else ([_truth2] if _truth2 else ["Image contradicts claim"]),
+                                                        "reasoning": "Remote AGLA verification (rerun)",
+                                                    }
+                                                except Exception as ae2:
+                                                    logging.warning(f"AGLA API rerun error, falling back to local cross-checker: {ae2}")
+                                                    if getattr(self, "cross_checker", None) is not None:
+                                                        result2 = self.cross_checker.check_alignment(categorized_claim.text, image_path)
+                                                    else:
+                                                        raise
+                                            else:
+                                                result2 = self.cross_checker.check_alignment(categorized_claim.text, image_path)
+                                            factuality_results[i] = result2
+                                            status2 = result2.get("status")
+                                            conf2 = result2.get("confidence", 0.0)
+                                            categorized_claim.factuality_status = status2
+                                            categorized_claim.factuality_confidence = conf2
+                                            categorized_claim.factuality_verdict = True if status2 == "PASS" else (False if status2 == "FAIL" else None)
+                                            categorized_claim.factuality_evidence = result2.get("evidence", [])
+                                            categorized_claim.factuality_sources = result2.get("sources", [])
+                                            categorized_claim.factuality_reasoning = result2.get("reasoning")
+                                    except Exception as e:
+                                        logging.warning(f"Rerun cross-modal check failed: {e}")
+                    except Exception as e:
+                        logging.warning(f"Cross-modal post-factuality clarification failed: {e}")
 
             # 4. External factuality check for routed claims (if enabled)
             if self.factuality_enabled and route.method == VerificationMethod.EXTERNAL_SOURCE:
