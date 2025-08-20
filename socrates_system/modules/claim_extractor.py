@@ -61,6 +61,10 @@ class ClaimExtractor:
             # Initialize LLM manager if provided
             self.llm_manager = llm_manager
 
+            # Optional: KnowledgeGraphManager for canonical ID resolution
+            self.kg_manager = None  # set via set_kg_manager
+            self.session_id: Optional[str] = None
+
             # Fallback patterns for when LLM is not available
             self.fallback_patterns = [
                 # Attribute patterns
@@ -96,6 +100,30 @@ class ClaimExtractor:
         except Exception as e:
             logger.error(f"Error initializing Claim Extractor: {str(e)}")
             raise
+
+    def set_kg_manager(self, kg_manager: Any, session_id: Optional[str] = None) -> None:
+        """Attach KnowledgeGraphManager for canonical entity ID resolution.
+
+        Args:
+            kg_manager: KnowledgeGraphManager instance
+            session_id: Optional session id to prefer when resolving canonical IDs
+        """
+        try:
+            self.kg_manager = kg_manager
+            if session_id:
+                self.session_id = session_id
+            logger.info("ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution")
+        except Exception as e:
+            logger.warning(f"Failed to set KG manager on ClaimExtractor: {e}")
+
+    def _resolve_canonical(self, text: str, label: str) -> Optional[str]:
+        """Resolve canonical ID for an entity if KG manager is available."""
+        try:
+            if getattr(self, "kg_manager", None):
+                return self.kg_manager.resolve_canonical_id(text, label, getattr(self, "session_id", None))
+        except Exception:
+            pass
+        return None
 
     def extract_claims(self, text: str) -> List[ExtractedClaim]:
         """
@@ -400,7 +428,20 @@ class ClaimExtractor:
         return extracted_claims
 
     def _post_process_claims(self, claims: List[ExtractedClaim], source_text: str) -> List[ExtractedClaim]:
-        """Post-process extracted claims to ensure quality and remove duplicates."""
+        """Post-process extracted claims to ensure quality and remove duplicates.
+
+        Additionally, annotate entities with canonical IDs using the KG manager when available.
+        """
+        try:
+            if getattr(self, "kg_manager", None):
+                for claim in claims or []:
+                    for ent in getattr(claim, "entities", []) or []:
+                        if ent and getattr(ent, "canonical_id", None) is None:
+                            cid = self._resolve_canonical(ent.text, ent.label)
+                            if cid:
+                                ent.canonical_id = cid
+        except Exception as e:
+            logger.debug(f"Canonical ID post-process failed: {e}")
         # Placeholder for future logic like deduplication or merging.
         return claims
 

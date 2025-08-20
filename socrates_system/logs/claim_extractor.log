@@ -7347,3 +7347,1887 @@ Note that this output could be further improved by adding more context or refini
 2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.65): 'Will Sujood pass this verification' -> 'I know Sujood Khalid she studies at LSE, her friends says that Sujood is drama queen, will Sujood pass this verification?'
 2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
 2025-08-18 03:10:05,185 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-18 21:37:41,783 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:37:44,735 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:37:46,503 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:37:46,531 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 452, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}
+2025-08-18 21:37:46,534 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-18 21:38:58,850 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:39:01,400 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:39:03,174 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:39:03,193 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 452, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}
+2025-08-18 21:39:03,196 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-18 21:42:01,190 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:42:03,842 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:42:05,637 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:42:05,651 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 452, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}
+2025-08-18 21:42:05,654 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-18 21:45:09,046 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:45:11,839 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:45:13,604 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:45:13,626 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 452, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3.1:latest' not found"}
+2025-08-18 21:45:13,629 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-18 21:48:18,767 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:48:21,434 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:48:23,156 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:48:34,234 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The London Big Ben tower is in Germany.",
+      "confidence": 0.5,
+      "entities": [],
+      "ambiguity_reason": "Geographical location of 'Big Ben' is unclear"
+    }
+  ]
+}'
+2025-08-18 21:48:35,113 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The London Big Ben tower is in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-18 21:48:35,115 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-18 21:48:35,115 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-18 21:50:33,118 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-18 21:50:35,481 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-18 21:50:37,186 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-18 21:50:50,243 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The image shows a London Big Ben tower.",
+      "confidence": 0.8,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Location of Big Ben"
+    },
+    {
+      "claim_text": "Big Ben is located in Germany.",
+      "confidence": 0.2,
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": [
+        {
+          "text": "London",
+          "label": "LOC"
+        }
+      ],
+      "ambiguity_reason": "Conflicting information about Big Ben's location"
+    }
+  ]
+}'
+2025-08-18 21:50:50,600 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.91): 'The image shows a London Big Ben tower' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-18 21:50:50,601 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'Big Ben is located in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-18 21:50:50,601 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-18 21:50:50,602 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-19 00:16:00,082 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 00:16:02,957 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 00:16:04,723 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-19 00:16:20,050 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The London Big Ben tower is in Germany.",
+      "confidence": 0.5,
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": [],
+      "ambiguity_reason": "Referential ambiguity: 'London' and 'Germany'"
+    }
+  ]
+}'
+2025-08-19 00:16:20,859 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The London Big Ben tower is in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-19 00:16:20,860 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-19 00:16:20,860 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-19 00:22:35,541 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 00:22:38,410 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 00:22:41,096 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-19 00:23:00,186 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Big Ben is located in London.",
+      "confidence": Low,
+      "ambiguity_reason": "Geographical location of Big Ben",
+      "type_hint": RELATIONAL_CLAIMS
+    },
+    {
+      "claim_text": "The tower I was standing in front of is called Big Ben.",
+      "confidence": Medium,
+      "entities": [
+        {
+          "text": "Big Ben",
+          "label": "BUILDING"
+        }
+      ],
+      "type_hint": EXPLICIT_FACTUAL_CLAIMS
+    },
+    {
+      "claim_text": "London is a city in Germany.",
+      "confidence": Low,
+      "ambiguity_reason": "Geographical location of London",
+      "type_hint": RELATIONAL_CLAIMS
+    }
+  ]
+}'
+2025-08-19 00:23:01,019 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.75): 'Big Ben is located in London' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-19 00:23:01,020 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.79): 'The tower I was standing in front of is called Big Ben' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-19 00:23:01,020 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.50): 'London is a city in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-19 00:23:01,021 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 00:23:01,021 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 00:24:01,647 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 00:24:04,498 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 00:24:06,431 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image I was standing in front of a London Big Ben tower, which is in Germany....
+2025-08-19 00:24:15,781 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The London Big Ben tower is in Germany.",
+      "confidence": 0.8,
+      "entities": [],
+      "ambiguity_reason": "Location ambiguity: 'London' and 'Germany'"
+    }
+  ]
+}'
+2025-08-19 00:24:16,379 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The London Big Ben tower is in Germany' -> 'in this image I was standing in front of a London Big Ben tower, which is in Germany.'
+2025-08-19 00:24:16,380 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-19 00:24:16,380 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-19 00:56:08,773 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 00:56:11,375 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 00:56:12,997 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows an outdoor scene with people and buildings. There is at least one building visible....
+2025-08-19 00:56:29,693 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are people in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "At least one building is visible in the scene.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 00:56:30,540 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'There are people in the image' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 00:56:30,541 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.92): 'At least one building is visible in the scene' -> 'There is at least one building visible.'
+2025-08-19 00:56:30,541 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-19 00:56:30,541 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-19 01:41:47,148 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 01:41:49,650 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 01:41:51,625 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows an outdoor scene with people and buildings. There is at least one building visible....
+2025-08-19 01:42:07,240 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are people in the scene.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "At least one building is visible.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 01:42:08,206 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.57): 'There are people in the scene' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 01:42:08,206 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'At least one building is visible' -> 'There is at least one building visible.'
+2025-08-19 01:42:08,207 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-19 01:42:08,207 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-19 01:48:57,347 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 01:48:59,874 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 01:49:01,554 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows an outdoor scene with people and buildings. There is at least one building visible....
+2025-08-19 01:49:13,090 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "There are people in the image.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "At least one building is visible in the scene.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-19 01:49:13,482 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'There are people in the image' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 01:49:13,483 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.92): 'At least one building is visible in the scene' -> 'There is at least one building visible.'
+2025-08-19 01:49:13,483 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-19 01:49:13,483 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-19 01:50:52,747 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 01:50:55,463 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 01:50:57,482 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows an outdoor scene with people and buildings. There is at least one building visible....
+2025-08-19 01:51:14,616 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "There is at least one building visible.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The image shows an outdoor scene with people and buildings.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "outdoor scene",
+          "label": "SCENE"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There are people visible in the image.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "people",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-19 01:51:15,264 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'There is at least one building visible' -> 'There is at least one building visible.'
+2025-08-19 01:51:15,266 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'The image shows an outdoor scene with people and buildings' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 01:51:15,268 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.64): 'There are people visible in the image' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 01:51:15,268 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 01:51:15,268 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 01:51:49,724 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 01:51:52,426 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 01:51:54,206 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The image shows an outdoor scene with people and buildings. There is at least one building visible....
+2025-08-19 01:52:05,923 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are people in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "At least one building is visible in the scene.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 01:52:06,336 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'There are people in the image' -> 'The image shows an outdoor scene with people and buildings.'
+2025-08-19 01:52:06,339 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.92): 'At least one building is visible in the scene' -> 'There is at least one building visible.'
+2025-08-19 01:52:06,339 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-19 01:52:06,339 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-19 01:56:09,565 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 01:56:12,305 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 01:56:14,220 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 01:56:31,282 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 2 dogs in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The second dog is black.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "second dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 01:56:32,012 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 01:56:32,014 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 01:56:32,014 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The second dog is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 01:56:32,014 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{second dog}' not found verbatim in source sentence: '{there are 2 dogs in the image, the first dog is yellow and the second one is black}'. Skipping entity.
+2025-08-19 01:56:32,014 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 01:56:32,015 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:15:38,554 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:15:40,821 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:15:42,671 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 02:16:02,576 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 2 dogs in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "the first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The second dog is black.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "the second dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 02:16:03,361 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 02:16:03,362 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 02:16:03,362 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The second dog is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 02:16:03,362 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{the second dog}' not found verbatim in source sentence: '{there are 2 dogs in the image, the first dog is yellow and the second one is black}'. Skipping entity.
+2025-08-19 02:16:03,363 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 02:16:03,363 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:21:24,092 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:21:26,586 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:21:28,542 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the first dog is black...
+2025-08-19 02:21:45,610 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 2 dogs in the image.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is black.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 02:21:46,365 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.82): 'There are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:21:46,366 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:21:46,367 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.72): 'The first dog is black' -> 'there are 2 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:21:46,367 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 02:21:46,367 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:24:47,961 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:24:50,886 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:24:53,036 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 3 dogs in the image, the first dog is yellow and the first dog is black...
+2025-08-19 02:25:09,921 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 3 dogs in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "the first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is black.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "the first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 02:25:10,483 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'There are 3 dogs in the image' -> 'there are 3 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:25:10,484 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The first dog is yellow' -> 'there are 3 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:25:10,485 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.68): 'The first dog is black' -> 'there are 3 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 02:25:10,485 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 02:25:10,485 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:27:36,274 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:27:38,987 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:27:40,839 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 3 watches here, 2 red and 1 yellow...
+2025-08-19 02:27:57,875 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 3 watches.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "2 of the watches are red.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "red",
+          "label": "COLOR"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "1 of the watches is yellow.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "yellow",
+          "label": "COLOR"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 02:27:58,518 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There are 3 watches' -> 'there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:27:58,520 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): '2 of the watches are red' -> 'there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:27:58,521 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): '1 of the watches is yellow' -> 'there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:27:58,521 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 02:27:58,521 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:28:53,707 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:28:56,136 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:28:57,745 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image there are 3 watches here, 2 red and 1 yellow...
+2025-08-19 02:29:11,918 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 3 watches in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "2 of the watches are red.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "1 watch is yellow.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 02:29:12,733 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There are 3 watches in the image' -> 'in this image there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:29:12,734 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): '2 of the watches are red' -> 'in this image there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:29:12,735 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): '1 watch is yellow' -> 'in this image there are 3 watches here, 2 red and 1 yellow'
+2025-08-19 02:29:12,735 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 02:29:12,735 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 02:33:15,210 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 02:33:18,088 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 02:33:19,923 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat...
+2025-08-19 02:33:43,565 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a family of 5 people in this image.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "family",
+          "label": "GROUP"
+        },
+        {
+          "text": "people",
+          "label": "GROUP"
+        }
+      ]
+    },
+    {
+      "claim_text": "The family consists of a father, mother, and three children.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "father",
+          "label": "PERSON"
+        },
+        {
+          "text": "mother",
+          "label": "PERSON"
+        }
+      ]
+    },
+    {
+      "claim_text": "There is one boy in the family.",
+      "confidence": 0.85,
+      "entities": [
+        {
+          "text": "boy",
+          "label": "PERSON"
+        }
+      ]
+    },
+    {
+      "claim_text": "There are two girls in the family.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "girls",
+          "label": "GROUP"
+        }
+      ]
+    },
+    {
+      "claim_text": "A cat is present in the image.",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "cat",
+          "label": "ANIMAL"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-19 02:33:44,314 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'There is a family of 5 people in this image' -> 'in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat'
+2025-08-19 02:33:44,316 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.64): 'The family consists of a father, mother, and three children' -> 'in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat'
+2025-08-19 02:33:44,316 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{father}' not found verbatim in source sentence: '{in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat}'. Skipping entity.
+2025-08-19 02:33:44,479 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.43): 'There is one boy in the family' -> 'in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat'
+2025-08-19 02:33:44,480 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.35): 'There are two girls in the family'
+2025-08-19 02:33:44,480 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.54): 'A cat is present in the image' -> 'in this image there is a family of 5 people, Father,mother and one boy and 2 girls and a cat'
+2025-08-19 02:33:44,480 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims using LLM.
+2025-08-19 02:33:44,481 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims
+2025-08-19 03:24:15,912 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:24:18,403 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:24:20,117 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:24:20,134 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 454, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 484, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-19 03:24:20,136 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-19 03:26:05,591 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:26:07,921 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:26:09,679 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:26:12,579 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "there are 2 dogs in the image",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the first dog is yellow",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the second one is black",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:26:12,971 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'there are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:26:12,971 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'the first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:26:12,972 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.57): 'the second one is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:26:12,972 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:26:12,972 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 03:30:25,310 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:30:28,043 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:30:29,770 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:30:45,891 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 2 dogs in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "first dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The second dog is black.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "second dog",
+          "label": "ENTITY"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:30:46,546 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:30:46,558 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:30:46,563 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The second dog is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:30:46,564 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{second dog}' not found verbatim in source sentence: '{there are 2 dogs in the image, the first dog is yellow and the second one is black}'. Skipping entity.
+2025-08-19 03:30:46,565 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:30:46,566 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 03:47:42,333 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:47:44,670 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:47:46,330 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:47:46,346 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 188, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 137, in generate_text
+    response = loop.run_until_complete(
+        self._call_llm(prompt, system_prompt, temperature, max_tokens)
+    )
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 454, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 484, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-19 03:47:46,349 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-19 03:48:40,763 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:48:42,907 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:48:44,530 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:48:47,377 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "there are 2 dogs in the image",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the first dog is yellow",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the second one is black",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:48:47,737 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'there are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:48:47,738 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'the first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:48:47,739 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.57): 'the second one is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:48:47,739 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:48:47,739 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 03:52:49,803 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:52:52,465 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:52:54,173 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:52:57,063 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 2 dogs in the image.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The first dog is yellow.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The second dog is black.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:52:57,424 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:52:57,425 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'The first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:52:57,426 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.76): 'The second dog is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:52:57,426 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:52:57,426 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 03:56:13,660 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:56:16,047 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:56:17,730 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 2 dogs in the image, the first dog is yellow and the second one is black...
+2025-08-19 03:56:21,260 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "there are 2 dogs in the image",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the first dog is yellow",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the second one is black",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:56:21,638 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'there are 2 dogs in the image' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:56:21,639 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'the first dog is yellow' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:56:21,640 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.57): 'the second one is black' -> 'there are 2 dogs in the image, the first dog is yellow and the second one is black'
+2025-08-19 03:56:21,640 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:56:21,640 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 03:58:11,211 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 03:58:13,595 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 03:58:15,316 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 4 dogs in the image, the first dog is yellow and the first dog is black...
+2025-08-19 03:58:19,002 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "there are 4 dogs in the image",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the first dog is yellow",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "the first dog is black",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 03:58:19,379 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'there are 4 dogs in the image' -> 'there are 4 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 03:58:19,380 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.67): 'the first dog is yellow' -> 'there are 4 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 03:58:19,380 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.64): 'the first dog is black' -> 'there are 4 dogs in the image, the first dog is yellow and the first dog is black'
+2025-08-19 03:58:19,380 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 03:58:19,380 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 04:03:15,865 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 04:03:18,524 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 04:03:20,232 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: there are 3 cars in the image, there are 2 firetrucks in the image, one of the firetrucks door is op...
+2025-08-19 04:03:24,090 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There are 3 cars in the image.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There are 2 firetrucks in the image.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "One of the firetrucks' door is open.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 04:03:24,453 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'There are 3 cars in the image' -> 'there are 3 cars in the image, there are 2 firetrucks in the image, one of the firetrucks door is open'
+2025-08-19 04:03:24,454 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'There are 2 firetrucks in the image' -> 'there are 3 cars in the image, there are 2 firetrucks in the image, one of the firetrucks door is open'
+2025-08-19 04:03:24,455 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'One of the firetrucks' door is open' -> 'there are 3 cars in the image, there are 2 firetrucks in the image, one of the firetrucks door is open'
+2025-08-19 04:03:24,455 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 04:03:24,455 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 04:34:07,572 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 04:34:10,173 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 04:34:11,842 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in the image, there is a man dancin, and there is a man cooking corn...
+2025-08-19 04:34:13,430 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a man dancing.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a man cooking corn.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 04:34:13,770 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.24): 'There is a man dancing'
+2025-08-19 04:34:13,771 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'There is a man cooking corn' -> 'in the image, there is a man dancin, and there is a man cooking corn'
+2025-08-19 04:34:13,771 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-19 04:34:13,771 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-19 04:34:55,358 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 04:34:57,775 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 04:34:59,458 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: in the image, there is a man dancin, and there is a man cooking corn...
+2025-08-19 04:35:01,554 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a man dancing.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a man cooking corn.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 04:35:01,872 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.24): 'There is a man dancing'
+2025-08-19 04:35:01,873 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.73): 'There is a man cooking corn' -> 'in the image, there is a man dancin, and there is a man cooking corn'
+2025-08-19 04:35:01,873 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-19 04:35:01,873 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-19 04:36:31,649 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 04:36:34,089 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 04:36:35,801 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Barak Obama was the president of Sudan, he vistied KSA and meet with the king...
+2025-08-19 04:36:38,733 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Barak Obama was the president of Sudan.",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Barak Obama was not the president of Sudan; he was the president of the United States."
+    },
+    {
+      "claim_text": "He visited KSA.",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Unclear who 'he' refers to; context suggests it is Barak Obama."
+    },
+    {
+      "claim_text": "He met with the king.",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": "Unclear who 'he' refers to; context suggests it is Barak Obama."
+    }
+  ]
+}'
+2025-08-19 04:36:39,080 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'Barak Obama was the president of Sudan' -> 'when Barak Obama was the president of Sudan, he vistied KSA and meet with the king'
+2025-08-19 04:36:39,081 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.52): 'He visited KSA.' -> 'when Barak Obama was the president of Sudan, he vistied KSA and meet with the king'
+2025-08-19 04:36:39,081 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.46): 'He met with the king' -> 'when Barak Obama was the president of Sudan, he vistied KSA and meet with the king'
+2025-08-19 04:36:39,081 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 04:36:39,081 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-19 04:40:37,557 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-19 04:40:40,137 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-19 04:40:41,861 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA ...
+2025-08-19 04:40:44,897 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Barak Obama was the president of USA.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "He visited Riyadh.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "claim_text": "Barak Obama was the president of USA.",
+          "context": "when Barak Obama was the president of USA"
+        }
+      ]
+    },
+    {
+      "claim_text": "At that time the president of USA was Donald Trump.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-19 04:40:45,269 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'Barak Obama was the president of USA.' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-19 04:40:45,270 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'He visited Riyadh' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-19 04:40:45,271 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.53): 'At that time the president of USA was Donald Trump' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-19 04:40:45,271 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-19 04:40:45,271 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 00:24:39,497 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 00:24:39,498 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_trf'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-20 00:24:41,250 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 00:24:41,821 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA ...
+2025-08-20 00:24:41,821 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 138, in generate_text
+    response = loop.run_until_complete(
+  File "/Users/mohammed/miniconda3/envs/agla/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 459, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 489, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-20 00:24:41,824 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-20 00:27:26,337 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 00:27:31,511 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: Failed to import transformers.models.timm_wrapper.configuration_timm_wrapper because of the following error (look up to see its traceback):
+cannot import name 'ImageNetInfo' from 'timm.data' (/Users/mohammed/miniconda3/envs/agla/lib/python3.9/site-packages/timm/data/__init__.py)
+2025-08-20 00:27:31,512 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 00:27:34,273 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA ...
+2025-08-20 00:27:37,495 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Barak Obama was the president of USA.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "He visited Riyadh.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "claim_text": "Barak Obama was the president of USA.",
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "claim_text": "At that time the president of USA was Donald Trump.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 00:27:37,501 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'Barak Obama was the president of USA.' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:27:37,501 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'He visited Riyadh' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:27:37,501 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'At that time the president of USA was Donald Trump' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:27:37,501 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 00:27:37,501 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 00:34:28,754 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 00:34:32,807 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 00:34:56,553 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 00:34:56,576 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA ...
+2025-08-20 00:34:59,441 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Barak Obama was the president of USA.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "He visited Riyadh.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "claim_text": "Barak Obama was the president of USA.",
+          "type_hint": "EXPLICIT_FACTUAL_CLAIMS"
+        }
+      ]
+    },
+    {
+      "claim_text": "At that time the president of USA was Donald Trump.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 00:35:01,156 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'Barak Obama was the president of USA.' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:35:01,157 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'He visited Riyadh' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:35:01,158 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.53): 'At that time the president of USA was Donald Trump' -> 'when Barak Obama was the president of USA, he visited Riyadh, and at that time the president of USA Donald Trump'
+2025-08-20 00:35:01,158 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 00:35:01,158 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 00:42:05,426 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 00:42:09,071 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 00:42:12,400 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 00:42:12,427 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025. I was born in 1990...
+2025-08-20 00:42:15,571 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "My name is Mohammed.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I am 28 years old.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Today is my birthday 19/8/2025.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I was born in 1990.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 00:42:16,172 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.74): 'My name is Mohammed' -> 'My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025.'
+2025-08-20 00:42:16,173 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.36): 'I am 28 years old'
+2025-08-20 00:42:16,173 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'Today is my birthday 19/8/2025' -> 'My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025.'
+2025-08-20 00:42:16,174 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'I was born in 1990' -> 'I was born in 1990'
+2025-08-20 00:42:16,174 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 00:42:16,174 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 02:16:48,065 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 02:16:51,965 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 02:16:56,120 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 02:16:56,136 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Paris is the capital of France....
+2025-08-20 02:17:11,445 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "Paris is the capital of France.",
+      "confidence": 1.0,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 02:17:14,620 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Paris is the capital of France' -> 'Paris is the capital of France.'
+2025-08-20 02:17:14,621 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-20 02:17:14,621 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 02:18:08,174 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 02:18:11,857 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 02:18:15,229 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 02:18:15,249 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is in Rome....
+2025-08-20 02:18:25,106 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "The Eiffel Tower is in Rome.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "ambiguity_reason": "Geographical location ambiguity"
+    }
+  ]
+}'
+2025-08-20 02:18:26,780 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'The Eiffel Tower is in Rome' -> 'The Eiffel Tower is in Rome.'
+2025-08-20 02:18:26,781 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-20 02:18:26,781 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:16:49,299 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:16:49,299 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_trf'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-20 05:16:50,948 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:16:50,985 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: What color is the fire hydrant cap in the picture?...
+2025-08-20 05:16:51,028 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3:8b-instruct' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 138, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 457, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 484, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3:8b-instruct' not found"}
+2025-08-20 05:16:51,048 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:18:46,579 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:18:46,579 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_trf'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-20 05:18:48,132 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:18:48,149 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: What color is the fire hydrant cap in the picture?...
+2025-08-20 05:18:48,154 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: Ollama API error: 404 - {"error":"model 'llama3:8b' not found"}, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 138, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 457, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 484, in _call_ollama
+    raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
+Exception: Ollama API error: 404 - {"error":"model 'llama3:8b' not found"}
+2025-08-20 05:18:48,158 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:19:40,911 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:19:40,912 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: [E050] Can't find model 'en_core_web_trf'. It doesn't seem to be a Python package or a valid path to a data directory.
+2025-08-20 05:19:42,384 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:19:42,402 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: What color is the fire hydrant cap in the picture?...
+2025-08-20 05:19:52,043 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The fire hydrant cap is red.",
+      "confidence": "Low",
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": ["picture"],
+      "ambiguity_reason": "Color identification may be subjective"
+    }
+  ]
+}
+```'
+2025-08-20 05:19:54,353 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'The fire hydrant cap is red' -> 'What color is the fire hydrant cap in the picture?'
+2025-08-20 05:19:54,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-20 05:19:54,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:20:47,345 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I don't have a picture to reference. I'm happy to help with any other questions you might have, thou...
+2025-08-20 05:20:58,702 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "I don't have a picture to reference.",
+      "confidence": "Low",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I'm happy to help with any other questions you might have, though!",
+      "confidence": "Medium",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "any other questions",
+          "label": "QUESTION"
+        }
+      ]
+    }
+  ]
+}
+```'
+2025-08-20 05:20:59,516 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'I don't have a picture to reference' -> 'I don't have a picture to reference.'
+2025-08-20 05:20:59,517 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'I'm happy to help with any other questions you might have, though' -> 'I'm happy to help with any other questions you might have, though!'
+2025-08-20 05:20:59,517 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-20 05:20:59,517 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-20 05:26:50,467 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:26:54,787 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:26:58,225 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 05:26:58,243 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: What color is the fire hydrant cap in the picture?...
+2025-08-20 05:27:11,748 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The fire hydrant cap is red.",
+      "confidence": "Low",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [],
+      "ambiguity_reason": null,
+      "source_context": "What color is the fire hydrant cap in the picture?"
+    }
+  ]
+}
+```'
+2025-08-20 05:27:13,155 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'The fire hydrant cap is red' -> 'What color is the fire hydrant cap in the picture?'
+2025-08-20 05:27:13,155 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-20 05:27:13,155 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:27:28,587 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I don't have a picture to refer to. I'm here to help answer your questions, but I don't have any vis...
+2025-08-20 05:27:45,131 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "I don't have a picture to refer to.",
+      "confidence": 0.9,
+      "type_hint": "CONTEXTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I'm here to help answer your questions.",
+      "confidence": 0.8,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIM",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I don't have any visual information.",
+      "confidence": 0.9,
+      "type_hint": "IMPLICIT_CLAIM",
+      "dependencies": [
+        {
+          "text": "picture"
+        }
+      ]
+    },
+    {
+      "claim_text": "If you can describe the picture or provide more context about it, I'd be happy to try and help!",
+      "confidence": 0.7,
+      "type_hint": "RELATIONAL_CLAIM",
+      "dependencies": [
+        {
+          "text": "picture"
+        }
+      ]
+    }
+  ]
+}'
+2025-08-20 05:27:46,392 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'I don't have a picture to refer to' -> 'I don't have a picture to refer to.'
+2025-08-20 05:27:46,394 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.48): 'I'm here to help answer your questions' -> 'I'm here to help answer your questions, but I don't have any visual information.'
+2025-08-20 05:27:46,395 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'I don't have any visual information' -> 'I'm here to help answer your questions, but I don't have any visual information.'
+2025-08-20 05:27:46,396 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'If you can describe the picture or provide more context about it, I'd be happy to try and help' -> 'If you can describe the picture or provide more context about it, I'd be happy to try and help!'
+2025-08-20 05:27:46,396 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims using LLM.
+2025-08-20 05:27:46,396 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims
+2025-08-20 05:31:47,115 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Who is sitting on the bench?...
+2025-08-20 05:31:58,875 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "There is someone sitting on the bench.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```
+
+Note: Since there's no specific information about who is sitting on the bench, I've extracted a general claim that there is someone sitting on the bench. The confidence level is set to 0.9 as it's not entirely clear from the input text.'
+2025-08-20 05:31:59,764 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'There is someone sitting on the bench' -> 'Who is sitting on the bench?'
+2025-08-20 05:31:59,764 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-20 05:31:59,764 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:32:16,397 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: This conversation has just begun. I'm happy to chat with you, but I don't have any information about...
+2025-08-20 05:32:36,650 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "This conversation has just begun.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I'm happy to chat with you.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": ["This conversation has just begun."]
+    },
+    {
+      "claim_text": "I don't have any information about a bench or who might be sitting on it.",
+      "confidence": 0.8,
+      "entities": [
+        {
+          "text": "a bench",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Would you like to tell me more about what's going on?",
+      "confidence": 0.7,
+      "entities": [],
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": ["I don't have any information about a bench or who might be sitting on it."]
+    }
+  ]
+}
+```'
+2025-08-20 05:32:37,802 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'This conversation has just begun' -> 'This conversation has just begun.'
+2025-08-20 05:32:37,803 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.27): 'I'm happy to chat with you'
+2025-08-20 05:32:37,804 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.94): 'I don't have any information about a bench or who might be sitting on it' -> 'I'm happy to chat with you, but I don't have any information about a bench or who might be sitting on it.'
+2025-08-20 05:32:37,805 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.94): 'Would you like to tell me more about what's going on' -> 'Would you like to tell me more about what's going on?'
+2025-08-20 05:32:37,805 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 05:32:37,809 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 05:34:41,143 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Which wooden stool has a vase with red flower on it?...
+2025-08-20 05:37:41,359 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180), falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connectionpool.py", line 536, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connection.py", line 507, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/http/client.py", line 1423, in getresponse
+    response.begin()
+  File "/Users/mohammed/miniconda3/lib/python3.12/http/client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/http/client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/util/util.py", line 39, in reraise
+    raise value
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connectionpool.py", line 538, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/urllib3/connectionpool.py", line 369, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 138, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 457, in _call_llm
+    return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 478, in _call_ollama
+    response = await loop.run_in_executor(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 480, in <lambda>
+    lambda: requests.post(f"{self.base_url}/api/generate", json=payload, timeout=180)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/site-packages/requests/adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)
+2025-08-20 05:37:41,381 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:37:58,255 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: There is no wooden stool that has a vase with a red flower on it. Wooden stools are inanimate object...
+2025-08-20 05:38:20,406 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is no wooden stool that has a vase with a red flower on it.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Wooden stools are inanimate objects.",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "wooden stools",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "They don't have the ability to hold vases or flowers.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "vases",
+          "label": "OBJECT"
+        },
+        {
+          "text": "flowers",
+          "label": "OBJECT"
+        }
+      ]
+    },
+    {
+      "claim_text": "Maybe a painting or a photograph?",
+      "confidence": 0.7,
+      "entities": [
+        {
+          "text": "painting",
+          "label": "OBJECT"
+        },
+        {
+          "text": "photograph",
+          "label": "OBJECT"
+        }
+      ],
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 05:38:21,991 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.97): 'There is no wooden stool that has a vase with a red flower on it' -> 'There is no wooden stool that has a vase with a red flower on it.'
+2025-08-20 05:38:21,992 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.79): 'Wooden stools are inanimate objects' -> 'Wooden stools are inanimate objects, and they don't have the ability to hold vases or flowers.'
+2025-08-20 05:38:21,992 - socrates_system.modules.claim_extractor - WARNING - LLM-extracted entity '{wooden stools}' not found verbatim in source sentence: '{Wooden stools are inanimate objects, and they don't have the ability to hold vases or flowers.}'. Skipping entity.
+2025-08-20 05:38:21,993 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.69): 'They don't have the ability to hold vases or flowers' -> 'Wooden stools are inanimate objects, and they don't have the ability to hold vases or flowers.'
+2025-08-20 05:38:21,993 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'Maybe a painting or a photograph' -> 'Maybe a painting or a photograph?'
+2025-08-20 05:38:21,994 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims using LLM.
+2025-08-20 05:38:21,995 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims
+2025-08-20 05:40:23,639 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: How many traffic lights are there in the image?...
+2025-08-20 05:40:35,277 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "There is at least one traffic light in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The number of traffic lights in the image cannot be determined.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": ["There is at least one traffic light in the image."]
+    }
+  ]
+}
+```'
+2025-08-20 05:40:36,347 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.81): 'There is at least one traffic light in the image' -> 'How many traffic lights are there in the image?'
+2025-08-20 05:40:36,348 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.81): 'The number of traffic lights in the image cannot be determined' -> 'How many traffic lights are there in the image?'
+2025-08-20 05:40:36,348 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-20 05:40:36,348 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-20 05:41:05,224 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: There is no image provided. I'm a large language model, I don't have the ability to see or access im...
+2025-08-20 05:41:15,828 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "I'm a large language model",
+      "confidence": 1.0,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I don't have the ability to see or access images",
+      "confidence": 1.0,
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-20 05:41:16,755 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.82): 'I'm a large language model' -> 'I'm a large language model, I don't have the ability to see or access images.'
+2025-08-20 05:41:16,756 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.66): 'I don't have the ability to see or access images' -> 'I'm a large language model, I don't have the ability to see or access images.'
+2025-08-20 05:41:16,756 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-20 05:41:16,756 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-20 05:42:55,760 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: What colors are the traffic signs at the top, in the middle, and at the bottom?...
+2025-08-20 05:43:09,348 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "The traffic signs at the top are red.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The traffic signs in the middle are yellow.",
+      "confidence": 0.8,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The traffic signs at the bottom are green.",
+      "confidence": 0.7,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-20 05:43:10,903 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.78): 'The traffic signs at the top are red' -> 'What colors are the traffic signs at the top, in the middle, and at the bottom?'
+2025-08-20 05:43:10,904 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.74): 'The traffic signs in the middle are yellow' -> 'What colors are the traffic signs at the top, in the middle, and at the bottom?'
+2025-08-20 05:43:10,905 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.82): 'The traffic signs at the bottom are green' -> 'What colors are the traffic signs at the top, in the middle, and at the bottom?'
+2025-08-20 05:43:10,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 05:43:10,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 05:43:53,674 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: This conversation has just begun. I'm happy to chat with you about traffic signs if you'd like! Howe...
+2025-08-20 05:44:12,992 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "This conversation has just begun.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I'm happy to chat with you about traffic signs if you'd like!",
+      "confidence": "Medium",
+      "type_hint": "CONTEXTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "traffic signs",
+          "label": "TOPIC"
+        }
+      ]
+    },
+    {
+      "claim_text": "I don't have any context or information about specific traffic signs you're referring to.",
+      "confidence": "High",
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "traffic signs",
+          "label": "TOPIC"
+        }
+      ]
+    },
+    {
+      "claim_text": "Could you please provide more details or clarify which traffic signs you're asking about?",
+      "confidence": "Medium",
+      "type_hint": "RELATIONAL_CLAIMS",
+      "dependencies": [
+        {
+          "text": "traffic signs",
+          "label": "TOPIC"
+        }
+      ]
+    }
+  ]
+}
+```'
+2025-08-20 05:44:14,131 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'This conversation has just begun' -> 'This conversation has just begun.'
+2025-08-20 05:44:14,132 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'I'm happy to chat with you about traffic signs if you'd like' -> 'I'm happy to chat with you about traffic signs if you'd like!'
+2025-08-20 05:44:14,133 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'I don't have any context or information about specific traffic signs you're referring to' -> 'However, I don't have any context or information about specific traffic signs you're referring to.'
+2025-08-20 05:44:14,134 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Could you please provide more details or clarify which traffic signs you're asking about' -> 'Could you please provide more details or clarify which traffic signs you're asking about?'
+2025-08-20 05:44:14,134 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims using LLM.
+2025-08-20 05:44:14,134 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 4 claims
+2025-08-20 05:49:22,497 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:49:25,895 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:49:29,256 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 05:49:29,274 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025. I was born in 1990...
+2025-08-20 05:49:29,325 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 138, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 459, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 489, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-20 05:49:29,330 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-20 05:51:56,709 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 05:52:00,137 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 05:52:03,390 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 05:52:03,405 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025. I was born in 1990...
+2025-08-20 05:52:24,418 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '```json
+{
+  "claims": [
+    {
+      "claim_text": "My name is Mohammed",
+      "confidence": 1,
+      "entities": [
+        {
+          "text": "Mohammed",
+          "label": "PERSON"
+        }
+      ]
+    },
+    {
+      "claim_text": "I am 28 years old",
+      "confidence": 0.95,
+      "entities": [
+        {
+          "text": "28",
+          "label": "AGE"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "today is my birthday 19/8/2025",
+      "confidence": 0.9,
+      "entities": [
+        {
+          "text": "19/8/2025",
+          "label": "DATE"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "I was born in 1990",
+      "confidence": 1,
+      "entities": [
+        {
+          "text": "1990",
+          "label": "DATE"
+        }
+      ],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}
+```'
+2025-08-20 05:52:25,288 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.74): 'My name is Mohammed' -> 'My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025.'
+2025-08-20 05:52:25,289 - socrates_system.modules.claim_extractor - WARNING - Skipping LLM claim with low similarity score (0.36): 'I am 28 years old'
+2025-08-20 05:52:25,290 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.70): 'today is my birthday 19/8/2025' -> 'My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025.'
+2025-08-20 05:52:25,291 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'I was born in 1990' -> 'I was born in 1990'
+2025-08-20 05:52:25,291 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 05:52:25,292 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims
+2025-08-20 16:23:14,551 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 16:23:18,555 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 16:23:22,294 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 16:23:22,312 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: There is a screw in the image, and also there is a man standing...
+2025-08-20 16:24:00,144 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a screw in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Also, there is a man standing.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 16:24:01,489 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'There is a screw in the image' -> 'There is a screw in the image, and also there is a man standing'
+2025-08-20 16:24:01,490 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.74): 'Also, there is a man standing' -> 'There is a screw in the image, and also there is a man standing'
+2025-08-20 16:24:01,490 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-20 16:24:01,490 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-20 16:29:06,559 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 16:29:10,354 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 16:29:13,845 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 16:29:13,859 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: There is a screw in the image, and also there is a man standing...
+2025-08-20 16:29:25,932 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is a screw in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "Also, there is a man standing.",
+      "confidence": 0.90,
+      "entities": [],
+      "type_hint": "IMPLICIT_CLAIMS",
+      "dependencies": ["There is a screw in the image."]
+    }
+  ]
+}'
+2025-08-20 16:29:27,099 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.77): 'There is a screw in the image' -> 'There is a screw in the image, and also there is a man standing'
+2025-08-20 16:29:27,100 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.74): 'Also, there is a man standing' -> 'There is a screw in the image, and also there is a man standing'
+2025-08-20 16:29:27,100 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-20 16:29:27,100 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-20 16:34:08,894 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-20 16:34:12,520 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-20 16:34:15,949 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-20 16:34:15,964 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: There is one screw in the image and it is yellow,the one red screw is in the image...
+2025-08-20 16:34:30,094 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '{
+  "claims": [
+    {
+      "claim_text": "There is one screw in the image.",
+      "confidence": 0.95,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "The one screw is yellow.",
+      "confidence": 0.9,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    },
+    {
+      "claim_text": "There is a red screw in the image.",
+      "confidence": 0.85,
+      "entities": [],
+      "type_hint": "EXPLICIT_FACTUAL_CLAIMS",
+      "dependencies": []
+    }
+  ]
+}'
+2025-08-20 16:34:31,001 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.83): 'There is one screw in the image' -> 'There is one screw in the image and it is yellow,the one red screw is in the image'
+2025-08-20 16:34:31,004 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'The one screw is yellow' -> 'There is one screw in the image and it is yellow,the one red screw is in the image'
+2025-08-20 16:34:31,005 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.82): 'There is a red screw in the image' -> 'There is one screw in the image and it is yellow,the one red screw is in the image'
+2025-08-20 16:34:31,005 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims using LLM.
+2025-08-20 16:34:31,005 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 3 claims

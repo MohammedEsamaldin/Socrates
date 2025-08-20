@@ -39,11 +39,26 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--id-key", default=None, help="Override id field name in dataset")
     p.add_argument("--image-key", default=None, help="Override image field name in dataset (e.g., image/image_path)")
     p.add_argument("--image-root", default=None, help="Directory to resolve relative image paths")
+    # MitM toggles
+    p.add_argument("--no-mitm", action="store_true", help="Disable MitM corrections entirely (sets SOC_USE_MITM=false)")
+    p.add_argument("--no-mitm-input", action="store_true", help="Disable input (pre) MitM corrections")
+    p.add_argument("--no-mitm-output", action="store_true", help="Disable output (post) MitM corrections")
+    p.add_argument("--mitm-min-conf", type=float, default=None, help="Minimum resolution confidence to apply a correction [0-1]")
     return p
 
 
 def main():
     args = build_arg_parser().parse_args()
+
+    # Apply CLI overrides to env for MitM toggles
+    if args.no_mitm:
+        os.environ["SOC_USE_MITM"] = "false"
+    if args.no_mitm_input:
+        os.environ["SOC_MITM_VERIFY_INPUT"] = "false"
+    if args.no_mitm_output:
+        os.environ["SOC_MITM_VERIFY_OUTPUT"] = "false"
+    if args.mitm_min_conf is not None:
+        os.environ["SOC_MITM_MIN_CONF"] = str(args.mitm_min_conf)
 
     evaluator = MMHalEvaluator(
         dataset_path=args.dataset,

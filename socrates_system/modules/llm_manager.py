@@ -32,6 +32,7 @@ class LLMTaskType(Enum):
     KNOWLEDGE_INTEGRATION = "knowledge_integration"
     FAITHFULNESS_ASSESSMENT = "faithfulness_assessment"
     CONTRADICTION_DETECTION = "contradiction_detection"
+    CONTRADICTION_DETECTION_SIMPLE = "contradiction_detection_simple"
 
 class LLMProvider(Enum):
     OLLAMA = "ollama"
@@ -358,6 +359,10 @@ Context (may include compatibility_hints): {context}
 Analyze the current claim against ONLY the provided existing claims AND the rich entity knowledge. Apply the Consistency Rules. If entity knowledge shows an explicit attribute for the SAME entity that conflicts with the claim, flag a contradiction; otherwise default to PASS.
 
 Respond ONLY with the JSON object matching the required schema."""
+            },
+            LLMTaskType.CONTRADICTION_DETECTION_SIMPLE: {
+                "system": """ROLE: You are a precision contradiction detector. Your task is simple: detect conflicts between a new claim and established session knowledge.\n\nCONTRADICTION CRITERIA:\n- Direct negation: \"car is red\" vs \"car is not red\"\n- Mutually exclusive attributes: \"car is blue\" vs \"car is red\" (same entity)\n- Logical impossibility: conflicting facts about the same entity\n\nNOT CONTRADICTIONS:\n- Specialization: \"car\" → \"red Toyota Camry\"\n- Elaboration: \"street scene\" → \"person walking on street\"\n- Missing details: no previous color → \"red car\"\n\nOutput STRICT JSON ONLY in this schema:\n{\n  \"contradiction\": true/false,\n  \"confidence\": 0.0-1.0,\n  \"explanation\": \"brief reason\",\n  \"conflicting_fact\": \"specific contradicting statement or null\"\n}\n\nUse ONLY the provided session facts. If facts are missing or insufficient, set contradiction=false and explain briefly.""",
+                "template": """Current Claim: \"{claim}\"\n\nSession Facts:\n{session_facts}\n\nRespond with only the required JSON object."""
             }
         }
     
@@ -719,6 +724,39 @@ Respond ONLY with the JSON object matching the required schema."""
                     entities=entities,
                     entity_knowledge=entity_knowledge,
                 )
+            )
+        finally:
+            loop.close()
+    
+    async def detect_contradiction_simple(
+        self,
+        claim: str,
+        session_facts: str,
+    ) -> LLMResponse:
+        """Simplified, GraphRAG-style contradiction detection over linearized session facts (async)."""
+        request = LLMRequest(
+            task_type=LLMTaskType.CONTRADICTION_DETECTION_SIMPLE,
+            prompt="",
+            context={
+                "claim": claim,
+                "session_facts": session_facts or "(none)",
+            },
+            temperature=0.1,
+            max_tokens=500,
+        )
+        return await self.process_request(request)
+    
+    def detect_contradiction_simple_sync(
+        self,
+        claim: str,
+        session_facts: str,
+    ) -> LLMResponse:
+        """Synchronous wrapper for simplified contradiction detection."""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(
+                self.detect_contradiction_simple(claim, session_facts)
             )
         finally:
             loop.close()

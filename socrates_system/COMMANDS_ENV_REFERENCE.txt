@@ -1,0 +1,163 @@
+Socrates Commands and Environment Variables — Quick Reference
+
+Project root: /Users/mohammed/Desktop/Socrates/Socrates
+Module entrypoint: python -m socrates_system.pipeline
+
+------------------------------------------------------------
+Quick run commands (copy/paste)
+------------------------------------------------------------
+1) Minimal run (default text, prints KG if enabled via env)
+python -m socrates_system.pipeline
+
+2) With your own text and show KG
+python -m socrates_system.pipeline --text "I was standing in front of Big Ben in London." --show-kg
+
+3) With image
+python -m socrates_system.pipeline \
+  --text "Describe the scene and verify" \
+  --image /absolute/path/to/image.jpg \
+  --show-kg
+
+4) Select provider and model (CLI overrides env)
+python -m socrates_system.pipeline \
+  --text "My name is Mohammed" \
+  --llm-provider openai \
+  --llm-model gpt-4o-mini-2024-07-18 \
+  --show-kg
+
+5) Full example (mirrors your recent run)
+python -m socrates_system.pipeline \
+  --text "My name is Mohammed, I am 28 years old, today is my birthday 19/8/2025. I was born in 1990" \
+  --image /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/test_data/images/6097499605_d06c51eed9_o.jpg \
+  --show-kg --kg-max-items 60 \
+  --llm-provider openai --llm-model gpt-4o-mini-2024-07-18
+
+6) Run with a stable session ID (useful for canonical IDs)
+SOC_SESSION_ID=test-session-1 python -m socrates_system.pipeline --text "..." --show-kg
+
+7) Show KG and query it
+python -m socrates_system.pipeline --text "..." --show-kg --kg-max-items 20 --kg-query "London"
+
+8) Toggle features from CLI
+# External factuality on/off
+python -m socrates_system.pipeline --enable-factuality
+python -m socrates_system.pipeline --disable-factuality
+
+# Clarification module on/off and dev mode
+python -m socrates_system.pipeline --enable-clarification
+python -m socrates_system.pipeline --disable-clarification
+python -m socrates_system.pipeline --clar-dev
+
+# Socratic Question Generation (QG)
+python -m socrates_system.pipeline --enable-question-gen
+python -m socrates_system.pipeline --disable-question-gen
+python -m socrates_system.pipeline --questions-per-category 3
+python -m socrates_system.pipeline --qg-min-threshold 0.6 --qg-max-complexity 0.8
+python -m socrates_system.pipeline --qg-enable-fallback
+python -m socrates_system.pipeline --qg-disable-fallback
+python -m socrates_system.pipeline --qg-prioritize-visual
+python -m socrates_system.pipeline --qg-deprioritize-visual
+
+# Conflict mode
+python -m socrates_system.pipeline --conflict-mode auto
+python -m socrates_system.pipeline --conflict-mode manual
+
+# External factuality context (guides LLM verdict aggregation)
+# Choose which context to include in external factuality prompts: socratic | claims | none
+python -m socrates_system.pipeline --factuality-context socratic
+python -m socrates_system.pipeline --factuality-context claims
+python -m socrates_system.pipeline --factuality-context none
+# Limit number of context items included (default 6)
+python -m socrates_system.pipeline --fact-context-max-items 8
+
+------------------------------------------------------------
+Common environment variable exports
+------------------------------------------------------------
+# Provider/model selection (used by LLMManager and pipeline)
+export SOC_LLM_PROVIDER=openai          # ollama | openai | claude (default: ollama)
+export SOC_LLM_MODEL=gpt-4o-mini-2024-07-18
+
+# API keys and endpoints
+export OPENAI_API_KEY=sk-...            # required for provider=openai or some external checks
+export OPENAI_BASE_URL=https://api.openai.com/v1   # or OPENAI_API_BASE
+export ANTHROPIC_API_KEY=...            # if using provider=claude
+export ANTHROPIC_BASE_URL=https://api.anthropic.com
+export OLLAMA_BASE_URL=http://localhost:11434      # or OLLAMA_URL
+
+# External search/verification
+export TAVILY_API_KEY=...
+export GOOGLE_FACTCHECK_API_KEY=...     # used by external_factuality_checker
+# Note: config.py also defines GOOGLE_FACT_CHECK_API_KEY (with an extra underscore). Set BOTH to be safe:
+export GOOGLE_FACT_CHECK_API_KEY=...
+
+# AGLA (remote multimodal service)
+export AGLA_API_URL="https://your-modal-app.modal.run"   # empty by default
+export AGLA_API_VERIFY_PATH=/verify                       # default
+export AGLA_API_TIMEOUT=120                               # seconds
+
+# AGLA local verifier knobs (if used)
+export LLAVA_MODEL="liuhaotian/llava-v1.5-7b"
+export LLAVA_REPO_PATH="/path/to/llava/repo"
+
+# Session and display
+export SOC_SESSION_ID=test-session-1      # keep the same session across runs
+export SOC_SHOW_KG=true                  # print session KG summary after run
+export SOC_KG_MAX_ITEMS=20               # how many nodes/edges to print
+export NO_COLOR=1                        # disable ANSI colors entirely
+
+# Color overrides (role names: HEADING, CLAIM, LABEL, VALUE, ENTITY, CATEGORY, QUESTION, ROUTE, CLARIFICATION, FACTUALITY_PASS, FACTUALITY_FAIL, FACTUALITY_UNCERTAIN, SUMMARY)
+export SOC_COLOR_HEADING=bright_cyan
+export SOC_COLOR_ENTITY=bright_blue
+export SOC_COLOR_FACTUALITY_FAIL=red
+# ...and similar for other roles as desired
+
+# Feature toggles and tuning
+export FACTUALITY_ENABLED=true           # enable/disable external factuality clients
+export FACTUALITY_MAX_RETRIES=2
+export FACTUALITY_TIMEOUT=6.0
+export FACTUALITY_BACKOFF=0.5
+
+# External factuality context selection
+# Accepts SOCRATIC_QUESTIONS | EXTRACTED_CLAIMS | NONE (also accepts synonyms: socratic/claims/none)
+export FACTUALITY_CONTEXT_MODE=SOCRATIC_QUESTIONS
+export FACTUALITY_CONTEXT_MAX_ITEMS=6
+
+export CLARIFICATION_ENABLED=true
+export CLARIFICATION_DEV_MODE=true
+ 
+ # MitM hallucination middleware toggles (evaluation harness)
+ export SOC_USE_MITM=true                 # master toggle
+ export SOC_MITM_VERIFY_INPUT=true        # apply pre-routing (input) corrections
+ export SOC_MITM_VERIFY_OUTPUT=true       # apply post-factuality (output) corrections
+ # Minimum resolution confidence (0-1) required to apply a correction
+ export SOC_MITM_MIN_CONF=0.55
+
+export REFINE_QUESTIONS_WITH_LLM=true
+export CORRECT_CLAIM_WITH_LLM=false
+export REQUIRE_USER_REWRITE=true
+export SELECTIVE_TOKEN_REPLACEMENT=true
+export SELECTIVE_MAX_CHAR_DIFF_RATIO=0.4
+export SELECTIVE_MAX_TOKEN_CHANGE_RATIO=0.5
+export SELECTIVE_ALLOW_INSERTIONS=false
+export SELECTIVE_MIN_TOKENS=3
+
+export QUESTION_GEN_ENABLED=true
+export QG_MIN_CONFIDENCE_THRESHOLD=0.6
+export QG_MAX_COMPLEXITY_RATIO=0.8
+export QG_ENABLE_FALLBACK=true
+export QG_PRIORITIZE_VISUAL=false
+export QG_QUESTIONS_PER_CATEGORY=3
+
+# Conflict resolution
+export SOC_CONFLICT_MODE=auto           # auto | manual
+
+# External checker OpenAI model (rarely needed; separate from SOC_LLM_MODEL)
+export OPENAI_MODEL=gpt-3.5-turbo
+
+------------------------------------------------------------
+Notes
+------------------------------------------------------------
+- CLI flags override env in most places (e.g., provider/model, feature toggles). If you set env and also pass a CLI flag, the CLI flag wins.
+- SOC_SESSION_ID is handy for testing canonical entity IDs across runs; keep it fixed to reuse the same session KG.
+- GOOGLE_FACTCHECK_API_KEY vs GOOGLE_FACT_CHECK_API_KEY: the code reads the first, config defines the second. Set both until unified.
+- To permanently set env vars for your shell, add the export lines to your shell profile (e.g., ~/.zshrc), then `source ~/.zshrc`.

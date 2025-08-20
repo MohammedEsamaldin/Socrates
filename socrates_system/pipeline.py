@@ -123,7 +123,7 @@ class ConsoleColors:
 class SocratesPipeline:
     """Orchestrates the claim processing pipeline."""
 
-    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None):
+    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None):
         """Initializes the pipeline with all necessary components."""
         logging.info("Initializing Socrates Pipeline...")
         self.claim_extractor = ClaimExtractor(llm_manager=llm_manager)
@@ -140,7 +140,7 @@ class SocratesPipeline:
         
         # Initialize Knowledge Graph Manager and session
         try:
-            self.kg_manager = KnowledgeGraphManager()
+            self.kg_manager = KnowledgeGraphManager(llm_manager=llm_manager)
             try:
                 self.kg_manager.initialize_session(self.session_id)
             except Exception as e:
@@ -148,6 +148,13 @@ class SocratesPipeline:
         except Exception as e:
             logging.warning(f"KnowledgeGraphManager unavailable: {e}")
             self.kg_manager = None
+        
+        # Attach KG manager to ClaimExtractor for canonical ID resolution
+        if getattr(self, "kg_manager", None) and getattr(self, "claim_extractor", None):
+            try:
+                self.claim_extractor.set_kg_manager(self.kg_manager, self.session_id)
+            except Exception as e:
+                logging.warning(f"Failed attaching KG to ClaimExtractor: {e}")
         
         # Initialize Self-Contradiction Checker and attach KG
         try:
@@ -207,6 +214,27 @@ class SocratesPipeline:
             factuality_enabled = os.getenv("FACTUALITY_ENABLED", "true").lower() == "true"
         self.factuality_enabled = factuality_enabled
         self.external_checker = ExternalFactualityChecker() if self.factuality_enabled else None
+        # Configure input context for external factuality LLM aggregation
+        try:
+            mode_raw = (factuality_context_mode or os.getenv("FACTUALITY_CONTEXT_MODE") or "SOCRATIC_QUESTIONS")
+            mode_up = str(mode_raw).strip().upper()
+            if mode_up in ("SOCRATIC", "SOCRATIC_QUESTIONS"):
+                norm = "SOCRATIC_QUESTIONS"
+            elif mode_up in ("CLAIMS", "EXTRACTED_CLAIMS"):
+                norm = "EXTRACTED_CLAIMS"
+            elif mode_up in ("NONE", "DISABLED"):
+                norm = "NONE"
+            else:
+                norm = "SOCRATIC_QUESTIONS"
+            self.factuality_context_mode = norm
+        except Exception:
+            self.factuality_context_mode = "SOCRATIC_QUESTIONS"
+        try:
+            self.factuality_context_max_items = int(
+                factuality_context_max_items if factuality_context_max_items is not None else os.getenv("FACTUALITY_CONTEXT_MAX_ITEMS", 6)
+            )
+        except Exception:
+            self.factuality_context_max_items = 6
         # Clarification module (optional)
         if clarification_enabled is None:
             clarification_enabled = os.getenv("CLARIFICATION_ENABLED", "true").lower() == "true"
@@ -307,6 +335,144 @@ class SocratesPipeline:
         # Initialize QG stats
         self._qg_stats: Dict[str, Any] = {"total": 0, "fallback": 0}
         logging.info("Socrates Pipeline initialized successfully.")
+
+        # Conflict resolution mode (auto uses resolver; manual prompts user in CLI)
+        try:
+            if conflict_resolution_mode is None:
+                conflict_resolution_mode = (os.getenv("SOC_CONFLICT_MODE", "auto") or "auto").lower()
+            if conflict_resolution_mode not in ("auto", "manual"):
+                conflict_resolution_mode = "auto"
+        except Exception:
+            conflict_resolution_mode = "auto"
+        self.conflict_resolution_mode = conflict_resolution_mode
+
+    def _manual_resolve_conflict(self, claim: str, external_result: Optional[Dict[str, Any]], self_result: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        """Interactive manual conflict resolution in CLI.
+
+        Falls back to auto resolution if stdin is not a TTY or on error.
+        """
+        try:
+            # Use programmatic resolver to suggest defaults if available
+            suggested = None
+            if getattr(self, "conflict_resolver", None):
+                try:
+                    suggested = self.conflict_resolver.resolve(claim, external_result, self_result)
+                except Exception:
+                    suggested = None
+            if suggested is None:
+                # naive fallback suggestion
+                base = external_result or self_result or {}
+                suggested = {
+                    "status": base.get("status", "UNCERTAIN"),
+                    "confidence": float(base.get("confidence", 0.1) or 0.1),
+                    "reasoning": base.get("reasoning", "Manual decision (no suggestion)"),
+                    "sources": base.get("sources", []),
+                    "contradictions": (self_result or {}).get("contradictions", []),
+                    "evidence": (external_result or {}).get("evidence") or (external_result or {}).get("external_facts") or (self_result or {}).get("evidence") or [],
+                    "should_add_to_kg": False,
+                }
+
+            try:
+                is_tty = sys.stdin.isatty()
+            except Exception:
+                is_tty = False
+            if not is_tty:
+                logging.warning("Manual conflict mode requested, but no interactive TTY detected; using auto suggestion.")
+                return suggested
+
+            print("\n" + ConsoleColors.c('heading', '--- Manual Conflict Resolution ---'))
+            print(ConsoleColors.c('label', 'Claim: ') + ConsoleColors.c('claim', f"{claim}"))
+            # External factuality summary
+            if external_result:
+                print(ConsoleColors.c('label', 'External factuality: ') + ConsoleColors.c('value', f"{external_result.get('status')} (conf {float(external_result.get('confidence', 0.0)):.2f})"))
+                if external_result.get('reasoning'):
+                    print("  - " + ConsoleColors.c('label', 'reasoning: ') + ConsoleColors.c('value', f"{external_result.get('reasoning')}"))
+                if external_result.get('evidence') or external_result.get('external_facts'):
+                    ev = external_result.get('evidence') or external_result.get('external_facts')
+                    try:
+                        print("  - " + ConsoleColors.c('label', 'evidence: ') + ConsoleColors.c('value', f"{ev[:2]}"))
+                    except Exception:
+                        pass
+            else:
+                print(ConsoleColors.c('label', 'External factuality: ') + ConsoleColors.c('value', 'None'))
+            # Self-consistency summary
+            if self_result:
+                print(ConsoleColors.c('label', 'Self-consistency: ') + ConsoleColors.c('value', f"{self_result.get('status')} (conf {float(self_result.get('confidence', 0.0)):.2f})"))
+                if self_result.get('contradictions'):
+                    print("  - " + ConsoleColors.c('label', 'contradictions: ') + ConsoleColors.c('value', f"{self_result.get('contradictions')[:2]}"))
+                if self_result.get('reasoning'):
+                    print("  - " + ConsoleColors.c('label', 'reasoning: ') + ConsoleColors.c('value', f"{self_result.get('reasoning')}"))
+            else:
+                print(ConsoleColors.c('label', 'Self-consistency: ') + ConsoleColors.c('value', 'None'))
+
+            # Prompt user for final decision
+            default_status = (suggested.get('status') or 'UNCERTAIN').upper()
+            default_conf = float(suggested.get('confidence', 0.5) or 0.5)
+            default_add = bool(suggested.get('should_add_to_kg', False))
+            try:
+                raw_status = input(ConsoleColors.c('label', f"Final status [PASS/FAIL/UNCERTAIN] (default {default_status}): "))
+            except EOFError:
+                raw_status = ''
+            status = (raw_status or default_status).strip().upper()
+            if status not in ("PASS", "FAIL", "UNCERTAIN"):
+                status = default_status
+            try:
+                raw_conf = input(ConsoleColors.c('label', f"Confidence 0-1 (default {default_conf:.2f}): "))
+            except EOFError:
+                raw_conf = ''
+            try:
+                conf = float(raw_conf.strip()) if raw_conf.strip() else default_conf
+            except Exception:
+                conf = default_conf
+            conf = max(0.0, min(1.0, conf))
+            try:
+                raw_add = input(ConsoleColors.c('label', f"Add to KG? [y/N] (default {'y' if default_add else 'n'}): "))
+            except EOFError:
+                raw_add = ''
+            yn = (raw_add or ("y" if default_add else "n")).strip().lower()
+            should_add = yn.startswith('y')
+            try:
+                raw_reason = input(ConsoleColors.c('label', "Optional reasoning note (press Enter to skip): "))
+            except EOFError:
+                raw_reason = ''
+            reason = raw_reason.strip() or (suggested.get('reasoning') or 'Manual decision based on evidence review.')
+
+            # Aggregate fields
+            evidence = []
+            for e in ((external_result or {}).get('evidence') or (external_result or {}).get('external_facts') or []):
+                if e not in evidence:
+                    evidence.append(e)
+            for e in ((self_result or {}).get('evidence') or []):
+                if e not in evidence:
+                    evidence.append(e)
+            sources = (external_result or {}).get('sources', []) or []
+            contradictions = (self_result or {}).get('contradictions', []) or []
+
+            return {
+                "status": status,
+                "confidence": conf,
+                "reasoning": f"Manual: {reason}",
+                "sources": sources,
+                "contradictions": contradictions,
+                "evidence": evidence,
+                "should_add_to_kg": (status == "PASS" and should_add and not contradictions),
+            }
+        except Exception as e:
+            logging.warning(f"Manual conflict resolution failed, using auto suggestion: {e}")
+            if getattr(self, "conflict_resolver", None):
+                try:
+                    return self.conflict_resolver.resolve(claim, external_result, self_result)
+                except Exception:
+                    pass
+            return {
+                "status": "UNCERTAIN",
+                "confidence": 0.0,
+                "reasoning": f"Exception during manual resolution: {e}",
+                "sources": [],
+                "contradictions": [],
+                "evidence": [],
+                "should_add_to_kg": False,
+            }
 
     def run(self, text: str, image_path: Optional[str] = None) -> List[ExtractedClaim]:
         """
@@ -454,8 +620,6 @@ class SocratesPipeline:
                     logging.warning(f"Question generation failed: {e}")
 
             # 3. Route each claim for verification
-            # 3. Route each claim for verification
-            # The `route_claim` method returns a VerificationRoute object
             route = self.check_router.route_claim(categorized_claim)
             categorized_claim.verification_route = route
             logging.info(f"Routed to: {route.method.name}")
@@ -495,9 +659,22 @@ class SocratesPipeline:
                         # Prefer remote AGLA API when available; fallback to local checker
                         if getattr(self, "agla_client", None) is not None:
                             try:
+                                # Pick the highest-confidence visual Socratic question, if available
+                                soc_q = None
+                                try:
+                                    sq_map = getattr(categorized_claim, "socratic_questions", {}) or {}
+                                    vis_list = sq_map.get("VISUAL_GROUNDING_REQUIRED") or []
+                                    if vis_list:
+                                        soc_q = max(
+                                            vis_list,
+                                            key=lambda d: float(d.get("confidence_score", 0.0) or 0.0),
+                                        ).get("question")
+                                except Exception:
+                                    pass
                                 out = self.agla_client.verify(
                                     image=image_path,
                                     claim=categorized_claim.text,
+                                    socratic_question=soc_q,
                                     return_debug=False,
                                 )
                                 verdict_str = (out or {}).get("verdict", "Uncertain")
@@ -523,6 +700,7 @@ class SocratesPipeline:
                                     "confidence": _conf,
                                     "evidence": ev,
                                     "sources": srcs,
+                                    "agla_truth": _truth,
                                     "contradictions": [] if _status != "FAIL" else ([_truth] if _truth else ["Image contradicts claim"]),
                                     "reasoning": "Remote AGLA verification",
                                 }
@@ -545,6 +723,13 @@ class SocratesPipeline:
                     categorized_claim.factuality_evidence = result.get("evidence", [])
                     categorized_claim.factuality_sources = result.get("sources", [])
                     categorized_claim.factuality_reasoning = result.get("reasoning")
+                    # Attribute-only KG updates on cross-modal PASS (e.g., colors, ordinals)
+                    try:
+                        if getattr(self, "kg_manager", None) and status == "PASS":
+                            self.kg_manager.add_attribute_facts_from_claim(categorized_claim.text, self.session_id)
+                            logging.info("Persisted attribute facts to KG after cross-modal PASS")
+                    except Exception as e:
+                        logging.warning(f"Failed to persist attribute facts from cross-modal PASS: {e}")
                 except Exception as e:
                     logging.error(f"Cross-modal check error: {e}")
                     factuality_results[i] = {
@@ -580,7 +765,8 @@ class SocratesPipeline:
                                 evidence=ev_list,
                                 sources=result.get("sources", []),
                             )
-                            cat_enum = next((c.name for c in categorized_claim.categories), None)
+                            cat_enum = next((c.name for c in categorized_claim.categories if getattr(c.name, 'name', '') == 'AMBIGUOUS_RESOLUTION_REQUIRED'),
+                                             (categorized_claim.categories[0].name if categorized_claim.categories else None))
                             ctx = ClarContext(
                                 claim_text=categorized_claim.text,
                                 category=cat_enum,
@@ -588,7 +774,7 @@ class SocratesPipeline:
                                 failed_check_type="CROSS_MODAL",
                                 issue_type=IssueType.VISUAL_CONFLICT,
                                 claim_id=str(i),
-                                metadata={"stage": "post_factuality"},
+                                metadata={"stage": "post_factuality", "agla_truth": result.get("agla_truth")},
                             )
                             clr_res_cm = self.clarifier.resolve_claim(ctx)
                             self._clarification_results.setdefault(i, {})["post"] = clr_res_cm
@@ -603,9 +789,22 @@ class SocratesPipeline:
                                             # Prefer AGLA again on rerun
                                             if getattr(self, "agla_client", None) is not None:
                                                 try:
+                                                    # Reuse highest-confidence visual Socratic question on rerun
+                                                    soc_q2 = None
+                                                    try:
+                                                        sq_map = getattr(categorized_claim, "socratic_questions", {}) or {}
+                                                        vis_list = sq_map.get("VISUAL_GROUNDING_REQUIRED") or []
+                                                        if vis_list:
+                                                            soc_q2 = max(
+                                                                vis_list,
+                                                                key=lambda d: float(d.get("confidence_score", 0.0) or 0.0),
+                                                            ).get("question")
+                                                    except Exception:
+                                                        pass
                                                     out2 = self.agla_client.verify(
                                                         image=image_path,
                                                         claim=categorized_claim.text,
+                                                        socratic_question=soc_q2,
                                                         return_debug=False,
                                                     )
                                                     verdict2 = (out2 or {}).get("verdict", "Uncertain")
@@ -660,7 +859,45 @@ class SocratesPipeline:
             if self.factuality_enabled and route.method == VerificationMethod.EXTERNAL_SOURCE:
                 logging.info("Performing external factuality check for this claim...")
                 try:
-                    result = self.external_checker.verify_claim(categorized_claim.text)
+                    # Build optional input context for external factuality LLM aggregation
+                    input_ctx = None
+                    try:
+                        mode = str(getattr(self, 'factuality_context_mode', 'SOCRATIC_QUESTIONS') or 'SOCRATIC_QUESTIONS').upper()
+                        max_items = int(getattr(self, 'factuality_context_max_items', 6) or 6)
+                        if mode == 'SOCRATIC_QUESTIONS':
+                            items = []
+                            sq_map = getattr(categorized_claim, "socratic_questions", {}) or {}
+                            ek_list = sq_map.get("EXTERNAL_KNOWLEDGE_REQUIRED") or []
+                            if ek_list:
+                                sorted_ek = sorted(ek_list, key=lambda d: float(d.get("confidence_score", 0.0) or 0.0), reverse=True)
+                                for q in sorted_ek:
+                                    qtext = q.get("question")
+                                    if qtext:
+                                        items.append(qtext)
+                            else:
+                                for cat, qs in sq_map.items():
+                                    if cat in ("SUBJECTIVE_OPINION", "PROCEDURAL_DESCRIPTIVE", "AMBIGUOUS_RESOLUTION_REQUIRED", "VISUAL_GROUNDING_REQUIRED", "SELF_CONSISTENCY_REQUIRED"):
+                                        continue
+                                    for q in qs:
+                                        qtext = q.get("question")
+                                        if qtext:
+                                            items.append(qtext)
+                            if items:
+                                input_ctx = {"type": "SOCRATIC_QUESTIONS", "items": items[:max_items]}
+                        elif mode == 'EXTRACTED_CLAIMS':
+                            try:
+                                other_claims = [c.text for c in claims if getattr(c, 'text', None) and str(c.text).strip() and str(c.text).strip() != str(categorized_claim.text).strip()]
+                            except Exception:
+                                other_claims = []
+                            if other_claims:
+                                input_ctx = {"type": "EXTRACTED_CLAIMS", "items": other_claims[:max_items]}
+                        else:
+                            input_ctx = None
+                    except Exception as _e_ctx:
+                        logging.debug(f"Failed to build input context: {_e_ctx}")
+                        input_ctx = None
+
+                    result = self.external_checker.verify_claim(categorized_claim.text, input_context=input_ctx)
                     factuality_results[i] = result
                     status = result.get("status")
                     conf = result.get("confidence", 0.0)
@@ -672,6 +909,13 @@ class SocratesPipeline:
                     categorized_claim.factuality_evidence = result.get("evidence", [])
                     categorized_claim.factuality_sources = result.get("sources", [])
                     categorized_claim.factuality_reasoning = result.get("reasoning")
+                    # Attribute-only KG updates on external PASS (e.g., colors, ordinals)
+                    try:
+                        if getattr(self, "kg_manager", None) and status == "PASS":
+                            self.kg_manager.add_attribute_facts_from_claim(categorized_claim.text, self.session_id)
+                            logging.info("Persisted attribute facts to KG after external PASS")
+                    except Exception as e:
+                        logging.warning(f"Failed to persist attribute facts from external PASS: {e}")
                     # 4.1 If conflict or uncertainty, run clarification and optionally rerun verification
                     if self.clarifier and status in ("FAIL", "UNCERTAIN"):
                         logging.info("Conflict/uncertainty detected; invoking Clarification Resolution Module (post-factuality)...")
@@ -738,7 +982,45 @@ class SocratesPipeline:
                             if getattr(clr_res2, 'rerun_verification', False):
                                 try:
                                     logging.info("Re-running external factuality check on corrected claim...")
-                                    result2 = self.external_checker.verify_claim(categorized_claim.text)
+                                    # Rebuild input context on corrected claim
+                                    input_ctx2 = None
+                                    try:
+                                        mode2 = str(getattr(self, 'factuality_context_mode', 'SOCRATIC_QUESTIONS') or 'SOCRATIC_QUESTIONS').upper()
+                                        max_items2 = int(getattr(self, 'factuality_context_max_items', 6) or 6)
+                                        if mode2 == 'SOCRATIC_QUESTIONS':
+                                            items2 = []
+                                            sq_map2 = getattr(categorized_claim, "socratic_questions", {}) or {}
+                                            ek_list2 = sq_map2.get("EXTERNAL_KNOWLEDGE_REQUIRED") or []
+                                            if ek_list2:
+                                                sorted_ek2 = sorted(ek_list2, key=lambda d: float(d.get("confidence_score", 0.0) or 0.0), reverse=True)
+                                                for q in sorted_ek2:
+                                                    qtext = q.get("question")
+                                                    if qtext:
+                                                        items2.append(qtext)
+                                            else:
+                                                for cat, qs in sq_map2.items():
+                                                    if cat in ("SUBJECTIVE_OPINION", "PROCEDURAL_DESCRIPTIVE", "AMBIGUOUS_RESOLUTION_REQUIRED", "VISUAL_GROUNDING_REQUIRED", "SELF_CONSISTENCY_REQUIRED"):
+                                                        continue
+                                                    for q in qs:
+                                                        qtext = q.get("question")
+                                                        if qtext:
+                                                            items2.append(qtext)
+                                            if items2:
+                                                input_ctx2 = {"type": "SOCRATIC_QUESTIONS", "items": items2[:max_items2]}
+                                        elif mode2 == 'EXTRACTED_CLAIMS':
+                                            try:
+                                                other_claims2 = [c.text for c in claims if getattr(c, 'text', None) and str(c.text).strip() and str(c.text).strip() != str(categorized_claim.text).strip()]
+                                            except Exception:
+                                                other_claims2 = []
+                                            if other_claims2:
+                                                input_ctx2 = {"type": "EXTRACTED_CLAIMS", "items": other_claims2[:max_items2]}
+                                        else:
+                                            input_ctx2 = None
+                                    except Exception as _e_ctx2:
+                                        logging.debug(f"Failed to build input context (rerun): {_e_ctx2}")
+                                        input_ctx2 = None
+
+                                    result2 = self.external_checker.verify_claim(categorized_claim.text, input_context=input_ctx2)
                                     factuality_results[i] = result2
                                     status2 = result2.get("status")
                                     conf2 = result2.get("confidence", 0.0)
@@ -773,7 +1055,15 @@ class SocratesPipeline:
                 try:
                     sc_result = self.self_checker.check_contradiction(categorized_claim.text, self.session_id)
                     ext_result = factuality_results.get(i)
-                    final_result = self.conflict_resolver.resolve(categorized_claim.text, ext_result, sc_result)
+                    # Choose between auto vs manual conflict resolution
+                    try:
+                        mode = getattr(self, 'conflict_resolution_mode', 'auto')
+                    except Exception:
+                        mode = 'auto'
+                    if mode == 'manual':
+                        final_result = self._manual_resolve_conflict(categorized_claim.text, ext_result, sc_result)
+                    else:
+                        final_result = self.conflict_resolver.resolve(categorized_claim.text, ext_result, sc_result)
                     # Merge into factuality_results for unified CLI display
                     factuality_results[i] = final_result
                     # Persist onto claim for downstream consumers
@@ -783,6 +1073,59 @@ class SocratesPipeline:
                     categorized_claim.factuality_evidence = final_result.get("evidence", [])
                     categorized_claim.factuality_sources = final_result.get("sources", [])
                     categorized_claim.factuality_reasoning = final_result.get("reasoning")
+                    # Final aggregated clarification stage: forward combined evidence for hallucination correction
+                    try:
+                        if self.clarifier and str(final_result.get("status", "")).upper() in ("FAIL", "UNCERTAIN"):
+                            ev_all = []
+                            # External evidence
+                            for ev in ((ext_result or {}).get("evidence") or (ext_result or {}).get("external_facts") or []):
+                                if isinstance(ev, str):
+                                    ev_all.append({"summary": ev})
+                                elif isinstance(ev, dict):
+                                    ev_all.append(ev)
+                            # Self-consistency evidence/contradictions
+                            for ev in ((sc_result or {}).get("evidence") or []):
+                                if isinstance(ev, str):
+                                    ev_all.append({"summary": ev})
+                                elif isinstance(ev, dict):
+                                    ev_all.append(ev)
+                            for con in ((sc_result or {}).get("contradictions") or []):
+                                if isinstance(con, str):
+                                    ev_all.append({"summary": con})
+                                elif isinstance(con, dict):
+                                    ev_all.append(con)
+                            fc_final = ClarFactCheckResult(
+                                verdict=final_result.get("status"),
+                                confidence=float(final_result.get("confidence", 0.0) or 0.0),
+                                reasoning=final_result.get("reasoning"),
+                                evidence=ev_all,
+                                sources=(ext_result or {}).get("sources", []) or [],
+                            )
+                            # Determine issue type based on underlying failures
+                            issue = IssueType.EXTERNAL_FACTUAL_CONFLICT
+                            try:
+                                sc_status = str((sc_result or {}).get("status", "")).upper()
+                                if sc_status == "FAIL" or ((sc_result or {}).get("contradictions")):
+                                    issue = IssueType.KNOWLEDGE_CONTRADICTION
+                            except Exception:
+                                pass
+                            cat_enum2 = next((c.name for c in categorized_claim.categories), None)
+                            ctx_final = ClarContext(
+                                claim_text=categorized_claim.text,
+                                category=cat_enum2,
+                                fact_check=fc_final,
+                                failed_check_type="MERGED",
+                                issue_type=issue,
+                                claim_id=str(i),
+                                metadata={"stage": "final_post_merge"},
+                            )
+                            clr_res_final = self.clarifier.resolve_claim(ctx_final)
+                            self._clarification_results.setdefault(i, {})["final"] = clr_res_final
+                            # Optionally apply corrected claim text (no auto-rerun here to avoid loops)
+                            if getattr(clr_res_final, 'corrected_claim', None) and clr_res_final.corrected_claim.strip() and clr_res_final.corrected_claim.strip() != categorized_claim.text.strip():
+                                categorized_claim.text = clr_res_final.corrected_claim.strip()
+                    except Exception as e:
+                        logging.warning(f"Final aggregated clarification failed: {e}")
                     # Add to KG if recommended
                     if getattr(self, "kg_manager", None) and final_result.get("should_add_to_kg"):
                         try:
@@ -831,6 +1174,7 @@ if __name__ == '__main__':
     parser.add_argument("--enable-factuality", dest="enable_factuality", action="store_true", help="Enable external factuality checking")
     parser.add_argument("--disable-factuality", dest="disable_factuality", action="store_true", help="Disable external factuality checking")
     parser.add_argument("--text", type=str, default="in this image I was standing in front of a London Big Ben tower, which is in Germany.", help="Input text to process")
+    parser.add_argument("--image", dest="image", type=str, default=None, help="Optional path to an image for cross-modal verification")
     # Clarification toggles
     parser.add_argument("--enable-clarification", dest="enable_clarification", action="store_true", help="Enable clarification module")
     parser.add_argument("--disable-clarification", dest="disable_clarification", action="store_true", help="Disable clarification module")
@@ -839,6 +1183,9 @@ if __name__ == '__main__':
     parser.add_argument("--enable-question-gen", dest="enable_qg", action="store_true", help="Enable Socratic question generation")
     parser.add_argument("--disable-question-gen", dest="disable_qg", action="store_true", help="Disable Socratic question generation")
     parser.add_argument("--questions-per-category", dest="qg_per_cat", type=int, default=None, help="Number of Socratic questions to generate per relevant category")
+    # External factuality context selection
+    parser.add_argument("--factuality-context", dest="factuality_context", type=str, choices=["socratic", "claims", "none"], default=None, help="Context used to guide external factuality verdict aggregation")
+    parser.add_argument("--fact-context-max-items", dest="fact_ctx_max_items", type=int, default=None, help="Max number of context items to include in external factuality prompt")
     # Socratic question validation tuning
     parser.add_argument("--qg-min-threshold", dest="qg_min_threshold", type=float, default=None, help="Minimum confidence threshold for accepting generated questions (0-1)")
     parser.add_argument("--qg-max-complexity", dest="qg_max_complexity", type=float, default=None, help="Maximum allowed question/claim length ratio before penalization")
@@ -850,6 +1197,8 @@ if __name__ == '__main__':
     parser.add_argument("--show-kg", dest="show_kg", action="store_true", help="Display session knowledge graph after processing")
     parser.add_argument("--kg-max-items", dest="kg_max_items", type=int, default=None, help="Maximum entities/relations to display for KG output")
     parser.add_argument("--kg-query", dest="kg_query", type=str, default=None, help="Optional free-text query to match entities/relations in the session KG")
+    # Conflict resolution mode
+    parser.add_argument("--conflict-mode", dest="conflict_mode", type=str, choices=["auto", "manual"], default=None, help="Conflict resolution: auto uses resolver; manual prompts user decision")
     # LLM selection
     parser.add_argument("--llm-provider", dest="llm_provider", type=str, choices=["ollama", "openai", "claude"], default=None, help="LLM provider to use (overrides SOC_LLM_PROVIDER)")
     parser.add_argument("--llm-model", dest="llm_model", type=str, default=None, help="Model name for the selected provider (overrides SOC_LLM_MODEL)")
@@ -899,15 +1248,23 @@ if __name__ == '__main__':
         qg_max_complexity=args.qg_max_complexity,
         qg_enable_fallback=True if args.qg_enable_fallback else (False if args.qg_disable_fallback else None),
         qg_prioritize_visual=True if args.qg_prioritize_visual else (False if args.qg_deprioritize_visual else None),
+        conflict_resolution_mode=(args.conflict_mode or os.getenv("SOC_CONFLICT_MODE")),
+        factuality_context_mode=args.factuality_context,
+        factuality_context_max_items=args.fact_ctx_max_items,
     )
 
     # Inform about selected LLM
     try:
-        print(ConsoleColors.c('label', 'Using LLM: ') + ConsoleColors.c('value', f"{getattr(llm_manager, 'provider').value}:{getattr(llm_manager, 'model_name')}"))
+        print(ConsoleColors.c('label', 'Using LLM: ') + ConsoleColors.c('value', f"{getattr(llm_manager, 'provider').value}:{getattr(llm_manager, 'model_name')}") )
+    except Exception:
+        pass
+    # Inform about conflict resolution mode
+    try:
+        print(ConsoleColors.c('label', 'Conflict mode: ') + ConsoleColors.c('value', f"{getattr(pipeline, 'conflict_resolution_mode', 'auto')}") )
     except Exception:
         pass
 
-    final_claims = pipeline.run(args.text)
+    final_claims = pipeline.run(args.text, image_path=args.image)
 
     print("\n" + ConsoleColors.c('heading', '--- Final Processed Claims ---'))
     for i, claim in enumerate(final_claims, 1):
@@ -991,7 +1348,7 @@ if __name__ == '__main__':
             if fr.get("sources"):
                 print("    - " + ConsoleColors.c('label', 'Sources: ') + ConsoleColors.c('value', f"{fr['sources'][:3]}"))
 
-    # Summary metrics (also logged above)
+    # Summary metrics for factuality stage
     if getattr(pipeline, "_last_factuality_results", None):
         frs = pipeline._last_factuality_results
         total = len(frs)
@@ -1012,9 +1369,13 @@ if __name__ == '__main__':
         if q_total > 0:
             fb_rate = (q_fallback / q_total) * 100.0
             print("\n" + ConsoleColors.c('summary', '--- Socratic Question Generation Summary ---'))
-            print(ConsoleColors.c('label', 'Total questions: ') + ConsoleColors.c('value', f"{q_total}") +
-                  ConsoleColors.c('label', ' | Fallback used: ') + ConsoleColors.c('value', f"{q_fallback}") +
-                  ConsoleColors.c('label', ' (') + ConsoleColors.c('value', f"{fb_rate:.1f}") + ConsoleColors.c('label', '%)'))
+            rate_str = f"{fb_rate:.1f}"
+            line = (
+                ConsoleColors.c('label', 'Total questions: ') + ConsoleColors.c('value', str(q_total)) +
+                ConsoleColors.c('label', ' | Fallback used: ') + ConsoleColors.c('value', str(q_fallback)) +
+                ConsoleColors.c('label', ' (') + ConsoleColors.c('value', rate_str) + ConsoleColors.c('label', '%)')
+            )
+            print(line)
 
     # Knowledge Graph display (toggle via CLI or env SOC_SHOW_KG=true)
     env_show_kg = os.getenv("SOC_SHOW_KG", "false").lower() == "true"

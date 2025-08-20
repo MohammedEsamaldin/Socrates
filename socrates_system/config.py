@@ -41,8 +41,10 @@ ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')  # For Claude API if need
 
 # Multimodal model settings
 VISION_MODEL_NAME = "Salesforce/blip-image-captioning-base"
-NLP_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-ENTITY_MODEL_NAME = "en_core_web_sm"
+# Stronger semantic encoder for better similarity and canonicalization
+NLP_MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"
+# SOTA spaCy NER (falls back in code if not installed)
+ENTITY_MODEL_NAME = "en_core_web_trf"
 
 # Socrates Agent settings
 MAX_SOCRATIC_QUESTIONS = 5

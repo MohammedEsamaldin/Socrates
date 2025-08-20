@@ -62,7 +62,7 @@ class AGLAClient:
         img_bytes = self._coerce_image_bytes(image)
 
         data: Dict[str, Any] = {
-            "claim": socratic_question, #claim,
+            "claim": claim,
             "return_debug": str(bool(return_debug)).lower(),
         }
         if use_agla is not None:

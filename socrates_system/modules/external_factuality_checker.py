@@ -334,12 +334,15 @@ class ExternalFactualityChecker:
             logger.error(f"Error initializing External Factuality Checker: {str(e)}")
             raise
     
-    def verify_claim(self, claim: str) -> Dict[str, Any]:
+    def verify_claim(self, claim: str, input_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Verify a claim against external sources
         
         Args:
             claim: The claim to verify
+            input_context: Optional contextual guidance to include in the LLM aggregation
+                step, e.g. {"type": "SOCRATIC_QUESTIONS"|"EXTRACTED_CLAIMS", "items": [str, ...]}.
+                Backwards compatible if None.
             
         Returns:
             Dictionary containing verification results
@@ -381,9 +384,131 @@ class ExternalFactualityChecker:
                 results.append(oi_result)
 
         # Aggregate results
-        aggregated = self._aggregate_verification_results(claim, results)
+        aggregated = self._aggregate_verification_results(claim, results, input_context=input_context)
         logger.info(f"External verification status: {aggregated['status']} (conf {aggregated['confidence']:.2f})")
         return aggregated
+
+    def _aggregate_verification_results(self, claim: str, results: List[Dict[str, Any]], input_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Use LLM to aggregate and analyze results from multiple sources.
+        Optionally incorporate an input_context to guide the verdict prompt.
+        """
+        if not results:
+            return {
+                "status": "UNCERTAIN",
+                "confidence": 0.0,
+                "external_facts": ["No external sources found"],
+                "contradictions": [],
+                "evidence": [],
+                "sources": [],
+                "reasoning": "No external sources available for verification",
+            }
+
+        # Use LLM to make the final factuality determination
+        return self._get_llm_factuality_verdict(claim, results, input_context=input_context)
+
+    def _get_llm_factuality_verdict(self, claim: str, evidence_results: List[Dict[str, Any]], input_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Use LLM to determine factuality verdict based on claim and evidence.
+        Optionally includes a caller-provided input_context in the prompt.
+        """
+
+        # Prepare evidence and sources for LLM analysis
+        evidence_text: List[str] = []
+        sources_list: List[str] = []
+
+        for result in evidence_results:
+            if result.get("content"):
+                evidence_text.append(f"- {result['content']}")
+            if result.get("evidence"):
+                evidence_text.extend([f"- {ev}" for ev in result["evidence"]])
+            if result.get("sources"):
+                sources_list.extend(result["sources"])
+
+        evidence_combined = "\n".join(evidence_text) if evidence_text else "No specific evidence found"
+        sources_combined = "\n".join(f"- {source}" for source in set(sources_list)) if sources_list else "No sources available"
+
+        # Optional context section (prepended to evidence for backward-compatible templates)
+        context_block = ""
+        try:
+            if input_context and isinstance(input_context, dict):
+                ctx_type = str(input_context.get("type", "")).strip() or "UNSPECIFIED"
+                ctx_items = input_context.get("items") or []
+                if ctx_items:
+                    lines = [f"Additional Context ({ctx_type}):"]
+                    for it in ctx_items[:8]:
+                        lines.append(f"- {str(it)}")
+                    context_block = "\n".join(lines)
+        except Exception:
+            # Be resilient to malformed context
+            context_block = ""
+
+        evidence_for_prompt = (
+            evidence_combined
+            if not context_block
+            else f"{context_block}\n\nEvidence from external sources:\n{evidence_combined}"
+        )
+
+        # Format prompt with claim, evidence, and sources
+        prompt = FACTUALITY_VERDICT_PROMPT.format(
+            claim=claim,
+            evidence=evidence_for_prompt,
+            sources=sources_combined,
+        )
+
+        try:
+            # Get LLM response
+            llm_response = self.llm_manager.generate_text(prompt, max_tokens=1024)
+
+            # Clean and parse JSON response
+            if not llm_response or not llm_response.strip():
+                logger.warning("Empty LLM response for factuality verdict")
+                return self._create_fallback_verdict(claim, evidence_text, sources_list)
+
+            # Remove markdown code blocks if present
+            cleaned_response = llm_response.strip()
+            if cleaned_response.startswith('```json'):
+                cleaned_response = cleaned_response[7:]
+            if cleaned_response.endswith('```'):
+                cleaned_response = cleaned_response[:-3]
+            cleaned_response = cleaned_response.strip()
+
+            # Parse JSON response
+            verdict_data = json.loads(cleaned_response)
+
+            # Map LLM verdict to our status format
+            llm_verdict = verdict_data.get("verdict", "INSUFFICIENT_EVIDENCE")
+            if llm_verdict == "TRUE":
+                status = "PASS"
+            elif llm_verdict == "FALSE":
+                status = "FAIL"
+            else:
+                status = "UNCERTAIN"
+
+            return {
+                "status": status,
+                "confidence": float(verdict_data.get("confidence", 0.5)),
+                "external_facts": evidence_text,
+                "contradictions": verdict_data.get("contradicting_evidence", []),
+                "evidence": verdict_data.get("supporting_evidence", []),
+                "sources": list(set(sources_list)),
+                "reasoning": verdict_data.get("reasoning", "LLM-based factuality analysis"),
+                "llm_verdict": verdict_data,
+            }
+
+        except (json.JSONDecodeError, KeyError, ValueError) as e:
+            logger.warning(f"Failed to parse LLM factuality verdict: {e}")
+            return self._create_fallback_verdict(claim, evidence_text, sources_list)
+
+    def _create_fallback_verdict(self, claim: str, evidence_text: List[str], sources_list: List[str]) -> Dict[str, Any]:
+        """Create fallback verdict when LLM parsing fails"""
+        return {
+            "status": "UNCERTAIN",
+            "confidence": 0.3,
+            "external_facts": evidence_text,
+            "contradictions": [],
+            "evidence": evidence_text,
+            "sources": list(set(sources_list)),
+            "reasoning": "LLM verdict parsing failed - using fallback analysis",
+        }
 
     # ---- Optional key loading helpers ----
     def _load_google_factcheck_key(self) -> Optional[str]:
@@ -495,9 +620,9 @@ class ExternalFactualityChecker:
                     "source": "OpenAI",
                     "status": status,
                     "confidence": parsed.get("confidence", 0.5),
-                    "content": claim,
                     "evidence": parsed.get("evidence", []) or [],
                     "sources": parsed.get("sources", []) or [],
+                    "content": claim,
                 }
             except Exception:
                 logger.debug("OpenAI fallback returned non-JSON content")
@@ -646,200 +771,3 @@ class ExternalFactualityChecker:
                 "evidence": ["Scientific sources confirm water boils at 100°C at standard pressure"],
                 "sources": ["Scientific databases", "Educational resources"]
             }
-        
-        return None
-    
-    def _aggregate_verification_results(self, claim: str, results: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Use LLM to aggregate and analyze results from multiple sources"""
-        if not results:
-            return {
-                "status": "UNCERTAIN",
-                "confidence": 0.0,
-                "external_facts": ["No external sources found"],
-            "contradictions": [],
-            "evidence": [],
-            "sources": [],
-            "reasoning": "No external sources available for verification"
-        }
-    
-        # Use LLM to make the final factuality determination
-        return self._get_llm_factuality_verdict(claim, results)
-    """Aggregate verification results from multiple sources"""      
-                    
-                    
-    # def _aggregate_verification_results(self, claim: str, results: List[Dict[str, Any]]) -> Dict[str, Any]:
-    #     """Aggregate results from multiple sources"""
-    #     if not results:
-    #         return {
-    #             "status": "UNCERTAIN",
-    #             "confidence": 0.0,
-    #             "external_facts": ["No external sources found"],
-    #             "contradictions": [],
-    #             "evidence": [],
-    #             "sources": [],
-    #             "reasoning": "No external sources available for verification"
-    #         }
-        
-    #     # Analyze results
-    #     supported_results = [r for r in results if r.get("status") in ["TRUE", "SUPPORTED"]]
-    #     contradicted_results = [r for r in results if r.get("status") in ["FALSE", "CONTRADICTED"]]
-        
-    #     external_facts = []
-    #     evidence = []
-    #     sources = []
-    #     contradictions = []
-        
-    #     # Collect evidence and sources
-    #     for result in results:
-    #         if result.get("evidence"):
-    #             evidence.extend(result["evidence"])
-    #         if result.get("sources"):
-    #             sources.extend(result["sources"])
-    #         if result.get("content"):
-    #             external_facts.append(result["content"])
-        
-    #     # Determine overall status
-    #     if contradicted_results:
-    #         status = "FAIL"
-    #         for result in contradicted_results:
-    #             contradictions.append(f"Source {result['source']}: {result.get('content', 'Contradiction found')}")
-    #     elif supported_results:
-    #         status = "PASS"
-    #     else:
-    #         status = "UNCERTAIN"
-        
-    #     # Calculate overall confidence
-    #     if results:
-    #         confidence = sum(r.get("confidence", 0) for r in results) / len(results)
-    #     else:
-    #         confidence = 0.0
-        
-    #     # Generate reasoning
-    #     reasoning = self._generate_verification_reasoning(claim, results, status, confidence)
-        
-    #     return {
-    #         "status": status,
-    #         "confidence": confidence,
-    #         "external_facts": external_facts,
-    #         "contradictions": contradictions,
-    #         "evidence": evidence,
-    #         "sources": list(set(sources)),  # Remove duplicates
-    #         "reasoning": reasoning
-    #     }
-    
-    def _generate_verification_reasoning(self, claim: str, results: List[Dict[str, Any]], 
-                                       status: str, confidence: float) -> str:
-        """Generate reasoning for verification decision"""
-        reasoning_parts = []
-        
-        # Source summary
-        sources = [r.get("source", "Unknown") for r in results]
-        reasoning_parts.append(f"Consulted {len(results)} external sources: {', '.join(set(sources))}")
-        
-        # Status explanation
-        if status == "PASS":
-            reasoning_parts.append(f"External sources support the claim with {confidence:.2f} confidence")
-        elif status == "FAIL":
-            reasoning_parts.append(f"External sources contradict the claim with {confidence:.2f} confidence")
-        else:
-            reasoning_parts.append(f"External sources provide insufficient evidence ({confidence:.2f} confidence)")
-        
-        # Evidence summary
-        total_evidence = sum(len(r.get("evidence", [])) for r in results)
-        if total_evidence > 0:
-            reasoning_parts.append(f"Found {total_evidence} pieces of supporting evidence")
-        
-        return ". ".join(reasoning_parts)
-    
-    def batch_verify_claims(self, claims: List[str]) -> List[Dict[str, Any]]:
-        """Verify multiple claims in batch"""
-        logger.info(f"Batch verifying {len(claims)} claims")
-        
-        results = []
-        for i, claim in enumerate(claims):
-            logger.info(f"Verifying claim {i+1}/{len(claims)}")
-            result = self.verify_claim(claim)
-            results.append(result)
-            time.sleep(0.1)  # Rate limiting
-        
-        return results
-    def _get_llm_factuality_verdict(self, claim: str, evidence_results: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Use LLM to determine factuality verdict based on claim and evidence"""
-        
-        # Prepare evidence and sources for LLM analysis
-        evidence_text = []
-        sources_list = []
-        
-        for result in evidence_results:
-            if result.get("content"):
-                evidence_text.append(f"- {result['content']}")
-            if result.get("evidence"):
-                evidence_text.extend([f"- {ev}" for ev in result["evidence"]])
-            if result.get("sources"):
-                sources_list.extend(result["sources"])
-        
-        evidence_combined = "\n".join(evidence_text) if evidence_text else "No specific evidence found"
-        sources_combined = "\n".join(f"- {source}" for source in set(sources_list)) if sources_list else "No sources available"
-        
-        # Format prompt with claim, evidence, and sources
-        prompt = FACTUALITY_VERDICT_PROMPT.format(
-            claim=claim,
-            evidence=evidence_combined,
-            sources=sources_combined
-        )
-        
-        try:
-            # Get LLM response
-            llm_response = self.llm_manager.generate_text(prompt, max_tokens=1024)
-            
-            # Clean and parse JSON response
-            if not llm_response or not llm_response.strip():
-                logger.warning("Empty LLM response for factuality verdict")
-                return self._create_fallback_verdict(claim, evidence_text, sources_list)
-            
-            # Remove markdown code blocks if present
-            cleaned_response = llm_response.strip()
-            if cleaned_response.startswith('```json'):
-                cleaned_response = cleaned_response[7:]
-            if cleaned_response.endswith('```'):
-                cleaned_response = cleaned_response[:-3]
-            cleaned_response = cleaned_response.strip()
-            
-            # Parse JSON response
-            verdict_data = json.loads(cleaned_response)
-            
-            # Map LLM verdict to our status format
-            llm_verdict = verdict_data.get("verdict", "INSUFFICIENT_EVIDENCE")
-            if llm_verdict == "TRUE":
-                status = "PASS"
-            elif llm_verdict == "FALSE":
-                status = "FAIL"
-            else:
-                status = "UNCERTAIN"
-            
-            return {
-                "status": status,
-                "confidence": float(verdict_data.get("confidence", 0.5)),
-                "external_facts": evidence_text,
-                "contradictions": verdict_data.get("contradicting_evidence", []),
-                "evidence": verdict_data.get("supporting_evidence", []),
-                "sources": list(set(sources_list)),
-                "reasoning": verdict_data.get("reasoning", "LLM-based factuality analysis"),
-                "llm_verdict": verdict_data  # Store full LLM response
-            }
-            
-        except (json.JSONDecodeError, KeyError, ValueError) as e:
-            logger.warning(f"Failed to parse LLM factuality verdict: {e}")
-            return self._create_fallback_verdict(claim, evidence_text, sources_list)
-
-    def _create_fallback_verdict(self, claim: str, evidence_text: List[str], sources_list: List[str]) -> Dict[str, Any]:
-        """Create fallback verdict when LLM parsing fails"""
-        return {
-            "status": "UNCERTAIN",
-            "confidence": 0.3,
-            "external_facts": evidence_text,
-            "contradictions": [],
-            "evidence": evidence_text,
-            "sources": list(set(sources_list)),
-            "reasoning": "LLM verdict parsing failed - using fallback analysis"
-        }

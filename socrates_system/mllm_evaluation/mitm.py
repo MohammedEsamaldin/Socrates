@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Tuple, Optional
 from dataclasses import asdict
+import os
 
 from socrates_system.pipeline import SocratesPipeline
 from socrates_system.modules.llm_manager import LLMManager
@@ -8,7 +9,8 @@ from socrates_system.modules.llm_manager import LLMManager
 def _compute_corrected_text(original_text: str,
                             claims: List[Any],
                             clar_results: Dict[int, Dict[str, Any]],
-                            stage: str = "pre") -> Tuple[str, List[Dict[str, Any]]]:
+                            stage: str = "pre",
+                            min_conf: Optional[float] = None) -> Tuple[str, List[Dict[str, Any]]]:
     """
     Build minimally-edited text by replacing only hallucinated tokens at claim spans.
 
@@ -17,18 +19,30 @@ def _compute_corrected_text(original_text: str,
         claims: list of ExtractedClaim objects returned by pipeline.run
         clar_results: pipeline._clarification_results mapping (1-indexed claim_id -> {"pre": obj, "post": obj})
         stage: "pre" to apply pre-routing corrections (for user input), "post" for post-factuality (for model output)
+        min_conf: minimum resolution_confidence needed to apply a correction (overrides env SOC_MITM_MIN_CONF)
 
     Returns:
         (corrected_text, corrections)
         corrections: list of {claim_index, span, original, corrected}
     """
+    # Resolve confidence threshold
+    if min_conf is None:
+        try:
+            min_conf = float(os.getenv("SOC_MITM_MIN_CONF", "0.55"))
+        except Exception:
+            min_conf = 0.55
+
     # Gather replacements as (start, end, replacement, original, idx)
     repls: List[Tuple[int, int, str, str, int]] = []
     for i, cl in enumerate(claims, 1):
         cr = (clar_results or {}).get(i, {})
         ctx_obj = cr.get(stage)
         corrected = getattr(ctx_obj, "corrected_claim", None) if ctx_obj else None
-        if corrected and isinstance(corrected, str) and corrected.strip() and corrected != cl.text:
+        conf = float(getattr(ctx_obj, "resolution_confidence", 0.0) or 0.0) if ctx_obj else 0.0
+        if (
+            corrected and isinstance(corrected, str) and corrected.strip() and corrected != cl.text
+            and conf >= (min_conf or 0.0)
+        ):
             start, end = int(getattr(cl, "start_char", 0)), int(getattr(cl, "end_char", 0))
             if 0 <= start < end <= len(original_text):
                 repls.append((start, end, corrected, cl.text, i))
@@ -51,6 +65,7 @@ def _compute_corrected_text(original_text: str,
             "span": [start, end],
             "original": old_text,
             "corrected": new_text,
+            # Note: individual per-claim confidence can be obtained from pipeline _clarification_results
         })
         cursor = end
     out_parts.append(original_text[cursor:])
@@ -65,9 +80,16 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
         text: user text
         image_path: optional image path for multimodal verification
     """
+    # Determine whether to apply MitM corrections on input
+    use_mitm = os.getenv("SOC_USE_MITM", "true").lower() == "true"
+    verify_input = os.getenv("SOC_MITM_VERIFY_INPUT", "true").lower() == "true"
+
     claims = pipeline.run(text, image_path=image_path)
     clar = getattr(pipeline, "_clarification_results", {})
-    corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="pre")
+    if use_mitm and verify_input:
+        corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="pre")
+    else:
+        corrected_text, corrections = text, []
     return {
         "claims": claims,
         "clarification": clar,
@@ -86,9 +108,16 @@ def process_model_turn(pipeline: SocratesPipeline, text: str, image_path: Option
         text: model output text
         image_path: optional image path for multimodal verification
     """
+    # Determine whether to apply MitM corrections on output
+    use_mitm = os.getenv("SOC_USE_MITM", "true").lower() == "true"
+    verify_output = os.getenv("SOC_MITM_VERIFY_OUTPUT", "true").lower() == "true"
+
     claims = pipeline.run(text, image_path=image_path)
     clar = getattr(pipeline, "_clarification_results", {})
-    corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="post")
+    if use_mitm and verify_output:
+        corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="post")
+    else:
+        corrected_text, corrections = text, []
     return {
         "claims": claims,
         "clarification": clar,

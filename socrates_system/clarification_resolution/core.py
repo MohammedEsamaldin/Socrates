@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import difflib
 from typing import Any, Callable, Dict, List, Optional
 
 from .data_models import (
@@ -127,29 +129,31 @@ class ClarificationResolutionModule:
         prompt = (
             "Task: Refine Socratic questions for claim clarification\n\n"
             f"Input JSON:\n{json.dumps(payload, ensure_ascii=False, indent=2)}\n\n"
-            "Output only valid JSON: {\"questions\": [..]}"
+            "Output only valid JSON: {\"questions\": [...]}"
         )
         text = self.llm.generate_text(prompt=prompt, system_prompt=system_prompt, max_tokens=512, temperature=0.2)  # type: ignore
         try:
-            cleaned = text.strip().strip("`")
-            # Remove json fences if any
-            if cleaned.startswith("json\n"):
-                cleaned = cleaned[5:]
-            obj = json.loads(cleaned)
-            refined = obj.get("questions", [])
+            obj = self._parse_json_safely(text)
+            # Allow direct list as output
+            refined = obj.get("questions", obj if isinstance(obj, list) else [])
             out: List[SocraticQuestion] = []
-            for i, q in enumerate(refined):
+            # Align lengths safely
+            pair_count = min(len(refined), len(questions))
+            for i in range(pair_count):
+                q = refined[i]
                 if isinstance(q, str) and q.strip():
+                    base = questions[i]
                     out.append(
                         SocraticQuestion(
-                            id=questions[i].id,
+                            id=base.id,
                             text=q.strip(),
-                            qtype=questions[i].qtype,
-                            choices=questions[i].choices,
-                            expects=questions[i].expects,
-                            metadata=questions[i].metadata,
+                            qtype=base.qtype,
+                            choices=base.choices,
+                            expects=base.expects,
+                            metadata=base.metadata,
                         )
                     )
+            # If nothing valid parsed, fall back
             return self._validate_questions(out) if out else questions
         except Exception as e:
             logger.warning("Failed to parse refined questions JSON: %s", e)
@@ -175,6 +179,7 @@ class ClarificationResolutionModule:
         questions: List[SocraticQuestion],
         response_provider: Optional[ResponseProvider],
     ) -> Dict[str, Any]:
+        # If a programmatic response provider is supplied, use it
         if response_provider is not None:
             responses = {}
             for q in questions:
@@ -184,13 +189,19 @@ class ClarificationResolutionModule:
                     logger.warning("Response provider failed for %s: %s", q.id, e)
                     responses[q.id] = None
             return responses
-        # Fallback to interactive CLI
-        try:
-            from .user_interface import present_questions_interactive
-            return present_questions_interactive(questions)
-        except Exception:
-            # Non-interactive default
+        # If user rewrite is NOT required, avoid any interactive prompts (auto mode)
+        if not clar_cfg.REQUIRE_USER_REWRITE:
             return {q.id: None for q in questions}
+        # Otherwise, fall back to interactive CLI if available
+        try:
+            import sys
+            if hasattr(sys.stdin, "isatty") and sys.stdin.isatty():
+                from .user_interface import present_questions_interactive
+                return present_questions_interactive(questions)
+        except Exception:
+            pass
+        # Non-interactive default (no TTY or UI failure)
+        return {q.id: None for q in questions}
 
     def _summarize_evidence(self, ctx: ClarificationContext, limit: int = 3) -> List[str]:
         ev_summaries: List[str] = []
@@ -206,6 +217,127 @@ class ClarificationResolutionModule:
         except Exception:
             pass
         return ev_summaries
+
+    # ------------------------ Parsing & text utils ------------------------
+    def _strip_code_fences(self, text: str) -> str:
+        t = (text or "").strip()
+        # Remove backticks and leading language hints
+        # ```json ... ``` or ``` ... ```
+        if t.startswith("```"):
+            t = re.sub(r"^```[a-zA-Z]*\s*", "", t)
+            t = re.sub(r"```$", "", t).strip()
+        # Remove markdown inline code fences
+        t = t.strip("`")
+        # Remove leading `json\n`
+        if t.lower().startswith("json\n"):
+            t = t[5:]
+        return t.strip()
+
+    def _parse_json_safely(self, text: str) -> Any:
+        """Extract and parse JSON even if surrounded by prose or fences.
+        Tries direct parse, then searches for the first well-formed object/array.
+        Raises ValueError if parsing fails.
+        """
+        t = self._strip_code_fences(text)
+        # Direct attempt
+        try:
+            return json.loads(t)
+        except Exception:
+            pass
+
+        # Search for JSON objects/arrays by tracking brackets
+        candidates: List[str] = []
+        for open_ch, close_ch in (("{", "}"), ("[", "]")):
+            stack = 0
+            start_idx = None
+            for i, ch in enumerate(t):
+                if ch == open_ch:
+                    if stack == 0:
+                        start_idx = i
+                    stack += 1
+                elif ch == close_ch and stack > 0:
+                    stack -= 1
+                    if stack == 0 and start_idx is not None:
+                        candidates.append(t[start_idx : i + 1])
+                        start_idx = None
+        for cand in candidates:
+            try:
+                return json.loads(cand)
+            except Exception:
+                continue
+        raise ValueError("No valid JSON object/array found in LLM output")
+
+    def _tokenize(self, text: str) -> List[str]:
+        # Split into words and punctuation tokens
+        return re.findall(r"\w+|[^\w\s]", text or "")
+
+    def _detokenize(self, tokens: List[str]) -> str:
+        if not tokens:
+            return ""
+        s = " ".join(tokens)
+        # Fix spaces before punctuation
+        s = re.sub(r"\s+([,.;:!?])", r" \1", s)
+        s = re.sub(r"\(\s+", "(", s)
+        s = re.sub(r"\s+\)", ")", s)
+        s = s.replace(" 's", "'s")
+        s = re.sub(r"\s+\-\s+", "-", s)
+        return s.strip()
+
+    def _selective_replace_tokens(self, original: str, proposed: str) -> str:
+        """Perform conservative token-level replacement from proposed into original.
+        Honors config thresholds; may ignore insertions unless allowed.
+        """
+        if not original or not proposed:
+            return proposed or original
+
+        orig_tokens = self._tokenize(original)
+        prop_tokens = self._tokenize(proposed)
+        if len(orig_tokens) < clar_cfg.SELECTIVE_MIN_TOKENS:
+            return proposed
+
+        sm_char = difflib.SequenceMatcher(None, original, proposed)
+        char_diff_ratio = 1.0 - sm_char.ratio()
+        if char_diff_ratio <= clar_cfg.SELECTIVE_MAX_CHAR_DIFF_RATIO:
+            # Small change overall; accept proposed
+            out = proposed
+        else:
+            sm = difflib.SequenceMatcher(a=orig_tokens, b=prop_tokens)
+            changed = 0
+            out_tokens: List[str] = []
+            for tag, i1, i2, j1, j2 in sm.get_opcodes():
+                if tag == 'equal':
+                    out_tokens.extend(orig_tokens[i1:i2])
+                elif tag == 'replace':
+                    changed += (i2 - i1)
+                    # Replace with proposed span
+                    out_tokens.extend(prop_tokens[j1:j2])
+                elif tag == 'delete':
+                    changed += (i2 - i1)
+                    if clar_cfg.SELECTIVE_ALLOW_INSERTIONS:
+                        # deletion from original => drop tokens
+                        pass
+                    else:
+                        # keep original tokens (reject deletion)
+                        out_tokens.extend(orig_tokens[i1:i2])
+                elif tag == 'insert':
+                    ins_count = (j2 - j1)
+                    if clar_cfg.SELECTIVE_ALLOW_INSERTIONS:
+                        out_tokens.extend(prop_tokens[j1:j2])
+                    else:
+                        # ignore insertions
+                        pass
+            change_ratio = changed / max(1, len(orig_tokens))
+            if change_ratio > clar_cfg.SELECTIVE_MAX_TOKEN_CHANGE_RATIO:
+                # Too many changes; prefer original with minimal replacements allowed above
+                out_tokens = orig_tokens if not clar_cfg.SELECTIVE_ALLOW_INSERTIONS else out_tokens
+            out = self._detokenize(out_tokens)
+
+        # Enforce token cap
+        tok_cap = clar_cfg.MAX_CORRECTED_CLAIM_TOKENS
+        final_tokens = self._tokenize(out)
+        if len(final_tokens) > tok_cap:
+            out = self._detokenize(final_tokens[:tok_cap])
+        return out.strip()
 
     def _evaluate_user_answer_with_llm(
         self,
@@ -239,10 +371,7 @@ class ClarificationResolutionModule:
         prompt = f"Input JSON to evaluate (be strict, concise):\n{json.dumps(payload, ensure_ascii=False, indent=2)}\n"
         try:
             text = self.llm.generate_text(prompt=prompt, system_prompt=system, max_tokens=256, temperature=0.1)  # type: ignore
-            cleaned = text.strip().strip("`")
-            if cleaned.startswith("json\n"):
-                cleaned = cleaned[5:]
-            obj = json.loads(cleaned)
+            obj = self._parse_json_safely(text)
             consistency = (obj.get("consistency") or "").strip().upper()
             confidence = float(obj.get("confidence", 0.0) or 0.0)
             reasoning = (obj.get("reasoning") or "").strip()
@@ -310,10 +439,7 @@ class ClarificationResolutionModule:
 
         text = self.llm.generate_text(prompt=prompt, system_prompt=system, max_tokens=256, temperature=0.2)  # type: ignore
         try:
-            cleaned = text.strip().strip("`")
-            if cleaned.startswith("json\n"):
-                cleaned = cleaned[5:]
-            obj = json.loads(cleaned)
+            obj = self._parse_json_safely(text)
             corrected_claim = obj.get("corrected_claim")
             reasoning = obj.get("reasoning", "")
             if not corrected_claim or not isinstance(corrected_claim, str):
@@ -323,6 +449,18 @@ class ClarificationResolutionModule:
             logger.warning("Failed to parse corrected claim JSON: %s", e)
             corrected_claim = self._fallback_correction_from_responses(questions, responses, default=ctx.claim_text)
             reasoning = "Fallback applied due to JSON parsing error."
+
+        # Apply selective replacement when enabled and appropriate
+        try:
+            if corrected_claim and isinstance(corrected_claim, str) and corrected_claim.strip():
+                if clar_cfg.SELECTIVE_TOKEN_REPLACEMENT:
+                    merged = self._selective_replace_tokens(ctx.claim_text, corrected_claim)
+                    if merged != corrected_claim:
+                        reasoning = (reasoning + " | Applied selective token replacement").strip()
+                    corrected_claim = merged
+        except Exception as e:
+            logger.warning("Selective replacement failed; using raw corrected claim: %s", e)
+
         return corrected_claim, reasoning
 
     def _fallback_correction_from_responses(

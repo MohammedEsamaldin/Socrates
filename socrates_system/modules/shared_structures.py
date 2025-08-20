@@ -17,6 +17,8 @@ class ExtractedEntity:
     end_char: int
     confidence: float = 1.0
     metadata: Dict[str, Any] = field(default_factory=dict)
+    # Optional canonical entity ID (from global registry); None if not yet resolved
+    canonical_id: Optional[str] = None
 
 @dataclass
 class ExtractedRelationship:

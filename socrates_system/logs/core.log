@@ -66,3 +66,63 @@
 2025-08-18 03:09:38,471 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-18 03:10:29,048 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
 2025-08-18 03:11:58,096 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 21:37:46,502 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:39:03,174 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:42:05,637 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:45:13,604 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:48:23,155 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:48:51,811 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 21:50:37,186 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-18 21:51:08,228 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 21:52:18,724 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 21:53:03,274 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-18 21:54:06,526 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-19 00:16:04,721 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 00:16:39,341 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-19 00:22:41,096 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 00:23:18,841 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-19 00:24:06,430 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 00:56:12,996 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 00:57:52,849 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-19 01:01:27,121 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: list index out of range
+2025-08-19 01:41:51,624 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 01:49:01,554 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 01:50:57,481 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 01:51:54,206 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 01:56:14,220 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:15:42,670 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:21:28,541 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:24:53,036 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:27:40,838 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:28:57,745 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 02:33:19,923 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:24:20,116 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:26:09,678 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:30:29,770 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:47:46,330 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:48:44,530 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:52:54,172 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:56:17,730 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 03:58:15,316 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 04:03:20,231 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 04:34:11,842 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 04:34:59,457 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 04:36:35,800 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-19 04:40:41,860 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 00:24:41,820 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 00:27:34,273 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 00:34:56,575 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 00:42:12,426 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 02:16:56,135 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 02:18:15,249 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:16:50,979 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:17:02,464 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: Ollama API error: 404 - {"error":"model 'llama3:8b-instruct' not found"}
+2025-08-20 05:18:48,145 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:18:52,648 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: Ollama API error: 404 - {"error":"model 'llama3:8b' not found"}
+2025-08-20 05:19:42,399 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:26:58,240 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:49:29,273 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 05:52:03,404 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 16:23:22,312 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 16:29:13,858 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-20 16:34:15,964 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
