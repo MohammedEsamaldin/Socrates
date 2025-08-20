@@ -1,4 +1,4 @@
-# Socrates Agent System - External Hallucination Detection
+# Socrates Agent System - Bidirectional Hallucination Detection and Mitigation
 
 ## Overview
 
