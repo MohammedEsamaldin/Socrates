@@ -279,62 +279,83 @@ class ClaimExtractor:
     def _parse_llm_response(self, llm_response_str: str, doc) -> List[ExtractedClaim]:
         """Parse the JSON response from the LLM into a list of ExtractedClaim objects."""
         try:
-            response = llm_response_str
-
-            # If no markdown, assume the whole response is the JSON content.
-            # Find the first '{' and the last '}' to extract the JSON object.
-            start = response.find('{')
-            if start != -1:
-                # Find the matching closing brace for the object.
-                open_braces = 0
-                end = -1
-                for i, char in enumerate(response[start:]):
-                    if char == '{':
-                        open_braces += 1
-                    elif char == '}':
-                        open_braces -= 1
-                    if open_braces == 0:
-                        end = start + i
-                        break
-                if end != -1:
-                    json_str = response[start:end+1]
-                else:
-                    # Fallback for unterminated JSON, add the closing brace
-                    json_str = response[start:] + '}' 
-            else:
-                json_str = response
-
-            # Sanitize common LLM JSON mistakes (unquoted identifiers)
-            # Quote common confidence tokens
-            json_sanitized = re.sub(r'("confidence"\s*:\s*)(Low|Medium|High)(\s*[,}])', r'\1"\2"\3', json_str)
-            # Quote common enum-like fields (e.g., type_hint)
-            json_sanitized = re.sub(r'("type_hint"\s*:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', r'\1"\2"\3', json_sanitized)
-            # First parse attempt
+            response = llm_response_str.strip()
+            data = None
+            # Attempt 1: parse the whole response directly (handles top-level arrays or objects)
             try:
                 if demjson3 is not None:
-                    data = demjson3.decode(json_sanitized)
+                    data = demjson3.decode(response)
                 else:
-                    data = json.loads(json_sanitized)
+                    data = json.loads(response)
             except Exception:
-                # General fallback: quote bare word identifiers after ':' unless true/false/null/number
-                def _quote_bare_ident(m):
-                    leading, ident, trailing = m.group(1), m.group(2), m.group(3)
-                    low = ident.lower()
-                    if low in {"true", "false", "null"}:
-                        return f"{leading}{ident}{trailing}"
-                    # Leave numbers alone
-                    if re.fullmatch(r"-?\d+(?:\.\d+)?", ident):
-                        return f"{leading}{ident}{trailing}"
-                    return f"{leading}\"{ident}\"{trailing}"
-                generic_sanitized = re.sub(r'(:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', _quote_bare_ident, json_sanitized)
+                # Attempt 2: extract JSON array/object substring and sanitize
+                json_str = response
+                # Prefer arrays if present
+                lb, rb = json_str.find('['), json_str.rfind(']')
+                if lb != -1 and rb != -1 and lb < rb:
+                    json_str = json_str[lb:rb+1]
+                else:
+                    # Fallback to first balanced JSON object
+                    start = json_str.find('{')
+                    if start != -1:
+                        open_braces = 0
+                        end = -1
+                        for i, char in enumerate(json_str[start:]):
+                            if char == '{':
+                                open_braces += 1
+                            elif char == '}':
+                                open_braces -= 1
+                            if open_braces == 0:
+                                end = start + i
+                                break
+                        if end != -1:
+                            json_str = json_str[start:end+1]
+                        else:
+                            # Fallback for unterminated JSON, add the closing brace
+                            json_str = json_str[start:] + '}'
+                # Sanitize common LLM JSON mistakes (unquoted identifiers)
+                # Quote common confidence tokens
+                json_sanitized = re.sub(r'("confidence"\s*:\s*)(Low|Medium|High)(\s*[,}])', r'\1"\2"\3', json_str)
+                # Quote common enum-like fields (e.g., type_hint)
+                json_sanitized = re.sub(r'("type_hint"\s*:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', r'\1"\2"\3', json_sanitized)
+                # First parse attempt on sanitized content
                 try:
-                    data = demjson3.decode(generic_sanitized) if demjson3 is not None else json.loads(generic_sanitized)
+                    if demjson3 is not None:
+                        data = demjson3.decode(json_sanitized)
+                    else:
+                        data = json.loads(json_sanitized)
                 except Exception:
-                    logger.error("Failed to decode LLM JSON even after sanitization")
-                    return []
-            claim_data_list = data.get('claims', [])
-            if not isinstance(claim_data_list, list):
-                logger.error(f"LLM 'claims' field is not a list: {claim_data_list}")
+                    # General fallback: quote bare word identifiers after ':' unless true/false/null/number
+                    def _quote_bare_ident(m):
+                        leading, ident, trailing = m.group(1), m.group(2), m.group(3)
+                        low = ident.lower()
+                        if low in {"true", "false", "null"}:
+                            return f"{leading}{ident}{trailing}"
+                        # Leave numbers alone
+                        if re.fullmatch(r"-?\d+(?:\.\d+)?", ident):
+                            return f"{leading}{ident}{trailing}"
+                        return f"{leading}\"{ident}\"{trailing}"
+                    generic_sanitized = re.sub(r'(:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', _quote_bare_ident, json_sanitized)
+                    try:
+                        data = demjson3.decode(generic_sanitized) if demjson3 is not None else json.loads(generic_sanitized)
+                    except Exception:
+                        logger.error("Failed to decode LLM JSON even after sanitization")
+                        return []
+
+            # Normalize to a list of claim dicts
+            if isinstance(data, list):
+                claim_data_list = data
+            elif isinstance(data, dict):
+                claims_field = data.get('claims')
+                if isinstance(claims_field, list):
+                    claim_data_list = claims_field
+                elif 'claim_text' in data:
+                    claim_data_list = [data]
+                else:
+                    logger.warning("LLM JSON decoded but no 'claims' field found; proceeding with empty list.")
+                    claim_data_list = []
+            else:
+                logger.error(f"Unexpected LLM JSON root type: {type(data)}")
                 return []
 
         except (demjson3.JSONDecodeError, KeyError, AttributeError) as e:
@@ -342,7 +363,7 @@ class ClaimExtractor:
             return []
 
         if not claim_data_list:
-            logger.warning("LLM response contained an empty 'claims' list.")
+            logger.warning("LLM response contained no claims.")
             return []
 
         # Optimized Clause-Based Matching
@@ -384,10 +405,50 @@ class ClaimExtractor:
                 best_match_sent = source_sents[original_sent_idx]
                 claim_text = llm_claims_text[i]
                 logger.info(f"Matched LLM claim (score: {best_score:.2f}): '{claim_text}' -> '{best_match_sent.text}'")
+                # Optional routing hints extracted from LLM output
+                route_hint_raw = llm_claim.get('route_hint') or llm_claim.get('routing_hint') or llm_claim.get('verification_hint')
+                route_hint_val = None
+                try:
+                    if isinstance(route_hint_raw, str):
+                        rh = route_hint_raw.strip()
+                        route_hint_val = rh if rh else None
+                    elif route_hint_raw is not None:
+                        route_hint_val = str(route_hint_raw)
+                except Exception:
+                    route_hint_val = None
+
+                vision_raw = llm_claim.get('vision_flag')
+                if vision_raw is None:
+                    vision_raw = llm_claim.get('is_visual') or llm_claim.get('vision') or llm_claim.get('cross_modal')
+                def _to_bool(v):
+                    if isinstance(v, bool):
+                        return v
+                    if isinstance(v, (int, float)):
+                        try:
+                            return bool(int(v))
+                        except Exception:
+                            return None
+                    if isinstance(v, str):
+                        s = v.strip().lower()
+                        if s in ('true','yes','y','1','visual','image','vision','cross_modal','cross-modal','crossmodal'):
+                            return True
+                        if s in ('false','no','n','0','text','verbal','kg','external'):
+                            return False
+                    return None
+                vision_flag_val = _to_bool(vision_raw)
 
                 entities = []
-                for entity in llm_claim.get('entities', []):
-                    entity_text = entity.get('text')
+                for ent in (llm_claim.get('entities', []) or []):
+                    # Accept either dicts {text,label} or plain strings
+                    if isinstance(ent, str):
+                        entity_text = ent
+                        entity_label = 'UNKNOWN'
+                    elif isinstance(ent, dict):
+                        entity_text = ent.get('text') or ent.get('name') or ent.get('entity') or ''
+                        entity_label = ent.get('label', 'UNKNOWN')
+                    else:
+                        continue
+                    entity_text = self._normalize_claim_text(str(entity_text))
                     if not entity_text:
                         continue
                     try:
@@ -396,13 +457,12 @@ class ClaimExtractor:
                         end_char = start_char + len(entity_text)
                         entities.append(ExtractedEntity(
                             text=entity_text,
-                            label=entity.get('label', 'UNKNOWN'),
+                            label=entity_label,
                             start_char=start_char,
                             end_char=end_char
                         ))
                     except ValueError:
-                        logger.warning(f"LLM-extracted entity '{{{entity_text}}}' not found verbatim in source sentence: '{{{best_match_sent.text}}}'. Skipping entity.")
-
+                        logger.debug(f"LLM entity '{entity_text}' not found in sentence; skipping.")
                 claim = ExtractedClaim(
                     text=claim_text,
                     start_char=getattr(best_match_sent, "start_char", 0),
@@ -419,7 +479,9 @@ class ClaimExtractor:
                     source_text=getattr(doc, "text", ""),
                     entities=entities,
                     context_window=self._get_context_window(doc, getattr(best_match_sent, "start_char", 0), getattr(best_match_sent, "end_char", len(claim_text))),
-                    ambiguity_reason=llm_claim.get('ambiguity_reason')
+                    ambiguity_reason=llm_claim.get('ambiguity_reason'),
+                    route_hint=route_hint_val,
+                    vision_flag=vision_flag_val
                 )
                 extracted_claims.append(claim)
             else:

@@ -14,7 +14,7 @@ from pathlib import Path
 
 from ..utils.logger import setup_logger
 from ..config import WIKIPEDIA_API_URL, CONFIDENCE_THRESHOLD
-from .llm_manager import LLMManager
+from .llm_manager import LLMManager, get_llm_manager
 
 logger = setup_logger(__name__)
 
@@ -286,7 +286,8 @@ class ExternalFactualityChecker:
                  enable_clients: Optional[bool] = None,
                  max_retries: Optional[int] = None,
                  timeout: Optional[float] = None,
-                 backoff_sec: Optional[float] = None):
+                 backoff_sec: Optional[float] = None,
+                 llm_manager: Optional[LLMManager] = None):
         logger.info("Initializing External Factuality Checker...")
 
         try:
@@ -297,8 +298,8 @@ class ExternalFactualityChecker:
             self.backoff_sec = float(os.getenv("FACTUALITY_BACKOFF", str(backoff_sec if backoff_sec is not None else 0.5)))
 
             # Initialize LLM manager for factuality verdicts
-            self.llm_manager = LLMManager()
-
+            self.llm_manager = llm_manager or get_llm_manager()
+            
             # Wikipedia python package optional; using HTTP API instead
 
             # Register external clients (can be extended by the user)

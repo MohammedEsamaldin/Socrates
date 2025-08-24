@@ -1,4 +1,4 @@
-#!/Users/mohammed/Desktop/Socrates/Socrates/.venv/bin/python
+#!/Users/mohammed/Desktop/Socrates/Socrates/.venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys

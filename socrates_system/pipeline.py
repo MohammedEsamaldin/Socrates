@@ -4,35 +4,53 @@ Integration pipeline for the Socrates Agent.
 This script demonstrates how to use the claim extractor, categorizer, and router
 modules together to process a piece of text and prepare claims for verification.
 """
+from __future__ import annotations
 import logging
 from typing import List, Dict, Any, Optional
 
-from socrates_system.modules.claim_extractor import ClaimExtractor
-from socrates_system.modules.claim_categorizer import ClaimCategorizer
-from socrates_system.modules.check_router import CheckRouter
-from socrates_system.modules.llm_manager import LLMManager
-from socrates_system.modules.shared_structures import ExtractedClaim, VerificationMethod, VerificationRoute
-from socrates_system.modules.external_factuality_checker import ExternalFactualityChecker
-from socrates_system.modules.knowledge_graph_manager import KnowledgeGraphManager
-from socrates_system.modules.self_contradiction_checker import SelfContradictionChecker
-from socrates_system.modules.conflict_resolver import ConflictResolver
+_IMPORT_EXCEPTION = None  # defer hard failure until runtime (except for --help)
+try:
+    from socrates_system.modules.claim_extractor import ClaimExtractor
+    from socrates_system.modules.claim_categorizer import ClaimCategorizer
+    from socrates_system.modules.check_router import CheckRouter
+    from socrates_system.modules.deterministic_router import DeterministicRouter
+    from socrates_system.modules.llm_manager import LLMManager
+    from socrates_system.modules.shared_structures import ExtractedClaim, VerificationMethod, VerificationRoute
+    from socrates_system.modules.external_factuality_checker import ExternalFactualityChecker
+    from socrates_system.modules.knowledge_graph_manager import KnowledgeGraphManager
+    from socrates_system.modules.self_contradiction_checker import SelfContradictionChecker
+    from socrates_system.modules.conflict_resolver import ConflictResolver
+except Exception as _e:
+    _IMPORT_EXCEPTION = _e
 import os
 import argparse
 import uuid
-from socrates_system.clarification_resolution import ClarificationResolutionModule
-from socrates_system.clarification_resolution.data_models import (
-    ClarificationContext as ClarContext,
-    FactCheckResult as ClarFactCheckResult,
-    IssueType,
-)
+try:
+    from socrates_system.clarification_resolution import ClarificationResolutionModule
+    from socrates_system.clarification_resolution.data_models import (
+        ClarificationContext as ClarContext,
+        FactCheckResult as ClarFactCheckResult,
+        IssueType,
+    )
+except Exception:
+    ClarificationResolutionModule = None
+    ClarContext = None
+    ClarFactCheckResult = None
+    IssueType = None
 
 # Socratic Question Generator
-from socrates_system.modules.question_generator import (
-    SocraticQuestionGenerator,
-    SocraticConfig,
-    VerificationCapabilities,
-    LLMInterfaceAdapter,
-)
+try:
+    from socrates_system.modules.question_generator import (
+        SocraticQuestionGenerator,
+        SocraticConfig,
+        VerificationCapabilities,
+        LLMInterfaceAdapter,
+    )
+except Exception:
+    SocraticQuestionGenerator = None
+    SocraticConfig = None
+    VerificationCapabilities = None
+    LLMInterfaceAdapter = None
 
 # Cross-Alignment Checker (advanced preferred, fallback to simplified)
 try:
@@ -41,19 +59,28 @@ try:
     )
 except Exception:
     AdvancedCrossAlignmentChecker = None
-from socrates_system.modules.cross_alignment_checker_simple import (
-    CrossAlignmentChecker as SimpleCrossAlignmentChecker,
-)
+try:
+    from socrates_system.modules.cross_alignment_checker_simple import (
+        CrossAlignmentChecker as SimpleCrossAlignmentChecker,
+    )
+except Exception:
+    SimpleCrossAlignmentChecker = None
 
 # Remote AGLA API client (preferred for cross-modal when configured)
-from socrates_system.modules.agla_client import AGLAClient
-from socrates_system.config import (
-    AGLA_API_URL,
-    AGLA_API_VERIFY_PATH,
-    AGLA_API_TIMEOUT,
-)
+try:
+    from socrates_system.modules.agla_client import AGLAClient
+    from socrates_system.config import (
+        AGLA_API_URL,
+        AGLA_API_VERIFY_PATH,
+        AGLA_API_TIMEOUT,
+    )
+except Exception:
+    AGLAClient = None
+    AGLA_API_URL = None
+    AGLA_API_VERIFY_PATH = None
+    AGLA_API_TIMEOUT = None
 
-# Setup basic logging
+# Setup basic loggingSocratesPipeline
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # ---------------- Console Colors (centralized) ----------------
@@ -123,12 +150,23 @@ class ConsoleColors:
 class SocratesPipeline:
     """Orchestrates the claim processing pipeline."""
 
-    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None):
+    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None, router_mode: Optional[str] = None):
         """Initializes the pipeline with all necessary components."""
         logging.info("Initializing Socrates Pipeline...")
         self.claim_extractor = ClaimExtractor(llm_manager=llm_manager)
         self.claim_categorizer = ClaimCategorizer(llm_manager=llm_manager)
         self.llm_manager = llm_manager
+        # Prepare per-module LLMs (env overrides -> new instance, else fallback to shared)
+        self.llm_factual = self._make_module_llm(
+            os.getenv("FACTUALITY_LLM_PROVIDER"),
+            os.getenv("FACTUALITY_LLM_MODEL"),
+            llm_manager,
+        )
+        self.llm_self = self._make_module_llm(
+            os.getenv("SELF_LLM_PROVIDER"),
+            os.getenv("SELF_LLM_MODEL"),
+            llm_manager,
+        )
         
         # Session management for Knowledge Graph / self-consistency
         try:
@@ -158,7 +196,7 @@ class SocratesPipeline:
         
         # Initialize Self-Contradiction Checker and attach KG
         try:
-            self.self_checker = SelfContradictionChecker()
+            self.self_checker = SelfContradictionChecker(llm_manager=self.llm_self)
         except Exception as e:
             logging.warning(f"SelfContradictionChecker unavailable: {e}")
             self.self_checker = None
@@ -174,6 +212,16 @@ class SocratesPipeline:
         except Exception as e:
             logging.warning(f"ConflictResolver unavailable: {e}")
             self.conflict_resolver = None
+        # Resolve conflict resolution mode (CLI/env)
+        try:
+            crm_raw = (conflict_resolution_mode or os.getenv("SOC_CONFLICT_MODE") or "auto")
+            crm_l = str(crm_raw).strip().lower()
+            if crm_l in ("manual", "man", "interactive"):
+                self.conflict_resolution_mode = "manual"
+            else:
+                self.conflict_resolution_mode = "auto"
+        except Exception:
+            self.conflict_resolution_mode = "auto"
         
         # Initialize with a set of available verification methods
         available_methods = {
@@ -184,7 +232,32 @@ class SocratesPipeline:
             VerificationMethod.DEFINITIONAL,
             VerificationMethod.CROSS_MODAL,
         }
+        # Resolve router mode (CLI/env) and initialize routers
+        try:
+            rm_raw = (router_mode or os.getenv("SOC_ROUTER_MODE") or "llm")
+            rm_l = str(rm_raw).strip().lower()
+            if rm_l in ("det", "deterministic"):
+                self.router_mode = "deterministic"
+            elif rm_l in ("hybrid", "mix", "mixed"):
+                self.router_mode = "hybrid"
+            else:
+                self.router_mode = "llm"
+        except Exception:
+            self.router_mode = "llm"
         self.check_router = CheckRouter(available_methods=available_methods)
+        try:
+            self.det_router = DeterministicRouter(
+                available_methods=available_methods,
+                kg_manager=self.kg_manager,
+                session_id=self.session_id,
+            )
+        except Exception as e:
+            logging.warning(f"DeterministicRouter unavailable: {e}")
+            self.det_router = None
+        try:
+            logging.info(f"Router mode selected: {self.router_mode}")
+        except Exception:
+            pass
 
         # Initialize Cross-Alignment checker
         self.cross_checker = None
@@ -213,7 +286,7 @@ class SocratesPipeline:
         if factuality_enabled is None:
             factuality_enabled = os.getenv("FACTUALITY_ENABLED", "true").lower() == "true"
         self.factuality_enabled = factuality_enabled
-        self.external_checker = ExternalFactualityChecker() if self.factuality_enabled else None
+        self.external_checker = ExternalFactualityChecker(llm_manager=self.llm_factual) if self.factuality_enabled else None
         # Configure input context for external factuality LLM aggregation
         try:
             mode_raw = (factuality_context_mode or os.getenv("FACTUALITY_CONTEXT_MODE") or "SOCRATIC_QUESTIONS")
@@ -314,37 +387,167 @@ class SocratesPipeline:
                 # Questions per category via env (only if CLI not provided)
                 if not (isinstance(questions_per_category, int) and questions_per_category > 0):
                     env_qpc = os.getenv("QG_QUESTIONS_PER_CATEGORY")
-                    if env_qpc is not None:
-                        try:
-                            qg_config.update(questions_per_category=int(env_qpc))
-                        except Exception:
-                            logging.warning("Invalid QG_QUESTIONS_PER_CATEGORY env; ignoring")
-
-                # Use shared LLM manager via adapter
-                llm_adapter = LLMInterfaceAdapter(llm_manager=self.llm_manager)
-                self.question_generator = SocraticQuestionGenerator(
-                    verification_capabilities=capabilities,
-                    llm_interface=llm_adapter,
-                    config=qg_config,
-                )
+                if qg_enable_fallback is None and env_fb is not None:
+                    try:
+                        qg_config.update(enable_fallback=(str(env_fb).strip().lower() == 'true'))
+                    except Exception:
+                        logging.warning("Invalid QG_ENABLE_FALLBACK env; ignoring")
+                # Build adapter and generator
+                adapter = LLMInterfaceAdapter(self.llm_manager)
+                self.question_generator = SocraticQuestionGenerator(qg_config, capabilities, adapter)
+                self._qg_stats: Dict[str, int] = {"total": 0, "fallback": 0}
             except Exception as e:
-                logging.warning(f"Question generator unavailable: {e}")
+                logging.warning(f"SocraticQuestionGenerator unavailable: {e}")
                 self.question_generator = None
+                self._qg_stats = {"total": 0, "fallback": 0}
         else:
             self.question_generator = None
-        # Initialize QG stats
-        self._qg_stats: Dict[str, Any] = {"total": 0, "fallback": 0}
-        logging.info("Socrates Pipeline initialized successfully.")
+            self._qg_stats = {"total": 0, "fallback": 0}
 
-        # Conflict resolution mode (auto uses resolver; manual prompts user in CLI)
+    def _route_claim(self, claim: ExtractedClaim) -> VerificationRoute:
+        """
+        Route a claim according to the configured router mode.
+        Modes:
+          - 'llm': use CheckRouter
+          - 'deterministic': use DeterministicRouter
+          - 'hybrid': run both and pick best by heuristic scoring
+        """
         try:
-            if conflict_resolution_mode is None:
-                conflict_resolution_mode = (os.getenv("SOC_CONFLICT_MODE", "auto") or "auto").lower()
-            if conflict_resolution_mode not in ("auto", "manual"):
-                conflict_resolution_mode = "auto"
+            mode = getattr(self, "router_mode", "llm")
         except Exception:
-            conflict_resolution_mode = "auto"
-        self.conflict_resolution_mode = conflict_resolution_mode
+            mode = "llm"
+
+        llm_route: Optional[VerificationRoute] = None
+        det_route: Optional[VerificationRoute] = None
+
+        # Route according to mode (avoid unnecessary invocations)
+        if mode == "llm":
+            try:
+                llm_route = self.check_router.route_claim(claim)
+            except Exception as e:
+                logging.warning(f"LLM router failed: {e}")
+                if getattr(self, "det_router", None):
+                    try:
+                        det_route = self.det_router.route_claim(claim)
+                    except Exception as e2:
+                        logging.warning(f"Deterministic router (fallback) failed: {e2}")
+            route = llm_route or det_route
+        elif mode == "deterministic":
+            if getattr(self, "det_router", None):
+                try:
+                    det_route = self.det_router.route_claim(claim)
+                except Exception as e:
+                    logging.warning(f"Deterministic router failed: {e}")
+            if det_route is None:
+                try:
+                    llm_route = self.check_router.route_claim(claim)
+                except Exception as e:
+                    logging.warning(f"LLM router (fallback) failed: {e}")
+            route = det_route or llm_route
+        else:
+            # Hybrid mode: run both and choose
+            try:
+                llm_route = self.check_router.route_claim(claim)
+            except Exception as e:
+                logging.warning(f"LLM router failed: {e}")
+            if getattr(self, "det_router", None):
+                try:
+                    det_route = self.det_router.route_claim(claim)
+                except Exception as e:
+                    logging.warning(f"Deterministic router failed: {e}")
+
+            def score(r: Optional[VerificationRoute]) -> float:
+                if r is None:
+                    return 0.0
+                base = float(getattr(r, "confidence", 0.0) or 0.0)
+                bonus = 0.0
+                md = getattr(r, "metadata", {}) or {}
+                # Prefer KG when contradictions detected or good coverage
+                try:
+                    if md.get("kg_contradiction_detected"):
+                        bonus += 0.25
+                    elif md.get("contradiction_status") == "FAIL" or int(md.get("contradictions_count", 0) or 0) > 0:
+                        bonus += 0.25
+                except Exception:
+                    pass
+                try:
+                    cov = float(md.get("kg_coverage_ratio", md.get("kg_coverage", 0.0)) or 0.0)
+                    if cov >= 0.5:
+                        bonus += 0.15
+                except Exception:
+                    pass
+                # Respect route hints and vision flags
+                try:
+                    hint = getattr(claim, "route_hint", None)
+                    if hint and isinstance(hint, str):
+                        h = hint.strip().upper()
+                        if h.startswith("KG") and r.method == VerificationMethod.KNOWLEDGE_GRAPH:
+                            bonus += 0.2
+                        elif h.startswith("EXTERNAL") and r.method == VerificationMethod.EXTERNAL_SOURCE:
+                            bonus += 0.2
+                        elif h.startswith("VISUAL") and r.method == VerificationMethod.CROSS_MODAL:
+                            bonus += 0.2
+                except Exception:
+                    pass
+                try:
+                    if getattr(claim, "vision_flag", False) and r.method == VerificationMethod.CROSS_MODAL:
+                        bonus += 0.15
+                except Exception:
+                    pass
+                # Category-based nudges
+                try:
+                    cat_names = [getattr(c.name, 'name', str(c.name)) for c in (claim.categories or [])]
+                    if "SELF_CONSISTENCY_REQUIRED" in cat_names and r.method == VerificationMethod.KNOWLEDGE_GRAPH:
+                        bonus += 0.2
+                    if "EXTERNAL_KNOWLEDGE_REQUIRED" in cat_names and r.method == VerificationMethod.EXTERNAL_SOURCE:
+                        bonus += 0.2
+                    if "VISUAL_GROUNDING_REQUIRED" in cat_names and r.method == VerificationMethod.CROSS_MODAL:
+                        bonus += 0.2
+                except Exception:
+                    pass
+                return max(0.0, min(1.0, base + bonus))
+
+            s_llm = score(llm_route)
+            s_det = score(det_route)
+            route = det_route if s_det >= s_llm else llm_route
+
+        # Fallback if both routers failed
+        if route is None:
+            route = VerificationRoute(
+                method=VerificationMethod.EXTERNAL_SOURCE,
+                confidence=0.5,
+                justification="Defaulted due to router failure",
+                estimated_cost=1.0,
+                estimated_latency=1.0,
+                metadata={"router_mode": mode, "fallback": "default"},
+            )
+
+        # Annotate metadata with selection info
+        try:
+            md = dict(getattr(route, "metadata", {}) or {})
+            md.setdefault("router_mode", mode)
+            if mode == "hybrid":
+                md.setdefault("selected_by", "hybrid")
+            route.metadata = md
+        except Exception:
+            pass
+        return route
+
+    def _make_module_llm(self, provider_env: Optional[str], model_env: Optional[str], fallback_llm: Optional[LLMManager]) -> Optional[LLMManager]:
+        """Create a module-specific LLMManager if env overrides are provided; else return fallback.
+        provider_env: e.g., 'ollama' | 'openai' | 'claude' (case-insensitive)
+        model_env: model name string for the selected provider
+        """
+        try:
+            prov = (provider_env or "").strip().lower()
+            mdl = (model_env or "").strip()
+            if prov or mdl:
+                # New instance dedicated to the module
+                return LLMManager(provider=prov or None, model_name=mdl or None)
+        except Exception as e:
+            logging.warning(f"Failed to create module-specific LLMManager (provider={provider_env}, model={model_env}): {e}")
+        return fallback_llm
+    
 
     def _manual_resolve_conflict(self, claim: str, external_result: Optional[Dict[str, Any]], self_result: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         """Interactive manual conflict resolution in CLI.
@@ -619,8 +822,8 @@ class SocratesPipeline:
                 except Exception as e:
                     logging.warning(f"Question generation failed: {e}")
 
-            # 3. Route each claim for verification
-            route = self.check_router.route_claim(categorized_claim)
+            # 3. Route each claim for verification (mode-aware)
+            route = self._route_claim(categorized_claim)
             categorized_claim.verification_route = route
             logging.info(f"Routed to: {route.method.name}")
             # Apply pre-routing clarification next_action if it directs to KG
@@ -1199,6 +1402,8 @@ if __name__ == '__main__':
     parser.add_argument("--kg-query", dest="kg_query", type=str, default=None, help="Optional free-text query to match entities/relations in the session KG")
     # Conflict resolution mode
     parser.add_argument("--conflict-mode", dest="conflict_mode", type=str, choices=["auto", "manual"], default=None, help="Conflict resolution: auto uses resolver; manual prompts user decision")
+    # Router mode
+    parser.add_argument("--router-mode", dest="router_mode", type=str, choices=["llm", "deterministic", "hybrid"], default=None, help="Routing mode: 'llm', 'deterministic', or 'hybrid'")
     # LLM selection
     parser.add_argument("--llm-provider", dest="llm_provider", type=str, choices=["ollama", "openai", "claude"], default=None, help="LLM provider to use (overrides SOC_LLM_PROVIDER)")
     parser.add_argument("--llm-model", dest="llm_model", type=str, default=None, help="Model name for the selected provider (overrides SOC_LLM_MODEL)")
@@ -1251,6 +1456,7 @@ if __name__ == '__main__':
         conflict_resolution_mode=(args.conflict_mode or os.getenv("SOC_CONFLICT_MODE")),
         factuality_context_mode=args.factuality_context,
         factuality_context_max_items=args.fact_ctx_max_items,
+        router_mode=args.router_mode,
     )
 
     # Inform about selected LLM
@@ -1261,6 +1467,11 @@ if __name__ == '__main__':
     # Inform about conflict resolution mode
     try:
         print(ConsoleColors.c('label', 'Conflict mode: ') + ConsoleColors.c('value', f"{getattr(pipeline, 'conflict_resolution_mode', 'auto')}") )
+    except Exception:
+        pass
+    # Inform about router mode
+    try:
+        print(ConsoleColors.c('label', 'Router mode: ') + ConsoleColors.c('value', f"{getattr(pipeline, 'router_mode', 'llm')}") )
     except Exception:
         pass
 
@@ -1311,6 +1522,42 @@ if __name__ == '__main__':
             print("    - " + ConsoleColors.c('label', 'Justification: ') + ConsoleColors.c('value', f"{route.justification}"))
             print("    - " + ConsoleColors.c('label', 'Estimated Cost: ') + ConsoleColors.c('value', f"{route.estimated_cost}") +
                   ConsoleColors.c('label', ', Latency: ') + ConsoleColors.c('value', f"{route.estimated_latency}s"))
+            # Route confidence
+            try:
+                print("    - " + ConsoleColors.c('label', 'Confidence: ') + ConsoleColors.c('value', f"{float(getattr(route, 'confidence', 0.0) or 0.0):.2f}"))
+            except Exception:
+                pass
+            # Secondary actions (if any)
+            if getattr(route, 'secondary_actions', None):
+                print("    - " + ConsoleColors.c('label', 'Secondary actions:'))
+                for act in route.secondary_actions:
+                    try:
+                        name = act.get('name') or act.get('action') or act.get('type') or str(act)
+                    except Exception:
+                        name = str(act)
+                    print("      • " + ConsoleColors.c('value', f"{name}"))
+            # Route metadata summary (compact)
+            try:
+                md = getattr(route, 'metadata', {}) or {}
+                md_items = []
+                if md.get('router_mode'):
+                    md_items.append(f"mode={md.get('router_mode')}")
+                if md.get('selected_by'):
+                    md_items.append(f"selected_by={md.get('selected_by')}")
+                if md.get('kg_coverage_ratio') is not None:
+                    try:
+                        md_items.append(f"kg_cov={float(md.get('kg_coverage_ratio', 0.0)):.2f}")
+                    except Exception:
+                        md_items.append(f"kg_cov={md.get('kg_coverage_ratio')}")
+                if md.get('kg_contradiction_detected'):
+                    md_items.append("kg_contra=True")
+                if md_items:
+                    print("    - " + ConsoleColors.c('label', 'Route meta: ') + ConsoleColors.c('value', ", ".join(md_items)))
+            except Exception:
+                pass
+            # Claim-level hints from extraction/categorization
+            if getattr(claim, 'route_hint', None) or getattr(claim, 'vision_flag', None):
+                print("    - " + ConsoleColors.c('label', 'Hints: ') + ConsoleColors.c('value', f"route_hint={getattr(claim, 'route_hint', None)}, vision={getattr(claim, 'vision_flag', None)}"))
         # Clarification results (if available)
         clr = getattr(pipeline, "_clarification_results", {}).get(i)
         if clr:

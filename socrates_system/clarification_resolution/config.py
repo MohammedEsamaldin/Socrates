@@ -51,8 +51,8 @@ DEFAULT_NEXT_ACTION = {
 
 # LLM prompt knobs
 REFINE_QUESTIONS_WITH_LLM: bool = _env_bool("REFINE_QUESTIONS_WITH_LLM", True)
-CORRECT_CLAIM_WITH_LLM: bool = _env_bool("CORRECT_CLAIM_WITH_LLM", False)
-REQUIRE_USER_REWRITE: bool = _env_bool("REQUIRE_USER_REWRITE", True)
+CORRECT_CLAIM_WITH_LLM: bool = _env_bool("CORRECT_CLAIM_WITH_LLM", True)
+REQUIRE_USER_REWRITE: bool = _env_bool("REQUIRE_USER_REWRITE", False)
 
 # Safety and formatting
 MAX_CORRECTED_CLAIM_TOKENS: int = 100

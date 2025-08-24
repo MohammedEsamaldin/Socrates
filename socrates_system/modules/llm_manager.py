@@ -13,6 +13,9 @@ import requests
 import time
 from concurrent.futures import ThreadPoolExecutor
 import threading
+import base64
+import mimetypes
+from urllib.parse import urlparse
 
 import sys
 import os
@@ -45,6 +48,7 @@ class LLMRequest:
     task_type: LLMTaskType
     prompt: str
     context: Dict[str, Any]
+    images: Optional[List[str]] = None
     temperature: float = 0.7
     max_tokens: int = 4096
     system_prompt: Optional[str] = None
@@ -130,13 +134,13 @@ class LLMManager:
         
         logger.info(f"LLMManager initialized with provider={self.provider.value}, model={self.model_name}")
 
-    def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.2, system_prompt: str = None) -> str:
+    def generate_text(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.2, system_prompt: str = None, images: Optional[List[str]] = None) -> str:
         """Synchronous wrapper for generating text. For easy integration with non-async code."""
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
             response = loop.run_until_complete(
-                self._call_llm(prompt, system_prompt, temperature, max_tokens)
+                self._call_llm(prompt, system_prompt, temperature, max_tokens, images=images)
             )
             return response
         finally:
@@ -422,7 +426,8 @@ Respond ONLY with the JSON object matching the required schema."""
                 prompt=full_prompt,
                 system_prompt=system_prompt,
                 temperature=request.temperature,
-                max_tokens=request.max_tokens
+                max_tokens=request.max_tokens,
+                images=request.images
             )
             
             # Parse response
@@ -451,18 +456,77 @@ Respond ONLY with the JSON object matching the required schema."""
                 error=str(e)
             )
     
-    async def _call_llm(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+    async def _call_llm(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
         """Dispatch call to the configured LLM provider."""
         if self.provider == LLMProvider.OLLAMA:
-            return await self._call_ollama(prompt, system_prompt, temperature, max_tokens)
+            return await self._call_ollama(prompt, system_prompt, temperature, max_tokens, images=images)
         elif self.provider == LLMProvider.OPENAI:
-            return await self._call_openai(prompt, system_prompt, temperature, max_tokens)
+            return await self._call_openai(prompt, system_prompt, temperature, max_tokens, images=images)
         elif self.provider == LLMProvider.CLAUDE:
-            return await self._call_claude(prompt, system_prompt, temperature, max_tokens)
+            return await self._call_claude(prompt, system_prompt, temperature, max_tokens, images=images)
         else:
             raise RuntimeError(f"Unsupported provider: {self.provider}")
 
-    async def _call_ollama(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+    # -------------------- Image helpers (multimodal support) --------------------
+    @staticmethod
+    def _is_url(src: str) -> bool:
+        try:
+            u = urlparse(src)
+            return u.scheme in ("http", "https")
+        except Exception:
+            return False
+
+    @staticmethod
+    def _is_data_url(src: str) -> bool:
+        return isinstance(src, str) and src.startswith("data:image")
+
+    @staticmethod
+    def _guess_mime(src: str) -> str:
+        mime, _ = mimetypes.guess_type(src)
+        return mime or "image/jpeg"
+
+    def _load_image_b64(self, src: str) -> Dict[str, str]:
+        """Load image from local path or URL and return dict with keys: mime, b64, data_url, src.
+        If src is a data URL, parse and return components.
+        """
+        # Data URL: data:image/<type>;base64,<b64>
+        if self._is_data_url(src):
+            try:
+                header, b64 = src.split(",", 1)
+                mime = "image/jpeg"
+                if ";base64" in header:
+                    mime = header.split(":", 1)[1].split(";", 1)[0]
+                return {"mime": mime, "b64": b64, "data_url": src, "src": src}
+            except Exception:
+                return {"mime": "image/jpeg", "b64": "", "data_url": src, "src": src}
+
+        # Remote URL
+        if self._is_url(src):
+            try:
+                resp = requests.get(src, timeout=30)
+                resp.raise_for_status()
+                content = resp.content
+                b64 = base64.b64encode(content).decode("utf-8")
+                mime = resp.headers.get("Content-Type") or self._guess_mime(src)
+                data_url = f"data:{mime};base64,{b64}"
+                return {"mime": mime, "b64": b64, "data_url": data_url, "src": src}
+            except Exception:
+                mime = self._guess_mime(src)
+                return {"mime": mime, "b64": "", "data_url": src, "src": src}
+
+        # Local file path
+        try:
+            with open(src, "rb") as f:
+                content = f.read()
+            b64 = base64.b64encode(content).decode("utf-8")
+            mime = self._guess_mime(src)
+            data_url = f"data:{mime};base64,{b64}"
+            return {"mime": mime, "b64": b64, "data_url": data_url, "src": src}
+        except Exception as e:
+            logger.warning(f"Failed to load image '{src}': {e}")
+            return {"mime": "image/jpeg", "b64": "", "data_url": src, "src": src}
+
+    async def _call_ollama(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
         """Make async call to Ollama API"""
         payload = {
             "model": self.model_name,
@@ -474,6 +538,18 @@ Respond ONLY with the JSON object matching the required schema."""
                 "num_predict": max_tokens
             }
         }
+        # Attach images if provided (vision models like llama3.2-vision / llava)
+        if images:
+            imgs: List[str] = []
+            for src in images:
+                try:
+                    info = self._load_image_b64(src)
+                    if info.get("b64"):
+                        imgs.append(info["b64"])
+                except Exception:
+                    continue
+            if imgs:
+                payload["images"] = imgs
         loop = asyncio.get_event_loop()
         response = await loop.run_in_executor(
             self.executor,
@@ -483,16 +559,33 @@ Respond ONLY with the JSON object matching the required schema."""
             return response.json().get("response", "")
         raise Exception(f"Ollama API error: {response.status_code} - {response.text}")
 
-    async def _call_openai(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+    async def _call_openai(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
         """Make async call to OpenAI Chat Completions API."""
         if not self.openai_api_key:
             raise RuntimeError("OPENAI_API_KEY not provided")
         url = f"{self.openai_base_url.rstrip('/')}/chat/completions"
+        # Build multimodal content if images provided
+        user_content: Any
+        if images:
+            parts: List[Dict[str, Any]] = []
+            parts.append({"type": "text", "text": prompt})
+            for src in images:
+                try:
+                    info = self._load_image_b64(src)
+                    parts.append({
+                        "type": "image_url",
+                        "image_url": {"url": info.get("data_url", src)}
+                    })
+                except Exception:
+                    continue
+            user_content = parts
+        else:
+            user_content = prompt
         payload = {
             "model": self.model_name,
             "messages": [
                 {"role": "system", "content": system_prompt or ""},
-                {"role": "user", "content": prompt},
+                {"role": "user", "content": user_content},
             ],
             "temperature": temperature,
             "max_tokens": max_tokens,
@@ -514,17 +607,40 @@ Respond ONLY with the JSON object matching the required schema."""
                 return json.dumps(data)
         raise Exception(f"OpenAI API error: {response.status_code} - {response.text}")
 
-    async def _call_claude(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int) -> str:
+    async def _call_claude(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
         """Make async call to Anthropic Claude Messages API."""
         if not self.anthropic_api_key:
             raise RuntimeError("ANTHROPIC_API_KEY not provided")
         url = f"{self.anthropic_base_url.rstrip('/')}/v1/messages"
+        # Build content blocks for multimodal input
+        content_blocks: Any
+        if images:
+            blocks: List[Dict[str, Any]] = []
+            # Prefer text first for Claude context
+            blocks.append({"type": "text", "text": prompt})
+            for src in images:
+                try:
+                    info = self._load_image_b64(src)
+                    if info.get("b64"):
+                        blocks.append({
+                            "type": "input_image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": info.get("mime", "image/jpeg"),
+                                "data": info.get("b64", ""),
+                            },
+                        })
+                except Exception:
+                    continue
+            content_blocks = blocks
+        else:
+            content_blocks = prompt
         payload = {
             "model": self.model_name,
             "max_tokens": max_tokens,
             "temperature": temperature,
             "system": system_prompt or "",
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [{"role": "user", "content": content_blocks}],
         }
         headers = {
             "x-api-key": self.anthropic_api_key,
@@ -597,25 +713,27 @@ Respond ONLY with the JSON object matching the required schema."""
     
     # Convenience methods for specific tasks
     
-    async def extract_claims(self, text: str, context: Dict[str, Any] = None) -> LLMResponse:
+    async def extract_claims(self, text: str, context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Extract claims from text"""
         request = LLMRequest(
             task_type=LLMTaskType.CLAIM_EXTRACTION,
             prompt="",
-            context={"text": text, **(context or {})}
+            context={"text": text, **(context or {})},
+            images=images,
         )
         return await self.process_request(request)
     
-    async def generate_socratic_questions(self, claim: str, context: Dict[str, Any] = None) -> LLMResponse:
+    async def generate_socratic_questions(self, claim: str, context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Generate Socratic questions for a claim"""
         request = LLMRequest(
             task_type=LLMTaskType.SOCRATIC_QUESTIONING,
             prompt="",
-            context={"claim": claim, "context": json.dumps(context or {})}
+            context={"claim": claim, "context": json.dumps(context or {})},
+            images=images,
         )
         return await self.process_request(request)
     
-    async def generate_reasoning(self, question: str, evidence: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+    async def generate_reasoning(self, question: str, evidence: List[str], context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Generate reasoning for a question"""
         request = LLMRequest(
             task_type=LLMTaskType.REASONING_GENERATION,
@@ -624,11 +742,12 @@ Respond ONLY with the JSON object matching the required schema."""
                 "question": question,
                 "evidence": json.dumps(evidence),
                 "context": json.dumps(context or {})
-            }
+            },
+            images=images,
         )
         return await self.process_request(request)
     
-    async def verify_claim(self, claim: str, evidence: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+    async def verify_claim(self, claim: str, evidence: List[str], context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Verify a claim against evidence"""
         request = LLMRequest(
             task_type=LLMTaskType.FACTUAL_VERIFICATION,
@@ -637,11 +756,12 @@ Respond ONLY with the JSON object matching the required schema."""
                 "claim": claim,
                 "evidence": json.dumps(evidence),
                 "context": json.dumps(context or {})
-            }
+            },
+            images=images,
         )
         return await self.process_request(request)
     
-    async def extract_relationships(self, text: str, entities: List[str], context: Dict[str, Any] = None) -> LLMResponse:
+    async def extract_relationships(self, text: str, entities: List[str], context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Extract relationships between entities"""
         request = LLMRequest(
             task_type=LLMTaskType.RELATIONSHIP_EXTRACTION,
@@ -650,11 +770,12 @@ Respond ONLY with the JSON object matching the required schema."""
                 "text": text,
                 "entities": json.dumps(entities),
                 **(context or {})
-            }
+            },
+            images=images,
         )
         return await self.process_request(request)
     
-    async def integrate_knowledge(self, new_info: Dict[str, Any], existing_knowledge: Dict[str, Any], context: Dict[str, Any] = None) -> LLMResponse:
+    async def integrate_knowledge(self, new_info: Dict[str, Any], existing_knowledge: Dict[str, Any], context: Dict[str, Any] = None, images: Optional[List[str]] = None) -> LLMResponse:
         """Integrate new knowledge with existing knowledge"""
         request = LLMRequest(
             task_type=LLMTaskType.KNOWLEDGE_INTEGRATION,
@@ -663,11 +784,12 @@ Respond ONLY with the JSON object matching the required schema."""
                 "new_info": json.dumps(new_info),
                 "existing_knowledge": json.dumps(existing_knowledge),
                 "context": json.dumps(context or {})
-            }
+            },
+            images=images,
         )
         return await self.process_request(request)
     
-    async def assess_faithfulness(self, original_claim: str, corrected_claim: str, evidence: List[str]) -> LLMResponse:
+    async def assess_faithfulness(self, original_claim: str, corrected_claim: str, evidence: List[str], images: Optional[List[str]] = None) -> LLMResponse:
         """Assess faithfulness of claim correction"""
         request = LLMRequest(
             task_type=LLMTaskType.FAITHFULNESS_ASSESSMENT,
@@ -676,7 +798,8 @@ Respond ONLY with the JSON object matching the required schema."""
                 "original_claim": original_claim,
                 "corrected_claim": corrected_claim,
                 "evidence": json.dumps(evidence)
-            }
+            },
+            images=images,
         )
         return await self.process_request(request)
 
@@ -687,6 +810,7 @@ Respond ONLY with the JSON object matching the required schema."""
         context: Dict[str, Any] = None,
         entities: Optional[List[Dict[str, Any]]] = None,
         entity_knowledge: Optional[Dict[str, Any]] = None,
+        images: Optional[List[str]] = None,
     ) -> LLMResponse:
         """Detect contradictions between a claim and existing session claims (async). Accepts optional entities and entity_knowledge for richer analysis."""
         request = LLMRequest(
@@ -701,6 +825,7 @@ Respond ONLY with the JSON object matching the required schema."""
             },
             temperature=0.2,
             max_tokens=800,
+            images=images,
         )
         return await self.process_request(request)
 
@@ -732,6 +857,7 @@ Respond ONLY with the JSON object matching the required schema."""
         self,
         claim: str,
         session_facts: str,
+        images: Optional[List[str]] = None,
     ) -> LLMResponse:
         """Simplified, GraphRAG-style contradiction detection over linearized session facts (async)."""
         request = LLMRequest(
@@ -743,6 +869,7 @@ Respond ONLY with the JSON object matching the required schema."""
             },
             temperature=0.1,
             max_tokens=500,
+            images=images,
         )
         return await self.process_request(request)
     

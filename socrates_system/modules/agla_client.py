@@ -40,6 +40,10 @@ class AGLAClient:
         if isinstance(image, (bytes, bytearray)):
             return bytes(image)
         if isinstance(image, str):
+            if image.startswith("http://") or image.startswith("https://"):
+                resp = requests.get(image, timeout=self.timeout)
+                resp.raise_for_status()
+                return resp.content
             with open(image, "rb") as f:
                 return f.read()
         if isinstance(image, Image.Image):

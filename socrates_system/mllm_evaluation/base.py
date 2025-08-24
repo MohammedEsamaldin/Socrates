@@ -179,9 +179,10 @@ class BaseEvaluator:
         # 2) Model generation on edited prompt
         try:
             model_out = self.llm_manager.generate_text(
-                edited_prompt,
+                edited_prompt,  
                 max_tokens=self.max_gen_tokens,
                 temperature=self.temperature,
+                images=[image_path] if image_path else None,
             )
         except Exception as e:
             self.logger.error(f"Generation error for sample {sample_id}: {e}")
@@ -189,6 +190,13 @@ class BaseEvaluator:
 
         # 3) Model turn: correct minimally (with optional image)
         model_res = process_model_turn(self.pipeline, model_out, image_path=image_path)
+        # Determine corrected output string and log both original and corrected
+        corrected_out = model_res.get("corrected_text") or model_out
+        try:
+            self.logger.info(f"Sample {sample_id} - Original model output: {model_out}")
+            self.logger.info(f"Sample {sample_id} - Corrected model output: {corrected_out}")
+        except Exception:
+            pass
 
         # Build MMHal-style output focusing on model turn claims
         mmhal_claims = self._claims_to_mmhal(
@@ -224,7 +232,7 @@ class BaseEvaluator:
                 "num_fail": num_fail,
                 "num_uncertain": num_uncertain,
                 "has_hallucination": num_fail > 0,
-            },
+            },      
         }
 
         record = {

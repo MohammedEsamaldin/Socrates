@@ -1,89 +1,81 @@
-This prompt instructs the LLM to act as a "Check-Routing" module. It takes the categorized claims and determines the specific next action for the Socrates Agent's pipeline, based on the categories.
+This prompt instructs the LLM to act as a "Check-Routing" module. It takes the categorized claims PLUS lightweight KG context and a vision flag, and determines the next action for the Socrates Agent pipeline.
 
-Role: You are an intelligent Check-Router for a fact-checking pipeline. Your task is to determine the appropriate next action for each claim based on its assigned categories.
+Role: You are an intelligent Check-Router for a hallucination mitigation pipeline. Choose the appropriate next action for each claim based on its categories AND the provided KG context.
 
 Instructions:
+1) Read each claim with fields:
+    - categories: the labels already assigned by extraction/classification.
+    - kg_context: short, relevant triples/facts already verified in the session KG (may be empty).
+    - vision_flag: true if the claim depends on the current image; false otherwise.
 
-Read each categorized claim from the input.
+2) For each claim, choose exactly one primary `next_action`. You may include optional `secondary_actions` (ordered list) to run if the primary action is inconclusive.
 
-For each claim, use the following rules to determine the next_action. This action should be a specific function or module call.
+3) Prefer the most efficient route that can decisively verify the claim. If the KG has enough coverage, avoid unnecessary external calls.
 
-Your primary goal is to determine the most efficient and accurate verification method.
+Deterministic Action Rules (priority order):
+A. SUBJECTIVE/OPINION or SELF-REFERENTIAL
+    - next_action: SKIP_VERIFICATION
+    - reasoning: Non-verifiable.
 
-Action Rules:
+B. AMBIGUOUS/UNCLEAR
+    - next_action: CALL_CLARIFICATION_MODULE
+    - reasoning: Disambiguate BEFORE any checks.
 
-If category is SUBJECTIVE/OPINION or SELF-REFERENTIAL:
+C. CROSS-MODAL or vision_flag == true
+    - next_action: CALL_CROSS_ALIGNMENT_CHECK
+    - reasoning: Requires image/video grounding (VQA/OCR/spatial).
 
-next_action: SKIP_VERIFICATION
+D. Session-Consistency vs External-Factuality (core routing)
+    1) Judge KG coverage from `kg_context`:
+       - If it contains the claim’s key entities/relations or a directly comparable fact → sufficient coverage.
+       - Otherwise → insufficient coverage.
+    2) If categories include RELATIONAL or DEFINITIONAL, or entities were seen before AND coverage is sufficient:
+       - next_action: CALL_SESSION_CONSISTENCY_CHECK
+       - secondary_actions: ["CALL_EXTERNAL_FACTUALITY_CHECK"]
+       - reasoning: KG has comparable facts; check consistency first.
+    3) If coverage is insufficient OR categories include QUANTITATIVE, TEMPORAL, or CAUSAL:
+       - next_action: CALL_EXTERNAL_FACTUALITY_CHECK
+       - secondary_actions: ["CALL_SESSION_CONSISTENCY_CHECK"] (optional)
+       - reasoning: Open‑world fact or KG lacks enough facts.
 
-reasoning: These claims are not verifiable and should not proceed to external checks.
+E. Default (FACTUAL / uncaptured cases)
+    - If `kg_context` is informative → CALL_SESSION_CONSISTENCY_CHECK with external as fallback.
+    - Else → CALL_EXTERNAL_FACTUALITY_CHECK.
 
-If categories include AMBIGUOUS/UNCLEAR:
+If multiple routes apply:
+- Prefer CALL_SESSION_CONSISTENCY_CHECK when KG coverage is adequate; otherwise prefer CALL_EXTERNAL_FACTUALITY_CHECK.
+- Always list any additional route(s) in `secondary_actions` in the order to try next.
 
-next_action: CALL_CLARIFICATION_MODULE
-
-reasoning: The claim is not specific enough to be checked; clarification from the user is required.
-
-If categories include CROSS-MODAL:
-
-next_action: CALL_CROSS_ALIGNMENT_CHECK
-
-reasoning: This requires a specialized check to verify the claim against its associated image or video.
-
-If categories include QUANTITATIVE or TEMPORAL or CAUSAL:
-
-next_action: CALL_EXTERNAL_FACTUALITY_CHECK
-
-reasoning: These claims contain specific, verifiable data points that are best checked against external sources. CAUSAL claims also require this, but with more nuanced analysis.
-
-If categories include RELATIONAL or DEFINITIONAL:
-
-next_action: CALL_KG_READING_FUNCTION
-
-reasoning: These claims are often about internal consistency and relationships, which are best checked within a Knowledge Graph.
-
-Default action (for FACTUAL and any claims not covered above):
-
-next_action: CALL_EXTERNAL_FACTUALITY_CHECK
-
-reasoning: This is the standard procedure for general factual claims.
-
-Secondary Action (for complex claims): If a claim has multiple categories that map to different actions (e.g., RELATIONAL and FACTUAL), prioritize CALL_EXTERNAL_FACTUALITY_CHECK as the final check, but list CALL_KG_READING_FUNCTION as a secondary step if applicable.
-
-Input:
-```json
+Input (STRICT JSON array, no markdown):
 [
-{
-"claim": "claim 1",
-"categories": ["CATEGORY_1", "CATEGORY_2"],
-"justification": "..."
-},
-{
-"claim": "claim 2",
-"categories": ["CATEGORY_3"],
-"justification": "..."
-},
-...
+  {
+    "claim": "claim 1",
+    "categories": ["CATEGORY_1", "CATEGORY_2"],
+    "kg_context": ["(head, rel, tail)", "..."],
+    "vision_flag": false
+  }
 ]
-```
 
-Output Format:
-Return a JSON array of objects. Each object should contain the original claim, its categories, and the determined next_action and the reasoning.
+Output (STRICT JSON array, no markdown). Each object MUST contain:
+- claim
+- categories
+- next_action (one of: SKIP_VERIFICATION | CALL_CLARIFICATION_MODULE | CALL_CROSS_ALIGNMENT_CHECK | CALL_SESSION_CONSISTENCY_CHECK | CALL_EXTERNAL_FACTUALITY_CHECK)
+- reasoning (<= 50 words)
+- secondary_actions (optional, ordered list)
+- confidence ("High" | "Medium" | "Low")
 
-```json
+Examples:
 [
-{
-"claim": "claim 1",
-"categories": ["CATEGORY_1", "CATEGORY_2"],
-"next_action": "ACTION_1",
-"reasoning": "Reasoning for ACTION_1"
-},
-{
-"claim": "claim 2",
-"categories": ["CATEGORY_3"],
-"next_action": "ACTION_2",
-"reasoning": "Reasoning for ACTION_2"
-},
-...
+  {
+    "claim": "The Louvre is in Paris.",
+    "categories": ["RELATIONAL", "FACTUAL"],
+    "kg_context": ["(Louvre, located_in, Paris)"],
+    "vision_flag": false
+  },
+  {
+    "claim": "He won the prize last year.",
+    "categories": ["FACTUAL", "TEMPORAL", "AMBIGUOUS/UNCLEAR"],
+    "kg_context": ["(Barack Obama, won, Nobel Peace Prize)"],
+    "vision_flag": false
+  }
 ]
-```

@@ -38,8 +38,13 @@ from ..modules.claim_categorizer import ClaimCategorizer
 from ..modules.check_router import CheckRouter
 from ..modules.shared_structures import ExtractedClaim, VerificationMethod
 from ..modules.external_factuality_checker import ExternalFactualityChecker
-from ..modules.knowledge_graph_manager import KnowledgeGraphManager
-from ..modules.self_contradiction_checker import SelfContradictionChecker
+# Make heavy deps optional (spaCy, sentence-transformers) by lazy import
+try:
+    from ..modules.knowledge_graph_manager import KnowledgeGraphManager
+    from ..modules.self_contradiction_checker import SelfContradictionChecker
+except Exception:  # pragma: no cover
+    KnowledgeGraphManager = None  # type: ignore
+    SelfContradictionChecker = None  # type: ignore
 from ..modules.conflict_resolver import ConflictResolver
 from ..modules.llm_manager import LLMManager, LLMResponse
 
@@ -136,6 +141,11 @@ class HallucinationMitM:
         main_model: Optional[MainModelAdapter] = None,
         llm_manager: Optional[LLMManager] = None,
         session_id: Optional[str] = None,
+        # Ablations / modes
+        enable_external: bool = True,
+        enable_cross_modal: bool = True,
+        enable_self_contradiction: bool = True,
+        clarification_only: bool = False,
     ) -> None:
         # LLM used for verification/correction prompts
         self.llm = llm_manager or LLMManager()
@@ -147,11 +157,12 @@ class HallucinationMitM:
         self.extractor = ClaimExtractor(llm_manager=self.llm)
         self.categorizer = ClaimCategorizer(llm_manager=self.llm)
         self.router = CheckRouter()
-        self.kg_manager = KnowledgeGraphManager()
-        self.self_checker = SelfContradictionChecker()
-        self.self_checker.set_kg_manager(self.kg_manager)
+        # Optional self-contradiction stack (avoid importing heavy deps when disabled)
+        self.kg_manager = None
+        self.self_checker = None
+        # Will finalize enable_self_contradiction below once availability is known
         self.external_checker = ExternalFactualityChecker(llm_manager=self.llm)
-        self.conflict_resolver = ConflictResolver(llm_manager=self.llm)
+        self.conflict_resolver = ConflictResolver()
 
         # Cross-modal
         self.agla = None
@@ -170,7 +181,39 @@ class HallucinationMitM:
 
         # Session
         self.session_id = session_id or os.getenv("SOC_SESSION_ID") or str(uuid.uuid4())
-        self.kg_manager.initialize_session(self.session_id)
+
+        # Ablation flags
+        self.enable_external = enable_external
+        self.enable_cross_modal = enable_cross_modal
+        # Enable self-contradiction only if requested and modules are available
+        self.enable_self_contradiction = bool(
+            enable_self_contradiction and (KnowledgeGraphManager is not None) and (SelfContradictionChecker is not None)
+        )
+        if self.enable_self_contradiction:
+            try:
+                self.kg_manager = KnowledgeGraphManager()  # type: ignore[call-arg]
+                self.self_checker = SelfContradictionChecker()  # type: ignore[call-arg]
+                self.self_checker.set_kg_manager(self.kg_manager)  # type: ignore[union-attr]
+            except Exception as e:  # pragma: no cover
+                logger.warning(f"MitM: Self-contradiction modules unavailable, disabling feature: {e}")
+                self.kg_manager = None
+                self.self_checker = None
+                self.enable_self_contradiction = False
+        # Initialize KG session if available
+        try:
+            if self.kg_manager is not None:
+                self.kg_manager.initialize_session(self.session_id)
+        except Exception:
+            # Be resilient to envs without heavy deps
+            self.enable_self_contradiction = False
+            self.kg_manager = None
+            self.self_checker = None
+        self.clarification_only = clarification_only
+
+        # Last-call diagnostics (populated by _process_text)
+        self.last_claim_texts: List[str] = []
+        self.last_routes: List[Any] = []  # type: ignore[name-defined]
+        self.last_verdicts: List[Dict[str, Any]] = []
 
     # ---------------------- Public API ----------------------
     def run(self, text: Optional[str] = None, image_path: Optional[str] = None, **gen_kwargs) -> MitMRunResult:
@@ -202,26 +245,39 @@ class HallucinationMitM:
         if not claims:
             return text, []
 
-        # Categorize and route claims
-        categorized = self.categorizer.categorize_claims([c.text for c in claims])
-        routes = self.router.route_claims(categorized)
-
-        # Attach categories/routes back to claim objects (best-effort)
+        # Categorize and route claims (per-claim API)
         for i, claim in enumerate(claims):
             try:
-                claim.categories = categorized[i].categories  # type: ignore[attr-defined]
-                claim.verification_route = routes[i]
+                categorized_claim = self.categorizer.categorize_claim(claim)
+                route = self.router.route_claim(categorized_claim)
+                # Attach back
+                claim.categories = getattr(categorized_claim, 'categories', getattr(claim, 'categories', []))  # type: ignore[attr-defined]
+                claim.verification_route = route
             except Exception:
-                pass
+                # Leave claim without route; it will be marked UNCERTAIN below
+                continue
+
+        # Prepare diagnostics containers
+        self.last_claim_texts = [c.text for c in claims]
+        self.last_routes = [getattr(c, 'verification_route', None) for c in claims]
+        verdicts: List[Dict[str, Any]] = []
 
         # Verify each claim and produce corrections when needed
         corrections: List[Correction] = []
-        for c in claims:
+        for idx, c in enumerate(claims):
             route = getattr(c, "verification_route", None)
             if not route:
+                verdicts.append({"status": "UNCERTAIN", "confidence": 0.5, "reasoning": "No route"})
                 continue
 
+            # Track route for diagnostics
+            try:
+                self.last_routes[idx] = route
+            except Exception:
+                pass
+
             verdict = self._verify_claim_route(c, route, image_path=image_path)
+            verdicts.append(verdict)
 
             # Update KG on PASS (attribute facts)
             try:
@@ -231,7 +287,11 @@ class HallucinationMitM:
                 pass
 
             # Decide whether to correct
-            need_fix = verdict.get("status") in ("FAIL", "UNCERTAIN") or (verdict.get("ambiguity_reason") is not None)
+            if self.clarification_only:
+                # Only rewrite when ambiguity detected
+                need_fix = verdict.get("ambiguity_reason") is not None
+            else:
+                need_fix = verdict.get("status") in ("FAIL", "UNCERTAIN") or (verdict.get("ambiguity_reason") is not None)
             if need_fix:
                 corr = self._propose_correction(claim=c, verdict=verdict, image_path=image_path)
                 if corr and corr.replacement and corr.replacement.strip() and corr.replacement.strip() != c.text.strip():
@@ -239,6 +299,8 @@ class HallucinationMitM:
 
         # Apply minimal token-level edits
         corrected_text = self._apply_corrections_minimal(text, claims, corrections)
+        # Expose diagnostics
+        self.last_verdicts = verdicts
         return corrected_text, corrections
 
     def _verify_claim_route(self, claim: ExtractedClaim, route: Any, image_path: Optional[str]) -> Dict[str, Any]:
@@ -247,10 +309,16 @@ class HallucinationMitM:
 
         try:
             if method == VerificationMethod.CROSS_MODAL and image_path:
+                if not self.enable_cross_modal:
+                    return {"status": "UNCERTAIN", "confidence": 0.5, "reasoning": "cross-modal disabled"}
                 verdict = self._cross_modal_verify(claim.text, image_path)
             elif method == VerificationMethod.EXTERNAL_SOURCE:
+                if not self.enable_external:
+                    return {"status": "UNCERTAIN", "confidence": 0.5, "reasoning": "external check disabled"}
                 verdict = self.external_checker.verify_claim(claim.text, input_context=None)
             elif method == VerificationMethod.KNOWLEDGE_GRAPH:
+                if not self.enable_self_contradiction:
+                    return {"status": "UNCERTAIN", "confidence": 0.5, "reasoning": "self-contradiction disabled"}
                 verdict = self.self_checker.check_contradiction(claim.text, self.session_id)
             else:
                 verdict = {"status": "UNCERTAIN", "confidence": 0.5, "reasoning": "No verification route applicable"}

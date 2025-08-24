@@ -11,7 +11,8 @@ import logging
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from dataclasses import dataclass
-
+import io
+import re
 from ..utils.logger import setup_logger
 from ..config import VISION_MODEL_NAME, NLP_MODEL_NAME, CONFIDENCE_THRESHOLD
 
@@ -81,7 +82,12 @@ class CrossAlignmentChecker:
         
         try:
             # Load and process image
-            image = Image.open(image_path).convert('RGB')
+            if image_path.startswith("http://") or image_path.startswith("https://"):
+                resp = requests.get(image_path, timeout=30)
+                resp.raise_for_status()
+                image = Image.open(io.BytesIO(resp.content)).convert('RGB')
+            else:
+                image = Image.open(image_path)
             
             # Generate visual description
             visual_description = self._generate_visual_description(image)

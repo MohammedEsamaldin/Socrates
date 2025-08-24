@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from ..utils.logger import setup_logger
 from .knowledge_graph_manager import KnowledgeGraphManager
-from .llm_manager import get_llm_manager
+from .llm_manager import LLMManager, get_llm_manager
 from .fact_formatter import GraphRAGFactFormatter
 
 logger = setup_logger(__name__)
@@ -29,13 +29,13 @@ class SelfContradictionChecker:
     Implements consistency verification against established claims
     """
     
-    def __init__(self):
+    def __init__(self, llm_manager: Optional[LLMManager] = None):
         logger.info("Initializing Self-Contradiction Checker...")
         # Will use the shared KG manager instance
         self.kg_manager = None
         # Initialize local LLM manager (singleton)
         try:
-            self.llm = get_llm_manager()
+            self.llm = llm_manager or get_llm_manager()
         except Exception as e:
             logger.error(f"Failed to initialize LLM manager for contradiction detection: {e}")
             self.llm = None

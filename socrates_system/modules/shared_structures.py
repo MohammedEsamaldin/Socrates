@@ -46,6 +46,10 @@ class VerificationRoute:
     justification: str
     estimated_cost: float
     estimated_latency: float
+    # Optional: downstream planners can attach follow-up actions (e.g., fallback checks)
+    secondary_actions: List[Dict[str, Any]] = field(default_factory=list)
+    # Optional: extra metadata (e.g., KG coverage, heuristics used)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 class ClaimCategoryType(Enum):
     """Enum for MLLM Hallucination Detection claim categories.
@@ -92,6 +96,9 @@ class ExtractedClaim:
     verification_route: Optional[VerificationRoute] = None
     context_window: Optional[str] = None
     ambiguity_reason: Optional[str] = None # e.g., "PRONOUN_REFERENCE", "VAGUE_DEMONSTRATIVE"
+    # Router-related hints emitted by LLM extraction or upstream modules
+    route_hint: Optional[str] = None
+    vision_flag: Optional[bool] = None
     # Generated Socratic questions keyed by category (stored as plain dicts for portability)
     socratic_questions: Dict[str, List[Dict[str, Any]]] = field(default_factory=dict)
     # External factuality outcome (populated when routed to EXTERNAL_SOURCE)
