@@ -29,8 +29,9 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Evaluate MMHal-Bench with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
-    p.add_argument("--provider", default=None, help="LLM provider (ollama|openai|claude)")
+    p.add_argument("--provider", default=None, help="LLM provider (ollama|openai|claude|llava_hf)")
     p.add_argument("--model", default=None, help="Model name for the provider")
+    p.add_argument("--model-id", default=None, help="Alias for --model (e.g., llava-hf/llava-1.5-7b-hf)")
     p.add_argument("--limit", type=int, default=None, help="Max samples to process")
     p.add_argument("--no-resume", action="store_true", help="Disable resume from checkpoints")
     p.add_argument("--max-gen-tokens", type=int, default=512)
@@ -52,19 +53,22 @@ def main():
 
     # Apply CLI overrides to env for MitM toggles
     if args.no_mitm:
-        os.environ["SOC_USE_MITM"] = "false"
+        os.environ["SOC_USE_MITM"] = "true"
     if args.no_mitm_input:
-        os.environ["SOC_MITM_VERIFY_INPUT"] = "false"
+        os.environ["SOC_MITM_VERIFY_INPUT"] = "true"
     if args.no_mitm_output:
-        os.environ["SOC_MITM_VERIFY_OUTPUT"] = "false"
+        os.environ["SOC_MITM_VERIFY_OUTPUT"] = "true"
     if args.mitm_min_conf is not None:
         os.environ["SOC_MITM_MIN_CONF"] = str(args.mitm_min_conf)
+
+    # Prefer --model-id over --model if provided
+    model_name = args.model_id or args.model
 
     evaluator = MMHalEvaluator(
         dataset_path=args.dataset,
         run_dir=args.run_dir,
         provider=args.provider,
-        model_name=args.model,
+        model_name=model_name,
         limit=args.limit,
         resume=not args.no_resume,
         max_gen_tokens=args.max_gen_tokens,

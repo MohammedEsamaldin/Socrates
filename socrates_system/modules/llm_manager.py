@@ -22,6 +22,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.logger import setup_logger
+# Note: avoid importing heavy HF providers at module load time
 
 logger = setup_logger(__name__)
 
@@ -41,6 +42,7 @@ class LLMProvider(Enum):
     OLLAMA = "ollama"
     OPENAI = "openai"
     CLAUDE = "claude"
+    LLAVA_HF = "llava_hf"
 
 @dataclass
 class LLMRequest:
@@ -112,6 +114,8 @@ class LLMManager:
                 self.model_name = "llama3.1:8b"
             elif self.provider == LLMProvider.OPENAI:
                 self.model_name = "gpt-4o-mini"
+            elif self.provider == LLMProvider.LLAVA_HF:
+                self.model_name = "llava-hf/llava-1.5-7b-hf"
             else:  # CLAUDE
                 self.model_name = "claude-3-haiku-20240307"
 
@@ -366,12 +370,17 @@ Respond ONLY with the JSON object matching the required schema."""
             },
             LLMTaskType.CONTRADICTION_DETECTION_SIMPLE: {
                 "system": """ROLE: You are a precision contradiction detector. Your task is simple: detect conflicts between a new claim and established session knowledge.\n\nCONTRADICTION CRITERIA:\n- Direct negation: \"car is red\" vs \"car is not red\"\n- Mutually exclusive attributes: \"car is blue\" vs \"car is red\" (same entity)\n- Logical impossibility: conflicting facts about the same entity\n\nNOT CONTRADICTIONS:\n- Specialization: \"car\" → \"red Toyota Camry\"\n- Elaboration: \"street scene\" → \"person walking on street\"\n- Missing details: no previous color → \"red car\"\n\nOutput STRICT JSON ONLY in this schema:\n{\n  \"contradiction\": true/false,\n  \"confidence\": 0.0-1.0,\n  \"explanation\": \"brief reason\",\n  \"conflicting_fact\": \"specific contradicting statement or null\"\n}\n\nUse ONLY the provided session facts. If facts are missing or insufficient, set contradiction=false and explain briefly.""",
-                "template": """Current Claim: \"{claim}\"\n\nSession Facts:\n{session_facts}\n\nRespond with only the required JSON object."""
+                "template": """Current Claim: "{claim}"
+
+Session Facts:
+{session_facts}
+
+Respond with only the required JSON object."""
             }
         }
-    
+
     def _test_connection(self):
-        """Test connection to Ollama server"""
+        """Test connection to configured provider."""
         try:
             if self.provider == LLMProvider.OLLAMA:
                 response = requests.get(f"{self.base_url}/api/tags", timeout=5)
@@ -404,13 +413,19 @@ Respond ONLY with the JSON object matching the required schema."""
                     logger.info(f"Connected to Anthropic @ {self.anthropic_base_url} (model={self.model_name})")
                 else:
                     logger.warning(f"Anthropic connectivity check failed: HTTP {resp.status_code}")
+            elif self.provider == LLMProvider.LLAVA_HF:
+                try:
+                    # Attempt lightweight import check
+                    from mllm_evaluation.providers.llava_hf import LlavaHFGenerator  # noqa: F401
+                    logger.info(f"Using local LLaVA-HF provider (model={self.model_name})")
+                except Exception as e:
+                    logger.warning(f"LLaVA-HF availability check failed: {e}")
         except Exception as e:
             logger.warning(f"LLM connectivity check encountered an error: {e}")
-    
+
     async def process_request(self, request: LLMRequest) -> LLMResponse:
         """Process a single LLM request asynchronously"""
         start_time = time.time()
-        
         try:
             # Get appropriate prompt template
             template_config = self.prompt_templates.get(request.task_type)
@@ -464,8 +479,35 @@ Respond ONLY with the JSON object matching the required schema."""
             return await self._call_openai(prompt, system_prompt, temperature, max_tokens, images=images)
         elif self.provider == LLMProvider.CLAUDE:
             return await self._call_claude(prompt, system_prompt, temperature, max_tokens, images=images)
+        elif self.provider == LLMProvider.LLAVA_HF:
+            return await self._call_llava_hf(prompt, system_prompt, temperature, max_tokens, images=images)
         else:
             raise RuntimeError(f"Unsupported provider: {self.provider}")
+
+    async def _call_llava_hf(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
+        """Call local HuggingFace LLaVA model for multimodal generation.
+        Notes:
+        - Only the first image (if any) is used.
+        - System prompt is ignored; LLaVA chat template handles roles internally.
+        """
+        # Lazy import to avoid heavy dependencies on module load
+        from mllm_evaluation.providers.llava_hf import LlavaHFGenerator
+        # Environment toggles for local inference
+        no_4bit = str(os.getenv("SOC_LLAVA_NO_4BIT", "")).lower() in ("1", "true", "yes")
+        use_slow_tok = str(os.getenv("SOC_LLAVA_SLOW_TOKENIZER", "")).lower() in ("1", "true", "yes")
+
+        image_path = images[0] if images else None
+        generator = LlavaHFGenerator.get(self.model_name, no_4bit=no_4bit, use_slow_tokenizer=use_slow_tok)
+
+        loop = asyncio.get_event_loop()
+        def _run():
+            return generator.generate(
+                prompt=prompt,
+                image_path=image_path,
+                max_new_tokens=max_tokens,
+                temperature=temperature,
+            )
+        return await loop.run_in_executor(self.executor, _run)
 
     # -------------------- Image helpers (multimodal support) --------------------
     @staticmethod
