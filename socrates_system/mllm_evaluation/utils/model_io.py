@@ -28,12 +28,21 @@ class LLaVAHFManager:
         system_prompt: str = None,
         images: Optional[List[str]] = None,
     ) -> str:
-        # Use LLaVA-HF for the final answer generation in fp16/bf16 and without 4-bit quantization
-        # Lazy import to avoid heavy deps at import time
+        # If no images are provided, delegate to the inner text LLM for pipeline tasks
+        if not images:
+            return self._inner.generate_text(
+                prompt=prompt,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                system_prompt=system_prompt,
+                images=images,
+            )
+
+        # Use LLaVA-HF for multimodal (image+text) final answer generation in fp16/bf16 (no 4-bit)
+        # Lazy import to avoid heavy deps at import time for text-only paths
         from socrates_system.mllm_evaluation.providers.llava_hf import LlavaHFGenerator  # type: ignore
 
         image_path = images[0] if images else None
-        # Force no_4bit=True to ensure fp16/bf16
         generator = LlavaHFGenerator.get(self._llava_model_name, no_4bit=True, use_slow_tokenizer=False)
         return generator.generate(
             prompt=prompt,

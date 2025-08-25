@@ -42,4 +42,4 @@ INPUT TEXT
 EXAMPLE JSON:
 """ {json_example} """
 OUTPUT
-Return ONLY the JSON array, no markdown, no preface, no trailing text.
+IMPORTANT: Return valid JSON only. Do NOT escape underscores in field names. Use "claim_text", not "claim\_text".

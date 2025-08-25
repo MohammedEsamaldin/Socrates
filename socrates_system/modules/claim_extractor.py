@@ -281,6 +281,35 @@ class ClaimExtractor:
         try:
             response = llm_response_str.strip()
             data = None
+            # IMPROVED SANITIZATION - Add this before any parsing attempts
+            def sanitize_json_string(json_str: str) -> str:
+                """Sanitize common JSON issues from LLM responses."""
+                # Remove escaped underscores that break JSON
+                json_str = json_str.replace('\\_', '_')
+                
+                # Remove other problematic escaping
+                json_str = json_str.replace('\\n', ' ')
+                json_str = json_str.replace('\n', ' ')
+                json_str = json_str.replace('\\t', ' ')
+                
+                # Clean up multiple spaces
+                json_str = re.sub(r'\s+', ' ', json_str)
+                
+                # Ensure proper JSON structure
+                json_str = json_str.strip()
+                if not json_str.startswith('[') and not json_str.startswith('{'):
+                    # Try to find the JSON part
+                    start_bracket = json_str.find('[')
+                    start_brace = json_str.find('{')
+                    if start_bracket != -1 and (start_brace == -1 or start_bracket < start_brace):
+                        json_str = json_str[start_bracket:]
+                    elif start_brace != -1:
+                        json_str = json_str[start_brace:]
+                        
+                return json_str
+
+            # Apply sanitization first
+            response = sanitize_json_string(response)
             # Attempt 1: parse the whole response directly (handles top-level arrays or objects)
             try:
                 if demjson3 is not None:
