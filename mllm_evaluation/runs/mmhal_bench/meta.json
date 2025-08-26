@@ -1,11 +1,11 @@
 {
   "benchmark": "mmhal_bench",
-  "dataset_path": "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/test_data/filled_responses.json",
-  "provider": "openai",
-  "model": "gpt-4o-mini",
+  "dataset_path": "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/test_data/response_template.json",
+  "provider": "ollama",
+  "model": "llama3.1:8b",
   "max_gen_tokens": 512,
   "temperature": 0.2,
-  "image_key": "image_src",
+  "image_key": null,
   "image_root": null,
-  "start_time": "2025-08-24T01:27:52.240065+00:00"
+  "start_time": "2025-08-26T01:54:05.489297+00:00"
 }

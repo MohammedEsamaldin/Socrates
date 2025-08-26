@@ -158,3 +158,9 @@
 2025-08-24 02:27:52,239 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-24 04:27:13,657 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 503 - upstream connect error or disconnect/reset before headers. reset reason: connection termination
 2025-08-24 05:09:59,628 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 503 - upstream connect error or disconnect/reset before headers. reset reason: connection termination
+2025-08-25 20:38:30,367 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-25 21:33:53,142 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-25 21:51:14,760 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-26 02:54:05,487 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-26 03:01:57,231 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-26 03:10:24,152 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)

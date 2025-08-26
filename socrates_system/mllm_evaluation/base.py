@@ -38,7 +38,20 @@ class BaseEvaluator:
         image_root: Optional[str] = None,
     ) -> None:
         self.dataset_path = dataset_path
-        self.run_dir = os.path.join(run_dir, self.BENCHMARK_NAME)
+        # If the provided run_dir already contains checkpoints for this run, honor it as-is.
+        # Otherwise, place checkpoints under <run_dir>/<BENCHMARK_NAME> (default behavior).
+        candidate_dir = run_dir
+        use_as_is = False
+        try:
+            if os.path.isdir(candidate_dir):
+                for fname in ("results.jsonl", "state.json", "mmhal_results.jsonl"):
+                    if os.path.exists(os.path.join(candidate_dir, fname)):
+                        use_as_is = True
+                        break
+        except Exception:
+            use_as_is = False
+
+        self.run_dir = candidate_dir if use_as_is else os.path.join(run_dir, self.BENCHMARK_NAME)
         os.makedirs(self.run_dir, exist_ok=True)
 
         self.logger = setup_run_logger(self.run_dir, name=self.BENCHMARK_NAME)
@@ -263,7 +276,8 @@ class BaseEvaluator:
 
         total = 0
         for idx, sample in enumerate(data):
-            sid = sample.get("id") or sample.get("sample_id") or idx
+            # Use the same identifier logic used elsewhere (respects --id-key and evaluator overrides)
+            sid = self.get_sample_id(sample) or idx
             if self.resume and sid in processed_ids:
                 continue
 

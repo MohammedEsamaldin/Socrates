@@ -59,19 +59,45 @@ class CheckpointManager:
 
     def load_processed_ids(self) -> Set[Any]:
         ids: Set[Any] = set()
-        if not os.path.exists(self.results_path):
-            return ids
-        with open(self.results_path, "r", encoding="utf-8") as f:
-            for line in f:
-                if not line.strip():
-                    continue
-                try:
-                    obj = json.loads(line)
-                    sid = obj.get("sample_id")
-                    if sid is not None:
-                        ids.add(sid)
-                except Exception:
-                    continue
+        # Primary source: results.jsonl -> sample_id
+        if os.path.exists(self.results_path):
+            with open(self.results_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if not line.strip():
+                        continue
+                    try:
+                        obj = json.loads(line)
+                        sid = obj.get("sample_id")
+                        if sid is not None:
+                            ids.add(sid)
+                    except Exception:
+                        continue
+
+        # Fallback/merge: MMHal outputs -> id
+        # This helps resume when older runs didn't record sample_id in results.jsonl
+        # but mmhal_results.jsonl (or a patched mmhal_results.with_ids.jsonl) has ids.
+        alt_paths = [
+            self.mmhal_results_path,
+            self.mmhal_results_path.replace(".jsonl", ".with_ids.jsonl"),
+        ]
+        for path in alt_paths:
+            if not os.path.exists(path):
+                continue
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        try:
+                            obj = json.loads(line)
+                            sid = obj.get("id")
+                            if sid is not None:
+                                ids.add(sid)
+                        except Exception:
+                            continue
+            except Exception:
+                continue
+
         return ids
 
     def resume_info(self) -> Dict[str, Any]:
