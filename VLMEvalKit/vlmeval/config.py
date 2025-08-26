@@ -3,6 +3,17 @@ from vlmeval.api import *
 from functools import partial
 import os
 
+# Guard Gemini imports - create dummy classes if not available
+if 'Gemini' not in globals():
+    class Gemini:
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Gemini class not available")
+
+if 'Reka' not in globals():
+    class Reka:
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Reka class not available")
+
 PandaGPT_ROOT = None
 MiniGPT4_ROOT = None
 TransCore_ROOT = None
@@ -124,133 +135,88 @@ o1_apis = {
 }
 
 api_models = {
-    # GPT
+    # GPT-4V
     "GPT4V": partial(
-        GPT4V,
-        model="gpt-4-1106-vision-preview",
-        temperature=0,
-        img_size=512,
-        img_detail="low",
-        retry=10,
-        verbose=False,
+        GPT4V, model="gpt-4-vision-preview", temperature=0, img_detail="high", retry=10
     ),
     "GPT4V_HIGH": partial(
-        GPT4V,
-        model="gpt-4-1106-vision-preview",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
+        GPT4V, model="gpt-4-vision-preview", temperature=0, img_detail="high", retry=10
     ),
-    "GPT4V_20240409": partial(
-        GPT4V,
-        model="gpt-4-turbo-2024-04-09",
-        temperature=0,
-        img_size=512,
-        img_detail="low",
-        retry=10,
-        verbose=False,
-    ),
-    "GPT4V_20240409_HIGH": partial(
-        GPT4V,
-        model="gpt-4-turbo-2024-04-09",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
-    ),
-    "GPT4o": partial(
-        GPT4V,
-        model="gpt-4o-2024-05-13",
-        temperature=0,
-        img_size=512,
-        img_detail="low",
-        retry=10,
-        verbose=False,
-    ),
-    "GPT4o_HIGH": partial(
-        GPT4V,
-        model="gpt-4o-2024-05-13",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
-    ),
-    "GPT4o_20240806": partial(
-        GPT4V,
-        model="gpt-4o-2024-08-06",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
-    ),
-    "GPT4o_20241120": partial(
-        GPT4V,
-        model="gpt-4o-2024-11-20",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
-    ),
-    "ChatGPT4o": partial(
-        GPT4V,
-        model="chatgpt-4o-latest",
-        temperature=0,
-        img_size=-1,
-        img_detail="high",
-        retry=10,
-        verbose=False,
+    "GPT4V_LOW": partial(
+        GPT4V, model="gpt-4-vision-preview", temperature=0, img_detail="low", retry=10
     ),
     "GPT4o_MINI": partial(
+        GPT4V, model="gpt-4o-mini", temperature=0, img_detail="high", retry=10
+    ),
+    "GPT4o": partial(GPT4V, model="gpt-4o", temperature=0, img_detail="high", retry=10),
+    "GPT4o_20240806": partial(
+        GPT4V, model="gpt-4o-2024-08-06", temperature=0, img_detail="high", retry=10
+    ),
+    "GPT4o_20241120": partial(
+        GPT4V, model="gpt-4o-2024-11-20", temperature=0, img_detail="high", retry=10
+    ),
+    "GPT4o_MINI_20240718": partial(
         GPT4V,
         model="gpt-4o-mini-2024-07-18",
         temperature=0,
-        img_size=-1,
         img_detail="high",
         retry=10,
-        verbose=False,
     ),
-    "GPT4.5": partial(
-        GPT4V, 
-        model='gpt-4.5-preview-2025-02-27',
-        temperature=0, 
-        timeout=600,
-        img_size=-1, 
-        img_detail='high', 
-        retry=10, 
-        verbose=False,
+    "ChatGPT-4o": partial(
+        GPT4V, model="chatgpt-4o-latest", temperature=0, img_detail="high", retry=10
     ),
-    "gpt-4.1-2025-04-14": partial(
+    "o1-preview": partial(
         GPT4V,
-        model="gpt-4.1-2025-04-14",
-        temperature=0,
-        img_size=-1,
+        model="o1-preview",
+        temperature=1,
         img_detail="high",
-        retry=10,
-        verbose=False,
+        retry=3,
+        timeout=1800,
+        max_tokens=16384,
     ),
-    "gpt-4.1-mini-2025-04-14": partial(
+    "o1-mini": partial(
         GPT4V,
-        model="gpt-4.1-mini-2025-04-14",
-        temperature=0,
-        img_size=-1,
+        model="o1-mini",
+        temperature=1,
         img_detail="high",
-        retry=10,
-        verbose=False,
+        retry=3,
+        timeout=1800,
+        max_tokens=16384,
     ),
-    "gpt-4.1-nano-2025-04-14": partial(
+    "gpt-4o-realtime-preview-2024-10-01": partial(
         GPT4V,
-        model="gpt-4.1-nano-2025-04-14",
+        model="gpt-4o-realtime-preview-2024-10-01",
         temperature=0,
-        img_size=-1,
         img_detail="high",
         retry=10,
-        verbose=False,
+    ),
+    "gpt-4o-realtime-preview": partial(
+        GPT4V,
+        model="gpt-4o-realtime-preview",
+        temperature=0,
+        img_detail="high",
+        retry=10,
+    ),
+    "gpt-4o-audio-preview": partial(
+        GPT4V,
+        model="gpt-4o-audio-preview",
+        temperature=0,
+        img_detail="high",
+        retry=10,
+    ),
+    "gpt-4o-audio-preview-2024-10-01": partial(
+        GPT4V,
+        model="gpt-4o-audio-preview-2024-10-01",
+        temperature=0,
+        img_detail="high",
+        retry=10,
+    ),
+    "gpt-4o-audio-preview-2024-12-17": partial(
+        GPT4V,
+        model="gpt-4o-audio-preview-2024-12-17",
+        temperature=0,
+        img_detail="high",
+        retry=10,
     ),
     "gpt-5-2025-08-07": partial(
         GPT4V,
@@ -279,325 +245,325 @@ api_models = {
         max_tokens=2**14,
         timeout=300,
     ),
-    # Gemini
-    "GeminiPro1-0": partial(
-        Gemini, model="gemini-1.0-pro", temperature=0, retry=10
-    ),  # now GeminiPro1-0 is only supported by vertex backend
-    "GeminiPro1-5": partial(
-        Gemini, model="gemini-1.5-pro", temperature=0, retry=10
-    ),
-    "GeminiFlash1-5": partial(
-        Gemini, model="gemini-1.5-flash", temperature=0, retry=10
-    ),
-    "GeminiPro1-5-002": partial(
-        GPT4V, model="gemini-1.5-pro-002", temperature=0, retry=10
-    ),  # Internal Use Only
-    "GeminiFlash1-5-002": partial(
-        GPT4V, model="gemini-1.5-flash-002", temperature=0, retry=10
-    ),  # Internal Use Only
-    "GeminiFlash2-0": partial(
-        Gemini, model="gemini-2.0-flash", temperature=0, retry=10
-    ),
-    "GeminiFlashLite2-0": partial(
-        Gemini, model="gemini-2.0-flash-lite", temperature=0, retry=10
-    ),
-    "GeminiFlash2-5": partial(
-        GPT4V, model="gemini-2.5-flash", temperature=0, retry=10, timeout=1800
-    ),
-    "GeminiPro2-5": partial(
-        GPT4V, model="gemini-2.5-pro", temperature=0, retry=10, timeout=1800
-    ),
-    
-    # Qwen-VL
-    "QwenVLPlus": partial(QwenVLAPI, model="qwen-vl-plus", temperature=0, retry=10),
-    "QwenVLMax": partial(QwenVLAPI, model="qwen-vl-max", temperature=0, retry=10),
-    "QwenVLMax-250408": partial(QwenVLAPI, model="qwen-vl-max-2025-04-08", temperature=0, retry=10),
+}
 
-    # Reka
-    "RekaEdge": partial(Reka, model="reka-edge-20240208"),
-    "RekaFlash": partial(Reka, model="reka-flash-20240226"),
-    "RekaCore": partial(Reka, model="reka-core-20240415"),
-    # Step1V
-    "Step1V": partial(
-        GPT4V,
-        model="step-1v-32k",
-        api_base="https://api.stepfun.com/v1/chat/completions",
-        temperature=0,
-        retry=10,
-        img_size=-1,
-        img_detail="high",
-    ),
-    "Step1.5V-mini": partial(
-        GPT4V,
-        model="step-1.5v-mini",
-        api_base="https://api.stepfun.com/v1/chat/completions",
-        temperature=0,
-        retry=10,
-        img_size=-1,
-        img_detail="high",
-    ),
-    "Step1o": partial(
-        GPT4V,
-        model="step-1o-vision-32k",
-        api_base="https://api.stepfun.com/v1/chat/completions",
-        temperature=0,
-        retry=10,
-        img_size=-1,
-        img_detail="high",
-    ),
-    # Yi-Vision
-    "Yi-Vision": partial(
-        GPT4V,
-        model="yi-vision",
-        api_base="https://api.lingyiwanwu.com/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    # Claude
-    "Claude3V_Opus": partial(
-        Claude3V, model="claude-3-opus-20240229", temperature=0, retry=10, verbose=False
-    ),
-    "Claude3V_Sonnet": partial(
-        Claude3V,
-        model="claude-3-sonnet-20240229",
-        temperature=0,
-        retry=10,
-        verbose=False,
-    ),
-    "Claude3V_Haiku": partial(
-        Claude3V,
-        model="claude-3-haiku-20240307",
-        temperature=0,
-        retry=10,
-        verbose=False,
-    ),
-    "Claude3-5V_Sonnet": partial(
-        Claude3V,
-        model="claude-3-5-sonnet-20240620",
-        temperature=0,
-        retry=10,
-        verbose=False,
-    ),
-    "Claude3-5V_Sonnet_20241022": partial(
-        Claude3V,
-        model="claude-3-5-sonnet-20241022",
-        temperature=0,
-        retry=10,
-        verbose=False,
-    ),
-    "Claude3-7V_Sonnet": partial(
-        Claude3V,
-        model="claude-3-7-sonnet-20250219",
-        temperature=0,
-        retry=10,
-        verbose=False,
-    ),
-    "Claude4_Opus": partial(
-        Claude3V,
-        model="claude-4-opus-20250514",
-        temperature=0,
-        retry=10,
-        verbose=False,
-        timeout=1800
-    ),
-    "Claude4_Sonnet": partial(
-        Claude3V,
-        model="claude-4-sonnet-20250514",
-        temperature=0,
-        retry=10,
-        verbose=False,
-        timeout=1800
-    ),
-    # GLM4V
-    "GLM4V": partial(GLMVisionAPI, model="glm4v-biz-eval", temperature=0, retry=10),
-    "GLM4V_PLUS": partial(GLMVisionAPI, model="glm-4v-plus", temperature=0, retry=10),
-    "GLM4V_PLUS_20250111": partial(
-        GLMVisionAPI, model="glm-4v-plus-0111", temperature=0, retry=10
-    ),
-    # MiniMax abab
-    "abab6.5s": partial(
-        GPT4V,
-        model="abab6.5s-chat",
-        api_base="https://api.minimax.chat/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "abab7-preview": partial(
-        GPT4V,
-        model="abab7-chat-preview",
-        api_base="https://api.minimax.chat/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    # CongRong
-    "CongRong-v1.5": partial(CWWrapper, model="cw-congrong-v1.5", temperature=0, retry=10),
-    "CongRong-v2.0": partial(CWWrapper, model="cw-congrong-v2.0", temperature=0, retry=10),
-    # SenseNova
-    "SenseNova-V6-Pro": partial(
-        SenseChatVisionAPI, model="SenseNova-V6-Pro", temperature=0, retry=10
-    ),
-    "SenseNova-V6-Reasoner": partial(
-        SenseChatVisionAPI, model="SenseNova-V6-Reasoner", temperature=0, retry=10
-    ),
-    "HunYuan-Vision": partial(
-        HunyuanVision, model="hunyuan-vision", temperature=0, retry=10
-    ),
-    "HunYuan-Standard-Vision": partial(
-        HunyuanVision, model="hunyuan-standard-vision", temperature=0, retry=10
-    ),
-    "HunYuan-Large-Vision": partial(
-        HunyuanVision, model="hunyuan-large-vision", temperature=0, retry=10
-    ),
-    "BailingMM-Lite-1203": partial(
-        bailingMMAPI, model="BailingMM-Lite-1203", temperature=0, retry=10
-    ),
-    "BailingMM-Pro-0120": partial(
-        bailingMMAPI, model="BailingMM-Pro-0120", temperature=0, retry=10
-    ),
-    # BlueLM-2.5
-    "BlueLM-2.5-3B": partial(BlueLM_API, model="BlueLM-2.5-3B", temperature=0, retry=3),
-    # JiuTian-VL
-    "JTVL": partial(JTVLChatAPI, model="jt-vl-chat", temperature=0, retry=10),
-    "Taiyi": partial(TaiyiAPI, model="taiyi", temperature=0, retry=10),
-    # TeleMM
-    "TeleMM": partial(TeleMMAPI, model="TeleAI/TeleMM", temperature=0, retry=10),
-    "Qwen2.5-VL-32B-Instruct-SiliconFlow": partial(
-        SiliconFlowAPI, model="Qwen/Qwen2.5-VL-32B-Instruct", temperature=0, retry=10),
-    # lmdeploy api
-    "lmdeploy": partial(
-        LMDeployAPI,
-        api_base="http://0.0.0.0:23333/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "lmdeploy_internvl_78B_MPO": partial(
-        LMDeployAPI,
-        api_base="http://0.0.0.0:23333/v1/chat/completions",
-        temperature=0,
-        retry=10,
-        timeout=100,
-    ),
-    "lmdeploy_qvq_72B_preview": partial(
-        LMDeployAPI,
-        api_base="http://0.0.0.0:23333/v1/chat/completions",
-        temperature=0,
-        retry=10,
-        timeout=300,
-    ),
-    'Taichu-VLR-3B': partial(
-        TaichuVLRAPI, 
-        model='taichu_vlr_3b', 
-        url="https://platform.wair.ac.cn/maas/v1/chat/completions"
-    ),
-    'Taichu-VLR-7B': partial(
-        TaichuVLRAPI, 
-        model='taichu_vlr_7b', 
-        url="https://platform.wair.ac.cn/maas/v1/chat/completions"
-    ),
-    # doubao_vl
-    "DoubaoVL": partial(
-        DoubaoVL, model="Doubao-1.5-vision-pro", temperature=0, retry=3, verbose=False
-    ),
-    "Seed1.5-VL": partial(
-        DoubaoVL, 
-        model="doubao-1-5-thinking-vision-pro-250428", 
-        temperature=0,
-        retry=3, 
-        verbose=False, 
-        max_tokens=16384,
-    ),
-    "Seed1.6": partial(
-        DoubaoVL, 
-        model="doubao-seed-1.6-250615", 
-        temperature=0,
-        retry=3, 
-        verbose=False, 
-        max_tokens=16384,
-    ),
-    "Seed1.6-Flash": partial(
-        DoubaoVL, 
-        model="doubao-seed-1.6-flash-250615", 
-        temperature=0,
-        retry=3, 
-        verbose=False, 
-        max_tokens=16384,
-    ),
-    "Seed1.6-Thinking": partial(
-        DoubaoVL, 
-        model="doubao-seed-1.6-thinking-250615", 
-        temperature=0,
-        retry=3, 
-        verbose=False, 
-        max_tokens=16384,
-    ),
-    # Shopee MUG-U
-    'MUG-U-7B': partial(
-        MUGUAPI, 
-        model='MUG-U', 
-        temperature=0,  
-        retry=10, 
-        verbose=False, 
-        timeout=300),
-    # grok
-    "grok-vision-beta": partial(
-        GPT4V,
-        model="grok-vision-beta",
-        api_base="https://api.x.ai/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "grok-2-vision-1212": partial(
-        GPT4V,
-        model="grok-2-vision",
-        api_base="https://api.x.ai/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "grok-4-0709": partial(
-        GPT4V,
-        model="grok-4-0709",
-        api_base="https://api.x.ai/v1/chat/completions",
-        temperature=0,
-        retry=3,
-        timeout=1200, 
-        max_tokens=16384
-    ),
-    # kimi
-    "moonshot-v1-8k": partial(
-        GPT4V,
-        model="moonshot-v1-8k-vision-preview",
-        api_base="https://api.moonshot.cn/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "moonshot-v1-32k": partial(
-        GPT4V,
-        model="moonshot-v1-32k-vision-preview",
-        api_base="https://api.moonshot.cn/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    "moonshot-v1-128k": partial(
-        GPT4V,
-        model="moonshot-v1-128k-vision-preview",
-        api_base="https://api.moonshot.cn/v1/chat/completions",
-        temperature=0,
-        retry=10,
-    ),
-    'ernie4.5-turbo': partial(
-        GPT4V,
-        model='ernie-4.5-turbo-vl-32k', 
-        temperature=0,
-        retry=3, 
-        max_tokens=12000, 
-    ),
-    'ernie4.5-a3b': partial(
-        GPT4V,
-        model='ernie-4.5-vl-28b-a3b', 
-        temperature=0,
-        retry=3, 
-        max_tokens=8000,
-    )
+# Add Gemini models only if Gemini class is available
+if 'Gemini' in globals():
+    api_models.update({
+        # Gemini
+        "GeminiPro1-0": partial(
+            Gemini, model="gemini-1.0-pro", temperature=0, retry=10
+        ),  # now GeminiPro1-0 is only supported by vertex backend
+        "GeminiPro1-5": partial(
+            Gemini, model="gemini-1.5-pro", temperature=0, retry=10
+        ),
+        "GeminiFlash1-5": partial(
+            Gemini, model="gemini-1.5-flash", temperature=0, retry=10
+        ),
+        "GeminiPro1-5-002": partial(
+            GPT4V, model="gemini-1.5-pro-002", temperature=0, retry=10
+        ),  # Internal Use Only
+        "GeminiFlash1-5-002": partial(
+            GPT4V, model="gemini-1.5-flash-002", temperature=0, retry=10
+        ),  # Internal Use Only
+        "GeminiFlash2-0": partial(
+            Gemini, model="gemini-2.0-flash", temperature=0, retry=10
+        ),
+        "GeminiFlashLite2-0": partial(
+            Gemini, model="gemini-2.0-flash-lite", temperature=0, retry=10
+        ),
+        "GeminiFlash2-5": partial(
+            GPT4V, model="gemini-2.5-flash", temperature=0, retry=10, timeout=1800
+        ),
+        "GeminiPro2-5": partial(
+            GPT4V, model="gemini-2.5-pro", temperature=0, retry=10, timeout=1800
+        ),
+    })
+
+# Qwen-VL
+"QwenVLPlus": partial(QwenVLAPI, model="qwen-vl-plus", temperature=0, retry=10),
+"QwenVLMax": partial(QwenVLAPI, model="qwen-vl-max", temperature=0, retry=10),
+"QwenVLMax-250408": partial(QwenVLAPI, model="qwen-vl-max-2025-04-08", temperature=0, retry=10),
+
+# Reka
+"RekaEdge": partial(Reka, model="reka-edge-20240208"),
+"RekaFlash": partial(Reka, model="reka-flash-20240226"),
+"RekaCore": partial(Reka, model="reka-core-20240415"),
+# Step1V
+"Step1V": partial(
+    GPT4V,
+    model="step-1v-32k",
+    api_base="https://api.stepfun.com/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"Step1.5V-mini": partial(
+    GPT4V,
+    model="step-1.5v-mini",
+    api_base="https://api.stepfun.com/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"Step1o": partial(
+    GPT4V,
+    model="step-1o-vision-32k",
+    api_base="https://api.stepfun.com/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+# Yi-Vision
+"Yi-Vision": partial(
+    GPT4V,
+    model="yi-vision",
+    api_base="https://api.lingyiwanwu.com/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+# Claude
+"Claude3V_Opus": partial(
+    Claude3V, model="claude-3-opus-20240229", temperature=0, retry=10, verbose=False
+),
+"Claude3V_Sonnet": partial(
+    Claude3V,
+    model="claude-3-sonnet-20240229",
+    temperature=0,
+    retry=10,
+    verbose=False,
+),
+"Claude3V_Haiku": partial(
+    Claude3V,
+    model="claude-3-haiku-20240307",
+    temperature=0,
+    retry=10,
+    verbose=False,
+),
+"Claude3-5V_Sonnet": partial(
+    Claude3V,
+    model="claude-3-5-sonnet-20240620",
+    temperature=0,
+    retry=10,
+    verbose=False,
+),
+"Claude3-5V_Sonnet_20241022": partial(
+    Claude3V,
+    model="claude-3-5-sonnet-20241022",
+    temperature=0,
+    retry=10,
+    verbose=False,
+),
+"Claude3-7V_Sonnet": partial(
+    Claude3V,
+    model="claude-3-7-sonnet-20250219",
+    temperature=0,
+    retry=10,
+    verbose=False,
+),
+"Claude4_Opus": partial(
+    Claude3V,
+    model="claude-4-opus-20250514",
+    temperature=0,
+    retry=10,
+    verbose=False,
+    timeout=1800
+),
+"Claude4_Sonnet": partial(
+    Claude3V,
+    model="claude-4-sonnet-20250514",
+    temperature=0,
+    retry=10,
+    verbose=False,
+    timeout=1800
+),
+# GLM4V
+"GLM4V": partial(GLMVisionAPI, model="glm4v-biz-eval", temperature=0, retry=10),
+"GLM4V_PLUS": partial(GLMVisionAPI, model="glm-4v-plus", temperature=0, retry=10),
+"GLM4V_PLUS_20250111": partial(
+    GLMVisionAPI, model="glm-4v-plus-0111", temperature=0, retry=10
+),
+# MiniMax abab
+"abab6.5s": partial(
+    GPT4V,
+    model="abab6.5s-chat",
+    api_base="https://api.minimax.chat/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"abab7-preview": partial(
+    GPT4V,
+    model="abab7-chat-preview",
+    api_base="https://api.minimax.chat/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+# CongRong
+"CongRong-v1.5": partial(CWWrapper, model="cw-congrong-v1.5", temperature=0, retry=10),
+"CongRong-v2.0": partial(CWWrapper, model="cw-congrong-v2.0", temperature=0, retry=10),
+# SenseNova
+"SenseNova-V6-Pro": partial(
+    SenseChatVisionAPI, model="SenseNova-V6-Pro", temperature=0, retry=10
+),
+"SenseNova-V6-Reasoner": partial(
+    SenseChatVisionAPI, model="SenseNova-V6-Reasoner", temperature=0, retry=10
+),
+"HunYuan-Vision": partial(
+    HunyuanVision, model="hunyuan-vision", temperature=0, retry=10
+),
+"HunYuan-Standard-Vision": partial(
+    HunyuanVision, model="hunyuan-standard-vision", temperature=0, retry=10
+),
+"HunYuan-Large-Vision": partial(
+    HunyuanVision, model="hunyuan-large-vision", temperature=0, retry=10
+),
+"BailingMM-Lite-1203": partial(
+    bailingMMAPI, model="BailingMM-Lite-1203", temperature=0, retry=10
+),
+"BailingMM-Pro-0120": partial(
+    bailingMMAPI, model="BailingMM-Pro-0120", temperature=0, retry=10
+),
+# BlueLM-2.5
+"BlueLM-2.5-3B": partial(BlueLM_API, model="BlueLM-2.5-3B", temperature=0, retry=3),
+# JiuTian-VL
+"JTVL": partial(JTVLChatAPI, model="jt-vl-chat", temperature=0, retry=10),
+"Taiyi": partial(TaiyiAPI, model="taiyi", temperature=0, retry=10),
+# TeleMM
+"TeleMM": partial(TeleMMAPI, model="TeleAI/TeleMM", temperature=0, retry=10),
+"Qwen2.5-VL-32B-Instruct-SiliconFlow": partial(
+    SiliconFlowAPI, model="Qwen/Qwen2.5-VL-32B-Instruct", temperature=0, retry=10),
+# lmdeploy api
+"lmdeploy": partial(
+    LMDeployAPI,
+    api_base="http://0.0.0.0:23333/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"lmdeploy_internvl_78B_MPO": partial(
+    LMDeployAPI,
+    api_base="http://0.0.0.0:23333/v1/chat/completions",
+    temperature=0,
+    retry=10,
+    timeout=100,
+),
+"lmdeploy_qvq_72B_preview": partial(
+    LMDeployAPI,
+    api_base="http://0.0.0.0:23333/v1/chat/completions",
+    temperature=0,
+    retry=10,
+    timeout=300,
+),
+'Taichu-VLR-3B': partial(
+    TaichuVLRAPI, 
+    model='taichu_vlr_3b', 
+    url="https://platform.wair.ac.cn/maas/v1/chat/completions"
+),
+'Taichu-VLR-7B': partial(
+    TaichuVLRAPI, 
+    model='taichu_vlr_7b', 
+    url="https://platform.wair.ac.cn/maas/v1/chat/completions"
+),
+# doubao_vl
+"DoubaoVL": partial(
+    DoubaoVL, model="Doubao-1.5-vision-pro", temperature=0, retry=3, verbose=False
+),
+"Seed1.5-VL": partial(
+    DoubaoVL, 
+    model="doubao-1-5-thinking-vision-pro-250428", 
+    temperature=0,
+    retry=3, 
+    verbose=False, 
+    max_tokens=16384,
+),
+"Seed1.6": partial(
+    DoubaoVL, 
+    model="doubao-seed-1.6-250615", 
+    temperature=0,
+    retry=3, 
+    verbose=False, 
+    max_tokens=16384,
+),
+"Seed1.6-Flash": partial(
+    DoubaoVL, 
+    model="doubao-seed-1.6-flash-250615", 
+    temperature=0,
+    retry=3, 
+    verbose=False, 
+    max_tokens=16384,
+),
+"Seed1.6-Thinking": partial(
+    DoubaoVL, 
+    model="doubao-seed-1.6-thinking-250615", 
+    temperature=0,
+    retry=3, 
+    verbose=False, 
+    max_tokens=16384,
+),
+# Shopee MUG-U
+'MUG-U-7B': partial(
+    MUGUAPI, 
+    model='MUG-U', 
+    temperature=0,  
+    retry=10, 
+    verbose=False, 
+    timeout=300),
+# grok
+"grok-vision-beta": partial(
+    GPT4V,
+    model="grok-vision-beta",
+    api_base="https://api.x.ai/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"grok-2-vision-1212": partial(
+    GPT4V,
+    model="grok-2-vision",
+    api_base="https://api.x.ai/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"grok-4-0709": partial(
+    GPT4V,
+    model="grok-4-0709",
+    api_base="https://api.x.ai/v1/chat/completions",
+    temperature=0,
+    retry=3,
+    timeout=1200, 
+    max_tokens=16384
+),
+# kimi
+"moonshot-v1-8k": partial(
+    GPT4V,
+    model="moonshot-v1-8k-vision-preview",
+    api_base="https://api.moonshot.cn/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"moonshot-v1-32k": partial(
+    GPT4V,
+    model="moonshot-v1-32k-vision-preview",
+    api_base="https://api.moonshot.cn/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+"moonshot-v1-128k": partial(
+    GPT4V,
+    model="moonshot-v1-128k-vision-preview",
+    api_base="https://api.moonshot.cn/v1/chat/completions",
+    temperature=0,
+    retry=10,
+),
+'ernie4.5-turbo': partial(
+    GPT4V,
+    model='ernie-4.5-turbo-vl-32k', 
+    temperature=0,
+    retry=3, 
+    max_tokens=12000, 
+),
+'ernie4.5-a3b': partial(
+    GPT4V,
+    model='ernie-4.5-vl-28b-a3b', 
+    temperature=0,
+    retry=3, 
+    max_tokens=8000,
+)
 }
 
 import copy as cp
