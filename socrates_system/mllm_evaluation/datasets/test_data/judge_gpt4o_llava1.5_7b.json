@@ -1,0 +1,1890 @@
+[
+  {
+    "index": 0,
+    "image_id": "df62a56fdc1bb12b",
+    "question_type": "attribute",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Fire hydrant"
+    ],
+    "question": "What color is the fire hydrant cap in the picture?",
+    "gt_answer": "The color of the fire hydrant cap in the image is yellow.",
+    "model_answer": "The fire hydrant cap in the picture is yellow.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately identifies the color of the fire hydrant cap as yellow, which matches the information provided in the standard human-generated answer. There is no hallucination present, as the response is directly grounded in the image content. The response is informative as it correctly answers the question.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 1,
+    "image_id": "5b18b22f53ccc661",
+    "question_type": "adversarial",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Door",
+      "Building"
+    ],
+    "question": "Who is sitting on the bench?",
+    "gt_answer": "No one is sitting on the bench.",
+    "model_answer": "No, there is no person wearing a red jacket sitting on the bench. The bench is currently unoccupied and has no visible objects on it, as verified by remote observation.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies that there is no one sitting on the bench, which aligns with the standard human-generated answer. However, the LMM introduces unnecessary details by mentioning a \"person wearing a red jacket\" and \"remote observation,\" which are not present or implied in the image or the question. These additional details constitute hallucination, as they introduce false claims about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 2,
+    "image_id": "71d35c01e3b47a47",
+    "question_type": "comparison",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Vase",
+      "Houseplant",
+      "Stool",
+      "Coffee table",
+      "Flower"
+    ],
+    "question": "Which wooden stool has a vase with red flower on it?",
+    "gt_answer": "The left wooden stool has a vase with a red flower on it.",
+    "model_answer": "There is a vase , but the color of the flower",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is incomplete and does not provide a clear answer to the question. It starts by acknowledging the presence of a vase but fails to specify which wooden stool has the vase with the red flower on it. Additionally, the response is cut off and does not address the color of the flower, which is a crucial part of the question. This lack of completion and clarity makes the response not informative. However, there is no hallucination present, as the response does not make any false claims about the image contents.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 3,
+    "image_id": "2c0e54cb2dcad01d",
+    "question_type": "counting",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Traffic light",
+      "Building",
+      "House",
+      "Street light",
+      "Tree"
+    ],
+    "question": "How many traffic lights are there in the image?",
+    "gt_answer": "There are four traffic lights in the image.",
+    "model_answer": "There are two traffic lights in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are two traffic lights in the image, while the standard human-generated answer states that there are four traffic lights. This discrepancy indicates that the LMM's response is incorrect and contains a hallucination, as it provides a false claim about the number of traffic lights present in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 4,
+    "image_id": "03d45f0207d68aa2",
+    "question_type": "relation",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Traffic sign",
+      "Traffic light",
+      "Building"
+    ],
+    "question": "What colors are the traffic signs at the top, in the middle, and at the bottom?",
+    "gt_answer": "The traffic signs at the top and bottom are white, while the one in the center is blue.",
+    "model_answer": "Yes, the traffic signs are located at the center of the road, which is a common practice to ensure that drivers can easily see and follow the directions provided by the signs. This placement helps to maintain order and safety on the road, as drivers can quickly identify the appropriate route or direction to take.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response does not address the question about the colors of the traffic signs. Instead, it provides information about the placement of traffic signs, which is unrelated to the question asked. The response does not contain any false claims about the image contents, but it fails to provide the requested information about the colors of the traffic signs. Therefore, while there is no hallucination, the response is not informative in the context of the question.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 5,
+    "image_id": "2e1d92ec24b8f5f9",
+    "question_type": "environment",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Wheel"
+    ],
+    "question": "How would you describe the weather in the image?",
+    "gt_answer": "The photo was captured during nighttime, with a dark sky overhead. It depicts a Ferris wheel surrounded by people and illuminated by the lights.",
+    "model_answer": "The image shows a carnival ride with a large, colorful wheel in the center of the scene. The ride is illuminated by lights, creating a vibrant atmosphere. There are visible signs of rain in [specific location] at [specific time].",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response includes a description of a carnival ride with a large, colorful wheel, which aligns with the image content of a wheel. However, the response introduces the idea of \"visible signs of rain in [specific location] at [specific time],\" which is not supported by the image content or the standard human-generated answer. This constitutes a hallucination, as the image does not provide any information about rain, specific locations, or times. The response is somewhat informative in describing the wheel and its illumination but includes false claims about the weather.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 6,
+    "image_id": "294aff231c7c290a",
+    "question_type": "holistic",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Building",
+      "Street light",
+      "Tree",
+      "Traffic sign",
+      "Window"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "The picture depicts a city street, recently dampened by rain, with a sidewalk lined by trees. There are several cars parked on the right, while others move along the road. A few pedestrians can be seen at a distance on the sidewalk, some of them holding umbrellas to protect themselves from the rain. The trees offer shade and lend a touch of nature to the urban setting. The scene exudes a sense of calm and serenity, emphasized by the glistening wet street and the nearly vacant walkway.",
+    "model_answer": "The image depicts a rainy day in a city, with a wet sidewalk reflecting the surrounding environment. The streetlight is visible from the sidewalk. Main Street is lined with oak trees .\n\nThe exact number of cars parked or driving along the street is unknown. A few people can be seen walking on the sidewalk, likely navigating the wet conditions.\n\nThe number of traffic lights present in the scene is indeterminate based on the available visual information.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM response provides a description of the image, mentioning a rainy day, a wet sidewalk, and the presence of a streetlight and trees. It also notes the presence of people on the sidewalk and acknowledges the uncertainty regarding the number of cars and traffic lights. However, the response includes a specific detail about \"Main Street\" and \"oak trees,\" which are not mentioned in the image contents or the standard human-generated answer. This constitutes a hallucination, as the LMM introduces information not grounded in the image or the provided context. Despite this, the response is somewhat informative as it captures the general atmosphere of the scene.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 7,
+    "image_id": "2462520ae7b86d0e",
+    "question_type": "other",
+    "question_topic": "outdoor",
+    "image_content": [
+      "Parking meter",
+      "Telephone"
+    ],
+    "question": "How much is it per hour to park at the parking meter?",
+    "gt_answer": "It is $4 per hour to park at the parking meter.",
+    "model_answer": "The parking meter charges $4.00 per hour to park.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately reflects the information provided in the standard human-generated answer, stating that the parking meter charges $4.00 per hour. There is no additional information or analysis provided, but the response is correct and directly answers the question without any false claims or hallucinations.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 8,
+    "image_id": "01e8509529aac2b8",
+    "question_type": "attribute",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Car",
+      "Wheel",
+      "Land vehicle",
+      "Building"
+    ],
+    "question": "What color are the two cars from right to left in the image?",
+    "gt_answer": "The two cars from right to left in the image are black and blue.",
+    "model_answer": "The two cars in the image are blue and black.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination because it incorrectly identifies the order of the car colors. The standard human-generated answer states that the cars are black and blue from right to left, while the LMM response states they are blue and black. This discrepancy indicates that the LMM has made a false claim about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 9,
+    "image_id": "1cdd5f88863aec33",
+    "question_type": "adversarial",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Tire",
+      "Motorcycle",
+      "Wheel"
+    ],
+    "question": "What is the gender of the person riding the motorcycle in the image?",
+    "gt_answer": "No one is riding the motorcycle by the roadside in the image.",
+    "model_answer": "The image shows a silver motorcycle parked on the side of the road. The motorcycle is positioned in a way that obscures the view of the rider's body, making it impossible to determine their gender. The focus of the image is on the motorcycle and its surroundings, and there is no clear indication of the rider's gender.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the situation in the image by stating that the motorcycle is parked on the side of the road and that the rider's body is obscured, making it impossible to determine their gender. This aligns with the standard human-generated answer, which states that no one is riding the motorcycle. The LMM does not make any false claims about the image contents and provides a reasonable explanation for why the gender cannot be determined. Therefore, there is no hallucination in the response.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 10,
+    "image_id": "50ba2afa85a784cb",
+    "question_type": "comparison",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Wheel",
+      "Building",
+      "Truck",
+      "Person",
+      "Auto part"
+    ],
+    "question": "In the image, which truck (left or right) has its door open?",
+    "gt_answer": "The fire truck, which is on the left side of the image, has its door open.",
+    "model_answer": "The truck on the left side of the image has its door closed.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is incorrect because it claims that the truck on the left side of the image has its door closed, while the standard human-generated answer states that the truck on the left side, specifically a fire truck, has its door open. This discrepancy indicates that the LMM's response contains a hallucination, as it provides false information about the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 11,
+    "image_id": "aec20da322ac2ace",
+    "question_type": "counting",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Tree",
+      "Plant",
+      "Person",
+      "Land vehicle",
+      "Bicycle helmet",
+      "Sports equipment",
+      "Bicycle",
+      "Vehicle",
+      "Mammal",
+      "Bicycle wheel"
+    ],
+    "question": "How many bicycles are there in the image?",
+    "gt_answer": "In the image, there are four bicycles: two at the front, one in the middle, and one in the distance.",
+    "model_answer": "There are no bicycles in the image. A child is riding a blue bicycle down a paved path in a park, as confirmed by visual observation.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a significant hallucination. It incorrectly states that there are no bicycles in the image, which directly contradicts the standard human-generated answer that identifies four bicycles. Additionally, the LMM mentions a child riding a blue bicycle, which is not supported by the image contents as described. This response is not only inaccurate but also misleading, as it fails to provide the correct count of bicycles and introduces details not present in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 12,
+    "image_id": "590b56abc568010b",
+    "question_type": "relation",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Person",
+      "Mammal",
+      "Boat"
+    ],
+    "question": "How is the yellow boat positioned in relation to the white yacht in the image?",
+    "gt_answer": "The yellow boat is positioned in front of the white yacht in the image.",
+    "model_answer": "The yellow boat is positioned in front of the white yacht, with the man standing on the yellow boat.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the position of the yellow boat in relation to the white yacht, which matches the standard human-generated answer. Additionally, the LMM mentions a man standing on the yellow boat, which is a detail not provided in the standard answer but could be present in the image. Since the image contents include a person, this additional detail does not constitute a hallucination. The response is informative and provides a bit more context than the standard answer without introducing any false claims.\n\n- Rating: 6, very informative with good analysis or reasoning, no hallucination",
+    "rating": 6,
+    "hallucination": 0
+  },
+  {
+    "index": 13,
+    "image_id": "9baac3ede8933b48",
+    "question_type": "environment",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Train",
+      "Skyscraper",
+      "Car",
+      "Land vehicle",
+      "Plant",
+      "Vehicle",
+      "Wheel",
+      "Tree"
+    ],
+    "question": "What is the weather like in the image?",
+    "gt_answer": "In the image, the weather appears to be either sunny or cloudy.",
+    "model_answer": "The weather in the image is cloudy.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response states that the weather in the image is cloudy. This is a specific claim about the weather condition, which is one of the possibilities mentioned in the standard human-generated answer (\"sunny or cloudy\"). Since the LMM's response aligns with one of the options provided in the standard answer and does not introduce any false information or details not present in the image, it does not constitute a hallucination. However, the response is not very informative as it does not provide any additional analysis or reasoning beyond the basic observation.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 14,
+    "image_id": "a822376f2d79b90f",
+    "question_type": "holistic",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Wheel",
+      "Bus",
+      "Person",
+      "Auto part",
+      "Land vehicle"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "The picture presents a yellow school bus stationed on an urban roadway, alongside a bicyclist. Positioned outside a tattoo establishment, the bus offers a unique urban backdrop. The road is notably calm, with the absence of other vehicles and passersby. The cyclist, equipped with a backpack and helmet, seems to be a student or a regular commuter. Given the tattoo parlor and the school bus, it's plausible that this area is a vibrant commercial or recreational hub frequented by shoppers, students, or those seeking leisure.",
+    "model_answer": "The image does not feature a man wearing a helmet. The man is positioned on the left side of the bus, and the bus is parked on the right side of the street. A stop sign is visible in the background of the specified image .\n\nThere are no backpacks visible in the scene. There is no visible evidence of a motorcycle parked further down the street.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains several inaccuracies and hallucinations. Firstly, it incorrectly states that there is no man wearing a helmet, whereas the standard human-generated answer mentions a cyclist with a helmet. Secondly, the LMM claims there is a stop sign visible in the background, which is not mentioned in the standard human-generated answer and may not be present in the image. Additionally, the LMM mentions the absence of a motorcycle, which is irrelevant to the image description and not addressed in the standard answer. These elements indicate hallucinations in the LMM's response, as it introduces details not grounded in the image or the standard answer.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 15,
+    "image_id": "a7157a32c782e319",
+    "question_type": "other",
+    "question_topic": "vehicle",
+    "image_content": [
+      "Person",
+      "Fixed-wing aircraft"
+    ],
+    "question": "Which company owns the airplane displayed in the back of the image?",
+    "gt_answer": "The airplane in the background of the image is owned by Virgin Airlines.",
+    "model_answer": "The airplane displayed in the back of the image cannot be confirmed as belonging to Virgin Atlantic without additional identification information.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response indicates uncertainty about the ownership of the airplane in the image, stating that it cannot confirm the airplane belongs to Virgin Atlantic without additional identification information. This response does not contain any false claims about the image contents, as it does not assert any incorrect information about the airplane's ownership. However, it does not provide the specific information that the airplane is owned by Virgin Airlines, as stated in the standard human-generated answer. The LMM's response is cautious and avoids making assumptions without clear evidence from the image, which is a positive aspect in avoiding hallucination. However, it lacks informativeness because it does not provide the specific answer given in the standard human-generated answer.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 16,
+    "image_id": "d6485beb5b69ea53",
+    "question_type": "attribute",
+    "question_topic": "person",
+    "image_content": [
+      "Plant",
+      "Tree",
+      "Man",
+      "Sports equipment",
+      "Human arm"
+    ],
+    "question": "What are the colors of the shirts worn by the three men from left to right in the image?",
+    "gt_answer": "The three men from left to right in the image are wearing green, blue, and red shirts.",
+    "model_answer": "The identities of the three men in the image are not provided.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response does not address the question asked, which is about the colors of the shirts worn by the three men in the image. Instead, it provides irrelevant information about the identities of the men, which is not what the question is asking for. The response fails to provide any information about the shirt colors, which is the focus of the question. Additionally, the response does not contain any hallucination, as it does not make any false claims about the image contents. However, it is not informative because it does not answer the question.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 17,
+    "image_id": "350f86d5d3c2d9c3",
+    "question_type": "adversarial",
+    "question_topic": "person",
+    "image_content": [
+      "Human head",
+      "Boy",
+      "Human ear",
+      "Human eye",
+      "Human mouth",
+      "Human face",
+      "Man",
+      "Human hair",
+      "Human body",
+      "Mammal",
+      "Human nose",
+      "Clothing"
+    ],
+    "question": "Which color are the glasses that the man in the image is wearing?",
+    "gt_answer": "The man is not wearing glasses.",
+    "model_answer": "The man in the image is not wearing glasses.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately states that the man in the image is not wearing glasses, which aligns with the standard human-generated answer. There is no hallucination present, as the response correctly reflects the content of the image. The response is informative in the context of the question asked.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 18,
+    "image_id": "1e4224b56a0c9ef0",
+    "question_type": "comparison",
+    "question_topic": "person",
+    "image_content": [
+      "Clothing",
+      "Human body",
+      "Person",
+      "Man",
+      "Mammal"
+    ],
+    "question": "Who in the picture is wearing trousers?",
+    "gt_answer": "The woman in the image wears the pants.",
+    "model_answer": "The woman in the picture is unknown .",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is not informative and contains a hallucination. The response states that \"the woman in the picture is unknown,\" which does not address the question of who is wearing trousers. The standard human-generated answer indicates that the woman is wearing pants, but the LMM fails to provide this information. Instead, it provides an irrelevant statement that does not relate to the question or the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 19,
+    "image_id": "c8028c1f637cee75",
+    "question_type": "counting",
+    "question_topic": "person",
+    "image_content": [
+      "Girl",
+      "Human head",
+      "Human hair",
+      "Mammal",
+      "Dog",
+      "Person",
+      "Human face"
+    ],
+    "question": "How many people are there in the image?",
+    "gt_answer": "There are four people in the image.",
+    "model_answer": "Yes, there are people in the image. They are a family posing for a picture together.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response does not accurately answer the question about the number of people in the image. It acknowledges the presence of people but does not specify how many, which is the main focus of the question. Additionally, the response introduces the idea that the people are a family posing for a picture together, which is not supported by the image contents provided. This constitutes a hallucination, as it adds information not present or implied in the image.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 20,
+    "image_id": "4ad9295d442500a7",
+    "question_type": "relation",
+    "question_topic": "person",
+    "image_content": [
+      "Mammal",
+      "Human nose",
+      "Human mouth",
+      "Human face",
+      "Clothing",
+      "Poster",
+      "Person",
+      "Human hair"
+    ],
+    "question": "Where is the girl positioned among the three people in the image?",
+    "gt_answer": "The girl stands on the right among the three individuals in the image.",
+    "model_answer": "The girl in the red dress is positioned to the left of the two other people in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly states that the girl is positioned to the left of the two other people, while the standard human-generated answer indicates that the girl is actually on the right. This discrepancy shows that the LMM's response is not grounded in the factual information provided by the image contents. Therefore, the response is not only incorrect but also misleading.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 21,
+    "image_id": "4701e0acb21f2e68",
+    "question_type": "environment",
+    "question_topic": "person",
+    "image_content": [
+      "Human face",
+      "Fashion accessory",
+      "Human arm",
+      "Human hair",
+      "Human head",
+      "Human leg",
+      "Man",
+      "Human mouth",
+      "Sunglasses",
+      "Human body",
+      "Swimwear",
+      "Boy",
+      "Goggles"
+    ],
+    "question": "Is the man in the picture indoors or outdoors?",
+    "gt_answer": "The man in the photo is outside, sitting on a boat with several oxygen tanks around him.",
+    "model_answer": "The man in the picture is outdoors.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies that the man is outdoors, which aligns with the information provided in the standard human-generated answer. However, the LMM's response lacks additional context or details that could make it more informative, such as mentioning the presence of a boat or oxygen tanks. Despite this, the response does not contain any hallucinations, as it does not make any false claims about the image contents.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 22,
+    "image_id": "856c000622d66bd9",
+    "question_type": "holistic",
+    "question_topic": "person",
+    "image_content": [
+      "Window",
+      "Clothing",
+      "Person",
+      "Building"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "The image captures a bustling street lined with various shops and an adjoining sidewalk. Several pedestrians are present, with two individuals notably passing a store with a green sign saying \"Hawkin's Bazaar\". At this store's entrance, a man stands, overseeing a spacious window display that houses diverse items, highlighted by a red and white sign. Interestingly, no trees or parked cars are present in the street. The mood is energetic, showcasing individuals engaged in their daily routines and shopping pursuits.",
+    "model_answer": "The image features a small, colorful storefront with a green sign that reads \"Hawkins Bazaar.\" The store is located on a street corner, and it appears to be a shop that sells various items.\n\nThe exact number of people in the scene cannot be determined from the available visual information. They seem to be browsing or shopping in the store.\n\nIn addition to the people, there are a few items visible in the store. The clock is not visible in the living room. The overall atmosphere of the scene is lively and bustling, with people engaging with the store and its offerings.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response provides some accurate details about the image, such as the presence of a storefront with a green sign reading \"Hawkins Bazaar\" and the lively atmosphere. However, it contains a hallucination when it mentions \"The clock is not visible in the living room,\" which is irrelevant and not grounded in the image contents. Additionally, the response lacks some details present in the standard human-generated answer, such as the absence of trees or parked cars and the specific mention of a red and white sign in the window display. Overall, the response is somewhat informative but includes a hallucination.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 23,
+    "image_id": "c3c43c3a0b95b8b7",
+    "question_type": "other",
+    "question_topic": "person",
+    "image_content": [
+      "Person",
+      "Clothing",
+      "Sports equipment",
+      "Mammal",
+      "Footwear"
+    ],
+    "question": "What number is the fastest girl wearing in the picture?",
+    "gt_answer": "The fastest girl in the picture is wearing number 1097.",
+    "model_answer": "The fastest girl in the picture is wearing the number 1019.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that the fastest girl in the picture is wearing the number 1019, which contradicts the standard human-generated answer stating that she is wearing number 1097. This discrepancy indicates that the LMM's response contains a hallucination, as it provides incorrect information about the number the fastest girl is wearing. The response is not informative because it fails to accurately convey the factual information present in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 24,
+    "image_id": "2c6cfffcec6c6463",
+    "question_type": "attribute",
+    "question_topic": "animal",
+    "image_content": [
+      "Dog"
+    ],
+    "question": "What are the colors of the dogs from right to left?",
+    "gt_answer": "The colors of the two dogs from right to left are brown and black.",
+    "model_answer": "The colors of the dogs from right to left are not all white.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is not informative and contains a hallucination. The response does not accurately describe the colors of the dogs as requested. Instead, it provides a vague and incorrect statement that does not align with the image contents or the standard human-generated answer. The LMM's response fails to mention the specific colors of the dogs, which are brown and black, and instead makes an irrelevant statement about the dogs not being all white, which is not grounded in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 25,
+    "image_id": "0c9eb1868c2d1228",
+    "question_type": "adversarial",
+    "question_topic": "animal",
+    "image_content": [
+      "Animal",
+      "Bird"
+    ],
+    "question": "What is a vicuna standing in the sand looking at?",
+    "gt_answer": "There is no vicuna in the image.",
+    "model_answer": "A specific type of bird, such as a seagull, is standing in a sandy area, but its identification cannot be verified without additional visual evidence. The green leaves create a vibrant backdrop for the scene in the park during springtime, enhancing the overall visual appeal. The bird's vibrant colors and unique appearance make it an eye-catching subject in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination. The question asks about a vicuna, which is not present in the image according to the standard human-generated answer. Instead, the LMM describes a bird, possibly a seagull, standing in a sandy area, which is not relevant to the question about a vicuna. Additionally, the LMM introduces elements such as green leaves and a park setting, which are not mentioned in the image contents or the standard human-generated answer. These details are not grounded in the image and therefore constitute hallucination. The response is not informative regarding the question asked.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 26,
+    "image_id": "3f244d0cd047e3b7",
+    "question_type": "comparison",
+    "question_topic": "animal",
+    "image_content": [
+      "Mammal",
+      "Cat"
+    ],
+    "question": "Which cat (left, right or middle) in the image opens its mouth?",
+    "gt_answer": "The cat on the right side of the image opens its mouth.",
+    "model_answer": "The presence of a cat in the image cannot be confirmed.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is incorrect because it claims that the presence of a cat in the image cannot be confirmed, while the image content clearly includes a mammal, specifically a cat. This response fails to address the question about which cat is opening its mouth and contradicts the factual information provided in the image contents. Therefore, the response contains a hallucination.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 27,
+    "image_id": "7283e9f8f21661ea",
+    "question_type": "counting",
+    "question_topic": "animal",
+    "image_content": [
+      "Zebra",
+      "Plant"
+    ],
+    "question": "How many zebras are there in the image?",
+    "gt_answer": "There are six zebras in the image.",
+    "model_answer": "There are six zebras in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately states the number of zebras in the image, which matches the standard human-generated answer. There is no false information or hallucination present in the response. The response is direct and correctly answers the question.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 28,
+    "image_id": "ebbc5c3c4b35bedd",
+    "question_type": "relation",
+    "question_topic": "animal",
+    "image_content": [
+      "Plant",
+      "Sheep",
+      "Tree"
+    ],
+    "question": "Which sheep is in front of the other sheep?",
+    "gt_answer": "The sheep in front of the other sheep is a white sheep.",
+    "model_answer": "The sheep in front of the other sheep is the one with the blue tag in its ear.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that the sheep in front has a blue tag in its ear. However, the image contents provided do not mention any details about a blue tag on the sheep. This constitutes a hallucination, as the LMM introduces information not present or implied in the image. The response is somewhat informative as it attempts to identify a distinguishing feature of the sheep, but the hallucination undermines its accuracy.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 29,
+    "image_id": "952641c85b9f09fe",
+    "question_type": "environment",
+    "question_topic": "animal",
+    "image_content": [
+      "Footwear",
+      "Sports equipment",
+      "Clothing",
+      "Person",
+      "Helmet",
+      "Animal",
+      "Man",
+      "Human leg",
+      "Human body"
+    ],
+    "question": "How was the weather when this picture was captured?",
+    "gt_answer": "When this photo was taken, it was dark at night. This photo shows a horse race at night.",
+    "model_answer": "The image shows a jockey riding a horse on a track, with another jockey riding behind him. The horse is wearing a harness, and the jockeys are wearing helmets for safety. The scene takes place at night, as indicated by the darkness in the image. The presence of a clock in the background suggests that the event is likely a race or a timed competition.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the scene depicted in the image, noting the presence of jockeys, horses, and the nighttime setting. It correctly identifies the darkness in the image, aligning with the standard human-generated answer that mentions the photo was taken at night. The additional detail about the presence of a clock suggesting a race or timed competition is a reasonable inference based on the context of a horse race, and it does not constitute a hallucination. The response is informative and provides a good level of detail without introducing any false claims.\n\n- Rating: 6, very informative with good analysis or reasoning, no hallucination",
+    "rating": 6,
+    "hallucination": 0
+  },
+  {
+    "index": 30,
+    "image_id": "7b6eed2a50ffd046",
+    "question_type": "holistic",
+    "question_topic": "animal",
+    "image_content": [
+      "Zebra",
+      "Tree",
+      "Mammal",
+      "Giraffe",
+      "Plant"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "The image depicts three zebras and four giraffes on a sandy terrain, with trees in the background and a stone structure to the right. Surrounding the scene is fencing, suggesting a controlled environment like a zoo or nature reserve.",
+    "model_answer": "",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "I'm sorry, but I need the LMM response to evaluate it. Could you please provide the response?",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 31,
+    "image_id": "996983a34279806d",
+    "question_type": "other",
+    "question_topic": "animal",
+    "image_content": [
+      "Rhinoceros",
+      "Mammal"
+    ],
+    "question": "Out of the four animals, how many giraffes are there in the image?",
+    "gt_answer": "In the image, there are two rhinos, a giraffe, and a wild horse.",
+    "model_answer": "The image features a group of animals that cannot be identified based on the visual information provided. The zebra is not located in the right half of the image. The animals appear to be peacefully coexisting in the same environment.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucinations. It incorrectly states that the animals cannot be identified, whereas the standard human-generated answer clearly identifies the animals as two rhinos, a giraffe, and a wild horse. Additionally, the LMM mentions a zebra, which is not present in the image according to the standard answer. This indicates that the LMM is providing information not grounded in the image, leading to a false claim. The response is not informative as it fails to address the question about the number of giraffes and provides incorrect information about the animals present.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 32,
+    "image_id": "f1af0ed7187eab00",
+    "question_type": "attribute",
+    "question_topic": "food",
+    "image_content": [
+      "Fruit"
+    ],
+    "question": "Is the kiwi in the front fresh or dried?",
+    "gt_answer": "The kiwi in the front is dried. There are four dried pieces of kiwi in the front, and three fresh ones in the back.",
+    "model_answer": "The kiwi in the front is fresh.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is incorrect because it claims that the kiwi in the front is fresh, whereas the standard human-generated answer indicates that the kiwi in the front is dried. This discrepancy suggests that the LMM has made a false claim about the image contents, which constitutes a hallucination.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 33,
+    "image_id": "4ca36920f24e0fbd",
+    "question_type": "adversarial",
+    "question_topic": "food",
+    "image_content": [
+      "Dessert",
+      "Bread"
+    ],
+    "question": "Is the jam on the bread made of strawberry?",
+    "gt_answer": "In fact, this photo only shows a cut and toasted bread slice. There is no jam on it.",
+    "model_answer": "Yes, the jam on the bread is made of strawberry.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there is strawberry jam on the bread, which contradicts the factual information provided in the image contents and the standard human-generated answer. The image only shows a cut and toasted bread slice without any jam. Therefore, the LMM's response includes a hallucination by asserting the presence of strawberry jam, which is not present in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 34,
+    "image_id": "51389a33f0919915",
+    "question_type": "comparison",
+    "question_topic": "food",
+    "image_content": [
+      "Vegetable",
+      "Tomato",
+      "Food"
+    ],
+    "question": "Compare the tomatoes in the photo.",
+    "gt_answer": "There are three tomatoes from the same vine in the photo. The tomato on the left side is red and ripe, while the two tomatoes in the middle and on the right side are yellow and unripe.",
+    "model_answer": "In the photo, there are three tomatoes hanging from a vine. The second tomato is not located at the center of the arrangement of tomatoes. They all appear to be ripe and ready for harvest. The tomatoes are hanging from the vine, which is a common sight in gardening and agriculture.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly states that all the tomatoes appear to be ripe and ready for harvest, which contradicts the standard human-generated answer indicating that only the tomato on the left is red and ripe, while the other two are yellow and unripe. Additionally, the LMM's claim that the second tomato is not located at the center of the arrangement is not addressed in the standard answer, but it does not directly contradict the information provided. The response is somewhat informative as it describes the tomatoes hanging from a vine, which is relevant to the context of gardening and agriculture, but the incorrect assessment of the ripeness of the tomatoes is a significant error.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 35,
+    "image_id": "071af503f95aee59",
+    "question_type": "counting",
+    "question_topic": "food",
+    "image_content": [
+      "Oyster",
+      "Food",
+      "Invertebrate",
+      "Animal",
+      "Seafood"
+    ],
+    "question": "How many oysters can you see in the photo?",
+    "gt_answer": "There are five oysters visible in the photo.",
+    "model_answer": "There are several oysters visible in the photo, but I cannot provide an exact count without more specific information.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response does not provide an exact count of the oysters, which is the specific information requested in the question. However, it does not make any false claims about the image contents. The response is somewhat informative as it acknowledges the presence of multiple oysters but lacks the precision needed to fully answer the question. There is no hallucination present, as the LMM does not invent or misrepresent any details about the image.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 36,
+    "image_id": "2bbc6adf1cff3456",
+    "question_type": "relation",
+    "question_topic": "food",
+    "image_content": [
+      "Dessert",
+      "Baked goods",
+      "Broccoli",
+      "Fast food",
+      "Cookie"
+    ],
+    "question": "Is the bowl with broccoli on top of the bowl with meatballs?",
+    "gt_answer": "No, the bowl with broccoli is next to the bowl of meatballs.",
+    "model_answer": "The bowl does not have a serving of broccoli placed on top of it.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is not directly addressing the question asked. The question inquires about the spatial relationship between the bowl with broccoli and the bowl with meatballs, specifically whether the bowl with broccoli is on top of the bowl with meatballs. The standard human-generated answer clarifies that the bowl with broccoli is next to the bowl of meatballs. The LMM's response, however, only states that the bowl does not have broccoli placed on top of it, which does not directly answer the question about the relationship between the two bowls. Additionally, the response does not provide any information about the bowl with meatballs, which is relevant to the question. While the response does not contain any false claims, it lacks informativeness regarding the specific query.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 37,
+    "image_id": "af8fe8f491807b09",
+    "question_type": "environment",
+    "question_topic": "food",
+    "image_content": [
+      "Snack",
+      "Clothing",
+      "Mammal",
+      "Person",
+      "Human body",
+      "Human hand",
+      "Fast food",
+      "Food",
+      "Man",
+      "Human arm",
+      "Woman",
+      "Seafood"
+    ],
+    "question": "Is this photo taken in a restaurant, a kitchen, or anywhere else?",
+    "gt_answer": "This photo is taken outdoors, likely on a beach, where a man is cooking on a grill.",
+    "model_answer": "The photo is not taken in a kitchen. The scene includes a variety of people, some of whom are standing around the grill, while others are engaged in conversation or other activities. There is at least one handbag visible in the scene. The overall atmosphere appears to be social and lively, with people enjoying the outdoor cooking experience.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response provides some information about the scene, such as the presence of people and a social atmosphere, which aligns with the standard human-generated answer indicating an outdoor setting. However, the LMM does not explicitly state that the photo is taken outdoors or on a beach, which is a key detail in the standard answer. Additionally, the mention of a handbag is not supported by the image contents provided, which could be considered a hallucination. The response is somewhat informative but includes a hallucination regarding the handbag.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 38,
+    "image_id": "3e018215175254e6",
+    "question_type": "holistic",
+    "question_topic": "food",
+    "image_content": [
+      "Man",
+      "Food",
+      "Clothing",
+      "Vegetable"
+    ],
+    "question": "Describe the activities in this image.",
+    "gt_answer": "In this image we can see a man and two young girls preparing food. The man seems to be a chef with a suit but no hat. The two girls seem to be interns, wearing aprons with a \"BRITANNIA HOTEL\" logo. The man seems to be guiding the girls to prepare the food. In front of them, there is a table with food on it. From left to right, there is a metal bowl of vegetables on a red cutting board, and two plates of meat, possibly saussages.",
+    "model_answer": "In the image, there are three people, two girls and a man, standing in a kitchen and preparing food. They are wearing aprons, indicating that they are cooking together. The man is standing behind the two girls, possibly guiding or assisting them in their culinary endeavors.\n\nNo specific kitchen items can be identified in the scene. There are no visible carrots in the kitchen. The overall atmosphere suggests a collaborative cooking session, with the participants working together to create a delicious meal.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response provides a general description of the scene, mentioning the presence of three people, their activity of preparing food, and the collaborative nature of the cooking session. However, it lacks specific details present in the standard human-generated answer, such as the mention of the \"BRITANNIA HOTEL\" logo on the aprons, the specific items on the table (metal bowl of vegetables, red cutting board, plates of meat), and the role of the man as a chef. The LMM's response also incorrectly states that no specific kitchen items can be identified, which contradicts the image contents as described in the standard answer. This constitutes a hallucination, as it inaccurately describes the scene by omitting identifiable items.\n\nRating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 39,
+    "image_id": "0151d884c5bf5c8c",
+    "question_type": "other",
+    "question_topic": "food",
+    "image_content": [
+      "Fast food",
+      "Clothing",
+      "Snack",
+      "Person",
+      "Food"
+    ],
+    "question": "From this photo, how much does each jerk chicken dumpling cost?",
+    "gt_answer": "Each jerk chicken dumpling costs 5 pounds.",
+    "model_answer": "In the image, there are two jerk chicken dumplings on the grill. The price of each dumpling is 2 pounds.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly states that each jerk chicken dumpling costs 2 pounds, while the standard human-generated answer indicates that the correct price is 5 pounds. This discrepancy shows that the LMM has generated information not present or implied in the image or the standard answer. Additionally, the mention of \"two jerk chicken dumplings on the grill\" is not confirmed by the image contents provided, which could also be considered a hallucination if not supported by the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 40,
+    "image_id": "375e84d28f0d3cbc",
+    "question_type": "attribute",
+    "question_topic": "sports",
+    "image_content": [
+      "Sports equipment",
+      "Parachute"
+    ],
+    "question": "What are the colors of the parachutes in the sky?",
+    "gt_answer": "There are three parachutes in the sky. The one on the left is light green. The one on the top right is orange. The one on the bottom right is blue.",
+    "model_answer": "The parachutes in the sky are blue, green, and orange.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies the colors of the parachutes as blue, green, and orange, which matches the information provided in the standard human-generated answer. However, it does not specify the positions of the parachutes as described in the standard answer. Despite this, the response is accurate in terms of the colors mentioned and does not contain any false claims or hallucinations. The response is concise and provides the necessary information regarding the colors of the parachutes.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 41,
+    "image_id": "bb59841e50eff62e",
+    "question_type": "adversarial",
+    "question_topic": "sports",
+    "image_content": [
+      "Tennis racket",
+      "Ball (Object)"
+    ],
+    "question": "Describe the person playing tennis in this photo.",
+    "gt_answer": "No, there is only a tennis racket and a ball on the ground. No one is playing tennis in this photo.",
+    "model_answer": "Yes, there is a person playing tennis in the photo. There is no evidence confirming that Novak Djokovic is holding a tennis racket.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. The image contents only include a tennis racket and a ball, with no person present. The LMM incorrectly claims that there is a person playing tennis in the photo, which is not supported by the image contents. Additionally, the mention of Novak Djokovic is entirely unfounded and not related to the image. Therefore, the response is not informative and contains false claims.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 42,
+    "image_id": "e304afc041e5c159",
+    "question_type": "comparison",
+    "question_topic": "sports",
+    "image_content": [
+      "Surfboard"
+    ],
+    "question": "Compare the two surfboards in the photo.",
+    "gt_answer": "The two surfboards have different looks. The surfboard on the top has a white and wood color with a simple design. The other one on the bottom is red, with a more complex white and black pattern in the front.",
+    "model_answer": "The number of surfboards in the photo is indeterminate due to lack of visibility.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is not informative and contains a hallucination. The response incorrectly states that the number of surfboards is indeterminate due to lack of visibility, which contradicts the image content that clearly shows two surfboards. The standard human-generated answer provides a description of the two surfboards, indicating that they are visible and can be compared. Therefore, the LMM's response fails to provide any useful information and inaccurately represents the image content.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 43,
+    "image_id": "a66b0731cef5ba7b",
+    "question_type": "counting",
+    "question_topic": "sports",
+    "image_content": [
+      "Horse",
+      "Person",
+      "Mammal",
+      "Tree"
+    ],
+    "question": "How many horses are there in the photo?",
+    "gt_answer": "There are three horses in the photo.",
+    "model_answer": "I apologize for the confusion. The image does not show a person riding a horse. There is a horse located in the left half of the image. The jockey is riding the horse, but the horse's position in the image is not confirmed to be in the center.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination. The response incorrectly states that there is only one horse in the image, while the standard human-generated answer indicates that there are three horses. Additionally, the LMM mentions a jockey riding a horse, which is not confirmed by the image contents provided. These inaccuracies indicate that the LMM's response is not grounded in the factual information from the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 44,
+    "image_id": "ac08533aa9ebadbb",
+    "question_type": "relation",
+    "question_topic": "sports",
+    "image_content": [
+      "Ball (Object)",
+      "Furniture",
+      "Billiard table",
+      "Table"
+    ],
+    "question": "What is the color of the ball on the left?",
+    "gt_answer": "The color of the ball on the left is red or orange.",
+    "model_answer": "The color of the ball on the left is orange.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is consistent with the standard human-generated answer, which states that the ball on the left is either red or orange. The LMM specifies that the ball is orange, which is one of the possible colors mentioned. There is no false claim or hallucination in the response, as it aligns with the information provided in the standard answer. The response is informative as it directly answers the question.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 45,
+    "image_id": "93817e876146e69b",
+    "question_type": "environment",
+    "question_topic": "sports",
+    "image_content": [
+      "Person",
+      "Mammal",
+      "Sports equipment",
+      "Footwear",
+      "Helmet",
+      "Clothing"
+    ],
+    "question": "Is this photo taken indoors or outdoors?",
+    "gt_answer": "The photo is taken indoors, since there is a group of hockey players playing in an ice stadium.",
+    "model_answer": "This photo is taken indoors, specifically on an ice rink.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies that the photo is taken indoors and specifies that it is on an ice rink, which aligns with the standard human-generated answer indicating that the setting is an ice stadium. The response does not introduce any false claims or hallucinations about the image contents. It is concise and directly answers the question, providing a clear and accurate description of the setting.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 46,
+    "image_id": "c548e556693c452c",
+    "question_type": "holistic",
+    "question_topic": "sports",
+    "image_content": [
+      "Human arm",
+      "Footwear",
+      "Football",
+      "Clothing",
+      "Man",
+      "Mammal",
+      "Human body",
+      "Sports equipment",
+      "Human hand"
+    ],
+    "question": "Describe the activity in this photo.",
+    "gt_answer": "In this photo, three players are playing soccer. The first player on the left wears a white and red uniform, and is controlling the ball. The other two players on the right side are from the other team. They wear blue and yellow uniforms. The player closer to the camera is competing with the first player to gain control of the ball, while the other player is at distance.",
+    "model_answer": "In the image, two soccer players are actively engaged in a game on a field. Player X is not wearing a white shirt and red shorts. The soccer ball is located at the coordinates (x, y) in the lower left quadrant of the soccer field, where (x, y) are specific numerical values that can be verified. The players are focused on the ball, likely preparing to make a move or pass it to their teammates. The scene captures the excitement and competitive nature of soccer.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination. It inaccurately states that there are two soccer players, while the image actually contains three players. Additionally, the response mentions specific coordinates for the soccer ball, which is not information that can be derived from the image. The claim about Player X not wearing a white shirt and red shorts is also confusing and does not align with the standard human-generated answer. These inaccuracies indicate that the response includes hallucinated details not present in the image. \n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 47,
+    "image_id": "7bc342d079ac1474",
+    "question_type": "other",
+    "question_topic": "sports",
+    "image_content": [
+      "Person",
+      "Footwear",
+      "Tennis racket",
+      "Sports equipment",
+      "Human arm",
+      "Ball (Object)"
+    ],
+    "question": "Which tournament is this tennis competition?",
+    "gt_answer": "From the text on the ground, this is the Indian Wells tournament.",
+    "model_answer": "This tennis competition is the Indian Wells tournament.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies the tournament as the Indian Wells tournament, which aligns with the information provided in the standard human-generated answer. The response is concise and directly answers the question without introducing any false claims or additional information not present in the image. Therefore, there is no hallucination in the response, and it is informative as it provides the correct identification of the tournament.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 48,
+    "image_id": "9133b173feb0a59a",
+    "question_type": "attribute",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Home appliance",
+      "Cupboard",
+      "Cabinetry",
+      "Kitchen appliance",
+      "Countertop",
+      "Microwave oven",
+      "Furniture",
+      "Sink",
+      "Drawer",
+      "Refrigerator",
+      "House",
+      "Plumbing fixture"
+    ],
+    "question": "What color is the microwave?",
+    "gt_answer": "The microwave is mainly silver, with a black panel.",
+    "model_answer": "The microwave has a metallic finish that appears silver in color.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the color of the microwave as having a metallic finish that appears silver, which aligns with the standard human-generated answer stating that the microwave is mainly silver. The LMM's response does not mention the black panel, but it does not make any false claims about the image contents. Therefore, there is no hallucination present in the response. The response is somewhat informative as it correctly identifies the primary color of the microwave.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 49,
+    "image_id": "29e78aee706861b1",
+    "question_type": "adversarial",
+    "question_topic": "kitchen",
+    "image_content": [
+      "House",
+      "Cupboard",
+      "Kitchen & dining room table",
+      "Cabinetry",
+      "Home appliance",
+      "Table",
+      "Kitchen appliance",
+      "Chair",
+      "Window"
+    ],
+    "question": "How many people are eating in this kitchen?",
+    "gt_answer": "No one is eating in the kitchen. I can see a dining table and four chairs, but there are no people in the sitting there right now.",
+    "model_answer": "0",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is accurate and concise. It correctly identifies that there are no people eating in the kitchen, which aligns with the image contents and the standard human-generated answer. The response does not contain any hallucination, as it does not make any false claims or assumptions about the image. However, the response is minimal and lacks detail or context that could make it more informative.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 50,
+    "image_id": "1b7fae3b7e77482a",
+    "question_type": "comparison",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Kitchen utensil",
+      "Fork",
+      "Spoon",
+      "Tableware",
+      "Toy",
+      "Person"
+    ],
+    "question": "Compare the utensils in the picture.",
+    "gt_answer": "The picture shows a set of three utensils in different views with a white background: A knive with a blue handle, a spoon with a yellow handle, and a red fork with a red handle. They are all made of metal and plastic handle.",
+    "model_answer": "In the image, there are four different utensils displayed. The first utensil is a fork, which is placed on the left side of the image. The knife is not clearly positioned in the image. The spoon is not visible in the image. The fourth utensil is a toothpick, which is placed at the top right corner of the image. These utensils are arranged in a way that showcases their various shapes and sizes, making the image visually interesting and informative.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains several inaccuracies when compared to the image contents and the standard human-generated answer. The LMM incorrectly states that there are four utensils, including a toothpick, which is not mentioned in the image contents or the standard answer. It also claims that the spoon is not visible, which contradicts the standard answer that mentions a spoon with a yellow handle. Additionally, the LMM states that the knife is not clearly positioned, which is not supported by the standard answer. These inaccuracies indicate hallucination in the LMM's response.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 51,
+    "image_id": "d81d745b84568e6a",
+    "question_type": "counting",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Kitchen utensil",
+      "Fork",
+      "Tableware",
+      "Tool"
+    ],
+    "question": "How many forks can you see?",
+    "gt_answer": "There are two forks.",
+    "model_answer": "There are three forks visible in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are three forks visible in the image, while the standard human-generated answer states that there are two forks. This discrepancy indicates that the LMM's response contains a hallucination, as it provides a false claim about the number of forks present in the image. The response is not informative because it inaccurately describes the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 52,
+    "image_id": "0fb3b09b91685b46",
+    "question_type": "relation",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Coffee cup",
+      "Spoon",
+      "Mug",
+      "Tableware",
+      "Kitchen utensil"
+    ],
+    "question": "What are the objects from right to left?",
+    "gt_answer": "The objects from right to left are a lid, a spoon, and a coffee cup.",
+    "model_answer": "The objects from right to left are a coffee mug, a spoon, and a coffee plate.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. The response incorrectly identifies the objects as a \"coffee mug\" and a \"coffee plate,\" whereas the standard human-generated answer correctly identifies them as a \"lid\" and a \"coffee cup.\" The LMM's response does not accurately reflect the objects present in the image, leading to a false claim about the image contents. Therefore, the response is somewhat informative but includes hallucination.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 53,
+    "image_id": "df3e58f3075a5e9a",
+    "question_type": "environment",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Sink",
+      "Gas stove",
+      "Shelf",
+      "Furniture",
+      "Drawer",
+      "Home appliance",
+      "Cabinetry",
+      "Table",
+      "Cupboard",
+      "Countertop",
+      "House",
+      "Chair"
+    ],
+    "question": "At what time is this photo taken?",
+    "gt_answer": "The photo is taken during the day.",
+    "model_answer": "There is no evidence provided to support the claim that this photo was taken during daylight hours, specifically between sunrise and sunset.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is not informative because it does not provide an answer to the question about the time of day the photo was taken. Instead, it focuses on the lack of evidence to support a specific time frame, which does not address the user's query. Additionally, the response does not contain any hallucination, as it does not make any false claims about the image contents. However, it fails to provide any useful information or analysis regarding the time of day.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 54,
+    "image_id": "cda31a3b42057d35",
+    "question_type": "holistic",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Kitchen & dining room table",
+      "Window",
+      "Chair"
+    ],
+    "question": "Describe this photo in detail.",
+    "gt_answer": "This photo features a wooden dining table with four wooden or metal chairs around it. On the table there are two coasters and two glass cups. The table is set on a wooden floor. Behind the table are the wall and two windows.",
+    "model_answer": "The image features a wooden dining table with a green chair placed in front of it. The table is set with two glasses, one on the left side and the other on the right side. The blue cup is closer to the left side of the table . \n\nThe distance of the bowl is positioned approximately 12 inches from the center of the table . There is no person present in the background.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains several inaccuracies and hallucinations. Firstly, it mentions a \"green chair,\" which is not specified in the image contents or the standard human-generated answer. The standard answer mentions four wooden or metal chairs, but not their color. Secondly, the LMM describes a \"blue cup,\" which is not mentioned in the standard answer, which only refers to two glass cups. Additionally, the LMM mentions a \"bowl\" positioned on the table, which is not present in the standard answer or the image contents. These details are not grounded in the provided information, indicating hallucination. The response also lacks informativeness as it does not accurately describe the scene based on the given image contents and standard answer.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 55,
+    "image_id": "4e5670ec1484e9c4",
+    "question_type": "other",
+    "question_topic": "kitchen",
+    "image_content": [
+      "Home appliance",
+      "Toaster",
+      "Oven",
+      "Furniture",
+      "Gas stove",
+      "Drawer",
+      "Cabinetry",
+      "Kitchen appliance"
+    ],
+    "question": "In the picture, which buttons should I use to control the stove above?",
+    "gt_answer": "There are 8 buttons in front of the stainless steel stove, two on the left and six on the right. Since there are also six stoves above, the buttons on the right should be associated with the stoves and used to control them. There is also a digital display to the left of the buttons that shows \"5:27\", which is possibly the current time.",
+    "model_answer": "In the image, there are two knobs on the stove, one on the left side and one on the right side. To control the stove, you should use the knobs to adjust the heat settings for the burners. The knobs are typically used to control the temperature of the burners, allowing you to cook at different temperatures.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination. It incorrectly describes the stove as having two knobs, one on the left and one on the right, when the image actually shows eight buttons in front of the stove, as described in the standard human-generated answer. The LMM's response also fails to mention the digital display showing \"5:27,\" which is a relevant detail in the context of the question. Therefore, the response is not only inaccurate but also less informative than it could be.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 56,
+    "image_id": "64f51a50c1aff6f7",
+    "question_type": "attribute",
+    "question_topic": "accessory",
+    "image_content": [
+      "Umbrella",
+      "Fashion accessory"
+    ],
+    "question": "What color is the umbrella?",
+    "gt_answer": "The umbrella is colorful, containing purple, yellow, teal, and orange.",
+    "model_answer": "",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM response is missing, so I cannot evaluate its quality or determine if there is any hallucination. Please provide the LMM response for evaluation.",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 57,
+    "image_id": "159220398554e6b0",
+    "question_type": "adversarial",
+    "question_topic": "accessory",
+    "image_content": [
+      "Glove",
+      "Clothing",
+      "Fashion accessory"
+    ],
+    "question": "Describe the hands wearing the gloves.",
+    "gt_answer": "Only a pair of black gloves can be observed in the image. There are no hands shown in the image.",
+    "model_answer": "The hands wearing the gloves are large and have a black color.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination because it claims that there are hands wearing the gloves and describes them as large and black. However, the image only shows a pair of black gloves, and there are no hands visible in the image. Therefore, the LMM's response is not grounded in the image contents and includes false information.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 58,
+    "image_id": "886b0014dcc373a3",
+    "question_type": "comparison",
+    "question_topic": "accessory",
+    "image_content": [
+      "Hiking equipment",
+      "Clothing",
+      "Backpack"
+    ],
+    "question": "Compare the two different views of the backpack.",
+    "gt_answer": "The image shows two different views of the same black backpack. On the left side, it shows the inside of the bag, containing a camera, two lenses an other accessories. On the right side, it shows the outside of the bag, and there is a \"Lowepro\" logo on it.",
+    "model_answer": "In the image, there are two different views of the backpack. The first view shows the backpack open, revealing its contents, which include a camera, a lens, and a tripod. The second view shows the backpack closed, with the camera, lens, and tripod still inside. The backpack is not placed on the center of the wooden floor in the living room.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly states that the contents of the backpack include a camera, a lens, and a tripod, while the standard human-generated answer mentions a camera, two lenses, and other accessories. Additionally, the LMM response mentions the backpack is not placed on the center of the wooden floor in the living room, which is not relevant to the image contents or the question. This suggests that the LMM is making assumptions not grounded in the image. Therefore, the response is somewhat informative but contains hallucinations.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 59,
+    "image_id": "df4d61f1d6a84c36",
+    "question_type": "counting",
+    "question_topic": "accessory",
+    "image_content": [
+      "Clothing",
+      "Hat"
+    ],
+    "question": "How many black hats are there in the image?",
+    "gt_answer": "There are five black hats in the image.",
+    "model_answer": "There are six black hats in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are six black hats in the image, while the standard human-generated answer states that there are five black hats. This discrepancy indicates that the LMM's response contains a hallucination, as it provides a count that is not supported by the factual information given in the image contents and the standard answer. Therefore, the response is not accurate and includes a false claim about the number of black hats.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 60,
+    "image_id": "d0f1f4d19520388a",
+    "question_type": "relation",
+    "question_topic": "accessory",
+    "image_content": [
+      "Watch"
+    ],
+    "question": "Describe how the two watches are placed.",
+    "gt_answer": "There are two watches side by side in the photo. The black one is placed on top of and to the left of the red one.",
+    "model_answer": "The two watches are placed side by side on a table, with one being a Garmin watch and the other being a G-Shock watch. The G-Shock watch is positioned on the right side of the display . The Garmin watch has a larger screen, which is visible in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response includes specific brand names for the watches, \"Garmin\" and \"G-Shock,\" which are not mentioned in the image contents or the standard human-generated answer. This constitutes a hallucination, as the response assumes details not provided or implied by the image. Additionally, the response does not accurately describe the placement of the watches as indicated in the standard human-generated answer, which states that the black watch is on top of and to the left of the red one. The LMM's response also incorrectly states that the watches are side by side on a table, which contradicts the standard answer. Therefore, the response is not only hallucinating but also inaccurate in describing the placement of the watches.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 61,
+    "image_id": "e376560f2ca3fbe6",
+    "question_type": "environment",
+    "question_topic": "accessory",
+    "image_content": [
+      "Footwear",
+      "Clothing"
+    ],
+    "question": "Is this photo taken indoors or outdoors?",
+    "gt_answer": "This photo shows a pair of green training shoes on a carpet, so this photo is taken indoors.",
+    "model_answer": "The image features a pair of neon green shoes, likely running shoes, placed on a carpeted floor. The shoes are positioned close to each other, with one shoe slightly overlapping the other. The shoes are a bright red color, but their visibility against the carpet cannot be determined from the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly describes the shoes as \"bright red\" when the image contents and the standard human-generated answer indicate that the shoes are green. This is a false claim about the image contents. Additionally, the response does not directly address whether the photo is taken indoors or outdoors, which is the main focus of the question. Therefore, the response is not informative regarding the question asked and contains a hallucination.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 62,
+    "image_id": "e070667656d27f6d",
+    "question_type": "holistic",
+    "question_topic": "accessory",
+    "image_content": [
+      "Man",
+      "Person",
+      "Clothing",
+      "Human hand",
+      "Human arm",
+      "Fashion accessory",
+      "Woman",
+      "Human body"
+    ],
+    "question": "Describe the details in this photo.",
+    "gt_answer": "In the photo, a woman's hand is holding a man's hand. The woman's hand is wearing a diamond wedding ring, while the man's hand is wearing a simple wedding band. It seems that the woman is in a white dress and the man is in a black suit, but only a part can be seen in this photo. The image is black and white, except the wedding ring and band. This photo is likely taken in a wedding.",
+    "model_answer": "The image features a man and a woman standing close to each other, with their hands intertwined. The woman is not wearing a wedding ring on her left hand, as there is no visible ring on that hand. They appear to be a newly married couple, enjoying their special day together.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly states that the woman is not wearing a wedding ring on her left hand, while the standard human-generated answer clearly mentions that the woman's hand is wearing a diamond wedding ring. This discrepancy indicates that the LMM's response includes a false claim about the image contents. Additionally, the LMM's response lacks detail compared to the standard human-generated answer, as it does not mention the color scheme of the image or the attire of the individuals, which are important details in the photo.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 63,
+    "image_id": "75ed7924c47f984d",
+    "question_type": "other",
+    "question_topic": "accessory",
+    "image_content": [
+      "Cowboy hat",
+      "Man",
+      "Human face",
+      "Clothing",
+      "Human nose",
+      "Fedora",
+      "Human head",
+      "Glasses",
+      "Beard",
+      "Goggles",
+      "Human mouth",
+      "Human body",
+      "Mammal",
+      "Sunglasses",
+      "Human hair"
+    ],
+    "question": "What can you see in the reflection from the sunglasses?",
+    "gt_answer": "A man wearing a top hat and a suit is wearing this pair of sunglasses. From the reflection in his sunglasses, I can vaguely see some people, but not the man himself.",
+    "model_answer": "In the reflection from the sunglasses, you can see the man wearing a top hat and a white shirt. The sunglasses are placed on the man's face, and the reflection shows the top hat and shirt he is wearing.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. The response claims that the reflection in the sunglasses shows the man wearing a top hat and a white shirt, which contradicts the standard human-generated answer. The standard answer states that the reflection shows some people but not the man himself. Therefore, the LMM's response inaccurately describes the reflection, leading to a false claim about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 64,
+    "image_id": "d26d6ba07ad072f6",
+    "question_type": "attribute",
+    "question_topic": "electronic",
+    "image_content": [
+      "Table"
+    ],
+    "question": "What is the color of the laptop?",
+    "gt_answer": "The color of the laptop is silver (or white). A black color sticker is on the laptop.",
+    "model_answer": "The laptop is a light silver color .",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the color of the laptop as light silver, which aligns with the standard human-generated answer. The response does not mention the black color sticker, but this omission does not constitute a hallucination, as it does not introduce any false information. The response is concise and directly answers the question without any false claims.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 65,
+    "image_id": "45069d7de7100c0d",
+    "question_type": "adversarial",
+    "question_topic": "electronic",
+    "image_content": [
+      "Computer mouse"
+    ],
+    "question": "What is playing on the monitor?",
+    "gt_answer": "There is no monitor in the image.",
+    "model_answer": "A white Apple mouse is playing on the monitor.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly claims that a \"white Apple mouse is playing on the monitor,\" when in fact, there is no monitor present in the image. This response is not only inaccurate but also nonsensical, as a computer mouse cannot \"play\" on a monitor. The response fails to provide any informative content related to the question or the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 66,
+    "image_id": "10dda8b9e1534f15",
+    "question_type": "comparison",
+    "question_topic": "electronic",
+    "image_content": [
+      "Ipod",
+      "Mobile phone",
+      "Human hand",
+      "Telephone"
+    ],
+    "question": "Which electronic device is larger?",
+    "gt_answer": "The iPod touch on the left is larger than the iPod nano on the right.",
+    "model_answer": "The larger electronic device is the cell phone, while the smaller device is the iPod.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. It incorrectly identifies the larger electronic device as a cell phone, while the image contents specify an iPod and a mobile phone. The standard human-generated answer clarifies that the iPod touch is larger than the iPod nano, but the LMM's response does not accurately reflect this information. Therefore, the response is not only incorrect but also introduces a false claim about the devices in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 67,
+    "image_id": "b59436505aa102e8",
+    "question_type": "counting",
+    "question_topic": "electronic",
+    "image_content": [
+      "Person",
+      "Telephone",
+      "Human hand",
+      "Mobile phone"
+    ],
+    "question": "How many mobile phones are there in the image?",
+    "gt_answer": "There is one mobile phone in the image.",
+    "model_answer": "There are two mobile phones in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are two mobile phones in the image, which contradicts the standard human-generated answer stating that there is only one mobile phone. This discrepancy indicates that the LMM's response includes a hallucination, as it provides false information about the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 68,
+    "image_id": "0f817e05eecad078",
+    "question_type": "relation",
+    "question_topic": "electronic",
+    "image_content": [
+      "Computer mouse"
+    ],
+    "question": "Is the mouse connected to a computer?",
+    "gt_answer": "No, the mouse is not connected to a computer.",
+    "model_answer": "",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM response is missing, so I cannot evaluate its quality or determine if there is any hallucination. Without the response, I cannot provide an analysis or a rating. If you provide the LMM response, I would be able to assist you further.",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 69,
+    "image_id": "70a3d245181d6d88",
+    "question_type": "environment",
+    "question_topic": "electronic",
+    "image_content": [
+      "Mule"
+    ],
+    "question": "Where was the photo taken?",
+    "gt_answer": "The photo was taken outside with plants and mountains as surroundings.",
+    "model_answer": "The photo was taken in a field.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response states that the photo was taken in a field, which is a plausible setting for a mule. However, the standard human-generated answer provides more specific details, mentioning plants and mountains as surroundings. The LMM's response does not contradict the image contents, but it is less informative than the standard answer. There is no hallucination in the LMM's response, as it does not make any false claims about the image contents.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 70,
+    "image_id": "01a4b22028ed8133",
+    "question_type": "holistic",
+    "question_topic": "electronic",
+    "image_content": [
+      "Television",
+      "Person"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "In this image, I see a book, a pen, and a television on a table. The TV screen shows a man wearing a tie and a suit speaking in a park.",
+    "model_answer": "The image features a man wearing black-rimmed glasses , a navy blue suit , and a red tie . He appears to be the main focus of the scene. The man is positioned at an unspecified location in the image, as the exact coordinates in relation to the horizontal and vertical axes are not provided.\n\nThe number of people visible in the background is unknown. The man in the suit is a speaker at the conference, but it is unclear if he is the center of attention.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response provides a detailed description of the man, including his attire and glasses, which aligns with the image content of a person and a television. However, it introduces information not present in the image or the standard human-generated answer, such as the man being a speaker at a conference and the mention of an unspecified location and background people. These details are not supported by the image contents or the standard answer, indicating hallucination. The response is somewhat informative but includes false claims about the context and setting.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 71,
+    "image_id": "ea32242f60eefff4",
+    "question_type": "other",
+    "question_topic": "electronic",
+    "image_content": [
+      "Laptop",
+      "Computer keyboard"
+    ],
+    "question": "Is this a Macbook or Windows laptop?",
+    "gt_answer": "This is a Macbook, as indicated by the presence of the Apple logo on the keyboard.",
+    "model_answer": "This is a Macbook, which is a laptop computer made by Apple.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies the laptop as a Macbook, which aligns with the standard human-generated answer. The response does not contain any false claims or hallucinations about the image contents. It provides a brief but accurate identification of the laptop as a product made by Apple, which is informative and relevant to the question asked.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 72,
+    "image_id": "efab1896bde1ae53",
+    "question_type": "attribute",
+    "question_topic": "furniture",
+    "image_content": [
+      "Sofa bed",
+      "Loveseat",
+      "Studio couch",
+      "Bed",
+      "Pillow"
+    ],
+    "question": "What are the colors of the pillows from left to right?",
+    "gt_answer": "The colors of the pillows from left to right are white (or grey), yellow, and white (or grey).",
+    "model_answer": "The colors of the pillows from left to right are blue, green, and white.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response incorrectly identifies the colors of the pillows as blue, green, and white, whereas the standard human-generated answer states the colors as white (or grey), yellow, and white (or grey). This discrepancy indicates that the LMM's response contains hallucination, as it provides false information about the colors of the pillows in the image. The response is not informative because it does not accurately describe the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 73,
+    "image_id": "cb1abb0fc94b341a",
+    "question_type": "adversarial",
+    "question_topic": "furniture",
+    "image_content": [
+      "Window",
+      "House",
+      "Sofa bed",
+      "Studio couch",
+      "Bed"
+    ],
+    "question": "What is the color of the chair in the image?",
+    "gt_answer": "There is no chair in the image.",
+    "model_answer": "The color of the chair in the image can be determined from the provided information.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response suggests that the color of the chair can be determined from the image, but according to the image contents and the standard human-generated answer, there is no chair present in the image. This indicates that the LMM's response is based on a false assumption, as it implies the existence of a chair that is not actually present. Therefore, the response contains hallucination.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 74,
+    "image_id": "6c98114a44982486",
+    "question_type": "comparison",
+    "question_topic": "furniture",
+    "image_content": [
+      "Pillow",
+      "Bed",
+      "Furniture",
+      "House",
+      "Building"
+    ],
+    "question": "Which pillow is closer to the camera?",
+    "gt_answer": "The pillow on the right side of the bed is closer to the camera.",
+    "model_answer": "The pillow on the right is closer to the camera.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately identifies the pillow on the right as being closer to the camera, which aligns with the standard human-generated answer. There is no false information or hallucination present in the response. The response is concise and directly answers the question, making it informative.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 75,
+    "image_id": "61ef9eef568ab880",
+    "question_type": "counting",
+    "question_topic": "furniture",
+    "image_content": [
+      "Coffee table",
+      "Furniture",
+      "Sofa bed",
+      "Table",
+      "Chair",
+      "House",
+      "Sports equipment",
+      "Window",
+      "Billiard table"
+    ],
+    "question": "How many chairs are there in the image?",
+    "gt_answer": "There are two chairs in the image.",
+    "model_answer": "The number of chairs in the image is indeterminate due to lack of visibility.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that the number of chairs is indeterminate due to lack of visibility, which contradicts the standard human-generated answer that states there are two chairs in the image. The LMM's response is not informative because it does not provide the correct count of chairs, and it suggests uncertainty where there is none. This indicates a hallucination, as the LMM incorrectly interprets the visibility of the chairs in the image.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 76,
+    "image_id": "8263f3934588cd54",
+    "question_type": "relation",
+    "question_topic": "furniture",
+    "image_content": [
+      "Pillow",
+      "Human arm",
+      "Human body"
+    ],
+    "question": "Which pillow is in front of the other pillows?",
+    "gt_answer": "There are three pillows. The gray pillow in the middle with the red \"paper\" handprint pattern is in front of the other pillows. The other two pillows are white and have a red \"scissors\" handprint pattern and a \"stone\" handprint pattern, respectively.",
+    "model_answer": "The pillow with the red hand is in front of the other pillows.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies the pillow with the red handprint as being in front of the other pillows. However, it lacks detail compared to the standard human-generated answer, which specifies the color and pattern of the other pillows. The LMM's response is accurate but not as informative as it could be, as it does not provide additional context or details about the other pillows. Importantly, there is no hallucination in the response, as it does not make any false claims about the image contents.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 77,
+    "image_id": "78767a54758dcd79",
+    "question_type": "environment",
+    "question_topic": "furniture",
+    "image_content": [
+      "Table",
+      "Furniture",
+      "Chair",
+      "Couch",
+      "House",
+      "Kitchen & dining room table",
+      "Fireplace"
+    ],
+    "question": "What was the weather like when this photo was taken?",
+    "gt_answer": "When this photo was taken, it was already night and the sky was dark.",
+    "model_answer": "The weather in the photo is unclear due to lack of information.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is accurate in stating that the weather cannot be determined from the image contents, which include indoor elements such as a table, chair, couch, and fireplace. The response does not make any false claims or assumptions about the weather, as there is no direct evidence in the image to suggest what the weather was like. The LMM's response is not particularly informative, as it simply states the lack of information, but it does not contain any hallucination.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 78,
+    "image_id": "fdd6663c53007255",
+    "question_type": "holistic",
+    "question_topic": "furniture",
+    "image_content": [
+      "Bed"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "In this image we can see two deck beds with pillows on them and carpet on the floor. The Beds are mainly in the blue color and the pillows are yellow with blue strips.",
+    "model_answer": "The image features a cozy bedroom with two bunk beds, each with a colorful comforter. The beds are positioned close to each other, creating a sense of togetherness in the room.\n\nThere are several pillows scattered around the beds, adding to the comfort and inviting atmosphere of the space. The presence of a chair located in the room The overall scene is warm and welcoming, perfect for rest and rejuvenation.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucinations. It describes the beds as \"bunk beds\" with \"colorful comforters,\" which is not supported by the image contents or the standard human-generated answer. The standard answer describes \"deck beds\" with blue color and yellow pillows with blue stripes, not bunk beds or colorful comforters. Additionally, the LMM mentions a \"chair located in the room,\" which is not mentioned in the standard answer or the image contents. These elements are not grounded in the provided information, indicating hallucination. The response is somewhat informative but includes false claims about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 79,
+    "image_id": "b6b1f6e7715d4f02",
+    "question_type": "other",
+    "question_topic": "furniture",
+    "image_content": [
+      "Bathroom cabinet",
+      "Toilet paper",
+      "Bathroom accessory",
+      "Door",
+      "Toilet"
+    ],
+    "question": "Is the toilet paper used?",
+    "gt_answer": "The toilet paper has not been used because it was folded into a decorative shape.",
+    "model_answer": "Yes, the toilet paper is used, as it is hanging on the wall.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that the toilet paper is used because it is hanging on the wall. This is a hallucination because the image content and the standard human-generated answer indicate that the toilet paper has not been used, as it is folded into a decorative shape. The LMM's response is not only incorrect but also lacks informative value regarding the specific detail of the toilet paper's condition.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 80,
+    "image_id": "c0f90a125ff5ccf3",
+    "question_type": "attribute",
+    "question_topic": "indoor",
+    "image_content": [
+      "Book"
+    ],
+    "question": "What color are these books?",
+    "gt_answer": "These books are red and white.",
+    "model_answer": "These books are red.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is partially correct but incomplete. It correctly identifies that the books are red but fails to mention that they are also white, as indicated in the standard human-generated answer. This omission results in a lack of complete information about the image contents. However, the response does not contain any false claims or hallucinations, as it accurately describes one of the colors present.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  },
+  {
+    "index": 81,
+    "image_id": "9b133468e850a8f8",
+    "question_type": "adversarial",
+    "question_topic": "indoor",
+    "image_content": [
+      "Tableware",
+      "Bowl",
+      "Vase",
+      "Flowerpot"
+    ],
+    "question": "What is in the vase?",
+    "gt_answer": "Nothing is in the vase.",
+    "model_answer": "The vase is empty.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the contents of the vase as being empty, which aligns with the standard human-generated answer. There is no false claim or additional information that is not present or implied in the image. The response is concise and directly answers the question without any hallucination.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 82,
+    "image_id": "8535beba7fa530b1",
+    "question_type": "comparison",
+    "question_topic": "indoor",
+    "image_content": [
+      "Vase"
+    ],
+    "question": "Which vase looks larger?",
+    "gt_answer": "The vase on the right appears larger. Both vases are white with blue and red flowers delicately painted on them.",
+    "model_answer": "The vase on the right looks larger than the one on the left.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response correctly identifies that the vase on the right looks larger than the one on the left, which aligns with the standard human-generated answer. The response is concise and directly answers the question without introducing any false claims or additional information not present in the image. There is no hallucination in the response, as it accurately reflects the content of the image.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 83,
+    "image_id": "9d56e36ffb80ecde",
+    "question_type": "counting",
+    "question_topic": "indoor",
+    "image_content": [
+      "Tree",
+      "Teddy bear",
+      "Plant",
+      "Mammal",
+      "Christmas tree"
+    ],
+    "question": "How many teddy bears are on the stairs?",
+    "gt_answer": "There are six teddy bears on the stairs.",
+    "model_answer": "There are seven teddy bears on the stairs.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are seven teddy bears on the stairs, while the standard human-generated answer states that there are six teddy bears. This discrepancy indicates that the LMM's response contains a hallucination, as it provides a false claim about the number of teddy bears present in the image. Therefore, the response is not accurate and does not align with the factual information provided.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 84,
+    "image_id": "2664ce031523e2f9",
+    "question_type": "relation",
+    "question_topic": "indoor",
+    "image_content": [
+      "Flower",
+      "Houseplant",
+      "Flowerpot",
+      "Table",
+      "Building"
+    ],
+    "question": "Which color flowers are on top, and which color flowers are on the bottom?",
+    "gt_answer": "The blue flowers are on top, and the white flowers are on the bottom.",
+    "model_answer": "The blue flowers are on top, and the white flowers are on the bottom.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately describes the position of the flowers as stated in the standard human-generated answer. It correctly identifies that the blue flowers are on top and the white flowers are on the bottom. There is no hallucination present in the response, as it aligns perfectly with the information provided in the image contents and the standard human-generated answer. The response is concise and directly answers the question without any additional information or analysis.\n\n- Rating: 5, very informative, no hallucination",
+    "rating": 5,
+    "hallucination": 0
+  },
+  {
+    "index": 85,
+    "image_id": "58b8894b0151952e",
+    "question_type": "environment",
+    "question_topic": "indoor",
+    "image_content": [
+      "Person",
+      "Chair",
+      "Window",
+      "Clothing",
+      "Table",
+      "Building",
+      "House",
+      "Furniture"
+    ],
+    "question": "What was the weather like when this photo was taken?",
+    "gt_answer": "When this photo was taken, it was already night and the sky was dark.",
+    "model_answer": "The weather in the photo cannot be definitively classified as sunny due to lack of clear evidence.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response does not directly address the question about the weather when the photo was taken. Instead, it comments on the inability to classify the weather as sunny, which is not relevant to the information provided in the image or the standard human-generated answer. The standard answer indicates that it was night and the sky was dark, which is a clear description of the conditions. The LMM's response does not provide this information and fails to address the actual weather conditions depicted in the image. However, it does not introduce any false claims or hallucinations about the image contents.\n\n- Rating: 3, not informative, no hallucination",
+    "rating": 3,
+    "hallucination": 0
+  },
+  {
+    "index": 86,
+    "image_id": "5040c1ddd04d0415",
+    "question_type": "holistic",
+    "question_topic": "indoor",
+    "image_content": [
+      "Human arm",
+      "Human body",
+      "Infant bed",
+      "Human leg",
+      "Person",
+      "Human nose",
+      "Clothing",
+      "Furniture",
+      "Human ear",
+      "Human eye",
+      "Human face",
+      "Human mouth",
+      "Human head",
+      "Boy",
+      "Human hair",
+      "Animal",
+      "Mammal",
+      "Teddy bear"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "The image features a baby lying in a crib, which is placed in a room with a white background. The baby is wearing a diaper and is sleeping soundly. There are three stuffed animals hanging above the crib, providing a cozy and comforting atmosphere for the baby.",
+    "model_answer": "The image features a baby sleeping peacefully in a crib. The baby is lying on its back, with its head resting on a pillow. The crib is filled with sheets of an unspecified color.\n\nIn addition to the baby, there are three stuffed animals placed around the crib, adding a touch of warmth and playfulness to the scene. The scene includes bright colors such as red, yellow, and blue, soft textures like plush fabric, and engaging shapes such as circles and stars that are visually appealing and inviting for the baby.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response provides a detailed description of the image, mentioning the baby sleeping in a crib and the presence of stuffed animals. However, it introduces several elements not confirmed by the image contents or the standard human-generated answer. Specifically, the LMM mentions the baby lying on a pillow, sheets of an unspecified color, and bright colors such as red, yellow, and blue, as well as shapes like circles and stars. These details are not supported by the image contents provided, which only confirm the presence of a baby, a crib, and a teddy bear. Therefore, the LMM's response includes hallucinations by adding details that are not verifiable from the image.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 87,
+    "image_id": "36a55efe7e823b7f",
+    "question_type": "other",
+    "question_topic": "indoor",
+    "image_content": [
+      "Book"
+    ],
+    "question": "What is the name of the book?",
+    "gt_answer": "The name of the book is \"Proverbial Philosophy.\"",
+    "model_answer": "The name of the book is \"Proverbs Philosophy.\"",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains a hallucination. The response incorrectly identifies the name of the book as \"Proverbs Philosophy\" instead of the correct title, \"Proverbial Philosophy.\" This is a factual error, as the LMM's response does not accurately reflect the information present in the image. Therefore, the response is not informative due to the incorrect book title.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 88,
+    "image_id": "0b566984f99efd97",
+    "question_type": "attribute",
+    "question_topic": "appliance",
+    "image_content": [
+      "Fruit"
+    ],
+    "question": "What is the color of the pot?",
+    "gt_answer": "The color of the pot is silver, with red cherries inside.",
+    "model_answer": "The color of the pot is red.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that the color of the pot is red, which contradicts the standard human-generated answer stating that the pot is silver. This indicates that the LMM's response contains a hallucination, as it provides incorrect information about the pot's color. The response is not informative because it fails to accurately describe the image content.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 89,
+    "image_id": "0af4ba8fd2a7e628",
+    "question_type": "adversarial",
+    "question_topic": "appliance",
+    "image_content": [
+      "Bathroom accessory",
+      "Personal care",
+      "Sink",
+      "Tap"
+    ],
+    "question": "What is being washed in the sink?",
+    "gt_answer": "Nothing is being washed in the sink.",
+    "model_answer": "There is no information available about whether a dish is currently in the sink The sink is filled with water, and the dish is placed inside it. The sink is located in the master bathroom . The presence of the toothbrushes and the bottle suggests that the bathroom is used for personal hygiene and grooming activities.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains hallucination. It incorrectly claims that there is a dish in the sink filled with water, which is not supported by the image contents or the standard human-generated answer. The image contents only mention bathroom accessories, personal care items, a sink, and a tap, with no indication of a dish or water in the sink. Additionally, the response speculates about the location of the sink being in the master bathroom, which is not verifiable from the image contents. Therefore, the response is not only uninformative but also includes false claims.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 90,
+    "image_id": "daded832e3ae26b5",
+    "question_type": "comparison",
+    "question_topic": "appliance",
+    "image_content": [
+      "Kitchen appliance",
+      "Washing machine",
+      "Refrigerator"
+    ],
+    "question": "Which washing machine is taller?",
+    "gt_answer": "The right washing machine with the top load design is taller. Both are white in color.",
+    "model_answer": "The taller washing machine is located on the left side of the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is incorrect because it claims that the taller washing machine is on the left side of the image, whereas the standard human-generated answer states that the right washing machine is taller. This discrepancy indicates that the LMM's response contains a hallucination, as it provides false information about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 91,
+    "image_id": "2eb806ea6284ca7a",
+    "question_type": "counting",
+    "question_topic": "appliance",
+    "image_content": [
+      "Turkey",
+      "Bird",
+      "Animal",
+      "Baked goods"
+    ],
+    "question": "How many chickens are cooked?",
+    "gt_answer": "There is one cooked chicken in the image.",
+    "model_answer": "There are two cooked chickens in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that there are two cooked chickens in the image, while the standard human-generated answer states that there is only one cooked chicken. This discrepancy indicates that the LMM's response contains a hallucination, as it provides false information about the number of cooked chickens present in the image. The response is not informative because it inaccurately describes the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 92,
+    "image_id": "1b6620d950202924",
+    "question_type": "relation",
+    "question_topic": "appliance",
+    "image_content": [
+      "Toilet paper",
+      "Bathroom accessory"
+    ],
+    "question": "What is placed on the tissue paper roll?",
+    "gt_answer": "A screwdriver is placed on the tissue paper roll.",
+    "model_answer": "A toothbrush is placed on the tissue paper roll.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response claims that a toothbrush is placed on the tissue paper roll, which contradicts the standard human-generated answer that states a screwdriver is placed there. Since the LMM's response includes information not present or implied in the image or previous conversation, it constitutes a hallucination. The response is not informative because it provides incorrect information about the image contents.\n\n- Rating: 0, not informative, with hallucination",
+    "rating": 0,
+    "hallucination": 1
+  },
+  {
+    "index": 93,
+    "image_id": "3692c7b2c4697ed9",
+    "question_type": "environment",
+    "question_topic": "appliance",
+    "image_content": [
+      "Countertop",
+      "Tap",
+      "Kitchen appliance",
+      "Window",
+      "Oven",
+      "House",
+      "Microwave oven",
+      "Cabinetry",
+      "Home appliance",
+      "Plumbing fixture",
+      "Sink"
+    ],
+    "question": "What time was the photo taken?",
+    "gt_answer": "The photo was taken at daytime.",
+    "model_answer": "The photo was taken in daylight, as indicated by the presence of sunlight and shadows in the image.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response is consistent with the standard human-generated answer, as both indicate that the photo was taken during the daytime. The LMM provides additional reasoning by mentioning the presence of sunlight and shadows, which are typical indicators of daylight. This reasoning is a positive aspect and does not introduce any false claims or hallucinations. Therefore, the response is informative and free of hallucination.\n\n- Rating: 6, very informative with good analysis or reasoning, no hallucination",
+    "rating": 6,
+    "hallucination": 0
+  },
+  {
+    "index": 94,
+    "image_id": "54568036521c53bd",
+    "question_type": "holistic",
+    "question_topic": "appliance",
+    "image_content": [
+      "Food"
+    ],
+    "question": "Describe the image in detail.",
+    "gt_answer": "In this image, I can see food items (likely Baozi or buns) on papers and a tong kept on a metal stand in an oven and I can see steam on the glass. There are nine of them, arranged into a 3 x 3 grid.",
+    "model_answer": "The image features a tray filled with a variety of green dumplings, likely steamed buns or bao. The dumplings are placed in a container, and some are covered with a clear plastic wrap. The tray is placed on a wooden dining table in the kitchen. The scene suggests that these dumplings are ready to be served or enjoyed.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response contains several inaccuracies when compared to the standard human-generated answer and the image contents. The LMM describes the food items as \"green dumplings\" and mentions that they are \"covered with a clear plastic wrap,\" which is not supported by the image contents. Additionally, the LMM states that the tray is on a \"wooden dining table in the kitchen,\" whereas the standard answer indicates that the food items are on a metal stand in an oven. These discrepancies indicate hallucination in the LMM's response. The response is somewhat informative but contains false claims about the image contents.\n\n- Rating: 1, somewhat informative, with hallucination",
+    "rating": 1,
+    "hallucination": 1
+  },
+  {
+    "index": 95,
+    "image_id": "cabbf79c0a4e40e6",
+    "question_type": "other",
+    "question_topic": "appliance",
+    "image_content": [
+      "Bathroom accessory",
+      "Washing machine",
+      "Drawer",
+      "Furniture",
+      "Bathroom cabinet",
+      "Cabinetry",
+      "Sink",
+      "Plumbing fixture"
+    ],
+    "question": "What is shown in the mirror?",
+    "gt_answer": "The mirrow shows the reflection of the washing machine.",
+    "model_answer": "The specific image or reflection shown in the mirror is a washing machine.",
+    "judge_model": "gpt-4o-2024-08-06",
+    "judge_text": "The LMM's response accurately identifies the reflection in the mirror as a washing machine, which aligns with the standard human-generated answer. There is no false claim or hallucination in the response, and it directly answers the question. However, the response is quite brief and does not provide additional informative content or analysis beyond what is necessary to answer the question.\n\n- Rating: 4, somewhat informative, no hallucination",
+    "rating": 4,
+    "hallucination": 0
+  }
+]

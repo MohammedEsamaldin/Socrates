@@ -9,7 +9,7 @@
     ],
     "question": "What color is the fire hydrant cap in the picture?",
     "gt_answer": "The color of the fire hydrant cap in the image is yellow.",
-    "model_answer": "The fire hydrant cap in the picture is yellow."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -22,7 +22,7 @@
     ],
     "question": "Who is sitting on the bench?",
     "gt_answer": "No one is sitting on the bench.",
-    "model_answer": "No, there is no person wearing a red jacket sitting on the bench. The bench is currently unoccupied and has no visible objects on it, as verified by remote observation."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -38,7 +38,7 @@
     ],
     "question": "Which wooden stool has a vase with red flower on it?",
     "gt_answer": "The left wooden stool has a vase with a red flower on it.",
-    "model_answer": "There is a vase , but the color of the flower"
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -54,7 +54,7 @@
     ],
     "question": "How many traffic lights are there in the image?",
     "gt_answer": "There are four traffic lights in the image.",
-    "model_answer": "There are two traffic lights in the image."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -68,7 +68,7 @@
     ],
     "question": "What colors are the traffic signs at the top, in the middle, and at the bottom?",
     "gt_answer": "The traffic signs at the top and bottom are white, while the one in the center is blue.",
-    "model_answer": "Yes, the traffic signs are located at the center of the road, which is a common practice to ensure that drivers can easily see and follow the directions provided by the signs. This placement helps to maintain order and safety on the road, as drivers can quickly identify the appropriate route or direction to take."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -80,7 +80,7 @@
     ],
     "question": "How would you describe the weather in the image?",
     "gt_answer": "The photo was captured during nighttime, with a dark sky overhead. It depicts a Ferris wheel surrounded by people and illuminated by the lights.",
-    "model_answer": "The image shows a carnival ride with a large, colorful wheel in the center of the scene. The ride is illuminated by lights, creating a vibrant atmosphere. There are visible signs of rain in [specific location] at [specific time]."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -96,7 +96,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "The picture depicts a city street, recently dampened by rain, with a sidewalk lined by trees. There are several cars parked on the right, while others move along the road. A few pedestrians can be seen at a distance on the sidewalk, some of them holding umbrellas to protect themselves from the rain. The trees offer shade and lend a touch of nature to the urban setting. The scene exudes a sense of calm and serenity, emphasized by the glistening wet street and the nearly vacant walkway.",
-    "model_answer": "The image depicts a rainy day in a city, with a wet sidewalk reflecting the surrounding environment. The streetlight is visible from the sidewalk. Main Street is lined with oak trees .\n\nThe exact number of cars parked or driving along the street is unknown. A few people can be seen walking on the sidewalk, likely navigating the wet conditions.\n\nThe number of traffic lights present in the scene is indeterminate based on the available visual information."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -109,7 +109,7 @@
     ],
     "question": "How much is it per hour to park at the parking meter?",
     "gt_answer": "It is $4 per hour to park at the parking meter.",
-    "model_answer": "The parking meter charges $4.00 per hour to park."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -124,7 +124,7 @@
     ],
     "question": "What color are the two cars from right to left in the image?",
     "gt_answer": "The two cars from right to left in the image are black and blue.",
-    "model_answer": "The two cars in the image are blue and black."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -138,7 +138,7 @@
     ],
     "question": "What is the gender of the person riding the motorcycle in the image?",
     "gt_answer": "No one is riding the motorcycle by the roadside in the image.",
-    "model_answer": "The image shows a silver motorcycle parked on the side of the road. The motorcycle is positioned in a way that obscures the view of the rider's body, making it impossible to determine their gender. The focus of the image is on the motorcycle and its surroundings, and there is no clear indication of the rider's gender."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -154,7 +154,7 @@
     ],
     "question": "In the image, which truck (left or right) has its door open?",
     "gt_answer": "The fire truck, which is on the left side of the image, has its door open.",
-    "model_answer": "The truck on the left side of the image has its door closed."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -175,7 +175,7 @@
     ],
     "question": "How many bicycles are there in the image?",
     "gt_answer": "In the image, there are four bicycles: two at the front, one in the middle, and one in the distance.",
-    "model_answer": "There are no bicycles in the image. A child is riding a blue bicycle down a paved path in a park, as confirmed by visual observation."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -189,7 +189,7 @@
     ],
     "question": "How is the yellow boat positioned in relation to the white yacht in the image?",
     "gt_answer": "The yellow boat is positioned in front of the white yacht in the image.",
-    "model_answer": "The yellow boat is positioned in front of the white yacht, with the man standing on the yellow boat."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -208,7 +208,7 @@
     ],
     "question": "What is the weather like in the image?",
     "gt_answer": "In the image, the weather appears to be either sunny or cloudy.",
-    "model_answer": "The weather in the image is cloudy."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -224,7 +224,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "The picture presents a yellow school bus stationed on an urban roadway, alongside a bicyclist. Positioned outside a tattoo establishment, the bus offers a unique urban backdrop. The road is notably calm, with the absence of other vehicles and passersby. The cyclist, equipped with a backpack and helmet, seems to be a student or a regular commuter. Given the tattoo parlor and the school bus, it's plausible that this area is a vibrant commercial or recreational hub frequented by shoppers, students, or those seeking leisure.",
-    "model_answer": "The image does not feature a man wearing a helmet. The man is positioned on the left side of the bus, and the bus is parked on the right side of the street. A stop sign is visible in the background of the specified image .\n\nThere are no backpacks visible in the scene. There is no visible evidence of a motorcycle parked further down the street."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -237,7 +237,7 @@
     ],
     "question": "Which company owns the airplane displayed in the back of the image?",
     "gt_answer": "The airplane in the background of the image is owned by Virgin Airlines.",
-    "model_answer": "The airplane displayed in the back of the image cannot be confirmed as belonging to Virgin Atlantic without additional identification information."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -253,7 +253,7 @@
     ],
     "question": "What are the colors of the shirts worn by the three men from left to right in the image?",
     "gt_answer": "The three men from left to right in the image are wearing green, blue, and red shirts.",
-    "model_answer": "The identities of the three men in the image are not provided."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -276,7 +276,7 @@
     ],
     "question": "Which color are the glasses that the man in the image is wearing?",
     "gt_answer": "The man is not wearing glasses.",
-    "model_answer": "The man in the image is not wearing glasses."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -292,7 +292,7 @@
     ],
     "question": "Who in the picture is wearing trousers?",
     "gt_answer": "The woman in the image wears the pants.",
-    "model_answer": "The woman in the picture is unknown ."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -310,7 +310,7 @@
     ],
     "question": "How many people are there in the image?",
     "gt_answer": "There are four people in the image.",
-    "model_answer": "Yes, there are people in the image. They are a family posing for a picture together."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -329,7 +329,7 @@
     ],
     "question": "Where is the girl positioned among the three people in the image?",
     "gt_answer": "The girl stands on the right among the three individuals in the image.",
-    "model_answer": "The girl in the red dress is positioned to the left of the two other people in the image."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -353,7 +353,7 @@
     ],
     "question": "Is the man in the picture indoors or outdoors?",
     "gt_answer": "The man in the photo is outside, sitting on a boat with several oxygen tanks around him.",
-    "model_answer": "The man in the picture is outdoors."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -368,7 +368,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "The image captures a bustling street lined with various shops and an adjoining sidewalk. Several pedestrians are present, with two individuals notably passing a store with a green sign saying \"Hawkin's Bazaar\". At this store's entrance, a man stands, overseeing a spacious window display that houses diverse items, highlighted by a red and white sign. Interestingly, no trees or parked cars are present in the street. The mood is energetic, showcasing individuals engaged in their daily routines and shopping pursuits.",
-    "model_answer": "The image features a small, colorful storefront with a green sign that reads \"Hawkins Bazaar.\" The store is located on a street corner, and it appears to be a shop that sells various items.\n\nThe exact number of people in the scene cannot be determined from the available visual information. They seem to be browsing or shopping in the store.\n\nIn addition to the people, there are a few items visible in the store. The clock is not visible in the living room. The overall atmosphere of the scene is lively and bustling, with people engaging with the store and its offerings."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -384,7 +384,7 @@
     ],
     "question": "What number is the fastest girl wearing in the picture?",
     "gt_answer": "The fastest girl in the picture is wearing number 1097.",
-    "model_answer": "The fastest girl in the picture is wearing the number 1019."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -396,7 +396,7 @@
     ],
     "question": "What are the colors of the dogs from right to left?",
     "gt_answer": "The colors of the two dogs from right to left are brown and black.",
-    "model_answer": "The colors of the dogs from right to left are not all white."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -409,7 +409,7 @@
     ],
     "question": "What is a vicuna standing in the sand looking at?",
     "gt_answer": "There is no vicuna in the image.",
-    "model_answer": "A specific type of bird, such as a seagull, is standing in a sandy area, but its identification cannot be verified without additional visual evidence. The green leaves create a vibrant backdrop for the scene in the park during springtime, enhancing the overall visual appeal. The bird's vibrant colors and unique appearance make it an eye-catching subject in the image."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -422,7 +422,7 @@
     ],
     "question": "Which cat (left, right or middle) in the image opens its mouth?",
     "gt_answer": "The cat on the right side of the image opens its mouth.",
-    "model_answer": "The presence of a cat in the image cannot be confirmed."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -435,7 +435,7 @@
     ],
     "question": "How many zebras are there in the image?",
     "gt_answer": "There are six zebras in the image.",
-    "model_answer": "There are six zebras in the image."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -449,7 +449,7 @@
     ],
     "question": "Which sheep is in front of the other sheep?",
     "gt_answer": "The sheep in front of the other sheep is a white sheep.",
-    "model_answer": "The sheep in front of the other sheep is the one with the blue tag in its ear."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -469,7 +469,7 @@
     ],
     "question": "How was the weather when this picture was captured?",
     "gt_answer": "When this photo was taken, it was dark at night. This photo shows a horse race at night.",
-    "model_answer": "The image shows a jockey riding a horse on a track, with another jockey riding behind him. The horse is wearing a harness, and the jockeys are wearing helmets for safety. The scene takes place at night, as indicated by the darkness in the image. The presence of a clock in the background suggests that the event is likely a race or a timed competition."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -498,7 +498,7 @@
     ],
     "question": "Out of the four animals, how many giraffes are there in the image?",
     "gt_answer": "In the image, there are two rhinos, a giraffe, and a wild horse.",
-    "model_answer": "The image features a group of animals that cannot be identified based on the visual information provided. The zebra is not located in the right half of the image. The animals appear to be peacefully coexisting in the same environment."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -510,7 +510,7 @@
     ],
     "question": "Is the kiwi in the front fresh or dried?",
     "gt_answer": "The kiwi in the front is dried. There are four dried pieces of kiwi in the front, and three fresh ones in the back.",
-    "model_answer": "The kiwi in the front is fresh."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -523,7 +523,7 @@
     ],
     "question": "Is the jam on the bread made of strawberry?",
     "gt_answer": "In fact, this photo only shows a cut and toasted bread slice. There is no jam on it.",
-    "model_answer": "Yes, the jam on the bread is made of strawberry."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -537,7 +537,7 @@
     ],
     "question": "Compare the tomatoes in the photo.",
     "gt_answer": "There are three tomatoes from the same vine in the photo. The tomato on the left side is red and ripe, while the two tomatoes in the middle and on the right side are yellow and unripe.",
-    "model_answer": "In the photo, there are three tomatoes hanging from a vine. The second tomato is not located at the center of the arrangement of tomatoes. They all appear to be ripe and ready for harvest. The tomatoes are hanging from the vine, which is a common sight in gardening and agriculture."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -553,7 +553,7 @@
     ],
     "question": "How many oysters can you see in the photo?",
     "gt_answer": "There are five oysters visible in the photo.",
-    "model_answer": "There are several oysters visible in the photo, but I cannot provide an exact count without more specific information."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -569,7 +569,7 @@
     ],
     "question": "Is the bowl with broccoli on top of the bowl with meatballs?",
     "gt_answer": "No, the bowl with broccoli is next to the bowl of meatballs.",
-    "model_answer": "The bowl does not have a serving of broccoli placed on top of it."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -592,7 +592,7 @@
     ],
     "question": "Is this photo taken in a restaurant, a kitchen, or anywhere else?",
     "gt_answer": "This photo is taken outdoors, likely on a beach, where a man is cooking on a grill.",
-    "model_answer": "The photo is not taken in a kitchen. The scene includes a variety of people, some of whom are standing around the grill, while others are engaged in conversation or other activities. There is at least one handbag visible in the scene. The overall atmosphere appears to be social and lively, with people enjoying the outdoor cooking experience."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -607,7 +607,7 @@
     ],
     "question": "Describe the activities in this image.",
     "gt_answer": "In this image we can see a man and two young girls preparing food. The man seems to be a chef with a suit but no hat. The two girls seem to be interns, wearing aprons with a \"BRITANNIA HOTEL\" logo. The man seems to be guiding the girls to prepare the food. In front of them, there is a table with food on it. From left to right, there is a metal bowl of vegetables on a red cutting board, and two plates of meat, possibly saussages.",
-    "model_answer": "In the image, there are three people, two girls and a man, standing in a kitchen and preparing food. They are wearing aprons, indicating that they are cooking together. The man is standing behind the two girls, possibly guiding or assisting them in their culinary endeavors.\n\nNo specific kitchen items can be identified in the scene. There are no visible carrots in the kitchen. The overall atmosphere suggests a collaborative cooking session, with the participants working together to create a delicious meal."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -623,7 +623,7 @@
     ],
     "question": "From this photo, how much does each jerk chicken dumpling cost?",
     "gt_answer": "Each jerk chicken dumpling costs 5 pounds.",
-    "model_answer": "In the image, there are two jerk chicken dumplings on the grill. The price of each dumpling is 2 pounds."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -636,7 +636,7 @@
     ],
     "question": "What are the colors of the parachutes in the sky?",
     "gt_answer": "There are three parachutes in the sky. The one on the left is light green. The one on the top right is orange. The one on the bottom right is blue.",
-    "model_answer": "The parachutes in the sky are blue, green, and orange."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -649,7 +649,7 @@
     ],
     "question": "Describe the person playing tennis in this photo.",
     "gt_answer": "No, there is only a tennis racket and a ball on the ground. No one is playing tennis in this photo.",
-    "model_answer": "Yes, there is a person playing tennis in the photo. There is no evidence confirming that Novak Djokovic is holding a tennis racket."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -661,7 +661,7 @@
     ],
     "question": "Compare the two surfboards in the photo.",
     "gt_answer": "The two surfboards have different looks. The surfboard on the top has a white and wood color with a simple design. The other one on the bottom is red, with a more complex white and black pattern in the front.",
-    "model_answer": "The number of surfboards in the photo is indeterminate due to lack of visibility."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -676,7 +676,7 @@
     ],
     "question": "How many horses are there in the photo?",
     "gt_answer": "There are three horses in the photo.",
-    "model_answer": "I apologize for the confusion. The image does not show a person riding a horse. There is a horse located in the left half of the image. The jockey is riding the horse, but the horse's position in the image is not confirmed to be in the center."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -691,7 +691,7 @@
     ],
     "question": "What is the color of the ball on the left?",
     "gt_answer": "The color of the ball on the left is red or orange.",
-    "model_answer": "The color of the ball on the left is orange."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -708,7 +708,7 @@
     ],
     "question": "Is this photo taken indoors or outdoors?",
     "gt_answer": "The photo is taken indoors, since there is a group of hockey players playing in an ice stadium.",
-    "model_answer": "This photo is taken indoors, specifically on an ice rink."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -728,7 +728,7 @@
     ],
     "question": "Describe the activity in this photo.",
     "gt_answer": "In this photo, three players are playing soccer. The first player on the left wears a white and red uniform, and is controlling the ball. The other two players on the right side are from the other team. They wear blue and yellow uniforms. The player closer to the camera is competing with the first player to gain control of the ball, while the other player is at distance.",
-    "model_answer": "In the image, two soccer players are actively engaged in a game on a field. Player X is not wearing a white shirt and red shorts. The soccer ball is located at the coordinates (x, y) in the lower left quadrant of the soccer field, where (x, y) are specific numerical values that can be verified. The players are focused on the ball, likely preparing to make a move or pass it to their teammates. The scene captures the excitement and competitive nature of soccer."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -745,7 +745,7 @@
     ],
     "question": "Which tournament is this tennis competition?",
     "gt_answer": "From the text on the ground, this is the Indian Wells tournament.",
-    "model_answer": "This tennis competition is the Indian Wells tournament."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -768,7 +768,7 @@
     ],
     "question": "What color is the microwave?",
     "gt_answer": "The microwave is mainly silver, with a black panel.",
-    "model_answer": "The microwave has a metallic finish that appears silver in color."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -788,7 +788,7 @@
     ],
     "question": "How many people are eating in this kitchen?",
     "gt_answer": "No one is eating in the kitchen. I can see a dining table and four chairs, but there are no people in the sitting there right now.",
-    "model_answer": "0"
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -805,7 +805,7 @@
     ],
     "question": "Compare the utensils in the picture.",
     "gt_answer": "The picture shows a set of three utensils in different views with a white background: A knive with a blue handle, a spoon with a yellow handle, and a red fork with a red handle. They are all made of metal and plastic handle.",
-    "model_answer": "In the image, there are four different utensils displayed. The first utensil is a fork, which is placed on the left side of the image. The knife is not clearly positioned in the image. The spoon is not visible in the image. The fourth utensil is a toothpick, which is placed at the top right corner of the image. These utensils are arranged in a way that showcases their various shapes and sizes, making the image visually interesting and informative."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -820,7 +820,7 @@
     ],
     "question": "How many forks can you see?",
     "gt_answer": "There are two forks.",
-    "model_answer": "There are three forks visible in the image."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -836,7 +836,7 @@
     ],
     "question": "What are the objects from right to left?",
     "gt_answer": "The objects from right to left are a lid, a spoon, and a coffee cup.",
-    "model_answer": "The objects from right to left are a coffee mug, a spoon, and a coffee plate."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -859,7 +859,7 @@
     ],
     "question": "At what time is this photo taken?",
     "gt_answer": "The photo is taken during the day.",
-    "model_answer": "There is no evidence provided to support the claim that this photo was taken during daylight hours, specifically between sunrise and sunset."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -873,7 +873,7 @@
     ],
     "question": "Describe this photo in detail.",
     "gt_answer": "This photo features a wooden dining table with four wooden or metal chairs around it. On the table there are two coasters and two glass cups. The table is set on a wooden floor. Behind the table are the wall and two windows.",
-    "model_answer": "The image features a wooden dining table with a green chair placed in front of it. The table is set with two glasses, one on the left side and the other on the right side. The blue cup is closer to the left side of the table . \n\nThe distance of the bowl is positioned approximately 12 inches from the center of the table . There is no person present in the background."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -892,7 +892,7 @@
     ],
     "question": "In the picture, which buttons should I use to control the stove above?",
     "gt_answer": "There are 8 buttons in front of the stainless steel stove, two on the left and six on the right. Since there are also six stoves above, the buttons on the right should be associated with the stoves and used to control them. There is also a digital display to the left of the buttons that shows \"5:27\", which is possibly the current time.",
-    "model_answer": "In the image, there are two knobs on the stove, one on the left side and one on the right side. To control the stove, you should use the knobs to adjust the heat settings for the burners. The knobs are typically used to control the temperature of the burners, allowing you to cook at different temperatures."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -919,7 +919,7 @@
     ],
     "question": "Describe the hands wearing the gloves.",
     "gt_answer": "Only a pair of black gloves can be observed in the image. There are no hands shown in the image.",
-    "model_answer": "The hands wearing the gloves are large and have a black color."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -933,7 +933,7 @@
     ],
     "question": "Compare the two different views of the backpack.",
     "gt_answer": "The image shows two different views of the same black backpack. On the left side, it shows the inside of the bag, containing a camera, two lenses an other accessories. On the right side, it shows the outside of the bag, and there is a \"Lowepro\" logo on it.",
-    "model_answer": "In the image, there are two different views of the backpack. The first view shows the backpack open, revealing its contents, which include a camera, a lens, and a tripod. The second view shows the backpack closed, with the camera, lens, and tripod still inside. The backpack is not placed on the center of the wooden floor in the living room."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -946,7 +946,7 @@
     ],
     "question": "How many black hats are there in the image?",
     "gt_answer": "There are five black hats in the image.",
-    "model_answer": "There are six black hats in the image."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -958,7 +958,7 @@
     ],
     "question": "Describe how the two watches are placed.",
     "gt_answer": "There are two watches side by side in the photo. The black one is placed on top of and to the left of the red one.",
-    "model_answer": "The two watches are placed side by side on a table, with one being a Garmin watch and the other being a G-Shock watch. The G-Shock watch is positioned on the right side of the display . The Garmin watch has a larger screen, which is visible in the image."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -971,7 +971,7 @@
     ],
     "question": "Is this photo taken indoors or outdoors?",
     "gt_answer": "This photo shows a pair of green training shoes on a carpet, so this photo is taken indoors.",
-    "model_answer": "The image features a pair of neon green shoes, likely running shoes, placed on a carpeted floor. The shoes are positioned close to each other, with one shoe slightly overlapping the other. The shoes are a bright red color, but their visibility against the carpet cannot be determined from the image."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -990,7 +990,7 @@
     ],
     "question": "Describe the details in this photo.",
     "gt_answer": "In the photo, a woman's hand is holding a man's hand. The woman's hand is wearing a diamond wedding ring, while the man's hand is wearing a simple wedding band. It seems that the woman is in a white dress and the man is in a black suit, but only a part can be seen in this photo. The image is black and white, except the wedding ring and band. This photo is likely taken in a wedding.",
-    "model_answer": "The image features a man and a woman standing close to each other, with their hands intertwined. The woman is not wearing a wedding ring on her left hand, as there is no visible ring on that hand. They appear to be a newly married couple, enjoying their special day together."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -1016,7 +1016,7 @@
     ],
     "question": "What can you see in the reflection from the sunglasses?",
     "gt_answer": "A man wearing a top hat and a suit is wearing this pair of sunglasses. From the reflection in his sunglasses, I can vaguely see some people, but not the man himself.",
-    "model_answer": "In the reflection from the sunglasses, you can see the man wearing a top hat and a white shirt. The sunglasses are placed on the man's face, and the reflection shows the top hat and shirt he is wearing."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -1028,7 +1028,7 @@
     ],
     "question": "What is the color of the laptop?",
     "gt_answer": "The color of the laptop is silver (or white). A black color sticker is on the laptop.",
-    "model_answer": "The laptop is a light silver color ."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -1040,7 +1040,7 @@
     ],
     "question": "What is playing on the monitor?",
     "gt_answer": "There is no monitor in the image.",
-    "model_answer": "A white Apple mouse is playing on the monitor."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -1055,7 +1055,7 @@
     ],
     "question": "Which electronic device is larger?",
     "gt_answer": "The iPod touch on the left is larger than the iPod nano on the right.",
-    "model_answer": "The larger electronic device is the cell phone, while the smaller device is the iPod."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -1070,7 +1070,7 @@
     ],
     "question": "How many mobile phones are there in the image?",
     "gt_answer": "There is one mobile phone in the image.",
-    "model_answer": "There are two mobile phones in the image."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -1094,7 +1094,7 @@
     ],
     "question": "Where was the photo taken?",
     "gt_answer": "The photo was taken outside with plants and mountains as surroundings.",
-    "model_answer": "The photo was taken in a field."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -1107,7 +1107,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "In this image, I see a book, a pen, and a television on a table. The TV screen shows a man wearing a tie and a suit speaking in a park.",
-    "model_answer": "The image features a man wearing black-rimmed glasses , a navy blue suit , and a red tie . He appears to be the main focus of the scene. The man is positioned at an unspecified location in the image, as the exact coordinates in relation to the horizontal and vertical axes are not provided.\n\nThe number of people visible in the background is unknown. The man in the suit is a speaker at the conference, but it is unclear if he is the center of attention."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -1120,7 +1120,7 @@
     ],
     "question": "Is this a Macbook or Windows laptop?",
     "gt_answer": "This is a Macbook, as indicated by the presence of the Apple logo on the keyboard.",
-    "model_answer": "This is a Macbook, which is a laptop computer made by Apple."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -1136,7 +1136,7 @@
     ],
     "question": "What are the colors of the pillows from left to right?",
     "gt_answer": "The colors of the pillows from left to right are white (or grey), yellow, and white (or grey).",
-    "model_answer": "The colors of the pillows from left to right are blue, green, and white."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -1152,7 +1152,7 @@
     ],
     "question": "What is the color of the chair in the image?",
     "gt_answer": "There is no chair in the image.",
-    "model_answer": "The color of the chair in the image can be determined from the provided information."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -1168,7 +1168,7 @@
     ],
     "question": "Which pillow is closer to the camera?",
     "gt_answer": "The pillow on the right side of the bed is closer to the camera.",
-    "model_answer": "The pillow on the right is closer to the camera."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -1188,7 +1188,7 @@
     ],
     "question": "How many chairs are there in the image?",
     "gt_answer": "There are two chairs in the image.",
-    "model_answer": "The number of chairs in the image is indeterminate due to lack of visibility."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -1202,7 +1202,7 @@
     ],
     "question": "Which pillow is in front of the other pillows?",
     "gt_answer": "There are three pillows. The gray pillow in the middle with the red \"paper\" handprint pattern is in front of the other pillows. The other two pillows are white and have a red \"scissors\" handprint pattern and a \"stone\" handprint pattern, respectively.",
-    "model_answer": "The pillow with the red hand is in front of the other pillows."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -1220,7 +1220,7 @@
     ],
     "question": "What was the weather like when this photo was taken?",
     "gt_answer": "When this photo was taken, it was already night and the sky was dark.",
-    "model_answer": "The weather in the photo is unclear due to lack of information."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -1232,7 +1232,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "In this image we can see two deck beds with pillows on them and carpet on the floor. The Beds are mainly in the blue color and the pillows are yellow with blue strips.",
-    "model_answer": "The image features a cozy bedroom with two bunk beds, each with a colorful comforter. The beds are positioned close to each other, creating a sense of togetherness in the room.\n\nThere are several pillows scattered around the beds, adding to the comfort and inviting atmosphere of the space. The presence of a chair located in the room The overall scene is warm and welcoming, perfect for rest and rejuvenation."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -1248,7 +1248,7 @@
     ],
     "question": "Is the toilet paper used?",
     "gt_answer": "The toilet paper has not been used because it was folded into a decorative shape.",
-    "model_answer": "Yes, the toilet paper is used, as it is hanging on the wall."
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -1260,7 +1260,7 @@
     ],
     "question": "What color are these books?",
     "gt_answer": "These books are red and white.",
-    "model_answer": "These books are red."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -1275,7 +1275,7 @@
     ],
     "question": "What is in the vase?",
     "gt_answer": "Nothing is in the vase.",
-    "model_answer": "The vase is empty."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -1287,7 +1287,7 @@
     ],
     "question": "Which vase looks larger?",
     "gt_answer": "The vase on the right appears larger. Both vases are white with blue and red flowers delicately painted on them.",
-    "model_answer": "The vase on the right looks larger than the one on the left."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
@@ -1303,7 +1303,7 @@
     ],
     "question": "How many teddy bears are on the stairs?",
     "gt_answer": "There are six teddy bears on the stairs.",
-    "model_answer": "There are seven teddy bears on the stairs."
+    "model_answer": ""
   },
   {
     "question_type": "relation",
@@ -1319,7 +1319,7 @@
     ],
     "question": "Which color flowers are on top, and which color flowers are on the bottom?",
     "gt_answer": "The blue flowers are on top, and the white flowers are on the bottom.",
-    "model_answer": "The blue flowers are on top, and the white flowers are on the bottom."
+    "model_answer": ""
   },
   {
     "question_type": "environment",
@@ -1338,7 +1338,7 @@
     ],
     "question": "What was the weather like when this photo was taken?",
     "gt_answer": "When this photo was taken, it was already night and the sky was dark.",
-    "model_answer": "The weather in the photo cannot be definitively classified as sunny due to lack of clear evidence."
+    "model_answer": ""
   },
   {
     "question_type": "holistic",
@@ -1367,7 +1367,7 @@
     ],
     "question": "Describe the image in detail.",
     "gt_answer": "The image features a baby lying in a crib, which is placed in a room with a white background. The baby is wearing a diaper and is sleeping soundly. There are three stuffed animals hanging above the crib, providing a cozy and comforting atmosphere for the baby.",
-    "model_answer": "The image features a baby sleeping peacefully in a crib. The baby is lying on its back, with its head resting on a pillow. The crib is filled with sheets of an unspecified color.\n\nIn addition to the baby, there are three stuffed animals placed around the crib, adding a touch of warmth and playfulness to the scene. The scene includes bright colors such as red, yellow, and blue, soft textures like plush fabric, and engaging shapes such as circles and stars that are visually appealing and inviting for the baby."
+    "model_answer": ""
   },
   {
     "question_type": "other",
@@ -1379,7 +1379,7 @@
     ],
     "question": "What is the name of the book?",
     "gt_answer": "The name of the book is \"Proverbial Philosophy.\"",
-    "model_answer": "The name of the book is \"Proverbs Philosophy.\""
+    "model_answer": ""
   },
   {
     "question_type": "attribute",
@@ -1391,7 +1391,7 @@
     ],
     "question": "What is the color of the pot?",
     "gt_answer": "The color of the pot is silver, with red cherries inside.",
-    "model_answer": "The color of the pot is red."
+    "model_answer": ""
   },
   {
     "question_type": "adversarial",
@@ -1406,7 +1406,7 @@
     ],
     "question": "What is being washed in the sink?",
     "gt_answer": "Nothing is being washed in the sink.",
-    "model_answer": "There is no information available about whether a dish is currently in the sink The sink is filled with water, and the dish is placed inside it. The sink is located in the master bathroom . The presence of the toothbrushes and the bottle suggests that the bathroom is used for personal hygiene and grooming activities."
+    "model_answer": ""
   },
   {
     "question_type": "comparison",
@@ -1420,7 +1420,7 @@
     ],
     "question": "Which washing machine is taller?",
     "gt_answer": "The right washing machine with the top load design is taller. Both are white in color.",
-    "model_answer": "The taller washing machine is located on the left side of the image."
+    "model_answer": ""
   },
   {
     "question_type": "counting",
