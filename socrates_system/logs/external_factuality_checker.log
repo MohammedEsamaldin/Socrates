@@ -1252,3 +1252,9 @@
 2025-08-26 03:53:25,111 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
 2025-08-26 03:53:25,112 - socrates_system.modules.external_factuality_checker - INFO - OpenAI API key not set; skipping OpenAI fallback
 2025-08-26 03:53:25,112 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.00)
+2025-08-26 23:17:35,935 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-26 23:17:35,936 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-26 23:17:35,936 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-26 23:19:53,381 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-26 23:19:53,382 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-26 23:19:53,382 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully

@@ -199,8 +199,14 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Evaluate MME with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the MME_Benchmark directory or dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
-    p.add_argument("--provider", default=None, help="LLM provider (ollama|openai|claude)")
-    p.add_argument("--model", default=None, help="Model name for the provider")
+    # Back-compat defaults (used if separate SUT/pipeline not specified)
+    p.add_argument("--provider", default=None, help="Default LLM provider for both SUT and pipeline (ollama|openai|claude|llava_hf)")
+    p.add_argument("--model", default=None, help="Default model name for the provider")
+    # Separate configuration (optional)
+    p.add_argument("--sut-provider", dest="sut_provider", default=None, help="Provider for baseline generation (system-under-test), e.g., llava_hf|ollama|openai|claude")
+    p.add_argument("--sut-model", dest="sut_model", default=None, help="Model for SUT generation, e.g., liuhaotian/llava-v1.5-7b or llava:13b")
+    p.add_argument("--pipeline-provider", dest="pipeline_provider", default=None, help="Provider for MITM pipeline (claims/clarification/etc), e.g., openai")
+    p.add_argument("--pipeline-model", dest="pipeline_model", default=None, help="Model for MITM pipeline, e.g., gpt-4o-mini")
     p.add_argument("--limit", type=int, default=None, help="Max samples to process")
     p.add_argument("--no-resume", action="store_true", help="Disable resume from checkpoints")
     p.add_argument("--max-gen-tokens", type=int, default=512)
@@ -218,8 +224,14 @@ def main():
     evaluator = MMEEvaluator(
         dataset_path=args.dataset,
         run_dir=args.run_dir,
+        # Back-compat defaults
         provider=args.provider,
         model_name=args.model,
+        # Separate SUT vs pipeline
+        sut_provider=(args.sut_provider or args.provider),
+        sut_model_name=(args.sut_model or args.model),
+        pipeline_provider=(args.pipeline_provider or args.provider),
+        pipeline_model_name=(args.pipeline_model or args.model),
         limit=args.limit,
         resume=not args.no_resume,
         max_gen_tokens=args.max_gen_tokens,

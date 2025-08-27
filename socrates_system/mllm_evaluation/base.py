@@ -36,6 +36,11 @@ class BaseEvaluator:
         fallback_keys: Optional[List[str]] = None,
         image_key: Optional[str] = None,
         image_root: Optional[str] = None,
+        # New: allow separate providers/models for SUT vs pipeline
+        sut_provider: Optional[str] = None,
+        sut_model_name: Optional[str] = None,
+        pipeline_provider: Optional[str] = None,
+        pipeline_model_name: Optional[str] = None,
     ) -> None:
         self.dataset_path = dataset_path
         # If the provided run_dir already contains checkpoints for this run, honor it as-is.
@@ -58,9 +63,21 @@ class BaseEvaluator:
         self.ckpt = CheckpointManager(self.run_dir)
 
         # Build model (system-under-test) and pipeline
-        self.llm_manager: LLMManager = build_llm_manager(provider=provider, model_name=model_name)
+        # Backward compatible defaults: if not specified, use `provider`/`model_name` for both.
+        _sut_provider = sut_provider or provider
+        _sut_model = sut_model_name or model_name
+        _pipe_provider = pipeline_provider or provider
+        _pipe_model = pipeline_model_name or model_name
+
+        # LLM used for pipeline (claims/clarification/factuality)
+        self.pipeline_llm_manager: LLMManager = build_llm_manager(provider=_pipe_provider, model_name=_pipe_model)
+        # Alias for backward compat (other modules may reference self.llm_manager)
+        self.llm_manager: LLMManager = self.pipeline_llm_manager
+        # LLM used for generating the system-under-test answer (can be different, e.g., LLaVA)
+        self.sut_llm_manager: LLMManager = build_llm_manager(provider=_sut_provider, model_name=_sut_model)
+
         self.pipeline = build_pipeline(
-            llm_manager=self.llm_manager,
+            llm_manager=self.pipeline_llm_manager,
             factuality_enabled=True,
             clarification_enabled=True,
             clarification_dev_mode=False,
@@ -81,8 +98,10 @@ class BaseEvaluator:
         self.ckpt.write_meta({
             "benchmark": self.BENCHMARK_NAME,
             "dataset_path": os.path.abspath(self.dataset_path),
-            "provider": getattr(self.llm_manager, "provider").value,
-            "model": getattr(self.llm_manager, "model_name"),
+            "sut_provider": getattr(self.sut_llm_manager, "provider").value,
+            "sut_model": getattr(self.sut_llm_manager, "model_name"),
+            "pipeline_provider": getattr(self.pipeline_llm_manager, "provider").value,
+            "pipeline_model": getattr(self.pipeline_llm_manager, "model_name"),
             "max_gen_tokens": self.max_gen_tokens,
             "temperature": self.temperature,
             "image_key": self.image_key,
@@ -189,10 +208,10 @@ class BaseEvaluator:
         user_res = process_user_turn(self.pipeline, prompt, image_path=image_path)
         edited_prompt = user_res["corrected_text"] or prompt
 
-        # 2) Model generation on edited prompt
+        # 2) Model generation on edited prompt (SUT LLM)
         try:
-            model_out = self.llm_manager.generate_text(
-                edited_prompt,  
+            model_out = self.sut_llm_manager.generate_text(
+                edited_prompt,
                 max_tokens=self.max_gen_tokens,
                 temperature=self.temperature,
                 images=[image_path] if image_path else None,

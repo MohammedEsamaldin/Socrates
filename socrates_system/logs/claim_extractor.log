@@ -20529,3 +20529,180 @@ Note that I've split the compound statement into a single atomic claim, and assi
 2025-08-26 03:52:54,723 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Is France, the leading importing country of gold, silverware, and jewelry with the highest import value in 2018' -> 'Is France, the leading importing country of gold, silverware, and jewelry with the highest import value in 2018?'
 2025-08-26 03:52:54,723 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
 2025-08-26 03:52:54,730 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:17:27,138 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-26 23:17:31,864 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-26 23:17:35,934 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-26 23:17:35,952 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "angie's"? Please answer yes or no....
+2025-08-26 23:17:36,258 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 146, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens, images=images)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 607, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,262 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-26 23:17:36,263 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: ...
+2025-08-26 23:17:36,263 - socrates_system.modules.claim_extractor - WARNING - Empty input text provided
+2025-08-26 23:17:36,264 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "angle's"? Please answer yes or no....
+2025-08-26 23:17:36,310 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 146, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens, images=images)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 607, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,311 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-26 23:17:36,311 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: ...
+2025-08-26 23:17:36,311 - socrates_system.modules.claim_extractor - WARNING - Empty input text provided
+2025-08-26 23:17:36,312 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "c'est cheese"? Please answer yes or no....
+2025-08-26 23:17:36,357 - socrates_system.modules.claim_extractor - ERROR - Error in LLM-based claim extraction: OPENAI_API_KEY not provided, falling back to rule-based extraction.
+Traceback (most recent call last):
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/claim_extractor.py", line 216, in _extract_claims_with_llm
+    llm_response_str = self.llm_manager.generate_text(prompt, max_tokens=8192)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 146, in generate_text
+    response = loop.run_until_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/miniconda3/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 479, in _call_llm
+    return await self._call_openai(prompt, system_prompt, temperature, max_tokens, images=images)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammed/Desktop/Socrates/Socrates/socrates_system/modules/llm_manager.py", line 607, in _call_openai
+    raise RuntimeError("OPENAI_API_KEY not provided")
+RuntimeError: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,357 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2025-08-26 23:17:36,358 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: ...
+2025-08-26 23:17:36,358 - socrates_system.modules.claim_extractor - WARNING - Empty input text provided
+2025-08-26 23:19:45,340 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-26 23:19:49,275 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-26 23:19:53,380 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-26 23:19:53,392 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "angie's"? Please answer yes or no....
+2025-08-26 23:19:56,012 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "The word in the logo is 'angie's'.",
+    "categories": ["FACTUAL"],
+    "entities": ["angie's"],
+    "relations": [["word","is","angie's"]],
+    "source_context": "short span or turn id",
+    "confidence": "Medium",
+    "ambiguity_reason": "The logo is not visible to verify the claim.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true
+  }
+]'
+2025-08-26 23:20:02,440 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.94): 'The word in the logo is 'angie's'' -> 'Is the word in the logo "angie's"?'
+2025-08-26 23:20:02,443 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:20:02,445 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:20:58,247 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-26 23:21:00,188 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": [],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement is vague and does not provide specific information.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": false
+  }
+]'
+2025-08-26 23:21:02,509 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-26 23:21:02,510 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:21:02,510 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:21:35,592 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "angle's"? Please answer yes or no....
+2025-08-26 23:21:37,884 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "The word in the logo is 'angle's'.",
+    "categories": ["FACTUAL"],
+    "entities": ["angle's"],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Medium",
+    "ambiguity_reason": "The context of the logo is unclear.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true
+  }
+]'
+2025-08-26 23:21:38,409 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'The word in the logo is 'angle's'' -> 'Is the word in the logo "angle's"?'
+2025-08-26 23:21:38,409 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:21:38,410 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:21:54,215 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-26 23:21:56,306 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement is unclear and does not provide specific information.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false
+  }
+]'
+2025-08-26 23:21:56,650 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-26 23:21:56,650 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:21:56,650 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:22:10,398 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is the word in the logo "c'est cheese"? Please answer yes or no....
+2025-08-26 23:22:12,831 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "The word in the logo is 'c'est cheese'.",
+    "categories": ["FACTUAL"],
+    "entities": ["c'est cheese"],
+    "relations": [["word","is","c'est cheese"]],
+    "source_context": "short span or turn id",
+    "confidence": "Medium",
+    "ambiguity_reason": "The context of the logo is not specified.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": false
+  }
+]'
+2025-08-26 23:22:13,995 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.95): 'The word in the logo is 'c'est cheese'' -> 'Is the word in the logo "c'est cheese"?'
+2025-08-26 23:22:13,995 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:22:13,997 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-26 23:22:42,118 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-26 23:22:44,571 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SUBJECTIVE/OPINION"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement is vague and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": false
+  }
+]'
+2025-08-26 23:22:44,648 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-26 23:22:44,649 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-26 23:22:44,649 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims

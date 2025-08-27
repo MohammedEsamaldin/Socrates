@@ -1,0 +1,6 @@
+0001.jpg	Is the word in the logo "angie's"? Please answer yes or no.	Yes	
+0001.jpg	Is the word in the logo "angle's"? Please answer yes or no.	No	
+0002.jpg	Is the word in the logo "c'est cheese"? Please answer yes or no.	Yes	
+0001.jpg	Is the word in the logo "angie's"? Please answer yes or no.	Yes	Yes.
+0001.jpg	Is the word in the logo "angle's"? Please answer yes or no.	No	No.
+0002.jpg	Is the word in the logo "c'est cheese"? Please answer yes or no.	Yes	Yes.

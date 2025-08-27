@@ -957,3 +957,10 @@
 2025-08-26 03:10:14,877 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
 2025-08-26 03:10:32,454 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
 2025-08-26 03:10:32,454 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-26 23:17:26,519 - socrates_system.modules.llm_manager - WARNING - OPENAI_API_KEY not set; OpenAI calls will fail
+2025-08-26 23:17:27,137 - socrates_system.modules.llm_manager - WARNING - OpenAI connectivity check failed: HTTP 401
+2025-08-26 23:17:27,138 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-26 23:19:45,336 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-26 23:19:45,340 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-26 23:20:05,666 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-26 23:20:05,666 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b

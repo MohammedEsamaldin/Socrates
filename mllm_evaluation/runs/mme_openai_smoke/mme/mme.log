@@ -1,0 +1,23 @@
+2025-08-26 23:17:35,951 - INFO - Loaded 40 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/OCR
+2025-08-26 23:17:35,952 - INFO - Resuming with 0 already processed samples
+2025-08-26 23:17:36,262 - ERROR - Generation error for sample OCR/0001#1: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,263 - INFO - Sample OCR/0001#1 - Original model output: 
+2025-08-26 23:17:36,263 - INFO - Sample OCR/0001#1 - Corrected model output: 
+2025-08-26 23:17:36,311 - ERROR - Generation error for sample OCR/0001#2: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,311 - INFO - Sample OCR/0001#2 - Original model output: 
+2025-08-26 23:17:36,311 - INFO - Sample OCR/0001#2 - Corrected model output: 
+2025-08-26 23:17:36,358 - ERROR - Generation error for sample OCR/0002#1: OPENAI_API_KEY not provided
+2025-08-26 23:17:36,358 - INFO - Sample OCR/0002#1 - Original model output: 
+2025-08-26 23:17:36,358 - INFO - Sample OCR/0002#1 - Corrected model output: 
+2025-08-26 23:17:36,359 - INFO - Reached sample limit 3; stopping.
+2025-08-26 23:17:36,359 - INFO - Evaluation complete. MME results written to: mllm_evaluation/runs/mme_openai_smoke/mme_results
+2025-08-26 23:19:53,390 - INFO - Loaded 40 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/OCR
+2025-08-26 23:19:53,391 - INFO - Resuming with 0 already processed samples
+2025-08-26 23:21:35,590 - INFO - Sample OCR/0001#1 - Original model output: Yes.
+2025-08-26 23:21:35,590 - INFO - Sample OCR/0001#1 - Corrected model output: Yes.
+2025-08-26 23:22:10,396 - INFO - Sample OCR/0001#2 - Original model output: No.
+2025-08-26 23:22:10,396 - INFO - Sample OCR/0001#2 - Corrected model output: No.
+2025-08-26 23:23:04,014 - INFO - Sample OCR/0002#1 - Original model output: Yes.
+2025-08-26 23:23:04,014 - INFO - Sample OCR/0002#1 - Corrected model output: Yes.
+2025-08-26 23:23:04,018 - INFO - Reached sample limit 3; stopping.
+2025-08-26 23:23:04,018 - INFO - Evaluation complete. MME results written to: mllm_evaluation/runs/mme_openai_smoke/mme_results
