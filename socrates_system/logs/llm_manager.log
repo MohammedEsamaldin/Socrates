@@ -964,3 +964,1808 @@
 2025-08-26 23:19:45,340 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
 2025-08-26 23:20:05,666 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
 2025-08-26 23:20:05,666 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 02:15:00,201 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:15:00,202 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:15:01,172 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:15:01,172 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:15:14,660 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 02:15:14,660 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 02:19:21,565 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:19:21,567 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:19:22,591 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:19:22,592 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:19:40,612 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 02:19:40,613 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 02:48:06,047 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:48:06,049 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:48:06,610 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:48:06,610 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:48:24,201 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 02:48:24,201 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 02:49:44,109 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:49:44,110 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:49:44,457 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 02:49:44,458 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 02:50:06,271 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 02:50:06,272 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 03:21:35,038 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 03:21:35,043 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 03:21:35,923 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 03:21:35,923 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 03:21:54,082 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 03:21:54,082 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 03:26:05,449 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 03:26:05,450 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 03:32:54,777 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 03:32:54,779 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 03:32:55,553 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 03:32:55,554 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 03:33:14,652 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 03:33:14,652 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 07:13:39,568 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:39,734 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:40,135 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:40,306 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:40,513 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:41,180 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:59,241 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:59,395 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:59,703 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:59,840 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:03,547 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:03,794 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:26,538 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:26,685 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:27,056 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:27,224 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:27,457 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:43,343 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:43,498 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:43,862 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:43,998 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:44,230 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:44,829 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:45,083 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:54,924 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:55,140 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:55,462 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:55,667 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:55,911 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:56,598 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:57,061 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:19,451 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:19,604 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:31,144 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:53,267 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:53,405 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:53,761 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:53,934 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:54,514 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:55,146 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:55,658 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:01,964 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:04,841 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:05,009 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:05,212 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:05,705 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:05,920 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:20,760 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:20,934 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:21,301 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:21,485 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:21,717 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:21,862 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:22,118 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:38,364 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:38,504 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:41,312 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:41,536 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:45,094 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:54,836 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:55,004 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:55,332 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:55,478 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:55,728 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:29,594 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:29,732 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:31,900 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:32,118 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:32,760 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:32,996 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:38,710 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:38,856 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:39,180 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:39,330 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:39,544 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:39,898 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:40,137 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:46,938 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:47,106 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:47,466 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:47,641 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:47,847 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:48,364 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:48,548 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:05,702 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:05,849 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:06,173 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:06,343 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:06,530 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:07,322 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:07,697 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:12,282 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:12,459 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:12,735 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:12,920 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:13,166 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:35,536 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:35,726 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:36,057 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:36,230 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:36,411 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:36,743 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:36,930 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:42,324 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:42,506 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:42,779 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:42,953 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:46,626 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:46,972 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:05,320 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:05,463 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:05,815 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:05,985 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:06,214 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:06,853 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:07,049 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:26,545 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:26,908 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:27,244 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:27,417 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:27,625 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:28,236 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:28,473 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:34,988 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:35,159 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:35,522 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:35,662 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:35,897 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:36,467 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:36,670 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:09,032 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:09,223 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:09,517 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:09,682 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:09,914 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:10,441 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:10,640 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:41,670 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:41,806 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:42,280 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:42,417 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:42,614 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:43,282 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:43,857 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:06,000 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:06,301 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:06,592 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:06,743 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:07,068 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:07,716 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:08,071 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:43,565 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:43,740 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:44,296 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:44,428 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:44,636 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:45,173 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:45,387 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:51,220 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:51,413 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:51,789 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:54,595 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:55,070 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:55,293 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:27:36,648 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 07:27:36,650 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 07:27:37,194 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 07:27:37,196 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 07:27:56,347 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 07:27:56,348 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 07:28:09,651 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:09,970 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:10,128 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:10,318 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:10,459 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:10,666 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:16,000 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:16,171 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:16,517 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:16,657 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:16,842 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:24,056 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:35,526 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:35,698 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:36,031 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:36,204 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:36,452 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:37,655 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:37,887 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:43,745 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:43,924 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:44,260 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:44,387 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:44,602 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:45,143 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:45,403 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:36:09,164 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 07:36:09,164 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 07:36:10,098 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 07:36:10,104 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 07:36:30,746 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 07:36:30,746 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 07:39:58,228 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:40:02,742 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:40:02,940 - socrates_system.modules.llm_manager - ERROR - LLM request failed: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 15:36:47,969 - socrates_system.modules.llm_manager - WARNING - OPENAI_API_KEY not set; OpenAI calls will fail
+2025-08-27 15:36:49,144 - socrates_system.modules.llm_manager - WARNING - OpenAI connectivity check failed: HTTP 401
+2025-08-27 15:36:49,145 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 15:36:49,145 - socrates_system.modules.llm_manager - WARNING - OPENAI_API_KEY not set; OpenAI calls will fail
+2025-08-27 15:36:49,481 - socrates_system.modules.llm_manager - WARNING - OpenAI connectivity check failed: HTTP 401
+2025-08-27 15:36:49,482 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 15:40:44,665 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4.1-nano-2025-04-14)
+2025-08-27 15:40:44,668 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 15:40:45,542 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 15:40:45,544 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 15:41:06,953 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 15:41:06,953 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 16:05:54,238 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4.1-nano-2025-04-14)
+2025-08-27 16:05:54,240 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 16:05:54,887 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 16:05:54,889 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 16:06:28,514 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 16:06:28,514 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b

@@ -1258,3 +1258,641 @@
 2025-08-26 23:19:53,381 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
 2025-08-26 23:19:53,382 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
 2025-08-26 23:19:53,382 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 02:15:09,633 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 02:15:09,634 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 02:15:09,634 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 02:19:30,300 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 02:19:30,301 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 02:19:30,301 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 02:33:53,472 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The response 'Yes' pertains to the question about whether the new policy will be implemented next month.
+2025-08-27 02:33:57,020 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 02:34:00,703 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 02:35:50,105 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The response 'Yes' pertains to the question about whether the event will occur next week.
+2025-08-27 02:35:53,547 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 02:35:57,859 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 02:48:14,031 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 02:48:14,032 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 02:48:14,032 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 02:49:52,007 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 02:49:52,008 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 02:49:52,008 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 02:57:16,600 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 02:57:20,092 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 02:57:25,080 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 02:59:35,307 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 02:59:38,702 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 02:59:43,981 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:01:49,327 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 03:01:52,730 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:01:57,426 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:02:39,495 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 03:02:42,876 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:02:48,356 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:04:16,425 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 03:04:19,878 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:04:24,444 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:05:02,870 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 03:05:06,168 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:05:12,160 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:07:12,467 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Fogg Art Museum is located at Harvard University in Cambridge, Massachusetts.
+2025-08-27 03:07:15,969 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:07:19,733 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:08:47,094 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Fogg Art Museum is located at Harvard University
+2025-08-27 03:08:50,451 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:08:54,347 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:09:15,637 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Fogg Art Museum is located in Cambridge, Massachusetts.
+2025-08-27 03:09:19,102 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:09:22,466 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:09:55,755 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in museo civico , pistoia
+2025-08-27 03:09:59,106 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:10:02,880 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:11:05,240 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is a type of portrait known as a formal portrait.
+2025-08-27 03:11:08,779 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:11:12,536 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:11:21,592 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork may be classified as a formal portrait .
+2025-08-27 03:11:25,043 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:11:30,875 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:12:22,769 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified.
+2025-08-27 03:12:26,159 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:12:29,315 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:12:36,974 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified .
+2025-08-27 03:12:40,404 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:12:44,905 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:13:04,095 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified.
+2025-08-27 03:13:07,419 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:13:12,077 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:13:21,455 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified .
+2025-08-27 03:21:43,715 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 03:21:43,716 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 03:21:43,716 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 03:23:15,260 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified.
+2025-08-27 03:23:18,719 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:23:23,928 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:23:32,079 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific genre that needs to be identified .
+2025-08-27 03:23:35,468 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:23:39,028 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:23:56,583 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by antoniazzo romano
+2025-08-27 03:23:59,885 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:24:05,664 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:25:01,936 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artist of this artwork is currently unknown and cannot be definitively attributed to Gentile da Fabriano
+2025-08-27 03:25:05,271 - socrates_system.modules.external_factuality_checker - INFO - tavily-python not installed; skipping Tavily fallback
+2025-08-27 03:25:10,382 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:26:05,424 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 03:26:05,450 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 03:26:05,450 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 03:33:03,131 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 03:33:03,131 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 03:33:03,131 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 03:33:53,549 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Gentile da Fabriano
+2025-08-27 03:34:03,547 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:34:14,677 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Alma-Tadema .
+2025-08-27 03:34:24,811 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:35:11,423 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 03:35:24,409 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:36:26,811 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific tapestry titled 'The Tapestry of Life'.
+2025-08-27 03:36:35,922 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:36:47,127 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: There is no known artwork titled 'The Tapestry of Life'.
+2025-08-27 03:36:55,981 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:37:52,168 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the type of religious
+2025-08-27 03:38:00,387 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 03:43:02,515 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Donatello
+2025-08-27 03:43:11,577 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 03:44:13,436 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Mihály Zichy , a Hungarian painter known for his illustrations and historical paintings .
+2025-08-27 03:44:21,024 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 03:45:22,783 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the type of mythological
+2025-08-27 03:45:31,766 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:46:36,391 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork belongs to the category of historical paintings from the Renaissance period.
+2025-08-27 03:46:45,375 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:46:59,457 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is attributed to Raphael , a prominent artist of historical paintings from the Renaissance period .
+2025-08-27 03:47:10,443 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:47:54,640 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Duccio di Buoninsegna , an Italian painter from the late Middle Ages known for his contributions to the Sienese school of painting .
+2025-08-27 03:48:03,145 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 03:48:17,258 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Duccio di Buoninsegna was an Italian painter from the late Middle Ages who is recognized for his significant contributions to the Sienese school of painting.
+2025-08-27 03:48:24,043 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 03:49:49,591 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giani , Felice
+2025-08-27 03:49:57,619 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:50:07,525 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giuseppe Ghislandi .
+2025-08-27 03:50:15,572 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:50:39,638 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giani
+2025-08-27 03:50:47,932 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 03:51:18,777 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Felice
+2025-08-27 03:51:26,115 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:51:37,799 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 03:51:46,876 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 03:52:08,996 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Temptation on the Mountain', but further evidence is needed to verify this title.
+2025-08-27 03:52:17,124 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:52:30,288 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Temptation on the Mountain ' , but further evidence is needed to verify this title .
+2025-08-27 03:52:37,982 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:53:22,945 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'In the Forest of Fontainebleau'.
+2025-08-27 03:53:30,918 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:53:41,915 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' In the Forest of Fontainebleau ' .
+2025-08-27 03:53:51,643 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:55:35,071 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled self-portrait aged 78
+2025-08-27 03:55:44,633 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:55:56,732 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Portrait of a Lady' by Giuseppe Ghislandi.
+2025-08-27 03:56:04,852 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:56:51,669 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Albrecht Dürer.
+2025-08-27 03:56:58,912 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:57:11,624 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Albrecht Dürer .
+2025-08-27 03:57:19,461 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 03:58:08,820 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Barend Cornelis Koekkoek , a Dutch painter known for his landscapes and historical scenes .
+2025-08-27 03:58:15,950 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 03:59:08,859 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Eberlein , Gustav Heinrich
+2025-08-27 03:59:16,985 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 03:59:29,603 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema .
+2025-08-27 03:59:37,750 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:00:24,046 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Gillemans , Jan Pauwel the Younger
+2025-08-27 04:00:33,762 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:01:36,961 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the Stedelijk Museum de Lakenhal, located in Leiden, Netherlands.
+2025-08-27 04:01:45,932 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:01:57,179 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not displayed in the Stedelijk Museum de Lakenhal, located in Leiden, Netherlands.
+2025-08-27 04:02:06,643 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:03:17,317 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in Palazzo Ducale
+2025-08-27 04:03:25,797 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:03:37,173 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The specific artwork is displayed in Palazzo Ducale
+2025-08-27 04:03:44,721 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:04:13,267 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in Palazzo Ducale
+2025-08-27 04:04:20,820 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:04:32,895 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The specific artwork is displayed in Palazzo Ducale
+2025-08-27 04:04:39,875 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:05:07,276 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in Cannon Hall Museum.
+2025-08-27 04:05:16,145 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:05:29,063 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in Cannon Hall Museum .
+2025-08-27 04:05:37,733 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:06:10,624 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: I currently do not have information about whether the artwork is on display at Cannon Hall Museum.
+2025-08-27 04:06:18,747 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:06:32,103 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: I do not have current information about whether 'The Roses of Heliogabalus' by Sir Lawrence Alma-Tadema is on display at Cannon Hall Museum.
+2025-08-27 04:06:39,405 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:07:07,800 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific Protestant parish church, which needs to be identified.
+2025-08-27 04:07:18,873 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:07:30,071 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a Gilded Age mansion, not in a specific Protestant parish church.
+2025-08-27 04:07:38,872 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:08:01,626 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The location is Gelnhausen
+2025-08-27 04:08:12,566 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:08:23,686 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The location is Eibsee in Bavaria.
+2025-08-27 04:08:32,908 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:09:07,966 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific Protestant parish church, which is yet to be identified.
+2025-08-27 04:09:16,597 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:09:28,476 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in St Mary's Parish Church in Reigate.
+2025-08-27 04:09:37,075 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:10:03,295 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific private collection, which is currently unknown.
+2025-08-27 04:10:12,032 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:10:24,747 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in any specific private collection , which is currently unknown .
+2025-08-27 04:10:33,534 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:11:31,610 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the Musée National Gustave Moreau.
+2025-08-27 04:11:39,885 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 04:11:52,609 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the Musée National Gustave Moreau .
+2025-08-27 04:12:00,236 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 04:12:26,309 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The musée national Gustave Moreau is located at 14 Rue de la Rochefoucauld, 75009 Paris, France.
+2025-08-27 04:12:34,561 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:13:04,549 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in the Musée National Gustave Moreau.
+2025-08-27 04:13:15,563 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:13:29,692 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The current display status of 'The Roses of Heliogabalus' at the Musée National Gustave Moreau is unknown.
+2025-08-27 04:13:38,881 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:14:06,445 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Ruth and Boaz '
+2025-08-27 04:14:15,369 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:14:24,442 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork in question cannot be confirmed as ' Ruth and Boaz '
+2025-08-27 04:14:32,735 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:16:42,216 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Italianate Landscape with Figures by Classical Ruins'.
+2025-08-27 04:16:48,719 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:17:02,541 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Italianate Landscape with Figures by Classical Ruins ' .
+2025-08-27 04:17:12,077 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:20:14,638 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Aretino in the Studio of Tintoretto', but further verification is needed to confirm this title.
+2025-08-27 04:20:21,608 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:20:33,029 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently unverified and may not be ' Aretino in the Studio of Tintoretto ' , but further verification is needed to confirm this title .
+2025-08-27 04:20:40,825 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:21:19,961 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' doge ziani receiving the benediction of pope alexander iii '
+2025-08-27 04:21:28,101 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:21:40,101 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork titled 'Doge Ziani Receiving the Benediction of Pope Alexander III' cannot be verified based on the available evidence.
+2025-08-27 04:21:47,701 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:22:30,419 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'The Adoration of the Shepherds' by the artist Giovanni Battista Salvi da Sassoferrato.
+2025-08-27 04:22:38,797 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:22:52,806 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'The Adoration of the Shepherds' by the artist Giotto di Bondone.
+2025-08-27 04:22:59,923 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:23:46,589 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of architecture, specifically representing the Gothic architectural style.
+2025-08-27 04:23:55,322 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:24:08,386 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of architecture, specifically representing the Renaissance Revival, Georgian, and Palladian architectural styles.
+2025-08-27 04:24:15,808 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:27:34,179 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the British Embassy
+2025-08-27 04:27:43,108 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:27:52,818 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not displayed in the British Embassy.
+2025-08-27 04:28:01,278 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:28:29,179 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The British Embassy is located in London, United Kingdom.
+2025-08-27 04:28:37,338 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:29:05,231 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the British Embassy
+2025-08-27 04:29:12,198 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:29:22,505 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not displayed in the British Embassy.
+2025-08-27 04:29:30,287 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:30:06,525 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Noli Me Tangere ' , but further evidence is needed to confirm this title .
+2025-08-27 04:30:16,034 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:30:28,456 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Noli Me Tangere ' , as there is no evidence supporting this title .
+2025-08-27 04:30:37,633 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:31:07,142 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The verified title of the artwork is not confirmed as 'noli me tangere'.
+2025-08-27 04:31:15,955 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:31:26,053 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The verified title of the artwork remains uncertain and is not confirmed as 'noli me tangere'.
+2025-08-27 04:31:34,447 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:33:02,180 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Niccolò Frangipane , an artist known for their contributions to the art world .
+2025-08-27 04:33:10,737 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:33:22,288 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork titled 'The Death of the Pharaoh’s Firstborn Son' was created by Sir Lawrence Alma-Tadema, an artist known for his contributions to the art world.
+2025-08-27 04:33:30,821 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:34:18,525 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by drevet , pierre
+2025-08-27 04:34:25,497 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:35:31,492 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 04:35:40,190 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:37:42,773 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 04:37:50,974 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:38:23,125 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 04:38:32,407 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:40:01,868 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the type of Christian religious artwork.
+2025-08-27 04:40:11,279 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:41:23,987 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the category of mythological artwork known as 'Greek mythology'.
+2025-08-27 04:41:34,595 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:41:47,505 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the category of mythological artwork known as ' Greek mythology ' .
+2025-08-27 04:41:56,947 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:43:32,958 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork belongs to the category of historical paintings from the Renaissance period.
+2025-08-27 04:43:41,758 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:43:54,411 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is attributed to Raphael , who is known for his contributions to Renaissance art , but it is not definitively classified as a historical painting from the Renaissance period .
+2025-08-27 04:44:04,063 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:46:50,161 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giordano , Luca
+2025-08-27 04:46:57,903 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:47:12,586 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The creator of this artwork is currently unverified and cannot be confirmed as Giordano , Luca
+2025-08-27 04:47:21,052 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:47:58,951 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giordano
+2025-08-27 04:48:07,364 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:48:40,149 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Luca
+2025-08-27 04:48:47,821 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:49:31,401 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Hans Olaf Heyerdahl , a Norwegian artist known for his contributions to contemporary art .
+2025-08-27 04:49:40,634 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:50:45,319 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in Palazzo Medici Riccardi
+2025-08-27 04:50:53,013 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:51:06,196 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: It is currently unclear whether any artwork by Raphael is displayed in Palazzo Medici Riccardi.
+2025-08-27 04:51:14,779 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:51:48,539 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Palazzo Medici Riccardi is located in Florence, Italy.
+2025-08-27 04:51:55,896 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:52:32,348 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The claim 'Yes' refers to the approval of a specific proposal regarding environmental policy changes.
+2025-08-27 04:52:42,469 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:52:54,611 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The claim ' Yes ' does not refer to the approval of a specific proposal regarding environmental policy changes .
+2025-08-27 04:53:03,643 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:53:44,025 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently displayed in the abbey church of Sainte-Foy, Conques, Aveyron, France.
+2025-08-27 04:53:51,959 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:54:04,019 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently displayed in the abbey church of Sainte-Foy , Conques , Aveyron , France .
+2025-08-27 04:54:11,764 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 04:55:06,313 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Giorgione
+2025-08-27 04:55:12,604 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:55:54,030 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The response 'Yes' pertains to the question about whether the event will occur on the specified date.
+2025-08-27 04:56:02,405 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:56:44,563 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by marilhat
+2025-08-27 04:56:52,529 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 04:57:26,836 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by prosper
+2025-08-27 04:57:36,190 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 04:57:46,721 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 04:57:54,805 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:58:36,868 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in pinacoteca
+2025-08-27 04:58:45,125 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 04:59:10,028 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in Vatican
+2025-08-27 04:59:17,373 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:01:33,603 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The current location of this artwork is unknown , as it is believed to be in a private collection
+2025-08-27 05:01:44,104 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:01:56,693 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The current location of the artwork is known; it is on display at a public museum in Bucharest.
+2025-08-27 05:02:07,544 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:03:02,840 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific location within the cathedral of San Geminiano, Modena, but the exact location is currently unknown.
+2025-08-27 05:03:10,384 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:03:21,612 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific location within the cathedral of San Geminiano, Modena, but the exact location is currently unknown due to a lack of available information.
+2025-08-27 05:03:28,934 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:06:02,512 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork 'Starry Night' was created by Vincent van Gogh.
+2025-08-27 05:06:10,843 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:06:55,047 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Albrecht Altdorfer
+2025-08-27 05:07:03,400 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:07:15,331 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema .
+2025-08-27 05:07:24,131 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:08:02,126 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:08:10,134 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:09:12,426 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of illuminated manuscript pages.
+2025-08-27 05:09:20,570 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:09:34,271 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of an 11th-century embroidery known as the Bayeux Tapestry .
+2025-08-27 05:09:41,864 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:10:50,677 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Gossart , Jan
+2025-08-27 05:10:58,368 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:11:10,265 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 05:11:17,229 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:12:09,028 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Stanzione , known for his religious and mythological subjects .
+2025-08-27 05:12:16,855 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:12:28,786 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Lawrence Alma-Tadema, known for his depictions of historical and mythological subjects.
+2025-08-27 05:12:38,175 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:15:10,454 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Gozzoli
+2025-08-27 05:15:18,068 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:15:29,752 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema .
+2025-08-27 05:15:37,058 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:16:02,498 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Benozzo
+2025-08-27 05:16:12,519 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:17:21,567 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by coriolano
+2025-08-27 05:17:30,819 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:17:42,084 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 05:17:49,732 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:18:08,277 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Cristoforo Gherardi , an Italian painter known for his work in the 17th century .
+2025-08-27 05:18:18,549 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:18:30,889 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artist of this artwork was created by Cristoforo Gherardi , an Italian painter from the 17th century .
+2025-08-27 05:18:43,208 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:19:32,141 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by an artist named Grebber , but there is currently no verifiable evidence to support this claim .
+2025-08-27 05:19:41,104 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:19:54,032 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is attributed to Kazimir Malevich, but there is currently no verifiable evidence to support the claim that it was created by an artist named Grebber.
+2025-08-27 05:20:04,107 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:20:28,806 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Pieter de Hooch.
+2025-08-27 05:20:38,777 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:20:50,573 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 05:20:59,278 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:21:55,466 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Massys , Quentin
+2025-08-27 05:22:04,815 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:22:14,517 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 05:22:21,859 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:23:01,445 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Greuze , Jean-Baptiste
+2025-08-27 05:23:11,271 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:23:23,659 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was not created by Greuze, Jean-Baptiste, but is attributed to another artist.
+2025-08-27 05:23:32,120 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:24:25,574 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Edwin Henry Landseer
+2025-08-27 05:24:36,899 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:24:49,471 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Billy Connolly.
+2025-08-27 05:24:58,583 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:25:51,883 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:26:01,799 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:30:15,161 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by an artist named Hamen , whose identity and background need to be verified .
+2025-08-27 05:30:23,724 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:30:56,494 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Juan van der
+2025-08-27 05:31:14,723 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:31:25,466 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Giuseppe Ghislandi.
+2025-08-27 05:31:35,168 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:32:21,841 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by starnina
+2025-08-27 05:32:29,865 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:32:40,745 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema .
+2025-08-27 05:32:48,418 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:33:08,545 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Gherardo di Jacopo , also known as Gherardo Starnina , an Italian painter active in the early 15th century .
+2025-08-27 05:33:18,247 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 05:33:32,107 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Gherardo di Jacopo, also known as Gherardo Starnina, an Italian painter who was active in the early 15th century, although specific details about his works are not widely documented.
+2025-08-27 05:33:43,877 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:34:34,694 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Jules Hardouin-Mansart , a French architect known for his work on the Palace of Versailles .
+2025-08-27 05:34:44,747 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:34:58,968 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was not created by Jules Hardouin-Mansart, as there is no evidence supporting this attribution.
+2025-08-27 05:35:06,722 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:35:58,978 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by kerseboom
+2025-08-27 05:36:08,179 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:36:45,027 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Caspar David Friedrich.
+2025-08-27 05:36:53,335 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:37:03,775 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Alex Katz.
+2025-08-27 05:37:11,537 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:37:55,138 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:38:02,994 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:40:14,625 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork being referenced is the Guggenheim Museum in Bilbao , Spain , which is an example of architecture
+2025-08-27 05:40:24,711 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:40:37,145 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Guggenheim Museum in Bilbao, Spain, is widely recognized as a significant example of contemporary architecture.
+2025-08-27 05:40:44,730 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:41:26,946 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:41:32,789 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:42:28,853 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The creator of the artwork is currently unverified, and it is uncertain whether it was created by Francisco de Herrera, the elder.
+2025-08-27 05:42:36,812 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:42:48,836 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The creator of the artwork is Sir Lawrence Alma-Tadema , not Francisco de Herrera , the elder .
+2025-08-27 05:42:56,928 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:43:26,760 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artist of the artwork is currently unverified and cannot be confirmed as Francisco de Herrera, the elder.
+2025-08-27 05:43:35,223 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 05:44:21,851 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork in question is attributed to Jean-Auguste-Dominique
+2025-08-27 05:44:29,458 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:44:43,115 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork in question is attributed to Marie Bracquemond, who was influenced by Jean-Auguste-Dominique Ingres.
+2025-08-27 05:44:52,339 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:45:39,548 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is attributed to John Frederick the Younger
+2025-08-27 05:45:48,442 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:46:00,053 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is not attributed to John Frederick the Younger.
+2025-08-27 05:46:08,707 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:46:37,077 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The attribution of this artwork is attributed to John Frederick the Younger
+2025-08-27 05:46:44,801 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:47:29,730 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Cozens , an English landscape painter known for his watercolors and contributions to the Romantic movement .
+2025-08-27 05:47:39,250 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:48:38,055 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:48:45,441 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:50:48,222 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Portrait of the Merchant Georg Gisze'.
+2025-08-27 05:50:55,571 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 05:51:08,468 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is commonly referred to as 'Portrait of the Merchant Georg Gisze', but this title may not be definitively confirmed.
+2025-08-27 05:51:17,332 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:51:45,158 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Portrait of the Merchant Georg Gisze'.
+2025-08-27 05:51:51,872 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 05:52:03,345 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently unverified , as there is no direct evidence confirming it is ' Portrait of the Merchant Georg Gisze ' .
+2025-08-27 05:52:11,343 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 05:53:45,599 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:53:53,167 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:54:26,197 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 05:54:33,514 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 05:56:34,268 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' the artist and his model '
+2025-08-27 05:56:42,881 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 05:58:38,839 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by janneck
+2025-08-27 05:58:47,348 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 05:59:29,220 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by an artist named Franz Christoph , but further verification is needed to confirm his identity and connection to the artwork .
+2025-08-27 05:59:39,871 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:00:54,073 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Jules-Adolphe Goupil , a French painter known for his works in the 19th century .
+2025-08-27 06:01:04,266 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:01:19,494 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Lawrence Alma-Tadema, a Dutch painter known for his works in the 19th century.
+2025-08-27 06:01:28,558 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:03:06,429 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the category of mythological artwork, specifically depicting Greek mythology.
+2025-08-27 06:03:15,073 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:04:13,664 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a private collection
+2025-08-27 06:04:22,474 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:04:55,866 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The current location of this artwork is unknown, and it may be in a private collection.
+2025-08-27 06:05:04,752 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:05:39,204 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in the Cathedral of St. Paul, Liège, Belgium.
+2025-08-27 06:05:49,551 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:06:01,570 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not confirmed to be displayed in the Cathedral of St. Paul, Liège, Belgium.
+2025-08-27 06:06:09,741 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:09:29,511 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 06:09:37,086 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:10:11,650 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 06:10:19,051 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:11:48,669 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Aleksander Kucharski , but further verification is needed regarding his identity and contributions .
+2025-08-27 06:11:56,907 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 06:12:09,817 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently unverified , and further research is needed to confirm the identity and contributions .
+2025-08-27 06:12:17,395 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:12:57,144 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by pourbus , frans the elder
+2025-08-27 06:13:05,213 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:13:16,823 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 06:13:24,660 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:14:01,994 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 06:14:07,395 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:15:58,189 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Allegory of the Regency'.
+2025-08-27 06:16:04,664 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:16:16,337 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The title ' Allegory of the Regency ' .
+2025-08-27 06:16:24,173 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:17:29,083 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled breton woman bathing
+2025-08-27 06:17:37,558 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:17:48,222 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Roses of Heliogabalus ' by Sir Lawrence Alma-Tadema .
+2025-08-27 06:17:56,093 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:18:37,263 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 06:18:43,665 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:19:39,252 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of illuminated manuscript pages.
+2025-08-27 06:19:46,193 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:19:56,890 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Bayeux Tapestry exists as an 11th-century embroidery, not as illuminated manuscript pages.
+2025-08-27 06:20:05,353 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:20:49,502 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by lagrenée , jean-jacques
+2025-08-27 06:20:57,177 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:21:10,508 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 06:21:17,680 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:22:06,344 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by an artist named Diana Scultori.
+2025-08-27 06:22:15,466 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 06:22:26,040 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: There is currently no verifiable evidence that an artist named Diana Scultori .
+2025-08-27 06:22:33,422 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:23:11,197 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by an artist named Diana Scultori, who is known for her work in the 16th century as an engraver and painter.
+2025-08-27 06:23:21,524 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:23:33,698 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by an artist named Diana Scultori , who is known for her work in the 16th century as an engraver and painter .
+2025-08-27 06:23:40,980 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 06:29:23,539 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Lemoyne , Jean-Baptiste II .
+2025-08-27 06:29:30,815 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:29:44,106 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema .
+2025-08-27 06:29:52,164 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:30:49,693 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Kneller
+2025-08-27 06:30:56,900 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:31:08,564 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Lawrence Alma-Tadema.
+2025-08-27 06:31:15,914 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:31:32,193 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Sir Godfrey
+2025-08-27 06:31:39,482 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:33:09,840 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to a specific religious
+2025-08-27 06:33:20,384 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:37:39,856 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork belongs to the genre of Impressionism.
+2025-08-27 06:37:47,492 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:40:06,075 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork was created by Jacques Linard , a 17th-century French painter known for his still life compositions .
+2025-08-27 06:40:14,458 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 06:40:28,907 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by an unknown artist, as there is insufficient evidence to confirm Jacques Linard's authorship or his recognition as a 17th-century French painter known for still life compositions.
+2025-08-27 06:40:37,754 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:42:01,917 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Bonino da Campione
+2025-08-27 06:42:10,160 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:42:20,292 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork was created by Sir Lawrence Alma-Tadema in 1888 .
+2025-08-27 06:42:28,198 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:43:19,463 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'St John the Evangelist Resuscitating Drusiana', but further evidence is needed to verify this title.
+2025-08-27 06:43:28,604 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:43:40,435 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is believed to be titled 'St John the Evangelist Resuscitating Drusiana', but further evidence is needed to verify this title.
+2025-08-27 06:43:52,040 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:44:50,680 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently unverified and may not be ' la finette
+2025-08-27 06:44:59,540 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:45:12,308 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently unverified and is believed to be 'la finette', but this identification is not definitively confirmed.
+2025-08-27 06:45:23,238 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:46:14,763 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Marriage of the Virgin' by Raphael, created in 1504.
+2025-08-27 06:46:25,991 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:46:40,736 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork titled 'Marriage of the Virgin' is attributed to Raphael, but it was actually created in 1504.
+2025-08-27 06:46:50,019 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 06:49:33,400 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh.
+2025-08-27 06:49:45,160 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:49:59,059 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork exists in the form of a specific painting titled 'Starry Night' by Vincent van Gogh, created in June 1889.
+2025-08-27 06:50:08,124 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:52:28,408 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is currently held in a private collection and is not accessible to the public.
+2025-08-27 06:52:38,817 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:52:49,003 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is uncertain , and it may or may not be held in a private collection and is not accessible to the public .
+2025-08-27 06:52:58,682 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 06:53:52,873 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is displayed in a specific location within the San Francesco d'Assisi church in Pavia.
+2025-08-27 06:54:01,782 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:54:11,683 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not displayed in the San Francesco d'Assisi church in Pavia.
+2025-08-27 06:54:20,799 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 06:57:18,504 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Ukrainian Peasant Girl '
+2025-08-27 06:57:28,554 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 06:58:34,474 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Virtue Crowning Merit'.
+2025-08-27 06:58:41,664 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.70)
+2025-08-27 06:58:53,583 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Virtue Crowning Merit ' .
+2025-08-27 06:59:00,948 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 06:59:39,297 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled ' Virtue Crowning Merit '
+2025-08-27 06:59:42,945 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 06:59:47,453 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:00:24,730 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in the National Gallery.
+2025-08-27 07:00:28,583 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:00:33,029 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:00:58,284 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The National Gallery is located at Trafalgar Square, London WC2N 5DN, United Kingdom.
+2025-08-27 07:01:02,179 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:01:09,877 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:03:10,821 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in the Hermitage.
+2025-08-27 07:03:14,620 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:03:19,042 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:03:54,684 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The Hermitage Museum is located in St. Petersburg, Russia.
+2025-08-27 07:03:58,482 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:04:01,912 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.99)
+2025-08-27 07:04:35,582 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in the Hermitage, as its current location is unknown.
+2025-08-27 07:04:39,480 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:04:43,911 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:05:16,630 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is not currently displayed in the National Gallery of Victoria.
+2025-08-27 07:05:20,358 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:05:23,843 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:06:03,825 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The National Gallery of Victoria is located in Melbourne, Australia.
+2025-08-27 07:06:07,583 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:06:11,769 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:06:44,402 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: I currently do not have access to information about specific artworks displayed in the National Gallery of Victoria.
+2025-08-27 07:06:48,126 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:06:51,670 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:08:24,170 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in a specific Cistercian church, which needs to be identified for verification.
+2025-08-27 07:08:27,891 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:08:31,765 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 07:08:40,166 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: This artwork is displayed in a specific Cistercian church , which needs to be identified for verification .
+2025-08-27 07:08:43,828 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:08:47,222 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 07:09:08,348 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Zirc is the presence of the Cistercian Abbey of Zirc , which is a significant historical site associated with the Cistercian order .
+2025-08-27 07:09:12,303 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:09:16,528 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:10:20,731 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: I am unable to identify the specific Cistercian church that is associated with this artwork.
+2025-08-27 07:10:24,435 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:10:29,114 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:11:05,837 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Christ Walking on the Water'.
+2025-08-27 07:11:09,501 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:11:14,166 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:12:13,267 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork is titled 'Mademoiselle Romaine Lacaux' by Gustave Courbet.
+2025-08-27 07:12:16,960 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:12:22,210 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-27 07:12:34,449 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The artwork titled 'Mademoiselle Romaine Lacaux' is not by Gustave Courbet.
+2025-08-27 07:12:38,103 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:12:45,171 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 07:27:45,506 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 07:27:45,506 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 07:27:45,506 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 07:36:18,604 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 07:36:18,605 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 07:36:18,605 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 07:37:37,886 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is ' x is smaller than 10 '
+2025-08-27 07:37:41,794 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:37:45,030 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.85)
+2025-08-27 07:39:43,036 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The user is asking if the output is 'x is larger than 10' where 'x' is defined as a specific numerical value.
+2025-08-27 07:39:46,830 - socrates_system.modules.external_factuality_checker - WARNING - Tavily fallback error: This request exceeds your plan's set usage limit. Please upgrade your plan or contact support@tavily.com
+2025-08-27 07:39:50,272 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 15:36:56,760 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 15:36:56,761 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 15:36:56,761 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 15:40:53,635 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 15:40:53,635 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 15:40:53,635 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 16:06:03,139 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 16:06:03,139 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 16:06:03,139 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-27 16:06:20,159 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is 'x is larger than 10'
+2025-08-27 16:06:28,474 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:07:11,282 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code cannot be confirmed as 'x is larger than 10' based on the provided evidence.
+2025-08-27 16:07:20,432 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:07:40,400 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Please answer yes or no
+2025-08-27 16:07:48,429 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 16:09:03,911 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: It is uncertain whether the number 3 appear in the output of the code
+2025-08-27 16:09:12,574 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:09:22,383 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: It is uncertain whether the number 3 appears in the output of the code or puzzle solution.
+2025-08-27 16:09:29,774 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:09:50,699 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' confirms that the previous question was answered affirmatively, but without additional context, its specific meaning remains unclear.
+2025-08-27 16:09:59,856 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:11:46,128 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is '11'.
+2025-08-27 16:11:56,807 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:13:28,553 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is '12'.
+2025-08-27 16:13:38,682 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:13:52,656 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is ' 12 ' .
+2025-08-27 16:14:02,632 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:15:21,468 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code indicates whether the list has more than 2 numbers.
+2025-08-27 16:15:31,141 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:15:41,474 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The code's output indicates whether the list has more than two elements.
+2025-08-27 16:15:53,689 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:17:09,464 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code is 'the list has less than 2 numbers'
+2025-08-27 16:17:20,376 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:17:29,576 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The output of the code outputs ' the list has less than 2 numbers '
+2025-08-27 16:17:40,007 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:18:21,803 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Please answer yes or no
+2025-08-27 16:18:28,924 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-27 16:21:45,403 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The answer to the specific question asked is 'yes'.
+2025-08-27 16:21:54,388 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:23:38,647 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Please answer yes or no
+2025-08-27 16:23:45,875 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.50)
+2025-08-27 16:25:43,937 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Please specify the fact you want to verify with a yes or no
+2025-08-27 16:25:53,214 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 16:30:09,201 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: Please answer yes or no
+2025-08-27 16:30:17,564 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)

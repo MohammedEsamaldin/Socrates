@@ -166,3 +166,284 @@
 2025-08-26 03:10:24,152 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-26 23:17:35,936 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-26 23:19:53,382 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 02:15:09,634 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 02:19:30,301 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 02:48:14,032 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 02:49:52,008 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 03:21:43,716 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 03:33:03,131 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 07:13:39,202 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:13:58,896 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:18,235 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:26,233 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:33,151 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:43,017 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:14:54,616 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:16,847 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:15:52,928 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:01,604 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:20,474 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:38,051 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:16:54,550 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:01,838 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:29,284 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:17:46,517 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:18:05,301 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:11,968 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:19,123 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:35,121 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:19:41,965 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:04,971 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:20:26,199 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:06,912 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:21:41,243 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:05,632 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:22:43,234 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:23:50,879 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:27:45,506 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 07:28:15,708 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:28:33,603 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "Rate limit reached for gpt-4o-mini in organization org-jR7VJVoA8trAGyKvAmxDQRLz on requests per day (RPD): Limit 10000, Used 10000, Requested 1. Please try again in 8.64s. Visit https://platform.openai.com/account/rate-limits to learn more.",
+        "type": "requests",
+        "param": null,
+        "code": "rate_limit_exceeded"
+    }
+}
+
+2025-08-27 07:36:18,605 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 15:36:56,761 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 15:40:53,635 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 16:06:03,139 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)

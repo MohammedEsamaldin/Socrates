@@ -6,6 +6,7 @@ DEFINITIONS
 - Split compound statements into separate atomic claims.
 - If ambiguity is detected (underspecified referent, vague time, unclear attribute), set `ambiguity_reason`.
 - For visual content: Extract claims about object existence, attributes, spatial relationships, and quantities as separate atomic units.
+- If the claim is asking to asnwer with yes or no, ignore it.
 
 CATEGORIES (assign zero or more per claim)
 SUBJECTIVE/OPINION, SELF-REFERENTIAL, AMBIGUOUS/UNCLEAR, CROSS-MODAL,
