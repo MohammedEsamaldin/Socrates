@@ -289,25 +289,29 @@ class BaseEvaluator:
         except Exception:
             pass
 
+        # Detect yes/no upfront for potential correction and analysis; prepare derived verification holder
+        yn_detected = self._detect_yes_no(model_out)
+        derived_for_yn = None
+
         # If output is terse yes/no and produced no claims, derive a hypothesis from the question
         analysis_source = "original"
         claims_for_analysis = model_res.get("claims", [])
         clar_for_analysis = model_res.get("clarification", {})
         fact_for_analysis = model_res.get("factuality", {})
         try:
-            yn = self._detect_yes_no(model_out)
-            if (not claims_for_analysis) and (yn is not None):
-                hypo_text = self._question_to_declarative(prompt, answer_yes=bool(yn))
+            if yn_detected is not None:
+                hypo_text = self._question_to_declarative(prompt, answer_yes=bool(yn_detected))
                 if hypo_text:
                     self.logger.info(
-                        "Model output appears to be yes/no without claims; deriving hypothesis for analysis"
+                        "Model output appears to be yes/no; deriving hypothesis for verification"
                     )
-                    derived = process_model_turn(self.pipeline, hypo_text, image_path=image_path)
-                    # Use derived analysis artifacts for MMHal reporting, but keep original model_res intact
-                    claims_for_analysis = derived.get("claims", [])
-                    clar_for_analysis = derived.get("clarification", {})
-                    fact_for_analysis = derived.get("factuality", {})
-                    analysis_source = "derived_yesno"
+                    derived_for_yn = process_model_turn(self.pipeline, hypo_text, image_path=image_path)
+            if (not claims_for_analysis) and (yn_detected is not None) and (derived_for_yn is not None):
+                # Use derived analysis artifacts for MMHal reporting, but keep original model_res intact otherwise
+                claims_for_analysis = derived_for_yn.get("claims", [])
+                clar_for_analysis = derived_for_yn.get("clarification", {})
+                fact_for_analysis = derived_for_yn.get("factuality", {})
+                analysis_source = "derived_yesno"
         except Exception as _e:
             # Non-fatal; continue with original artifacts
             pass
@@ -331,13 +335,41 @@ class BaseEvaluator:
         num_fail = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
         num_uncertain = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
 
+        # If we detected a yes/no and derived verification, flip the corrected output accordingly
+        if yn_detected is not None and derived_for_yn is not None:
+            yn_mmhal_claims = self._claims_to_mmhal(
+                derived_for_yn.get("claims", []),
+                derived_for_yn.get("clarification", {}),
+                derived_for_yn.get("factuality", {}),
+                stage="post",
+            )
+            yn_pass = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+            yn_fail = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+            yn_uncertain = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+            desired: Optional[bool] = None
+            if yn_fail > 0:
+                desired = (not yn_detected)
+            elif yn_fail == 0 and yn_uncertain == 0 and yn_pass > 0:
+                desired = yn_detected
+            # else: leave as None (insufficient evidence to flip)
+            if desired is not None:
+                old_yn = self._detect_yes_no(corrected_out or "")
+                if old_yn is None or old_yn != desired:
+                    corrected_out = "Yes" if desired else "No"
+                    try:
+                        self.logger.info(
+                            f"Sample {sample_id} - Yes/No corrected based on verification: {corrected_out}"
+                        )
+                    except Exception:
+                        pass
+
         mmhal = {
             "version": "0.1",
             "id": sample_id,
             "image": image_path,
             "question": prompt,
             "response_original": model_out,
-            "response_corrected": model_res.get("corrected_text", model_out),
+            "response_corrected": corrected_out,
             "claims": mmhal_claims,
             "prompt_claims": mmhal_prompt_claims or None,
             "summary": {
@@ -359,7 +391,7 @@ class BaseEvaluator:
             "input_claims": to_jsonable(user_res.get("claims", [])),
             "input_clarification": to_jsonable(user_res.get("clarification", {})),
             "model_output_original": model_out,
-            "model_output_corrected": model_res.get("corrected_text", model_out),
+            "model_output_corrected": corrected_out,
             "model_output_corrections": model_res.get("corrections", []),
             "model_output_factuality": model_res.get("factuality", {}),
             "model_output_claims": to_jsonable(model_res.get("claims", [])),
