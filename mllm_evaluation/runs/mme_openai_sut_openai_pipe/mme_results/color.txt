@@ -48,3 +48,13 @@
 000000492992.jpg	Is there a yellow bird in the image? Please answer yes or no.	No	No.
 000000512929.jpg	Are there any green beans in the image? Please answer yes or no.	Yes	Yes.
 000000512929.jpg	Are there any orange beans in the image? Please answer yes or no.	No	No.
+000000530457.jpg	Are there any red flowers in the image? Please answer yes or no.	Yes	Yes.
+000000530457.jpg	Are there any green flowers in the image? Please answer yes or no.	No	No.
+000000532761.jpg	Is there a living room painted yellow in the image? Please answer yes or no.	Yes	Yes.
+000000532761.jpg	Is there a living room painted black in the image? Please answer yes or no.	No	No.
+000000534041.jpg	Is there a purple bottle in the image? Please answer yes or no.	Yes	Yes.
+000000534041.jpg	Is there a white bottle in the image? Please answer yes or no.	No	I don't know who they are.
+000000563758.jpg	Is there a red scarf in the image?  Please answer yes or no.	Yes	I don't know who they are.
+000000563758.jpg	Is there a brown scarf in the image?  Please answer yes or no.	No	I don't know who they are.
+000000564280.jpg	Is there a red couch in the image? Please answer yes or no.	Yes	Yes.
+000000564280.jpg	Is there a black couch in the image? Please answer yes or no.	No	No.

@@ -349,6 +349,12 @@ class ExternalFactualityChecker:
             Dictionary containing verification results
         """
         logger.info(f"Verifying claim externally: {claim}")
+        # Defensive guard: detect placeholder/empty claim text used in logs/prompts
+        _ct = (claim or "").strip()
+        if not _ct:
+            logger.warning("[ClaimInput] Empty claim text passed; provide actual claim content for verification and logging clarity")
+        elif _ct.lower() in {"claim", "statement", "assertion", "hypothesis"}:
+            logger.warning(f"[ClaimInput] Placeholder-like claim text detected: '{_ct}'. Use the real claim content in prompts/logs.")
         results: List[Dict[str, Any]] = []
 
         # NOTE: Internal knowledge base intentionally disabled for this module
@@ -359,6 +365,17 @@ class ExternalFactualityChecker:
                 client_results = client.query(claim)
                 results.extend(client_results)
                 logger.debug(f"{client.NAME} returned {len(client_results)} items")
+                # Log claim + evidence pairs from this client (preview only)
+                for item in (client_results or [])[:5]:
+                    evi = item.get("evidence") or []
+                    evi_preview = "; ".join([str(ev)[:180] for ev in evi[:2]])
+                    content_preview = (str(item.get("content", ""))[:200]).replace("\n", " ").strip()
+                    sources_preview = ", ".join((item.get("sources") or [])[:2])
+                    logger.info(
+                        f"[Claim+Evidence] claim='{claim}' | source={client.NAME} | status={item.get('status')} | "
+                        f"conf={float(item.get('confidence', 0.0)):.2f} | evidence='{evi_preview}' | "
+                        f"content='{content_preview}' | sources={sources_preview}"
+                    )
             except Exception as e:
                 logger.warning(f"{client.NAME} query failed: {e}")
 
@@ -367,22 +384,58 @@ class ExternalFactualityChecker:
         if wiki_results:
             # _verify_with_wikipedia returns a single dict; append it
             results.append(wiki_results)
+            evi = wiki_results.get("evidence") or []
+            evi_preview = "; ".join([str(ev)[:180] for ev in evi[:2]])
+            content_preview = (str(wiki_results.get("content", ""))[:200]).replace("\n", " ").strip()
+            sources_preview = ", ".join((wiki_results.get("sources") or [])[:2])
+            logger.info(
+                f"[Claim+Evidence] claim='{claim}' | source=Wikipedia | status={wiki_results.get('status')} | "
+                f"conf={float(wiki_results.get('confidence', 0.0)):.2f} | evidence='{evi_preview}' | "
+                f"content='{content_preview}' | sources={sources_preview}"
+            )
 
         # 4) Optional simplified web search placeholder
         web_results = self._verify_with_web_search(claim)
         if web_results:
             # _verify_with_web_search returns a single dict; append it
             results.append(web_results)
+            evi = web_results.get("evidence") or []
+            evi_preview = "; ".join([str(ev)[:180] for ev in evi[:2]])
+            content_preview = (str(web_results.get("content", ""))[:200]).replace("\n", " ").strip()
+            sources_preview = ", ".join((web_results.get("sources") or [])[:2])
+            logger.info(
+                f"[Claim+Evidence] claim='{claim}' | source=Web Search | status={web_results.get('status')} | "
+                f"conf={float(web_results.get('confidence', 0.0)):.2f} | evidence='{evi_preview}' | "
+                f"content='{content_preview}' | sources={sources_preview}"
+            )
 
         # 5) Fallbacks (only if free-tier yielded nothing useful)
         if not results:
             tv_result = self._verify_with_tavily(claim)
             if tv_result:
                 results.append(tv_result)
+                evi = tv_result.get("evidence") or []
+                evi_preview = "; ".join([str(ev)[:180] for ev in evi[:2]])
+                content_preview = (str(tv_result.get("content", ""))[:200]).replace("\n", " ").strip()
+                sources_preview = ", ".join((tv_result.get("sources") or [])[:2])
+                logger.info(
+                    f"[Claim+Evidence] claim='{claim}' | source=Tavily | status={tv_result.get('status')} | "
+                    f"conf={float(tv_result.get('confidence', 0.0)):.2f} | evidence='{evi_preview}' | "
+                    f"content='{content_preview}' | sources={sources_preview}"
+                )
         if not results:
             oi_result = self._verify_with_openai(claim)
             if oi_result:
                 results.append(oi_result)
+                evi = oi_result.get("evidence") or []
+                evi_preview = "; ".join([str(ev)[:180] for ev in evi[:2]])
+                content_preview = (str(oi_result.get("content", ""))[:200]).replace("\n", " ").strip()
+                sources_preview = ", ".join((oi_result.get("sources") or [])[:2])
+                logger.info(
+                    f"[Claim+Evidence] claim='{claim}' | source=OpenAI | status={oi_result.get('status')} | "
+                    f"conf={float(oi_result.get('confidence', 0.0)):.2f} | evidence='{evi_preview}' | "
+                    f"content='{content_preview}' | sources={sources_preview}"
+                )
 
         # Aggregate results
         aggregated = self._aggregate_verification_results(claim, results, input_context=input_context)
@@ -448,6 +501,17 @@ class ExternalFactualityChecker:
             else f"{context_block}\n\nEvidence from external sources:\n{evidence_combined}"
         )
 
+        # Log the claim with a preview of compiled evidence prior to LLM aggregation
+        evidence_preview = evidence_combined[:400].replace("\n", " ")
+        try:
+            logger.info(
+                f"[Claim+Evidence Aggregation] claim='{claim}' | evidence_preview='{evidence_preview}' | "
+                f"sources_n={len(set(sources_list))}"
+            )
+        except Exception:
+            # Avoid any logging exceptions from odd content
+            logger.info(f"[Claim+Evidence Aggregation] claim='{claim}' | evidence_preview='<unavailable>'")
+
         # Format prompt with claim, evidence, and sources
         prompt = FACTUALITY_VERDICT_PROMPT.format(
             claim=claim,
@@ -484,6 +548,17 @@ class ExternalFactualityChecker:
             else:
                 status = "UNCERTAIN"
 
+            # Log claim with LLM verdict and evidence counts
+            try:
+                logger.info(
+                    f"[Claim+Verdict] claim='{claim}' | status={status} | "
+                    f"conf={float(verdict_data.get('confidence', 0.5)):.2f} | "
+                    f"support_n={len(verdict_data.get('supporting_evidence', []))} | "
+                    f"contradict_n={len(verdict_data.get('contradicting_evidence', []))}"
+                )
+            except Exception:
+                logger.info(f"[Claim+Verdict] claim='{claim}' | status={status}")
+
             return {
                 "status": status,
                 "confidence": float(verdict_data.get("confidence", 0.5)),
@@ -501,6 +576,10 @@ class ExternalFactualityChecker:
 
     def _create_fallback_verdict(self, claim: str, evidence_text: List[str], sources_list: List[str]) -> Dict[str, Any]:
         """Create fallback verdict when LLM parsing fails"""
+        logger.info(
+            f"[Claim+Verdict] claim='{claim}' | status=UNCERTAIN | conf=0.30 | "
+            f"note='LLM verdict parsing failed - using fallback analysis'"
+        )
         return {
             "status": "UNCERTAIN",
             "confidence": 0.3,

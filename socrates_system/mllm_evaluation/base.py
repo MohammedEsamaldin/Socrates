@@ -42,6 +42,8 @@ class BaseEvaluator:
         sut_model_name: Optional[str] = None,
         pipeline_provider: Optional[str] = None,
         pipeline_model_name: Optional[str] = None,
+        # MME option: force Yes/No responses from SUT
+        force_yes_no: bool = False,
     ) -> None:
         self.dataset_path = dataset_path
         # If the provided run_dir already contains checkpoints for this run, honor it as-is.
@@ -94,6 +96,7 @@ class BaseEvaluator:
         self.fallback_keys = fallback_keys
         self.image_key = image_key
         self.image_root = image_root
+        self.force_yes_no = force_yes_no
 
         # Write meta
         self.ckpt.write_meta({
@@ -107,6 +110,7 @@ class BaseEvaluator:
             "temperature": self.temperature,
             "image_key": self.image_key,
             "image_root": self.image_root,
+            "force_yes_no": self.force_yes_no,
         })
 
     # ------ to be implemented by subclasses ------
@@ -255,6 +259,13 @@ class BaseEvaluator:
         image_path = self.sample_to_image_path(sample)
         user_res = process_user_turn(self.pipeline, prompt, image_path=image_path)
         edited_prompt = user_res["corrected_text"] or prompt
+        # If requested, enforce strict Yes/No response format from SUT
+        if getattr(self, "force_yes_no", False):
+            yn_instr = (
+                "Instruction: Answer strictly with a single word: 'Yes' or 'No'. "
+                "Do not include any explanation or extra words."
+            )
+            edited_prompt = f"{edited_prompt}\n\n{yn_instr}"
 
         # 2) Model generation on edited prompt (SUT LLM)
         try:

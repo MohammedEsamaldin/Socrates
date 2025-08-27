@@ -215,6 +215,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--id-key", default=None, help="Override id field name in dataset")
     p.add_argument("--mme-results-dir", default=None, help="Directory to write official MME results (.txt per category)")
     p.add_argument("--mme-original", action="store_true", help="Use original (uncorrected) model output in MME results; default uses corrected output")
+    p.add_argument("--force-yes-no", action="store_true", help="Force SUT to answer strictly 'Yes' or 'No' and coerce output accordingly")
     return p
 
 
@@ -240,6 +241,7 @@ def main():
         id_key=args.id_key,
         image_root=args.dataset,
         image_key="image",
+        force_yes_no=args.force_yes_no,
     )
 
     # Run with MME writer
@@ -267,6 +269,22 @@ def main():
         # Choose which output to use for official MME line
         use_corrected = (not args.mme_original)
         response_text = rec.get("model_output_corrected") if use_corrected else rec.get("model_output_original")
+        # When requested, coerce output to canonical 'Yes' or 'No'
+        if args.force_yes_no:
+            yn = evaluator._detect_yes_no(response_text or "")
+            if yn is True:
+                response_text = "Yes"
+            elif yn is False:
+                response_text = "No"
+            else:
+                s = (response_text or "").strip().lower()
+                if ("yes" in s) and ("no" not in s):
+                    response_text = "Yes"
+                elif ("no" in s) and ("yes" not in s):
+                    response_text = "No"
+                else:
+                    # Default fallback to 'No' to ensure strict Y/N output
+                    response_text = "No"
         img_base = sample.get("image_basename") or os.path.basename(sample.get("image", ""))
         category = sample.get("category", "unknown")
         question = sample.get("question", "")

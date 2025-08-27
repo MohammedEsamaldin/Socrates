@@ -1,0 +1,19 @@
+0001.png	Here are the order details for my taxi ride. Should I actually pay $29.42? Please answer yes or no.	Yes	Yes.
+0001.png	Here are the order details for my taxi ride. Should I actually pay $32.42? Please answer yes or no.	No	No.
+0002.png	Should I stop when I'm about to cross the street and see the sign in the picture? Please answer yes or no.	Yes	I cannot confirm the identity of the person in the image due to insufficient visual details.
+0002.png	When I see the sign in the picture, can I cross the street? Please answer yes or no.	No	No.
+0003.png	May I ask if in the game of finger-guessing game, did the right side of the picture win? Please answer yes or no.	Yes	No.
+0003.png	May I ask if in the game of finger-guessing game, did the left side of the picture win? Please answer yes or no.	No	No.
+0004.png	Does the fruit in the picture look stale? Please answer yes or no.	Yes	Yes.
+0004.png	Does the fruit in the picture look very fresh? Please answer yes or no.	No	No.
+0005.png	The office's normal closing time is 5 p.m. Now is afternoon. Should I continue to work at the time shown in the picture? Please answer yes or no.	Yes	I can't see the time on the watch in the picture. Therefore, I can't provide a yes or no answer regarding whether you should continue to work.
+0005.png	The office's normal closing time is 5 p.m. Now is afternoon. Could I leave work at the time shown in the picture? Please answer yes or no.	No	I can't see the time on the watch in the picture, so I can't answer your question.
+0006.png	I recently want to go on vacation to relax and go to a place full of fresh air. Is the venue in the picture appropriate? Please answer yes or no.	Yes	Yes.
+0006.png	I want to go where there are a lot of people. Is the venue in the picture appropriate? Please answer yes or no.	No	No.
+0007.png	I want to clean the house and I want to choose a tool. Is the tool in the picture an appropriate choice? Please answer yes or no.	Yes	No.
+0007.png	I want to transport something and I want to choose a tool to help me. Is the tool in the picture an appropriate choice? Please answer yes or no.	No	No.
+0008.png	Can I smoke where the picture is? Please answer yes or no.	Yes	Yes.
+0008.png	Is smoking prohibited in the location of the picture? Please answer yes or no.	No	Yes.
+0009.png	Will green be obtained by mixing the above two colors? Please answer yes or no.	Yes	No.
+0009.png	Will red be obtained by mixing the above two colors? Please answer yes or no.	No	No.
+0010.png	I am going to exercise and I want to choose a venue. Is the venue in the picture a good choice? Please answer yes or no.	Yes	Yes.

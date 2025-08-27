@@ -7101,3 +7101,63 @@
 2025-08-27 17:10:38,549 - INFO - Resuming with 869 already processed samples
 2025-08-27 17:11:42,496 - INFO - Sample color/000000512929#2 - Original model output: No.
 2025-08-27 17:11:42,497 - INFO - Sample color/000000512929#2 - Corrected model output: No.
+2025-08-27 17:13:46,050 - INFO - Loaded 2374 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 17:13:46,133 - INFO - Resuming with 870 already processed samples
+2025-08-27 17:14:44,497 - INFO - Sample color/000000530457#1 - Original model output: Yes.
+2025-08-27 17:14:44,497 - INFO - Sample color/000000530457#1 - Corrected model output: Yes.
+2025-08-27 17:15:39,340 - INFO - Sample color/000000530457#2 - Original model output: No.
+2025-08-27 17:15:39,341 - INFO - Sample color/000000530457#2 - Corrected model output: No.
+2025-08-27 17:16:44,010 - INFO - Sample color/000000532761#1 - Original model output: Yes.
+2025-08-27 17:16:44,011 - INFO - Sample color/000000532761#1 - Corrected model output: Yes.
+2025-08-27 17:17:47,856 - INFO - Sample color/000000532761#2 - Original model output: No.
+2025-08-27 17:17:47,857 - INFO - Sample color/000000532761#2 - Corrected model output: No.
+2025-08-27 17:18:33,408 - INFO - Sample color/000000534041#1 - Original model output: Yes.
+2025-08-27 17:18:33,408 - INFO - Sample color/000000534041#1 - Corrected model output: Yes.
+2025-08-27 17:19:27,910 - INFO - Sample color/000000534041#2 - Original model output: I don't know who they are.
+2025-08-27 17:19:27,911 - INFO - Sample color/000000534041#2 - Corrected model output: I don't know who they are.
+2025-08-27 17:20:08,108 - INFO - Sample color/000000563758#1 - Original model output: I don't know who they are.
+2025-08-27 17:20:08,108 - INFO - Sample color/000000563758#1 - Corrected model output: I don't know who they are.
+2025-08-27 17:20:52,627 - INFO - Sample color/000000563758#2 - Original model output: I don't know who they are.
+2025-08-27 17:20:52,628 - INFO - Sample color/000000563758#2 - Corrected model output: I don't know who they are.
+2025-08-27 17:21:42,455 - INFO - Sample color/000000564280#1 - Original model output: Yes.
+2025-08-27 17:21:42,456 - INFO - Sample color/000000564280#1 - Corrected model output: Yes.
+2025-08-27 17:22:41,520 - INFO - Sample color/000000564280#2 - Original model output: No.
+2025-08-27 17:22:41,521 - INFO - Sample color/000000564280#2 - Corrected model output: No.
+2025-08-27 17:23:39,160 - INFO - Sample commonsense_reasoning/0001#1 - Original model output: Yes.
+2025-08-27 17:23:39,161 - INFO - Sample commonsense_reasoning/0001#1 - Corrected model output: Yes.
+2025-08-27 17:24:39,919 - INFO - Sample commonsense_reasoning/0001#2 - Original model output: No.
+2025-08-27 17:24:39,919 - INFO - Sample commonsense_reasoning/0001#2 - Corrected model output: No.
+2025-08-27 17:27:08,120 - INFO - Sample commonsense_reasoning/0002#1 - Original model output: I can't see the person in the image, so I can't answer that.
+2025-08-27 17:27:08,121 - INFO - Sample commonsense_reasoning/0002#1 - Corrected model output: I cannot confirm the identity of the person in the image due to insufficient visual details.
+2025-08-27 17:28:18,111 - INFO - Sample commonsense_reasoning/0002#2 - Original model output: No.
+2025-08-27 17:28:18,112 - INFO - Sample commonsense_reasoning/0002#2 - Corrected model output: No.
+2025-08-27 17:29:24,848 - INFO - Sample commonsense_reasoning/0003#1 - Original model output: No.
+2025-08-27 17:29:24,848 - INFO - Sample commonsense_reasoning/0003#1 - Corrected model output: No.
+2025-08-27 17:30:17,105 - INFO - Sample commonsense_reasoning/0003#2 - Original model output: No.
+2025-08-27 17:30:17,105 - INFO - Sample commonsense_reasoning/0003#2 - Corrected model output: No.
+2025-08-27 17:31:15,162 - INFO - Sample commonsense_reasoning/0004#1 - Original model output: Yes.
+2025-08-27 17:31:15,162 - INFO - Sample commonsense_reasoning/0004#1 - Corrected model output: Yes.
+2025-08-27 17:32:11,345 - INFO - Sample commonsense_reasoning/0004#2 - Original model output: No.
+2025-08-27 17:32:11,345 - INFO - Sample commonsense_reasoning/0004#2 - Corrected model output: No.
+2025-08-27 17:34:07,506 - INFO - Sample commonsense_reasoning/0005#1 - Original model output: I can't see the time on the watch in the picture. Therefore, I can't provide a yes or no answer regarding whether you should continue to work.
+2025-08-27 17:34:07,506 - INFO - Sample commonsense_reasoning/0005#1 - Corrected model output: I can't see the time on the watch in the picture. Therefore, I can't provide a yes or no answer regarding whether you should continue to work.
+2025-08-27 17:36:28,214 - INFO - Sample commonsense_reasoning/0005#2 - Original model output: I can't see the time on the watch in the picture, so I can't answer your question.
+2025-08-27 17:36:28,214 - INFO - Sample commonsense_reasoning/0005#2 - Corrected model output: I can't see the time on the watch in the picture, so I can't answer your question.
+2025-08-27 17:37:49,249 - INFO - Sample commonsense_reasoning/0006#1 - Original model output: Yes.
+2025-08-27 17:37:49,250 - INFO - Sample commonsense_reasoning/0006#1 - Corrected model output: Yes.
+2025-08-27 17:39:40,337 - INFO - Sample commonsense_reasoning/0006#2 - Original model output: No.
+2025-08-27 17:39:40,338 - INFO - Sample commonsense_reasoning/0006#2 - Corrected model output: No.
+2025-08-27 17:41:11,157 - INFO - Sample commonsense_reasoning/0007#1 - Original model output: No.
+2025-08-27 17:41:11,157 - INFO - Sample commonsense_reasoning/0007#1 - Corrected model output: No.
+2025-08-27 17:42:42,669 - INFO - Sample commonsense_reasoning/0007#2 - Original model output: No.
+2025-08-27 17:42:42,670 - INFO - Sample commonsense_reasoning/0007#2 - Corrected model output: No.
+2025-08-27 17:44:16,517 - INFO - Sample commonsense_reasoning/0008#1 - Original model output: Yes.
+2025-08-27 17:44:16,518 - INFO - Sample commonsense_reasoning/0008#1 - Corrected model output: Yes.
+2025-08-27 17:45:59,084 - INFO - Sample commonsense_reasoning/0008#2 - Original model output: Yes.
+2025-08-27 17:45:59,085 - INFO - Sample commonsense_reasoning/0008#2 - Corrected model output: Yes.
+2025-08-27 17:47:13,851 - INFO - Sample commonsense_reasoning/0009#1 - Original model output: No.
+2025-08-27 17:47:13,852 - INFO - Sample commonsense_reasoning/0009#1 - Corrected model output: No.
+2025-08-27 17:48:16,165 - INFO - Sample commonsense_reasoning/0009#2 - Original model output: No.
+2025-08-27 17:48:16,165 - INFO - Sample commonsense_reasoning/0009#2 - Corrected model output: No.
+2025-08-27 17:49:59,393 - INFO - Sample commonsense_reasoning/0010#1 - Original model output: Yes.
+2025-08-27 17:49:59,394 - INFO - Sample commonsense_reasoning/0010#1 - Corrected model output: Yes.

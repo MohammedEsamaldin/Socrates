@@ -62,6 +62,12 @@ class SelfContradictionChecker:
             Dictionary containing contradiction check results
         """
         logger.info(f"Checking self-contradiction for: {claim[:50]}...")
+        # Defensive guard: detect placeholder/empty claim text used in logs/prompts
+        _ct = (claim or "").strip()
+        if not _ct:
+            logger.warning("[ClaimInput] Empty claim text passed; provide actual claim content for verification and logging clarity")
+        elif _ct.lower() in {"claim", "statement", "assertion", "hypothesis"}:
+            logger.warning(f"[ClaimInput] Placeholder-like claim text detected: '{_ct}'. Use the real claim content in prompts/logs.")
         
         if not self.kg_manager:
             logger.warning("No KG manager available for contradiction check")

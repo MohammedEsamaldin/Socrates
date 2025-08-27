@@ -197,6 +197,12 @@ class EnhancedExternalFactualityChecker:
         """
         start_time = datetime.now()
         logger.info(f"Verifying claim: {claim.text[:50]}...")
+        # Defensive guard: detect placeholder/empty claim text used in logs/prompts
+        _ct = (getattr(claim, "text", None) or "").strip()
+        if not _ct:
+            logger.warning("[ClaimInput] Empty claim text passed; provide actual claim content for verification and logging clarity")
+        elif _ct.lower() in {"claim", "statement", "assertion", "hypothesis"}:
+            logger.warning(f"[ClaimInput] Placeholder-like claim text detected: '{_ct}'. Use the real claim content in prompts/logs.")
         
         try:
             # Stage 1: Detect if global knowledge is required
@@ -225,7 +231,13 @@ class EnhancedExternalFactualityChecker:
             processing_time = (datetime.now() - start_time).total_seconds()
             verification_result.processing_time = processing_time
             
-            logger.info(f"Verification complete: {verification_result.overall_status} (confidence: {verification_result.confidence:.2f})")
+            # Log claim with verdict and evidence counts
+            logger.info(
+                f"[Claim+Verdict] claim='{claim.text}' | status={verification_result.overall_status} | "
+                f"conf={verification_result.confidence:.2f} | "
+                f"support_n={len(verification_result.supporting_evidence)} | "
+                f"contradict_n={len(verification_result.contradicting_evidence)}"
+            )
             return verification_result
             
         except Exception as e:
@@ -419,6 +431,20 @@ class EnhancedExternalFactualityChecker:
                 contradictions=contradictions
             )
             
+            # Log claim + evidence pair from Socratic answer
+            try:
+                support_prev = "; ".join([str(ev)[:180] for ev in (supporting_evidence or [])[:2]])
+                contradict_prev = "; ".join([str(ev)[:180] for ev in (contradictions or [])[:2]])
+                ans_prev = (response.content or "")[:200].replace("\n", " ")
+                logger.info(
+                    f"[Claim+Evidence] claim='{claim.text}' | source=SocraticLLM | q='{question.question}' | "
+                    f"conf={answer_confidence:.2f} | support='{support_prev}' | contradict='{contradict_prev}' | "
+                    f"answer='{ans_prev}'"
+                )
+            except Exception:
+                # Avoid any logging exceptions from odd content
+                logger.info(f"[Claim+Evidence] claim='{claim.text}' | source=SocraticLLM | q='{question.question}'")
+            
             socratic_answers.append(socratic_answer)
         
         return socratic_answers
@@ -506,6 +532,16 @@ class EnhancedExternalFactualityChecker:
         # Generate recommendations
         recommendations = self._generate_recommendations(overall_status, knowledge_gaps, global_knowledge_req)
         
+        # Log summary of claim + evidence prior to returning
+        try:
+            support_preview = "; ".join([str(ev) for ev in all_supporting_evidence[:2]])[:250].replace("\n", " ")
+            contradict_preview = "; ".join([str(ev) for ev in all_contradicting_evidence[:2]])[:250].replace("\n", " ")
+            logger.info(
+                f"[Claim+Evidence Summary] claim='{claim.text}' | support='{support_preview}' | contradict='{contradict_preview}'"
+            )
+        except Exception:
+            logger.info(f"[Claim+Evidence Summary] claim='{claim.text}'")
+
         return FactualityVerificationResult(
             claim=claim.text,
             requires_global_knowledge=True,
