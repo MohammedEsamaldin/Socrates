@@ -5,6 +5,7 @@ DEFINITIONS
 - A claim is ATOMIC and testable against external knowledge, session Knowledge Graph, or the current image.
 - Split compound statements into separate atomic claims.
 - If ambiguity is detected (underspecified referent, vague time, unclear attribute), set `ambiguity_reason`.
+- For visual content: Extract claims about object existence, attributes, spatial relationships, and quantities as separate atomic units.
 
 CATEGORIES (assign zero or more per claim)
 SUBJECTIVE/OPINION, SELF-REFERENTIAL, AMBIGUOUS/UNCLEAR, CROSS-MODAL,
@@ -22,15 +23,19 @@ OUTPUT SCHEMA (STRICT JSON array; no markdown):
     "ambiguity_reason": "null or short reason string",
     "route_hint": ["Session-Consistency","External-Factuality","Vision-Grounded","Clarification"],
     "route_hint_confidence": "High|Medium|Low",
-    "vision_flag": false
+    "vision_flag": false,
+    "verification_priority": "High|Medium|Low"
   }}
 ]
 
 ROUTE HINT RULES (lightweight)
-- If CROSS-MODAL → include "Vision-Grounded" and set vision_flag=true.
+- If CROSS-MODAL or SPATIAL or VISUAL-ATTRIBUTE → include "Vision-Grounded" and set vision_flag=true.
 - If AMBIGUOUS/UNCLEAR → include "Clarification".
 - If entities/relations likely in session memory → include "Session-Consistency".
 - If open‑world (QUANTITATIVE/TEMPORAL/CAUSAL or novel entities) → include "External-Factuality".
+- For object existence claims → set verification_priority="High".
+- For spatial/counting claims → set verification_priority="High".
+
 
 COUNTING POLICY
 - The number of extracted claims equals the length of the output array (atomic units only).
