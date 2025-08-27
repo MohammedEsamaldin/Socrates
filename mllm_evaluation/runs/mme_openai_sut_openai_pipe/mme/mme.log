@@ -7011,3 +7011,89 @@
 2025-08-27 16:31:09,257 - INFO - Sample color/000000012120#2 - Corrected model output: Yes.
 2025-08-27 16:32:08,468 - INFO - Sample color/000000014831#1 - Original model output: Yes.
 2025-08-27 16:32:08,468 - INFO - Sample color/000000014831#1 - Corrected model output: Yes.
+2025-08-27 16:33:30,052 - INFO - Loaded 2374 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 16:33:30,128 - INFO - Resuming with 827 already processed samples
+2025-08-27 16:34:35,694 - INFO - Sample color/000000014831#2 - Original model output: No.
+2025-08-27 16:34:35,695 - INFO - Sample color/000000014831#2 - Corrected model output: No.
+2025-08-27 16:35:11,828 - INFO - Sample color/000000028993#1 - Original model output: No.
+2025-08-27 16:35:11,829 - INFO - Sample color/000000028993#1 - Corrected model output: No.
+2025-08-27 16:36:12,478 - INFO - Sample color/000000028993#2 - Original model output: No.
+2025-08-27 16:36:12,479 - INFO - Sample color/000000028993#2 - Corrected model output: No.
+2025-08-27 16:36:48,838 - INFO - Sample color/000000029393#1 - Original model output: I don't know who they are.
+2025-08-27 16:36:48,838 - INFO - Sample color/000000029393#1 - Corrected model output: I don't know who they are.
+2025-08-27 16:37:37,568 - INFO - Sample color/000000029393#2 - Original model output: I don't know who they are.
+2025-08-27 16:37:37,569 - INFO - Sample color/000000029393#2 - Corrected model output: I don't know who they are.
+2025-08-27 16:38:16,496 - INFO - Sample color/000000035770#1 - Original model output: Yes.
+2025-08-27 16:38:16,496 - INFO - Sample color/000000035770#1 - Corrected model output: Yes.
+2025-08-27 16:39:06,256 - INFO - Sample color/000000035770#2 - Original model output: No.
+2025-08-27 16:39:06,258 - INFO - Sample color/000000035770#2 - Corrected model output: No.
+2025-08-27 16:39:50,098 - INFO - Sample color/000000038118#1 - Original model output: Yes.
+2025-08-27 16:39:50,099 - INFO - Sample color/000000038118#1 - Corrected model output: Yes.
+2025-08-27 16:40:38,076 - INFO - Sample color/000000038118#2 - Original model output: Yes.
+2025-08-27 16:40:38,077 - INFO - Sample color/000000038118#2 - Corrected model output: Yes.
+2025-08-27 16:41:06,109 - INFO - Sample color/000000047112#1 - Original model output: Yes.
+2025-08-27 16:41:06,110 - INFO - Sample color/000000047112#1 - Corrected model output: Yes.
+2025-08-27 16:41:51,906 - INFO - Sample color/000000047112#2 - Original model output: No.
+2025-08-27 16:41:51,907 - INFO - Sample color/000000047112#2 - Corrected model output: No.
+2025-08-27 16:42:40,116 - INFO - Sample color/000000047121#1 - Original model output: Yes.
+2025-08-27 16:42:40,116 - INFO - Sample color/000000047121#1 - Corrected model output: Yes.
+2025-08-27 16:43:23,648 - INFO - Sample color/000000047121#2 - Original model output: Yes.
+2025-08-27 16:43:23,649 - INFO - Sample color/000000047121#2 - Corrected model output: Yes.
+2025-08-27 16:44:24,662 - INFO - Sample color/000000053529#1 - Original model output: Yes.
+2025-08-27 16:44:24,663 - INFO - Sample color/000000053529#1 - Corrected model output: Yes.
+2025-08-27 16:45:08,743 - INFO - Sample color/000000053529#2 - Original model output: No.
+2025-08-27 16:45:08,743 - INFO - Sample color/000000053529#2 - Corrected model output: No.
+2025-08-27 16:45:44,792 - INFO - Sample color/000000053994#1 - Original model output: Yes.
+2025-08-27 16:45:44,792 - INFO - Sample color/000000053994#1 - Corrected model output: Yes.
+2025-08-27 16:46:40,066 - INFO - Sample color/000000053994#2 - Original model output: No.
+2025-08-27 16:46:40,066 - INFO - Sample color/000000053994#2 - Corrected model output: No.
+2025-08-27 16:47:13,179 - INFO - Sample color/000000055072#1 - Original model output: Yes.
+2025-08-27 16:47:13,180 - INFO - Sample color/000000055072#1 - Corrected model output: Yes.
+2025-08-27 16:48:01,610 - INFO - Sample color/000000055072#2 - Original model output: Yes.
+2025-08-27 16:48:01,611 - INFO - Sample color/000000055072#2 - Corrected model output: Yes.
+2025-08-27 16:48:58,667 - INFO - Sample color/000000057597#1 - Original model output: Yes.
+2025-08-27 16:48:58,667 - INFO - Sample color/000000057597#1 - Corrected model output: Yes.
+2025-08-27 16:49:48,684 - INFO - Sample color/000000057597#2 - Original model output: No.
+2025-08-27 16:49:48,685 - INFO - Sample color/000000057597#2 - Corrected model output: No.
+2025-08-27 16:50:41,357 - INFO - Sample color/000000061658#1 - Original model output: Yes.
+2025-08-27 16:50:41,358 - INFO - Sample color/000000061658#1 - Corrected model output: Yes.
+2025-08-27 16:51:36,312 - INFO - Sample color/000000061658#2 - Original model output: Yes.
+2025-08-27 16:51:36,313 - INFO - Sample color/000000061658#2 - Corrected model output: Yes.
+2025-08-27 16:52:52,740 - INFO - Sample color/000000338560#1 - Original model output: No.
+2025-08-27 16:52:52,741 - INFO - Sample color/000000338560#1 - Corrected model output: No.
+2025-08-27 16:53:53,604 - INFO - Sample color/000000338560#2 - Original model output: No.
+2025-08-27 16:53:53,605 - INFO - Sample color/000000338560#2 - Corrected model output: No.
+2025-08-27 16:54:36,735 - INFO - Sample color/000000370208#1 - Original model output: Yes.
+2025-08-27 16:54:36,735 - INFO - Sample color/000000370208#1 - Corrected model output: Yes.
+2025-08-27 16:55:47,159 - INFO - Sample color/000000370208#2 - Original model output: No.
+2025-08-27 16:55:47,159 - INFO - Sample color/000000370208#2 - Corrected model output: No.
+2025-08-27 16:56:44,119 - INFO - Sample color/000000377723#1 - Original model output: Yes.
+2025-08-27 16:56:44,120 - INFO - Sample color/000000377723#1 - Corrected model output: Yes.
+2025-08-27 16:57:37,621 - INFO - Sample color/000000377723#2 - Original model output: Yes.
+2025-08-27 16:57:37,621 - INFO - Sample color/000000377723#2 - Corrected model output: Yes.
+2025-08-27 16:58:13,273 - INFO - Sample color/000000405205#1 - Original model output: Yes.
+2025-08-27 16:58:13,274 - INFO - Sample color/000000405205#1 - Corrected model output: Yes.
+2025-08-27 16:59:09,138 - INFO - Sample color/000000405205#2 - Original model output: I'm unable to provide a yes or no answer based on the image alone.
+2025-08-27 16:59:09,138 - INFO - Sample color/000000405205#2 - Corrected model output: I'm unable to provide a yes or no answer based on the image alone.
+2025-08-27 16:59:44,782 - INFO - Sample color/000000410612#1 - Original model output: Yes.
+2025-08-27 16:59:44,783 - INFO - Sample color/000000410612#1 - Corrected model output: Yes.
+2025-08-27 17:01:02,280 - INFO - Sample color/000000410612#2 - Original model output: Yes.
+2025-08-27 17:01:02,281 - INFO - Sample color/000000410612#2 - Corrected model output: Yes.
+2025-08-27 17:01:43,421 - INFO - Sample color/000000427034#1 - Original model output: Yes.
+2025-08-27 17:01:43,422 - INFO - Sample color/000000427034#1 - Corrected model output: Yes.
+2025-08-27 17:02:29,376 - INFO - Sample color/000000427034#2 - Original model output: No.
+2025-08-27 17:02:29,377 - INFO - Sample color/000000427034#2 - Corrected model output: No.
+2025-08-27 17:02:59,922 - INFO - Sample color/000000442456#1 - Original model output: I don't know how to answer that.
+2025-08-27 17:02:59,923 - INFO - Sample color/000000442456#1 - Corrected model output: I don't know how to answer that.
+2025-08-27 17:04:02,937 - INFO - Sample color/000000442456#2 - Original model output: I'm sorry, but I can't provide a yes or no answer based on the image.
+2025-08-27 17:04:02,938 - INFO - Sample color/000000442456#2 - Corrected model output: I'm sorry, but I can't provide a yes or no answer based on the image.
+2025-08-27 17:05:03,431 - INFO - Sample color/000000492362#1 - Original model output: I can't provide a yes or no answer based on the image.
+2025-08-27 17:05:03,432 - INFO - Sample color/000000492362#1 - Corrected model output: I can't provide a yes or no answer based on the image.
+2025-08-27 17:06:00,685 - INFO - Sample color/000000492362#2 - Original model output: No.
+2025-08-27 17:06:00,685 - INFO - Sample color/000000492362#2 - Corrected model output: No.
+2025-08-27 17:07:04,569 - INFO - Sample color/000000492992#1 - Original model output: Yes.
+2025-08-27 17:07:04,570 - INFO - Sample color/000000492992#1 - Corrected model output: Yes.
+2025-08-27 17:08:04,776 - INFO - Sample color/000000492992#2 - Original model output: No.
+2025-08-27 17:08:04,776 - INFO - Sample color/000000492992#2 - Corrected model output: No.
+2025-08-27 17:09:08,376 - INFO - Sample color/000000512929#1 - Original model output: Yes.
+2025-08-27 17:09:08,377 - INFO - Sample color/000000512929#1 - Corrected model output: Yes.

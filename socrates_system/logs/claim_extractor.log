@@ -53172,3 +53172,1682 @@ Exception: OpenAI API error: 429 - {
 2025-08-27 16:32:12,142 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.63): 'The answer is yes or no' -> 'Please answer yes or no.'
 2025-08-27 16:32:12,142 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
 2025-08-27 16:32:12,142 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-27 16:33:22,828 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-27 16:33:26,450 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-27 16:33:29,957 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-27 16:33:30,129 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a green and red animal in the image? Please answer yes or no....
+2025-08-27 16:33:31,711 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a green and red animal in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["animal"],
+    "relations": [["animal","has_color","green"], ["animal","has_color","red"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "unclear if the animal exists in the image",
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:33:33,092 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'There is a green and red animal in the image' -> 'Is there a green and red animal in the image?'
+2025-08-27 16:33:33,092 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:33:33,092 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:34:05,464 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:34:07,225 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:34:07,897 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:34:07,977 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:34:07,977 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:34:35,699 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there yellow poles in the image? Please answer yes or no....
+2025-08-27 16:34:37,653 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There are yellow poles in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["yellow poles"],
+    "relations": [["yellow poles", "exist_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The question asks about presence, but does not specify the number or exact location of poles.",
+    "route_hint": ["External-Factuality", "Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:34:38,885 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There are yellow poles in the image' -> 'Are there yellow poles in the image?'
+2025-08-27 16:34:38,886 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:34:38,886 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:34:56,799 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:34:58,708 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is ambiguous and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:34:59,129 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:34:59,129 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:34:59,129 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:35:11,833 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there blue poles in the image? Please answer yes or no....
+2025-08-27 16:35:13,630 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There are blue poles in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["blue poles"],
+    "relations": [["blue poles", "exist_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": "The question is about the presence of blue poles in the image, but the image content is not provided here.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:35:13,873 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.88): 'There are blue poles in the image' -> 'Are there blue poles in the image?'
+2025-08-27 16:35:13,873 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:35:13,874 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:35:57,059 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:35:58,757 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:35:58,876 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:35:58,876 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:35:58,876 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:36:12,483 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a brown dog in the image? Please answer yes or no....
+2025-08-27 16:36:14,318 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a brown dog in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["brown dog"],
+    "relations": [["brown dog", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:36:14,964 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.86): 'There is a brown dog in the image' -> 'Is there a brown dog in the image?'
+2025-08-27 16:36:14,964 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:36:14,964 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:36:31,529 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I don't know who they are....
+2025-08-27 16:36:33,026 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I don't know who they are.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": ["they"],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Unclear who 'they' refers to",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:36:33,388 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.95): 'I don't know who they are' -> 'I don't know who they are.'
+2025-08-27 16:36:33,388 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:36:33,389 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:36:48,841 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a black dog in the image? Please answer yes or no....
+2025-08-27 16:36:50,712 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a black dog in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["black dog"],
+    "relations": [["black dog", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:36:50,817 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.86): 'There is a black dog in the image' -> 'Is there a black dog in the image?'
+2025-08-27 16:36:50,817 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:36:50,818 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:37:21,634 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I don't know who they are....
+2025-08-27 16:37:23,288 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I don't know who they are.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": ["they"],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Unclear referent for 'they'",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:37:23,403 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.95): 'I don't know who they are' -> 'I don't know who they are.'
+2025-08-27 16:37:23,403 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:37:23,404 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:37:37,573 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a black and white toilet in the image? Please answer yes or no....
+2025-08-27 16:37:39,486 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a black and white toilet in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["toilet"],
+    "relations": [["toilet", "has_color", "black and white"]],
+    "source_context": "user query",
+    "confidence": "Medium",
+    "ambiguity_reason": "unclear if the toilet exists in the image or not",
+    "route_hint": ["Vision-Grounded", "Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:37:39,657 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.92): 'There is a black and white toilet in the image' -> 'Is there a black and white toilet in the image?'
+2025-08-27 16:37:39,657 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:37:39,658 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:37:57,658 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:37:59,277 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous or unclear statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:38:00,449 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:38:00,451 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:38:00,451 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:38:16,500 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red and white toilet in the image? Please answer yes or no....
+2025-08-27 16:38:18,291 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red and white toilet in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["toilet"],
+    "relations": [["toilet", "has_color", "red"], ["toilet", "has_color", "white"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "unclear if the image contains a toilet or not",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:38:18,721 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'There is a red and white toilet in the image' -> 'Is there a red and white toilet in the image?'
+2025-08-27 16:38:18,721 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:38:18,721 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:38:48,080 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:38:49,912 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:38:50,460 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:38:50,522 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:38:50,522 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:39:06,261 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red coat in the image? Please answer yes or no....
+2025-08-27 16:39:07,720 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red coat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red coat"],
+    "relations": [["red coat", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:39:07,886 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a red coat in the image' -> 'Is there a red coat in the image?'
+2025-08-27 16:39:07,886 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:39:07,887 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:39:32,137 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:39:33,726 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:39:34,187 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:39:34,188 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:39:34,188 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:39:50,103 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a yellow coat in the image? Please answer yes or no....
+2025-08-27 16:39:51,699 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a yellow coat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["yellow coat"],
+    "relations": [["yellow coat", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:39:52,083 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.88): 'There is a yellow coat in the image' -> 'Is there a yellow coat in the image?'
+2025-08-27 16:39:52,083 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:39:52,083 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:40:22,240 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:40:24,485 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous or unclear statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:40:24,580 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:40:24,581 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:40:24,581 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:40:38,080 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a white plate in the image? Please answer yes or no....
+2025-08-27 16:40:39,664 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a white plate in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["white plate"],
+    "relations": [["white plate", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:40:39,778 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a white plate in the image' -> 'Is there a white plate in the image?'
+2025-08-27 16:40:39,778 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:40:39,778 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:40:49,761 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:40:51,050 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "user input",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous or unclear statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:40:51,150 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:40:51,150 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:40:51,150 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:41:06,112 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a yellow plate in the image? Please answer yes or no....
+2025-08-27 16:41:07,908 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a yellow plate in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["yellow plate"],
+    "relations": [["yellow plate", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of the yellow plate depends on visual confirmation.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:41:08,009 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a yellow plate in the image' -> 'Is there a yellow plate in the image?'
+2025-08-27 16:41:08,010 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:41:08,010 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:41:37,162 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:41:38,926 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:41:39,238 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:41:39,238 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:41:39,238 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:41:51,909 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a black cat in the image? Please answer yes or no....
+2025-08-27 16:41:53,530 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a black cat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["black cat"],
+    "relations": [["black cat", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:41:54,034 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a black cat in the image' -> 'Is there a black cat in the image?'
+2025-08-27 16:41:54,036 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:41:54,037 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:42:24,911 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:42:26,371 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:42:26,602 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:42:26,602 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:42:26,602 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:42:40,119 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a brown cat in the image? Please answer yes or no....
+2025-08-27 16:42:41,698 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a brown cat in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["brown cat"],
+    "relations": [["brown cat", "exists_in", "image"]],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:42:42,016 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a brown cat in the image' -> 'Is there a brown cat in the image?'
+2025-08-27 16:42:42,016 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:42:42,017 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:43:07,256 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:43:08,655 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous or unclear statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:43:08,854 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:43:08,855 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:43:08,855 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:43:23,651 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a green hat in the image? Please answer yes or no....
+2025-08-27 16:43:25,563 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a green hat in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["green hat"],
+    "relations": [["green hat", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:43:26,038 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a green hat in the image' -> 'Is there a green hat in the image?'
+2025-08-27 16:43:26,038 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:43:26,039 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:43:35,888 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:43:37,242 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "unspecified what 'Yes' refers to",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:43:37,325 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:43:37,325 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:43:37,325 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:44:24,666 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red hat in the image? Please answer yes or no....
+2025-08-27 16:44:26,485 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red hat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red hat"],
+    "relations": [["red hat", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of a red hat depends on visual confirmation.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:44:26,881 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a red hat in the image' -> 'Is there a red hat in the image?'
+2025-08-27 16:44:26,882 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:44:26,882 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:44:53,703 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:44:55,469 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and does not specify what it refers to.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:44:56,015 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:44:56,247 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:44:56,247 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:45:08,747 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a gray wall in the image? Please answer yes or no....
+2025-08-27 16:45:10,581 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a gray wall in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["wall"],
+    "relations": [["wall","has_color","gray"]],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:45:10,983 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a gray wall in the image' -> 'Is there a gray wall in the image?'
+2025-08-27 16:45:10,983 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:45:10,984 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:45:26,353 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:45:28,270 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous; no specific information provided",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:45:28,382 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:45:28,382 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:45:28,382 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:45:44,794 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red wall in the image? Please answer yes or no....
+2025-08-27 16:45:47,572 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red wall in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red wall"],
+    "relations": [["red wall", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The claim is a question asking about the existence of a red wall, not a statement of fact.",
+    "route_hint": ["External-Factuality", "Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:45:47,979 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a red wall in the image' -> 'Is there a red wall in the image?'
+2025-08-27 16:45:47,979 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:45:47,979 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:46:25,108 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:46:26,798 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:46:26,905 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:46:26,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:46:26,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:46:40,069 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a brown giraffe in the image?  Please answer yes or no....
+2025-08-27 16:46:41,731 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a brown giraffe in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["brown giraffe"],
+    "relations": [["brown giraffe", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:46:42,238 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a brown giraffe in the image' -> 'Is there a brown giraffe in the image?'
+2025-08-27 16:46:42,239 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:46:42,239 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:46:52,874 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:46:55,033 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or subject.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:46:55,107 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:46:55,107 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:46:55,107 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:47:13,183 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a black giraffe in the image? Please answer yes or no....
+2025-08-27 16:47:15,264 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a black giraffe in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["giraffe"],
+    "relations": [["giraffe","has_color","black"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "unclear if giraffe exists in the image",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:47:15,746 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a black giraffe in the image' -> 'Is there a black giraffe in the image?'
+2025-08-27 16:47:15,746 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:47:15,751 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:47:45,333 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:47:46,720 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Ambiguous or unclear statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:47:47,125 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:47:47,125 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:47:47,125 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:48:01,614 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any red shoes in the image? Please answer yes or no....
+2025-08-27 16:48:03,335 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There are red shoes in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["red shoes"],
+    "relations": [["red shoes", "exist_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of red shoes is uncertain without visual confirmation.",
+    "route_hint": ["External-Factuality", "Vision-Grounded"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:48:03,802 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.85): 'There are red shoes in the image' -> 'Are there any red shoes in the image?'
+2025-08-27 16:48:03,802 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:48:03,803 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:48:41,798 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:48:43,473 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Vague affirmation without context",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:48:43,685 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:48:43,685 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:48:43,685 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:48:58,670 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any yellow shoes in the image? Please answer yes or no....
+2025-08-27 16:49:00,187 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Are there any yellow shoes in the image?",
+    "categories": ["QUESTION"],
+    "entities": ["yellow shoes"],
+    "relations": [],
+    "source_context": "user query",
+    "confidence": "Low",
+    "ambiguity_reason": "The question asks for a yes/no answer, which is not an atomic claim.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:49:00,552 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'Are there any yellow shoes in the image' -> 'Are there any yellow shoes in the image?'
+2025-08-27 16:49:00,552 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:49:00,553 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:49:31,293 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:49:32,761 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and does not specify what it refers to.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:49:33,399 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:49:33,400 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:49:33,400 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:49:48,689 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there a white dish in the image? Please answer yes or no....
+2025-08-27 16:49:50,696 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a white dish in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["white dish"],
+    "relations": [["white dish", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:49:50,859 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a white dish in the image' -> 'Are there a white dish in the image?'
+2025-08-27 16:49:50,859 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:49:50,860 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:50:24,595 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:50:26,293 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:50:26,435 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:50:26,436 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:50:26,436 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:50:41,361 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there a green dish in the image? Please answer yes or no....
+2025-08-27 16:50:42,911 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a green dish in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["green dish"],
+    "relations": [["green dish", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": "none",
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:50:43,330 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a green dish in the image' -> 'Are there a green dish in the image?'
+2025-08-27 16:50:43,330 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:50:43,331 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:51:18,007 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:51:19,905 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short input",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' does not specify what it affirms or negates.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:51:20,393 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:51:20,395 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:51:20,395 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:51:36,317 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a blue and yellow fire hydrant in the image? Please answer yes or no....
+2025-08-27 16:51:39,524 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a blue fire hydrant in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["fire hydrant"],
+    "relations": [["fire hydrant", "has_color", "blue"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "Color perception may vary or be unclear in the image",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  },
+  {
+    "claim_text": "There is a yellow fire hydrant in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["fire hydrant"],
+    "relations": [["fire hydrant", "has_color", "yellow"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "Color perception may vary or be unclear in the image",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:51:40,685 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a blue fire hydrant in the image' -> 'Is there a blue and yellow fire hydrant in the image?'
+2025-08-27 16:51:40,686 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.88): 'There is a yellow fire hydrant in the image' -> 'Is there a blue and yellow fire hydrant in the image?'
+2025-08-27 16:51:40,686 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-27 16:51:40,687 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-27 16:52:33,693 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:52:35,557 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:52:36,071 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:52:36,073 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:52:36,073 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:52:52,745 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a blue and orange fire hydrant in the image? Please answer yes or no....
+2025-08-27 16:52:54,874 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a blue and orange fire hydrant in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["fire hydrant"],
+    "relations": [["fire hydrant", "has_color", "blue"], ["fire hydrant", "has_color", "orange"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "Color attributes may be ambiguous if not visually confirmed",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:52:55,562 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'There is a blue and orange fire hydrant in the image' -> 'Is there a blue and orange fire hydrant in the image?'
+2025-08-27 16:52:55,562 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:52:55,563 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:53:37,379 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:53:39,306 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:53:39,416 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:53:39,416 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:53:39,416 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:53:53,608 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red bicycle with white handlebars in the image? Please answer yes or no....
+2025-08-27 16:53:56,974 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red bicycle in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red bicycle"],
+    "relations": [["red bicycle", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  },
+  {
+    "claim_text": "The bicycle has white handlebars.",
+    "categories": ["FACTUAL"],
+    "entities": ["white handlebars"],
+    "relations": [["white handlebars", "attached_to", "bicycle"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:53:57,471 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.71): 'There is a red bicycle in the image' -> 'Is there a red bicycle with white handlebars in the image?'
+2025-08-27 16:53:57,472 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The bicycle has white handlebars' -> 'Is there a red bicycle with white handlebars in the image?'
+2025-08-27 16:53:57,472 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-27 16:53:57,473 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-27 16:54:17,552 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:54:19,359 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Vague affirmation without context",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:54:19,449 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:54:19,449 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:54:19,449 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:54:36,739 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red bicycle with black handlebars in the image? Please answer yes or no....
+2025-08-27 16:54:40,830 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red bicycle in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red bicycle"],
+    "relations": [],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "Color and object presence depend on visual confirmation",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  },
+  {
+    "claim_text": "The bicycle has black handlebars.",
+    "categories": ["FACTUAL"],
+    "entities": ["black handlebars"],
+    "relations": [["bicycle", "has", "black handlebars"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "Visual confirmation needed to verify color and presence",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:54:41,390 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.72): 'There is a red bicycle in the image' -> 'Is there a red bicycle with black handlebars in the image?'
+2025-08-27 16:54:41,391 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.81): 'The bicycle has black handlebars' -> 'Is there a red bicycle with black handlebars in the image?'
+2025-08-27 16:54:41,391 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims using LLM.
+2025-08-27 16:54:41,392 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 2 claims
+2025-08-27 16:55:30,391 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 16:55:31,942 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:55:32,332 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 16:55:32,334 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:55:32,334 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:55:47,163 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a blue bus in the image? Please answer yes or no....
+2025-08-27 16:55:48,736 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a blue bus in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["blue bus"],
+    "relations": [["blue bus", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:55:49,151 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a blue bus in the image' -> 'Is there a blue bus in the image?'
+2025-08-27 16:55:49,151 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:55:49,151 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:56:02,094 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:56:03,936 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:56:04,051 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:56:04,051 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:56:04,051 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:56:44,122 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a orange bus in the image? Please answer yes or no....
+2025-08-27 16:56:46,765 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is an orange bus in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["orange bus"],
+    "relations": [["orange bus", "exists_in", "the image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:56:47,112 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is an orange bus in the image' -> 'Is there a orange bus in the image?'
+2025-08-27 16:56:47,112 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:56:47,113 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:57:09,132 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:57:10,858 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Vague affirmation without context",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:57:11,399 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:57:11,401 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:57:11,401 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:57:37,626 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a white bus in the image?  Please answer yes or no....
+2025-08-27 16:57:39,641 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a white bus in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["white bus"],
+    "relations": [["white bus", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:57:39,789 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a white bus in the image' -> 'Is there a white bus in the image?'
+2025-08-27 16:57:39,789 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:57:39,790 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:57:50,966 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:57:52,761 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Vague or non-informative response",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:57:52,850 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:57:52,850 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:57:52,850 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:58:13,276 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red bus in the image?  Please answer yes or no....
+2025-08-27 16:58:15,625 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red bus in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red bus"],
+    "relations": [["red bus", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:58:15,964 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a red bus in the image' -> 'Is there a red bus in the image?'
+2025-08-27 16:58:15,964 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:58:15,966 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:58:37,561 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I'm unable to provide a yes or no answer based on the image alone....
+2025-08-27 16:58:39,153 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I'm unable to provide a yes or no answer based on the image alone.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": "The statement indicates inability to answer, not a factual claim.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:58:40,144 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.94): 'I'm unable to provide a yes or no answer based on the image alone' -> 'I'm unable to provide a yes or no answer based on the image alone.'
+2025-08-27 16:58:40,145 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:58:40,145 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:59:09,141 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a red boat in the image? Please answer yes or no....
+2025-08-27 16:59:11,231 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a red boat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["red boat"],
+    "relations": [["red boat", "exists_in", "the image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The statement is a question asking about the existence of a red boat in the image.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:59:11,570 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a red boat in the image' -> 'Is there a red boat in the image?'
+2025-08-27 16:59:11,571 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:59:11,571 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:59:29,434 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 16:59:31,011 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement is an affirmation without additional context.",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 16:59:31,336 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 16:59:31,337 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:59:31,337 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 16:59:44,787 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a gray boat in the image? Please answer yes or no....
+2025-08-27 16:59:46,046 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a gray boat in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["boat"],
+    "relations": [["boat", "color", "gray"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 16:59:46,476 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a gray boat in the image' -> 'Is there a gray boat in the image?'
+2025-08-27 16:59:46,477 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 16:59:46,477 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:00:07,606 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 17:00:09,760 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:00:10,083 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 17:00:10,083 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:00:10,083 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:01:02,284 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a brown and black dog in the image? Please answer yes or no....
+2025-08-27 17:01:04,083 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a brown and black dog in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["dog"],
+    "relations": [["dog", "has_color", "brown"], ["dog", "has_color", "black"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": "The specific dog is not identified; color attributes are assumed to apply to a single dog.",
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:01:04,203 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'There is a brown and black dog in the image' -> 'Is there a brown and black dog in the image?'
+2025-08-27 17:01:04,203 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:01:04,205 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:01:23,729 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 17:01:25,332 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:01:25,717 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 17:01:25,717 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:01:25,717 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:01:43,424 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a brown and white dog in the image? Please answer yes or no....
+2025-08-27 17:01:45,126 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a brown and white dog in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["dog"],
+    "relations": [["dog", "has_color", "brown"], ["dog", "has_color", "white"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": "The specific dog in the image is not identified.",
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:01:45,491 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'There is a brown and white dog in the image' -> 'Is there a brown and white dog in the image?'
+2025-08-27 17:01:45,491 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:01:45,492 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:02:14,464 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 17:02:16,220 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:02:16,557 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 17:02:16,971 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:02:16,971 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:02:29,379 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a man wearing a red shirt in the image? Please answer yes or no....
+2025-08-27 17:02:31,279 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a man wearing a red shirt in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["man", "red shirt"],
+    "relations": [["man", "wearing", "red shirt"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:02:32,118 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'There is a man wearing a red shirt in the image' -> 'Is there a man wearing a red shirt in the image?'
+2025-08-27 17:02:32,118 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:02:32,119 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:02:44,626 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I don't know how to answer that....
+2025-08-27 17:02:47,740 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I don't know how to answer that.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement is about the user's knowledge or response capability, not a factual claim.",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:02:47,810 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.93): 'I don't know how to answer that' -> 'I don't know how to answer that.'
+2025-08-27 17:02:47,810 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:02:47,810 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:02:59,925 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a man wearing a white shirt in the image? Please answer yes or no....
+2025-08-27 17:03:01,533 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a man wearing a white shirt in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["man", "white shirt"],
+    "relations": [["man", "wearing", "white shirt"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:03:01,848 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.87): 'There is a man wearing a white shirt in the image' -> 'Is there a man wearing a white shirt in the image?'
+2025-08-27 17:03:01,848 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:03:01,849 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:03:25,946 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I'm sorry, but I can't provide a yes or no answer based on the image....
+2025-08-27 17:03:27,623 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I'm sorry, but I can't provide a yes or no answer based on the image.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": "The statement indicates inability to answer a yes/no question based on an image, not a factual claim.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:03:28,199 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'I'm sorry, but I can't provide a yes or no answer based on the image' -> 'I'm sorry, but I can't provide a yes or no answer based on the image.'
+2025-08-27 17:03:28,199 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:03:28,199 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:04:02,941 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a skateboard with red wheels in the image? Please answer yes or no....
+2025-08-27 17:04:05,515 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a skateboard with red wheels in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["skateboard", "red wheels"],
+    "relations": [["skateboard", "has_attribute", "red wheels"]],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:04:05,914 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.90): 'There is a skateboard with red wheels in the image' -> 'Is there a skateboard with red wheels in the image?'
+2025-08-27 17:04:05,914 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:04:05,916 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:04:40,958 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: I can't provide a yes or no answer based on the image....
+2025-08-27 17:04:42,936 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "I can't provide a yes or no answer based on the image.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "High",
+    "ambiguity_reason": "The statement indicates an inability to answer, not a factual claim about the image.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:04:43,358 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.96): 'I can't provide a yes or no answer based on the image' -> 'I can't provide a yes or no answer based on the image.'
+2025-08-27 17:04:43,358 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:04:43,358 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:05:03,434 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a skateboard with black wheels in the image? Please answer yes or no....
+2025-08-27 17:05:05,410 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a skateboard with black wheels in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["skateboard", "black wheels"],
+    "relations": [["skateboard", "has", "black wheels"]],
+    "source_context": "user input",
+    "confidence": "High",
+    "ambiguity_reason": null,
+    "route_hint": ["Vision-Grounded", "Session-Consistency"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:05:05,775 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.91): 'There is a skateboard with black wheels in the image' -> 'Is there a skateboard with black wheels in the image?'
+2025-08-27 17:05:05,775 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:05:05,777 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:05:30,850 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 17:05:33,038 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and does not specify what it refers to.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:05:33,515 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 17:05:33,515 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:05:33,515 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:06:00,688 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a white bird in the image? Please answer yes or no....
+2025-08-27 17:06:03,479 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a white bird in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["white bird"],
+    "relations": [["white bird", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The statement is a question asking about the existence of a white bird in the image.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:06:03,826 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a white bird in the image' -> 'Is there a white bird in the image?'
+2025-08-27 17:06:03,826 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:06:03,827 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:06:46,051 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 17:06:48,947 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["SELF-REFERENTIAL"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "Vague or no specific information provided",
+    "route_hint": ["Session-Consistency"],
+    "route_hint_confidence": "Low",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:06:49,324 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 17:06:49,324 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:06:49,324 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:07:04,572 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Is there a yellow bird in the image? Please answer yes or no....
+2025-08-27 17:07:07,793 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There is a yellow bird in the image.",
+    "categories": ["FACTUAL", "RELATIONAL"],
+    "entities": ["yellow bird"],
+    "relations": [["yellow bird", "exists_in", "image"]],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of the yellow bird depends on visual confirmation.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:07:08,211 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There is a yellow bird in the image' -> 'Is there a yellow bird in the image?'
+2025-08-27 17:07:08,211 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:07:08,212 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:07:45,112 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 17:07:46,834 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and lacks context.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:07:47,141 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 17:07:47,141 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:07:47,141 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:08:04,779 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any green beans in the image? Please answer yes or no....
+2025-08-27 17:08:06,831 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There are green beans in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["green beans"],
+    "relations": [],
+    "source_context": "user input",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of green beans depends on visual confirmation of the image.",
+    "route_hint": ["Vision-Grounded", "External-Factuality"],
+    "route_hint_confidence": "High",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:08:07,160 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.89): 'There are green beans in the image' -> 'Are there any green beans in the image?'
+2025-08-27 17:08:07,160 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:08:07,161 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:08:29,063 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 17:08:31,102 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short input",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' is an affirmation without context or referent.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:08:31,513 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 17:08:31,513 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:08:31,513 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:09:08,380 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any orange beans in the image? Please answer yes or no....
+2025-08-27 17:09:10,416 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "There are orange beans in the image.",
+    "categories": ["FACTUAL"],
+    "entities": ["orange beans"],
+    "relations": [["orange beans", "exist_in", "image"]],
+    "source_context": "user query",
+    "confidence": "Medium",
+    "ambiguity_reason": "The presence of orange beans depends on the image content, which is not provided.",
+    "route_hint": ["External-Factuality", "Clarification"],
+    "route_hint_confidence": "Medium",
+    "vision_flag": true,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:09:10,820 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.88): 'There are orange beans in the image' -> 'Are there any orange beans in the image?'
+2025-08-27 17:09:10,820 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:09:10,821 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:09:45,154 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 17:09:47,072 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and does not specify what it refers to.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims

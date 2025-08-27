@@ -94,6 +94,7 @@ IMPORTANT: Only output the JSON array with no additional text, markdown formatti
 - Multiple possible interpretations
 - Incomplete or fragmented statements
 - Unclear scope or boundaries of the claim
+- If the claim is asking to asnwer with yes or no, ignore it.
 
 **Examples:**
 - "It's blue" (unclear what "it" refers to)
