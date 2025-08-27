@@ -1919,3 +1919,6 @@
 2025-08-27 17:03:44,919 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.80)
 2025-08-27 17:08:46,449 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' affirms that the previous assertion is correct.
 2025-08-27 17:08:57,146 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-27 17:10:38,377 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-27 17:10:38,377 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-27 17:10:38,377 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully

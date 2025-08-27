@@ -54851,3 +54851,82 @@ Exception: OpenAI API error: 429 - {
 2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
 2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
 2025-08-27 17:09:47,410 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:10:31,361 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2025-08-27 17:10:34,859 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2025-08-27 17:10:38,375 - socrates_system.modules.claim_extractor - INFO - ClaimExtractor attached to KnowledgeGraphManager for canonical ID resolution
+2025-08-27 17:10:38,550 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any orange beans in the image? Please answer yes or no....
+2025-08-27 17:10:40,545 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Are there any orange beans in the image?",
+    "categories": ["QUESTION"],
+    "entities": ["orange beans"],
+    "relations": [],
+    "source_context": "user input",
+    "confidence": "Low",
+    "ambiguity_reason": "question asking for presence, not a statement",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "High"
+  }
+]'
+2025-08-27 17:10:41,039 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Are there any orange beans in the image' -> 'Are there any orange beans in the image?'
+2025-08-27 17:10:41,039 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:10:41,040 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:11:21,224 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: No....
+2025-08-27 17:11:23,959 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "No.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short span or turn id",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'No.' is incomplete and does not specify what it refers to.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:11:24,356 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 1.00): 'No.' -> 'No.'
+2025-08-27 17:11:24,357 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:11:24,357 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:11:42,501 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Are there any red flowers in the image? Please answer yes or no....
+2025-08-27 17:11:44,306 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Are there any red flowers in the image?",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": ["red flowers"],
+    "relations": [],
+    "source_context": "user query",
+    "confidence": "Low",
+    "ambiguity_reason": "The question asks for a yes/no answer, which is not an atomic factual claim.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:11:44,726 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.99): 'Are there any red flowers in the image' -> 'Are there any red flowers in the image?'
+2025-08-27 17:11:44,726 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:11:44,727 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2025-08-27 17:12:18,157 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: Yes....
+2025-08-27 17:12:20,597 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[
+  {
+    "claim_text": "Yes.",
+    "categories": ["AMBIGUOUS/UNCLEAR"],
+    "entities": [],
+    "relations": [],
+    "source_context": "short input",
+    "confidence": "Low",
+    "ambiguity_reason": "The statement 'Yes.' lacks context and specific referents.",
+    "route_hint": ["Clarification"],
+    "route_hint_confidence": "High",
+    "vision_flag": false,
+    "verification_priority": "Low"
+  }
+]'
+2025-08-27 17:12:21,109 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.84): 'Yes' -> 'Yes.'
+2025-08-27 17:12:21,110 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2025-08-27 17:12:21,110 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims

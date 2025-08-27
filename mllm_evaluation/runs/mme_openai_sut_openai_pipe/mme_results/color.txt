@@ -47,3 +47,4 @@
 000000492992.jpg	Is there a white bird in the image? Please answer yes or no.	Yes	Yes.
 000000492992.jpg	Is there a yellow bird in the image? Please answer yes or no.	No	No.
 000000512929.jpg	Are there any green beans in the image? Please answer yes or no.	Yes	Yes.
+000000512929.jpg	Are there any orange beans in the image? Please answer yes or no.	No	No.

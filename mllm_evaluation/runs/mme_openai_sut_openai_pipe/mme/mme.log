@@ -7097,3 +7097,7 @@
 2025-08-27 17:08:04,776 - INFO - Sample color/000000492992#2 - Corrected model output: No.
 2025-08-27 17:09:08,376 - INFO - Sample color/000000512929#1 - Original model output: Yes.
 2025-08-27 17:09:08,377 - INFO - Sample color/000000512929#1 - Corrected model output: Yes.
+2025-08-27 17:10:38,467 - INFO - Loaded 2374 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 17:10:38,549 - INFO - Resuming with 869 already processed samples
+2025-08-27 17:11:42,496 - INFO - Sample color/000000512929#2 - Original model output: No.
+2025-08-27 17:11:42,497 - INFO - Sample color/000000512929#2 - Corrected model output: No.
