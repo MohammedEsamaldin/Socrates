@@ -213,6 +213,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--temperature", type=float, default=0.2)
     p.add_argument("--prompt-key", default=None, help="Override prompt field name in dataset")
     p.add_argument("--id-key", default=None, help="Override id field name in dataset")
+    p.add_argument("--include-list", default=None, help="Path to a text file with one selector per line to include: sample_id 'cat/stem#i', a stem 'cat/stem' (all questions), an image basename like '0001.jpg' or '0001', or a category name. Lines starting with # are ignored.")
     p.add_argument("--mme-results-dir", default=None, help="Directory to write official MME results (.txt per category)")
     p.add_argument("--mme-original", action="store_true", help="Use original (uncorrected) model output in MME results; default uses corrected output")
     p.add_argument("--force-yes-no", action="store_true", help="Force SUT to answer strictly 'Yes' or 'No' and coerce output accordingly")
@@ -246,6 +247,54 @@ def main():
 
     # Run with MME writer
     data = evaluator.load_dataset(args.dataset)
+    # Optional: filter to a specific subset via include list
+    if args.include_list:
+        try:
+            with open(args.include_list, "r", encoding="utf-8") as f:
+                raw_selectors = [ln.strip() for ln in f if ln.strip() and not ln.strip().startswith("#")]
+        except Exception as e:
+            evaluator.logger.error(f"Failed to read include list {args.include_list}: {e}")
+            raw_selectors = []
+
+        if raw_selectors:
+            existing_categories = set(str(s.get("category", "")) for s in data)
+            id_selectors = set([s for s in raw_selectors if "#" in s])
+            nohash = [s for s in raw_selectors if "#" not in s]
+            category_selectors = set([s for s in nohash if ("/" not in s) and (s in existing_categories)])
+            catstem_selectors = set([s for s in nohash if ("/" in s)])
+            basename_selectors = set([s for s in nohash if ("." in s and "/" not in s and s not in category_selectors)])
+            stem_selectors = set([s for s in nohash if ("." not in s and "/" not in s and s not in category_selectors)])
+
+            def sample_matches(sample: Dict[str, Any]) -> bool:
+                sid = evaluator.get_sample_id(sample) or ""
+                if sid in id_selectors:
+                    return True
+                img_base = sample.get("image_basename") or os.path.basename(sample.get("image", ""))
+                stem = os.path.splitext(img_base)[0]
+                cat = sample.get("category", "")
+                catstem = f"{cat}/{stem}"
+                if cat in category_selectors:
+                    return True
+                if catstem in catstem_selectors:
+                    return True
+                if img_base in basename_selectors or stem in basename_selectors:
+                    return True
+                if stem in stem_selectors:
+                    return True
+                # Support 'stem#i', 'img.jpg#i', or 'cat/stem#i' via id_selectors
+                for sel in id_selectors:
+                    left, _, qidx = sel.partition("#")
+                    if not qidx.isdigit():
+                        continue
+                    if left in (catstem, stem, img_base) and sid.endswith(f"#{qidx}"):
+                        return True
+                return False
+
+            before = len(data)
+            data = [s for s in data if sample_matches(s)]
+            evaluator.logger.info(f"Applied include list {args.include_list}: {before} -> {len(data)} samples")
+        else:
+            evaluator.logger.warning(f"Include list {args.include_list} was empty; proceeding with all samples")
     evaluator.logger.info(f"Loaded {len(data)} MME samples from {args.dataset}")
 
     processed_ids = evaluator.ckpt.load_processed_ids() if evaluator.resume else set()

@@ -17,3 +17,36 @@
 0009.png	Will green be obtained by mixing the above two colors? Please answer yes or no.	Yes	No.
 0009.png	Will red be obtained by mixing the above two colors? Please answer yes or no.	No	No.
 0010.png	I am going to exercise and I want to choose a venue. Is the venue in the picture a good choice? Please answer yes or no.	Yes	Yes.
+0010.png	I am going to study and I want to choose a venue. Is the venue in the picture a good choice? Please answer yes or no.	No	No.
+0011.png	If I am allergic to durian, can I finish the fruit in the picture? Please answer yes or no.	Yes	Yes.
+0011.png	If I am allergic to banana, can I finish the fruit in the picture? Please answer yes or no.	No	No.
+0012.png	I am going to study and I want to choose a venue. Is the venue in the picture a good choice? Please answer yes or no.	Yes	Yes.
+0012.png	I am going to exercise and I want to choose a venue. Is the venue in the picture a good choice? Please answer yes or no.	No	No.
+0013.png	I am going to a formal dinner party. Is the shoe in the picture an appropriate choice? Please answer yes or no.	Yes	Yes.
+0013.png	I am going to play basketball. Is the shoe in the picture an appropriate choice? Please answer yes or no.	No	Yes.
+0014.png	In this line chart, the vertical axis is height and the horizontal axis is age. Does Maria's height exceed Jane's height in the end? Please answer yes or no.	Yes	Yes.
+0014.png	In this line chart, the vertical axis is height and the horizontal axis is age. Does Jane's height exceed Kangkang's height in the end? Please answer yes or no.	No	No.
+0015.png	Is the ball usually played with hands? Please answer yes or no.	Yes	Yes.
+0015.png	Is the ball usually played with feet? Please answer yes or no.	No	No.
+0016.png	Is the place in the picture a good place to enjoy the cool in a sunny day? Please answer yes or no.	Yes	Yes
+0016.png	Is the place in the picture a good shelter from the rain when it thunders outside? Please answer yes or no.	No	Yes
+0017.png	Are the vehicles in the pictures usually environmentally friendly? Please answer yes or no.	Yes	Yes
+0017.png	Does the vehicle in the picture usually run faster than the car? Please answer yes or no.	No	No
+0018.png	This is a picture of some kind of animal. Does it eat leaves? Please answer yes or no.	Yes	Yes
+0018.png	This is a picture of some kind of animal. Does it eat meat? Please answer yes or no.	No	No
+0019.png	Is the water flow in the picture from the top to the bottom? Please answer yes or no.	Yes	Yes
+0019.png	Is the water flow in the picture from the bottom to the top? Please answer yes or no.	No	No
+0020.png	Can the item in the picture be used to measure length? Please answer yes or no.	Yes	Yes
+0020.png	Can the item in the picture be used to measure angles? Please answer yes or no.	No	Yes
+0021.png	This is a toilet guide sign. I am a man. Should I go to the toilet on the left? Please answer yes or no.	Yes	Yes
+0021.png	This is a toilet guide sign. I am a man. Should I go to the toilet on the right? Please answer yes or no.	No	Yes
+0022.png	Does the animal in the picture usually catch mice? Please answer yes or no.	Yes	Yes
+0022.png	Is the animal in the picture usually used in search and rescue? Please answer yes or no.	No	No
+0023.png	If you want to keep your fruit fresh in summer, should you put it in the appliance in the picture? Please answer yes or no.	Yes	Yes
+0023.png	Is the appliance in the picture more suitable for winter than summer? Please answer yes or no.	No	No
+0024.png	I want to go skating. Is the shoe in the picture usually appropriate? Please answer yes or no.	Yes	Yes
+0024.png	I want to go roller skating. Is the shoe in the picture usually appropriate? Please answer yes or no.	No	No
+0025.png	I feel very thirsty in the desert now. Can the thing in the picture help me? Please answer yes or no.	Yes	Yes
+0025.png	I don't like clear cups. Is the cup in the picture my type? Please answer yes or no.	No	No
+0026.png	I want to go for a run and I want to choose a pair of shoes. Is the shoe in the picture an appropriate choice? Please answer yes or no.	Yes	Yes
+0026.png	I want to practice ballet and I want to choose a pair of shoes. Is the shoe in the picture an appropriate choice? Please answer yes or no.	No	No

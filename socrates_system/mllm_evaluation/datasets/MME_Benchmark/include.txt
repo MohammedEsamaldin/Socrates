@@ -1,0 +1,7 @@
+existence
+OCR
+count
+position
+color
+code_reasoning
+commonsense_reasoning

@@ -2787,3 +2787,21 @@
 2025-08-27 17:13:38,032 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
 2025-08-27 17:13:50,784 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
 2025-08-27 17:13:50,784 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 17:51:26,043 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4.1-nano-2025-04-14)
+2025-08-27 17:51:26,044 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 17:51:26,959 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 17:51:26,960 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 17:51:39,984 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 17:51:39,985 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 18:07:36,757 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4.1-nano-2025-04-14)
+2025-08-27 18:07:36,758 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 18:07:37,333 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 18:07:37,334 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 18:07:51,170 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 18:07:51,171 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-27 18:33:37,090 - socrates_system.modules.llm_manager - WARNING - LLM connectivity check encountered an error: HTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=5)
+2025-08-27 18:33:37,092 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4.1-nano-2025-04-14
+2025-08-27 18:33:38,183 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-27 18:33:38,183 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-27 18:34:00,050 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
+2025-08-27 18:34:00,051 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b

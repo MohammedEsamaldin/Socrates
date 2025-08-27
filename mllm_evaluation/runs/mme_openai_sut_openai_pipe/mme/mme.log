@@ -7161,3 +7161,76 @@
 2025-08-27 17:48:16,165 - INFO - Sample commonsense_reasoning/0009#2 - Corrected model output: No.
 2025-08-27 17:49:59,393 - INFO - Sample commonsense_reasoning/0010#1 - Original model output: Yes.
 2025-08-27 17:49:59,394 - INFO - Sample commonsense_reasoning/0010#1 - Corrected model output: Yes.
+2025-08-27 17:51:34,349 - INFO - Loaded 2374 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 17:51:34,444 - INFO - Resuming with 899 already processed samples
+2025-08-27 17:52:29,150 - INFO - Sample commonsense_reasoning/0010#2 - Original model output: No.
+2025-08-27 17:52:29,150 - INFO - Sample commonsense_reasoning/0010#2 - Corrected model output: No.
+2025-08-27 17:53:58,117 - INFO - Sample commonsense_reasoning/0011#1 - Original model output: Yes.
+2025-08-27 17:53:58,117 - INFO - Sample commonsense_reasoning/0011#1 - Corrected model output: Yes.
+2025-08-27 17:55:33,064 - INFO - Sample commonsense_reasoning/0011#2 - Original model output: No.
+2025-08-27 17:55:33,064 - INFO - Sample commonsense_reasoning/0011#2 - Corrected model output: No.
+2025-08-27 17:57:19,244 - INFO - Sample commonsense_reasoning/0012#1 - Original model output: Yes.
+2025-08-27 17:57:19,244 - INFO - Sample commonsense_reasoning/0012#1 - Corrected model output: Yes.
+2025-08-27 17:58:16,422 - INFO - Sample commonsense_reasoning/0012#2 - Original model output: No.
+2025-08-27 17:58:16,422 - INFO - Sample commonsense_reasoning/0012#2 - Corrected model output: No.
+2025-08-27 17:59:09,958 - INFO - Sample commonsense_reasoning/0013#1 - Original model output: Yes.
+2025-08-27 17:59:09,959 - INFO - Sample commonsense_reasoning/0013#1 - Corrected model output: Yes.
+2025-08-27 18:00:15,209 - INFO - Sample commonsense_reasoning/0013#2 - Original model output: Yes.
+2025-08-27 18:00:15,210 - INFO - Sample commonsense_reasoning/0013#2 - Corrected model output: Yes.
+2025-08-27 18:02:25,904 - INFO - Sample commonsense_reasoning/0014#1 - Original model output: Yes.
+2025-08-27 18:02:25,904 - INFO - Sample commonsense_reasoning/0014#1 - Corrected model output: Yes.
+2025-08-27 18:03:38,595 - INFO - Sample commonsense_reasoning/0014#2 - Original model output: No.
+2025-08-27 18:03:38,595 - INFO - Sample commonsense_reasoning/0014#2 - Corrected model output: No.
+2025-08-27 18:05:05,926 - INFO - Sample commonsense_reasoning/0015#1 - Original model output: Yes.
+2025-08-27 18:05:05,927 - INFO - Sample commonsense_reasoning/0015#1 - Corrected model output: Yes.
+2025-08-27 18:05:54,225 - INFO - Sample commonsense_reasoning/0015#2 - Original model output: No.
+2025-08-27 18:05:54,226 - INFO - Sample commonsense_reasoning/0015#2 - Corrected model output: No.
+2025-08-27 18:07:44,565 - INFO - Loaded 2374 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 18:07:44,656 - INFO - Resuming with 910 already processed samples
+2025-08-27 18:09:02,224 - INFO - Sample commonsense_reasoning/0016#1 - Original model output: Yes
+2025-08-27 18:09:02,225 - INFO - Sample commonsense_reasoning/0016#1 - Corrected model output: Yes
+2025-08-27 18:10:49,352 - INFO - Sample commonsense_reasoning/0016#2 - Original model output: Yes
+2025-08-27 18:10:49,352 - INFO - Sample commonsense_reasoning/0016#2 - Corrected model output: Yes
+2025-08-27 18:12:34,089 - INFO - Sample commonsense_reasoning/0017#1 - Original model output: Yes
+2025-08-27 18:12:34,091 - INFO - Sample commonsense_reasoning/0017#1 - Corrected model output: Yes
+2025-08-27 18:14:08,461 - INFO - Sample commonsense_reasoning/0017#2 - Original model output: No
+2025-08-27 18:14:08,462 - INFO - Sample commonsense_reasoning/0017#2 - Corrected model output: No
+2025-08-27 18:15:58,664 - INFO - Sample commonsense_reasoning/0018#1 - Original model output: Yes
+2025-08-27 18:15:58,664 - INFO - Sample commonsense_reasoning/0018#1 - Corrected model output: Yes
+2025-08-27 18:17:35,697 - INFO - Sample commonsense_reasoning/0018#2 - Original model output: No
+2025-08-27 18:17:35,698 - INFO - Sample commonsense_reasoning/0018#2 - Corrected model output: No
+2025-08-27 18:18:44,896 - INFO - Sample commonsense_reasoning/0019#1 - Original model output: Yes
+2025-08-27 18:18:44,896 - INFO - Sample commonsense_reasoning/0019#1 - Corrected model output: Yes
+2025-08-27 18:19:33,207 - INFO - Sample commonsense_reasoning/0019#2 - Original model output: No
+2025-08-27 18:19:33,210 - INFO - Sample commonsense_reasoning/0019#2 - Corrected model output: No
+2025-08-27 18:21:03,120 - INFO - Sample commonsense_reasoning/0020#1 - Original model output: Yes
+2025-08-27 18:21:03,120 - INFO - Sample commonsense_reasoning/0020#1 - Corrected model output: Yes
+2025-08-27 18:21:49,660 - INFO - Sample commonsense_reasoning/0020#2 - Original model output: Yes
+2025-08-27 18:21:49,660 - INFO - Sample commonsense_reasoning/0020#2 - Corrected model output: Yes
+2025-08-27 18:23:14,690 - INFO - Sample commonsense_reasoning/0021#1 - Original model output: Yes
+2025-08-27 18:23:14,690 - INFO - Sample commonsense_reasoning/0021#1 - Corrected model output: Yes
+2025-08-27 18:24:45,029 - INFO - Sample commonsense_reasoning/0021#2 - Original model output: Yes
+2025-08-27 18:24:45,031 - INFO - Sample commonsense_reasoning/0021#2 - Corrected model output: Yes
+2025-08-27 18:26:02,403 - INFO - Sample commonsense_reasoning/0022#1 - Original model output: Yes
+2025-08-27 18:26:02,403 - INFO - Sample commonsense_reasoning/0022#1 - Corrected model output: Yes
+2025-08-27 18:27:22,194 - INFO - Sample commonsense_reasoning/0022#2 - Original model output: No
+2025-08-27 18:27:22,196 - INFO - Sample commonsense_reasoning/0022#2 - Corrected model output: No
+2025-08-27 18:28:41,605 - INFO - Sample commonsense_reasoning/0023#1 - Original model output: Yes
+2025-08-27 18:28:41,606 - INFO - Sample commonsense_reasoning/0023#1 - Corrected model output: Yes
+2025-08-27 18:29:30,569 - INFO - Sample commonsense_reasoning/0023#2 - Original model output: No
+2025-08-27 18:29:30,570 - INFO - Sample commonsense_reasoning/0023#2 - Corrected model output: No
+2025-08-27 18:30:17,130 - INFO - Sample commonsense_reasoning/0024#1 - Original model output: Yes
+2025-08-27 18:30:17,131 - INFO - Sample commonsense_reasoning/0024#1 - Corrected model output: Yes
+2025-08-27 18:31:03,322 - INFO - Sample commonsense_reasoning/0024#2 - Original model output: No
+2025-08-27 18:31:03,324 - INFO - Sample commonsense_reasoning/0024#2 - Corrected model output: No
+2025-08-27 18:32:40,194 - INFO - Sample commonsense_reasoning/0025#1 - Original model output: Yes
+2025-08-27 18:32:40,195 - INFO - Sample commonsense_reasoning/0025#1 - Corrected model output: Yes
+2025-08-27 18:33:45,253 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 460 samples
+2025-08-27 18:33:45,253 - INFO - Loaded 460 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-27 18:33:45,352 - INFO - Resuming with 929 already processed samples
+2025-08-27 18:35:17,752 - INFO - Sample commonsense_reasoning/0025#2 - Original model output: No
+2025-08-27 18:35:17,753 - INFO - Sample commonsense_reasoning/0025#2 - Corrected model output: No
+2025-08-27 18:36:32,891 - INFO - Sample commonsense_reasoning/0026#1 - Original model output: Yes
+2025-08-27 18:36:32,892 - INFO - Sample commonsense_reasoning/0026#1 - Corrected model output: Yes
+2025-08-27 18:37:36,561 - INFO - Sample commonsense_reasoning/0026#2 - Original model output: No
+2025-08-27 18:37:36,562 - INFO - Sample commonsense_reasoning/0026#2 - Corrected model output: No
