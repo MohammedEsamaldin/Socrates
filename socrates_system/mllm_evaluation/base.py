@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from typing import Any, Dict, List, Optional, Iterable
 
 from .utils.checkpointing import CheckpointManager
@@ -193,6 +194,53 @@ class BaseEvaluator:
             items.append(item)
         return items
 
+    def _detect_yes_no(self, text: str) -> Optional[bool]:
+        """Detect if a response is effectively a yes/no answer.
+
+        Returns True for yes, False for no, None if indeterminate.
+        """
+        if not text:
+            return None
+        s = text.strip().lower()
+        # Normalize punctuation and commas
+        s = re.sub(r"^[^a-zA-Z]*(yes|no)\b.*$", r"\1", s)
+        # Single-token quick path
+        if s in {"yes", "y", "yeah", "yep", "true", "correct", "affirmative"}:
+            return True
+        if s in {"no", "n", "nope", "false", "incorrect", "negative"}:
+            return False
+        # Look at the beginning of the string for a yes/no cue
+        m = re.match(r"^(yes|no)[\s,!.]?\b", text.strip().lower())
+        if m:
+            return True if m.group(1) == "yes" else False
+        return None
+
+    def _question_to_declarative(self, question: str, answer_yes: bool) -> str:
+        """Convert a yes/no question into a simple declarative hypothesis.
+
+        This is a conservative heuristic. For unhandled forms, we fall back to
+        "It is (not) the case that <question_without_?>".
+        """
+        if not question:
+            return ""
+        q = question.strip().strip("?").strip()
+        low = q.lower()
+        def yes(expr: str) -> str:
+            return expr if answer_yes else f"not {expr}".strip()
+
+        # Handle "Is there ..." / "Are there ..."
+        if low.startswith("is there "):
+            core = q[len("is there "):]
+            return f"There is {core}" if answer_yes else f"There is not {core}"
+        if low.startswith("are there "):
+            core = q[len("are there "):]
+            return f"There are {core}" if answer_yes else f"There are not {core}"
+
+        # Default: wrap as a generic hypothesis
+        if answer_yes:
+            return q
+        return f"It is not the case that {q}"
+
     def get_sample_id(self, sample: Dict[str, Any]):
         """Hook for subclasses to extract a stable sample identifier."""
         if self.id_key and sample.get(self.id_key) is not None:
@@ -230,11 +278,34 @@ class BaseEvaluator:
         except Exception:
             pass
 
-        # Build MMHal-style output focusing on model turn claims
+        # If output is terse yes/no and produced no claims, derive a hypothesis from the question
+        analysis_source = "original"
+        claims_for_analysis = model_res.get("claims", [])
+        clar_for_analysis = model_res.get("clarification", {})
+        fact_for_analysis = model_res.get("factuality", {})
+        try:
+            yn = self._detect_yes_no(model_out)
+            if (not claims_for_analysis) and (yn is not None):
+                hypo_text = self._question_to_declarative(prompt, answer_yes=bool(yn))
+                if hypo_text:
+                    self.logger.info(
+                        "Model output appears to be yes/no without claims; deriving hypothesis for analysis"
+                    )
+                    derived = process_model_turn(self.pipeline, hypo_text, image_path=image_path)
+                    # Use derived analysis artifacts for MMHal reporting, but keep original model_res intact
+                    claims_for_analysis = derived.get("claims", [])
+                    clar_for_analysis = derived.get("clarification", {})
+                    fact_for_analysis = derived.get("factuality", {})
+                    analysis_source = "derived_yesno"
+        except Exception as _e:
+            # Non-fatal; continue with original artifacts
+            pass
+
+        # Build MMHal-style output focusing on model turn claims (using analysis artifacts)
         mmhal_claims = self._claims_to_mmhal(
-            model_res.get("claims", []),
-            model_res.get("clarification", {}),
-            model_res.get("factuality", {}),
+            claims_for_analysis,
+            clar_for_analysis,
+            fact_for_analysis,
             stage="post",
         )
         mmhal_prompt_claims = self._claims_to_mmhal(
@@ -282,6 +353,11 @@ class BaseEvaluator:
             "model_output_factuality": model_res.get("factuality", {}),
             "model_output_claims": to_jsonable(model_res.get("claims", [])),
             "model_output_clarification": to_jsonable(model_res.get("clarification", {})),
+            # Analysis artifacts (may be derived from yes/no + question hypothesis)
+            "analysis_source": analysis_source,
+            "analysis_claims": to_jsonable(claims_for_analysis),
+            "analysis_clarification": to_jsonable(clar_for_analysis),
+            "analysis_factuality": to_jsonable(fact_for_analysis),
             "mmhal": mmhal,
         }
         return record
