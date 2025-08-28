@@ -1329,8 +1329,35 @@ class SocratesPipeline:
                                 categorized_claim.text = clr_res_final.corrected_claim.strip()
                     except Exception as e:
                         logging.warning(f"Final aggregated clarification failed: {e}")
-                    # Add to KG if recommended
-                    if getattr(self, "kg_manager", None) and final_result.get("should_add_to_kg"):
+                    # Add to KG if recommended (exclude meta/ambiguous categories)
+                    is_meta_claim = False
+                    try:
+                        META_CATS = {
+                            "AMBIGUOUS_RESOLUTION_REQUIRED",
+                            "CLARIFICATION_REQUIRED",
+                            "META_REASONING",
+                            "PROCEDURAL_DESCRIPTIVE",
+                            "SUBJECTIVE_OPINION",
+                        }
+                        for c in getattr(categorized_claim, "categories", []) or []:
+                            nm = getattr(c, "name", None)
+                            # Support Enum.name or nested name types
+                            try:
+                                nm_str = getattr(nm, "name", None) or str(nm)
+                            except Exception:
+                                nm_str = str(nm)
+                            if nm_str in META_CATS:
+                                is_meta_claim = True
+                                break
+                    except Exception:
+                        pass
+
+                    if (
+                        getattr(self, "kg_manager", None)
+                        and final_result.get("should_add_to_kg")
+                        and str(final_result.get("status", "")).upper() == "PASS"
+                        and not is_meta_claim
+                    ):
                         try:
                             self.kg_manager.add_claim(
                                 claim=categorized_claim.text,

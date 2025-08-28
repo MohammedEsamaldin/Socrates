@@ -80,13 +80,31 @@ class ConflictResolver:
                 w_self = 0.0
             combined_score = (w_ext * ext_score) + (w_self * self_score)
 
-            # Map combined score to final status
-            if combined_score >= 0.4:
+            # Map combined score to final status (binary decision: no UNCERTAIN)
+            # Primary thresholds
+            if combined_score > 0.5:
                 final_status = "PASS"
-            elif combined_score <= -0.4:
+            elif combined_score < -0.5:
                 final_status = "FAIL"
             else:
-                final_status = "UNCERTAIN"
+                # Tie-breaker using weighted confidences of PASS vs FAIL signals
+                pass_weight = 0.0
+                fail_weight = 0.0
+                if ext_present:
+                    if str(ext_status or "").upper() == "PASS":
+                        pass_weight += w_ext * ext_conf
+                    elif str(ext_status or "").upper() == "FAIL":
+                        fail_weight += w_ext * ext_conf
+                if self_present:
+                    if str(self_status or "").upper() == "PASS":
+                        pass_weight += w_self * self_conf
+                    elif str(self_status or "").upper() == "FAIL":
+                        fail_weight += w_self * self_conf
+                if pass_weight > fail_weight and pass_weight >= 0.3:
+                    final_status = "PASS"
+                else:
+                    # Conservative default: FAIL when insufficient evidence
+                    final_status = "FAIL"
 
             # Confidence aggregation
             if (w_ext + w_self) > 0:
@@ -108,8 +126,8 @@ class ConflictResolver:
             contradictions = (self_result or {}).get("contradictions", []) or []
             if contradictions and self_status == "FAIL":
                 reasons.append(f"Detected {len(contradictions)} contradiction(s) against session knowledge.")
-            if final_status == "UNCERTAIN" and not reasons:
-                reasons.append("Insufficient evidence across checks.")
+            if not reasons:
+                reasons.append("Aggregated decision from available checks.")
 
             evidence = []
             ev1 = (external_result or {}).get("evidence") or (external_result or {}).get("external_facts") or []
@@ -137,7 +155,7 @@ class ConflictResolver:
         except Exception as e:
             logger.error(f"ConflictResolver error: {e}")
             return {
-                "status": "UNCERTAIN",
+                "status": "FAIL",
                 "confidence": 0.0,
                 "reasoning": f"Exception in conflict resolution: {e}",
                 "sources": [],

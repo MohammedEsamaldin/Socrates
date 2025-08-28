@@ -220,30 +220,70 @@ class BaseEvaluator:
         return None
 
     def _question_to_declarative(self, question: str, answer_yes: bool) -> str:
-        """Convert a yes/no question into a simple declarative hypothesis.
+        """Convert a yes/no question into a declarative hypothesis using the pipeline LLM.
 
-        This is a conservative heuristic. For unhandled forms, we fall back to
-        "It is (not) the case that <question_without_?>".
+        Falls back to a conservative heuristic if the LLM call fails or returns
+        an unusable result.
         """
         if not question:
             return ""
-        q = question.strip().strip("?").strip()
-        low = q.lower()
-        def yes(expr: str) -> str:
-            return expr if answer_yes else f"not {expr}".strip()
+        # Strip common trailing yes/no instruction phrases for cleaner verification
+        q = question.strip()
+        try:
+            patterns = [
+                r"(?:\s*[.?!])?\s*(?:please\s+)?answer(?:\s+strictly)?(?:\s+with)?(?:\s+a\s+single\s+word)?\s*[:\-]?\s*(?:\"?yes\"?\s*(?:\/|or)\s*\"?no\"?|yes\/no|yes\s+or\s+no)\.?$",
+                r"(?:\s*[.?!])?\s*respond(?:\s+with)?\s*(?:\"?yes\"?\s*(?:\/|or)\s*\"?no\"?|yes\/no|yes\s+or\s+no)\.?$",
+                r"(?:\s*[.?!])?\s*provide\s+(?:a\s+)?(?:yes\/no|yes\s+or\s+no)\s*answer\.?$",
+                r"(?:\s*[.?!])?\s*please\s+answer\s+yes\s+or\s+no\.?$",
+            ]
+            for _pat in patterns:
+                q = re.sub(_pat, "", q, flags=re.IGNORECASE).strip()
+        except Exception:
+            # Best-effort cleanup only
+            pass
+        q = q.strip().strip("?").strip()
 
-        # Handle "Is there ..." / "Are there ..."
-        if low.startswith("is there "):
-            core = q[len("is there "):]
-            return f"There is {core}" if answer_yes else f"There is not {core}"
-        if low.startswith("are there "):
-            core = q[len("are there "):]
-            return f"There are {core}" if answer_yes else f"There are not {core}"
-
-        # Default: wrap as a generic hypothesis
-        if answer_yes:
-            return q
-        return f"It is not the case that {q}"
+        # Primary path: LLM-based declarative hypothesis
+        try:
+            ans_str = "Yes" if answer_yes else "No"
+            system_prompt = (
+                "You convert yes/no questions into a single concise declarative hypothesis for verification. "
+                "Given a question and the intended yes/no answer, output exactly one plain sentence that would be true "
+                "if and only if that answer is correct. Avoid explanations, prefixes, or quotes. Do not include 'Yes' or 'No'."
+            )
+            user_prompt = (
+                f"Question: {q}\n"
+                f"Intended answer: {ans_str}\n"
+                "Write the declarative hypothesis:"
+            )
+            out = self.pipeline_llm_manager.generate_text(
+                user_prompt,
+                max_tokens=64,
+                temperature=0.0,
+                system_prompt=system_prompt,
+            ) or ""
+            hyp = (out or "").strip()
+            # Keep only the first line and strip common labels/quotes
+            hyp = hyp.splitlines()[0].strip()
+            hyp = re.sub(r"^(Hypothesis|Declarative|Statement|Output)\s*[:\-]\s*", "", hyp, flags=re.IGNORECASE).strip()
+            hyp = hyp.strip().strip('"').strip("'")
+            # Guard against degenerate outputs
+            if not hyp or hyp.lower() in {"yes", "no"}:
+                raise ValueError("LLM returned non-declarative answer")
+            return hyp
+        except Exception:
+            # Heuristic fallback for robustness
+            low = q.lower()
+            if low.startswith("is there "):
+                core = q[len("is there ") :]
+                return f"There is {core}" if answer_yes else f"There is not {core}"
+            if low.startswith("are there "):
+                core = q[len("are there ") :]
+                return f"There are {core}" if answer_yes else f"There are not {core}"
+            # Default: wrap as a generic hypothesis
+            if answer_yes:
+                return q
+            return f"It is not the case that {q}"
 
     def get_sample_id(self, sample: Dict[str, Any]):
         """Hook for subclasses to extract a stable sample identifier."""
@@ -255,74 +295,172 @@ class BaseEvaluator:
         sample_id = self.get_sample_id(sample)
         prompt = self.sample_to_prompt(sample)
 
-        # 1) User turn: correct minimally (with optional image)
+        # 1) User turn on ORIGINAL question (collect clarifications; do NOT apply to Q0)
         image_path = self.sample_to_image_path(sample)
         user_res = process_user_turn(self.pipeline, prompt, image_path=image_path)
-        edited_prompt = user_res["corrected_text"] or prompt
-        # If requested, enforce strict Yes/No response format from SUT
+        corrected_prompt_candidate = user_res.get("corrected_text") or prompt
+
+        # Optional instruction to enforce strict Yes/No output
+        yn_instr = None
         if getattr(self, "force_yes_no", False):
             yn_instr = (
                 "Instruction: Answer strictly with a single word: 'Yes' or 'No'. "
                 "Do not include any explanation or extra words."
             )
-            edited_prompt = f"{edited_prompt}\n\n{yn_instr}"
 
-        # 2) Model generation on edited prompt (SUT LLM)
+        def _append_yn_instr(text: str) -> str:
+            if yn_instr:
+                return f"{text}\n\n{yn_instr}"
+            return text
+
+        # Helper: analyze a model output with MITM verification and (if yes/no) derived hypothesis
+        def _analyze_output(model_text: str, question_text: str) -> Dict[str, Any]:
+            res = process_model_turn(self.pipeline, model_text, image_path=image_path)
+            corrected = res.get("corrected_text") or model_text
+            try:
+                self.logger.info(f"Sample {sample_id} - Model output: {model_text}")
+                if corrected != model_text:
+                    self.logger.info(f"Sample {sample_id} - Output corrected via MITM: {corrected}")
+            except Exception:
+                pass
+
+            yn_det = self._detect_yes_no(model_text)
+            analysis_src = "original"
+            claims_a = res.get("claims", [])
+            clar_a = res.get("clarification", {})
+            fact_a = res.get("factuality", {})
+
+            derived = None
+            desired: Optional[bool] = None
+            if yn_det is not None:
+                try:
+                    hypo = self._question_to_declarative(question_text, answer_yes=bool(yn_det))
+                except Exception:
+                    hypo = None
+                if hypo:
+                    try:
+                        self.logger.info(
+                            "Deriving hypothesis from yes/no answer for verification"
+                        )
+                    except Exception:
+                        pass
+                    derived = process_model_turn(self.pipeline, hypo, image_path=image_path)
+                    # If original claims are empty, use derived artifacts for analysis
+                    if (not claims_a) and derived is not None:
+                        claims_a = derived.get("claims", [])
+                        clar_a = derived.get("clarification", {})
+                        fact_a = derived.get("factuality", {})
+                        analysis_src = "derived_yesno"
+
+            # Build MMHal-style items from chosen analysis artifacts
+            mmhal_items = self._claims_to_mmhal(claims_a, clar_a, fact_a, stage="post")
+            n_pass = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+            n_fail = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+            n_unc = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+            # Content-relevant filtering (exclude meta/ambiguous categories)
+            CONTENT_CATS = {"VISUAL_GROUNDING_REQUIRED", "EXTERNAL_KNOWLEDGE_REQUIRED", "SELF_CONSISTENCY_REQUIRED"}
+            EXCLUDED_META_CATS = {"AMBIGUOUS_RESOLUTION_REQUIRED", "SUBJECTIVE_OPINION", "PROCEDURAL_DESCRIPTIVE"}
+            def _is_content_item(item: Dict[str, Any]) -> bool:
+                cats = item.get("categories") or []
+                try:
+                    cats = list(cats)
+                except Exception:
+                    cats = []
+                has_content = any(c in CONTENT_CATS for c in cats)
+                has_meta = any(c in EXCLUDED_META_CATS for c in cats)
+                return bool(has_content and not has_meta)
+            n_pass_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+            n_fail_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+            n_unc_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+
+            # If we derived a hypothesis, compute directional signal for yes/no
+            yn_sig = None
+            yn_sig_content = None
+            yn_sig_content_dir = "undecided"
+            has_content_positive_pass = False
+            has_any_content_fail = False
+            if yn_det is not None and derived is not None:
+                yn_items = self._claims_to_mmhal(
+                    derived.get("claims", []),
+                    derived.get("clarification", {}),
+                    derived.get("factuality", {}),
+                    stage="post",
+                )
+                y_pass = sum(1 for it in yn_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+                y_fail = sum(1 for it in yn_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+                y_unc = sum(1 for it in yn_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+                yn_sig = {"pass": y_pass, "fail": y_fail, "uncertain": y_unc}
+                # Content-only directional signal
+                y_pass_c = sum(1 for it in yn_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
+                y_fail_c = sum(1 for it in yn_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
+                y_unc_c = sum(1 for it in yn_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+                yn_sig_content = {"pass": y_pass_c, "fail": y_fail_c, "uncertain": y_unc_c}
+                if y_fail_c > 0:
+                    desired = (not yn_det)
+                elif y_fail_c == 0 and y_unc_c == 0 and y_pass_c > 0:
+                    desired = yn_det
+                # Summarize directional signal for logging
+                if y_fail_c > 0:
+                    yn_sig_content_dir = "no"
+                elif y_fail_c == 0 and y_unc_c == 0 and y_pass_c > 0:
+                    yn_sig_content_dir = "yes"
+                else:
+                    yn_sig_content_dir = "undecided"
+                # Booleans for adjudication rules/logging
+                has_any_content_fail = (y_fail_c > 0)
+                has_content_positive_pass = (y_fail_c == 0 and y_pass_c > 0)
+                # else: leave desired as None (insufficient evidence)
+
+            return {
+                "model_res": res,
+                "corrected_out": corrected,
+                "analysis_source": analysis_src,
+                "claims_for_analysis": claims_a,
+                "clar_for_analysis": clar_a,
+                "fact_for_analysis": fact_a,
+                "mmhal_claims": mmhal_items,
+                "num_pass": n_pass,
+                "num_fail": n_fail,
+                "num_uncertain": n_unc,
+                "num_pass_content": n_pass_c,
+                "num_fail_content": n_fail_c,
+                "num_uncertain_content": n_unc_c,
+                "yn_detected": yn_det,
+                "yn_signal": yn_sig,
+                "yn_signal_content": yn_sig_content,
+                "yn_signal_content_direction": yn_sig_content_dir,
+                "has_content_positive_pass": has_content_positive_pass,
+                "has_any_content_fail": has_any_content_fail,
+                "desired": desired,
+            }
+
+        # Prepare prompts: Q0 is ORIGINAL; Q1 uses corrected prompt if Q0 fails
+        q0_prompt = _append_yn_instr(prompt)
+        q1_prompt = _append_yn_instr(corrected_prompt_candidate)
+
+        # 2) Query SUT with Q0 (original)
         try:
-            model_out = self.sut_llm_manager.generate_text(
-                edited_prompt,
+            a0_text = self.sut_llm_manager.generate_text(
+                q0_prompt,
                 max_tokens=self.max_gen_tokens,
                 temperature=self.temperature,
                 images=[image_path] if image_path else None,
             )
         except Exception as e:
-            self.logger.error(f"Generation error for sample {sample_id}: {e}")
-            model_out = ""
+            self.logger.error(f"Generation error (Q0) for sample {sample_id}: {e}")
+            a0_text = ""
 
-        # 3) Model turn: correct minimally (with optional image)
-        model_res = process_model_turn(self.pipeline, model_out, image_path=image_path)
-        # Determine corrected output string and log both original and corrected
-        corrected_out = model_res.get("corrected_text") or model_out
+        a0 = _analyze_output(a0_text, prompt)
         try:
-            self.logger.info(f"Sample {sample_id} - Original model output: {model_out}")
-            self.logger.info(f"Sample {sample_id} - Corrected model output: {corrected_out}")
+            self.logger.info(
+                f"Sample {sample_id} - Q0 evidence | all: P={a0.get('num_pass',0)} F={a0.get('num_fail',0)} U={a0.get('num_uncertain',0)}; "
+                f"content: P={a0.get('num_pass_content',0)} F={a0.get('num_fail_content',0)} U={a0.get('num_uncertain_content',0)}; "
+                f"yn_content={a0.get('yn_signal_content_direction','undecided')} has_pos_pass={a0.get('has_content_positive_pass', False)} has_fail={a0.get('has_any_content_fail', False)}"
+            )
         except Exception:
             pass
 
-        # Detect yes/no upfront for potential correction and analysis; prepare derived verification holder
-        yn_detected = self._detect_yes_no(model_out)
-        derived_for_yn = None
-
-        # If output is terse yes/no and produced no claims, derive a hypothesis from the question
-        analysis_source = "original"
-        claims_for_analysis = model_res.get("claims", [])
-        clar_for_analysis = model_res.get("clarification", {})
-        fact_for_analysis = model_res.get("factuality", {})
-        try:
-            if yn_detected is not None:
-                hypo_text = self._question_to_declarative(prompt, answer_yes=bool(yn_detected))
-                if hypo_text:
-                    self.logger.info(
-                        "Model output appears to be yes/no; deriving hypothesis for verification"
-                    )
-                    derived_for_yn = process_model_turn(self.pipeline, hypo_text, image_path=image_path)
-            if (not claims_for_analysis) and (yn_detected is not None) and (derived_for_yn is not None):
-                # Use derived analysis artifacts for MMHal reporting, but keep original model_res intact otherwise
-                claims_for_analysis = derived_for_yn.get("claims", [])
-                clar_for_analysis = derived_for_yn.get("clarification", {})
-                fact_for_analysis = derived_for_yn.get("factuality", {})
-                analysis_source = "derived_yesno"
-        except Exception as _e:
-            # Non-fatal; continue with original artifacts
-            pass
-
-        # Build MMHal-style output focusing on model turn claims (using analysis artifacts)
-        mmhal_claims = self._claims_to_mmhal(
-            claims_for_analysis,
-            clar_for_analysis,
-            fact_for_analysis,
-            stage="post",
-        )
+        # Pre-compute prompt-side MMHal claims for context
         mmhal_prompt_claims = self._claims_to_mmhal(
             user_res.get("claims", []),
             user_res.get("clarification", {}),
@@ -330,77 +468,193 @@ class BaseEvaluator:
             stage="pre",
         )
 
-        # Summary statistics
-        num_pass = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
-        num_fail = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
-        num_uncertain = sum(1 for it in mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+        # Fast-path: only content-relevant evidence can skip Q1/adjudication
+        q0_yesno_supported = (
+            a0.get("yn_detected") is not None
+            and a0.get("desired") is not None
+            and bool(a0.get("desired")) == bool(a0.get("yn_detected"))
+        )
+        q0_claims_supported = (
+            a0.get("num_fail_content", 0) == 0 and a0.get("num_pass_content", 0) > 0
+        )
+        q0_passed = bool(q0_yesno_supported or q0_claims_supported)
 
-        # If we detected a yes/no and derived verification, flip the corrected output accordingly
-        if yn_detected is not None and derived_for_yn is not None:
-            yn_mmhal_claims = self._claims_to_mmhal(
-                derived_for_yn.get("claims", []),
-                derived_for_yn.get("clarification", {}),
-                derived_for_yn.get("factuality", {}),
-                stage="post",
-            )
-            yn_pass = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
-            yn_fail = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
-            yn_uncertain = sum(1 for it in yn_mmhal_claims if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
-            desired: Optional[bool] = None
-            if yn_fail > 0:
-                desired = (not yn_detected)
-            elif yn_fail == 0 and yn_uncertain == 0 and yn_pass > 0:
-                desired = yn_detected
-            # else: leave as None (insufficient evidence to flip)
-            if desired is not None:
-                old_yn = self._detect_yes_no(corrected_out or "")
-                if old_yn is None or old_yn != desired:
-                    corrected_out = "Yes" if desired else "No"
-                    try:
-                        self.logger.info(
-                            f"Sample {sample_id} - Yes/No corrected based on verification: {corrected_out}"
-                        )
-                    except Exception:
-                        pass
+        if q0_passed:
+            try:
+                self.logger.info(f"Sample {sample_id} - Fast path: Q0 verified; skipping Q1 and adjudication")
+            except Exception:
+                pass
+            final_decision = "Q0"
+            final = a0
+            final_original = a0_text
+        else:
+            # 3) Query SUT with Q1 (corrected question from clarifications)
+            try:
+                a1_text = self.sut_llm_manager.generate_text(
+                    q1_prompt,
+                    max_tokens=self.max_gen_tokens,
+                    temperature=self.temperature,
+                    images=[image_path] if image_path else None,
+                )
+            except Exception as e:
+                self.logger.error(f"Generation error (Q1) for sample {sample_id}: {e}")
+                a1_text = ""
 
+            a1 = _analyze_output(a1_text, corrected_prompt_candidate)
+            try:
+                self.logger.info(
+                    f"Sample {sample_id} - Q1 evidence | all: P={a1.get('num_pass',0)} F={a1.get('num_fail',0)} U={a1.get('num_uncertain',0)}; "
+                    f"content: P={a1.get('num_pass_content',0)} F={a1.get('num_fail_content',0)} U={a1.get('num_uncertain_content',0)}; "
+                    f"yn_content={a1.get('yn_signal_content_direction','undecided')} has_pos_pass={a1.get('has_content_positive_pass', False)} has_fail={a1.get('has_any_content_fail', False)}"
+                )
+            except Exception:
+                pass
+
+            # 4) Adjudicate between A0 and A1 deterministically using verification evidence
+            def _score(ana: Dict[str, Any]) -> float:
+                # Content-only evidence score: stronger penalty for fails, light penalty for uncertain
+                pass_c = float(ana.get("num_pass_content", 0) or 0)
+                fail_c = float(ana.get("num_fail_content", 0) or 0)
+                unc_c = float(ana.get("num_uncertain_content", 0) or 0)
+                s = pass_c - 2.0 * fail_c - 0.5 * unc_c
+                # Dominant directional signal from verification (content-only)
+                if ana.get("desired") is True:
+                    s += 2.0
+                elif ana.get("desired") is False:
+                    s -= 2.0
+                return s
+
+            s0, s1 = _score(a0), _score(a1)
+            try:
+                self.logger.info(
+                    f"Sample {sample_id} - Adjudication scores (content-only): Q0={s0:.2f}, Q1={s1:.2f}"
+                )
+            except Exception:
+                pass
+            # Helper: detect existence-type question
+            def _is_existence_question(q: str) -> bool:
+                ql = (q or "").strip().lower()
+                return (
+                    ql.startswith("is there ")
+                    or ql.startswith("are there ")
+                    or "does the image contain" in ql
+                    or ql.startswith("is a ") or ql.startswith("is an ")
+                    or "any" in ql and (ql.startswith("is there") or ql.startswith("are there"))
+                )
+
+            is_existence = _is_existence_question(prompt) or _is_existence_question(corrected_prompt_candidate)
+
+            if s1 > s0:
+                final_decision = "Q1"
+                final = a1
+                final_original = a1_text
+            elif s1 < s0:
+                final_decision = "Q0"
+                final = a0
+                final_original = a0_text
+            else:
+                # Tie-breaker per Rule B
+                if is_existence:
+                    # If one branch has positive content support, pick it; else prefer 'No'
+                    if bool(a0.get("has_content_positive_pass")) ^ bool(a1.get("has_content_positive_pass")):
+                        choose_q1 = bool(a1.get("has_content_positive_pass"))
+                    else:
+                        # Prefer the branch whose desired direction is 'No'
+                        if a0.get("desired") is False and a1.get("desired") is not True:
+                            choose_q1 = False
+                        elif a1.get("desired") is False and a0.get("desired") is not True:
+                            choose_q1 = True
+                        else:
+                            # Default conservative: keep Q0
+                            choose_q1 = False
+                else:
+                    # Non-existence: prefer corrected only if strictly stronger content not equal
+                    choose_q1 = False
+                if choose_q1:
+                    final_decision = "Q1_tie"
+                    final = a1
+                    final_original = a1_text
+                else:
+                    final_decision = "Q0_tie"
+                    final = a0
+                    final_original = a0_text
+
+        # Coerce final corrected output to strict Yes/No if requested
+        final_corrected_out = final.get("corrected_out") or final_original
+        if getattr(self, "force_yes_no", False):
+            # Prefer verification (derived content-only) over raw model answer
+            yn = self._detect_yes_no(final_corrected_out or "")
+            desired = final.get("desired")
+            ysig = final.get("yn_signal_content") or {}
+            y_fail_c = int((ysig or {}).get("fail", 0) or 0)
+            y_pass_c = int((ysig or {}).get("pass", 0) or 0)
+            # 1) Any derived content FAIL -> No
+            if y_fail_c > 0:
+                final_corrected_out = "No"
+            # 2) Strong verification direction -> follow it
+            elif desired is True:
+                final_corrected_out = "Yes"
+            elif desired is False:
+                final_corrected_out = "No"
+            # 3) Derived content PASS with no fails -> Yes
+            elif y_pass_c > 0:
+                final_corrected_out = "Yes"
+            # 4) Fall back to raw detection if present
+            elif yn is True:
+                final_corrected_out = "Yes"
+            elif yn is False:
+                final_corrected_out = "No"
+            # 5) Final conservative default
+            else:
+                final_corrected_out = "No"
+
+        # Build MMHal summary from the FINAL analysis
         mmhal = {
             "version": "0.1",
             "id": sample_id,
             "image": image_path,
             "question": prompt,
-            "response_original": model_out,
-            "response_corrected": corrected_out,
-            "claims": mmhal_claims,
+            "response_original": final_original,
+            "response_corrected": final_corrected_out,
+            "claims": final.get("mmhal_claims", []),
             "prompt_claims": mmhal_prompt_claims or None,
             "summary": {
-                "num_claims": len(mmhal_claims),
-                "num_pass": num_pass,
-                "num_fail": num_fail,
-                "num_uncertain": num_uncertain,
-                "has_hallucination": num_fail > 0,
-            },      
+                "num_claims": len(final.get("mmhal_claims", []) or []),
+                "num_pass": int(final.get("num_pass", 0)),
+                "num_fail": int(final.get("num_fail", 0)),
+                "num_uncertain": int(final.get("num_uncertain", 0)),
+                "has_hallucination": bool(final.get("num_fail", 0) > 0),
+            },
         }
 
         record = {
             "sample_id": sample_id,
             "image_path": image_path,
             "input_original": prompt,
-            "input_corrected": user_res.get("corrected_text", prompt),
+            "input_corrected": corrected_prompt_candidate,
             "input_corrections": user_res.get("corrections", []),
             "input_factuality": user_res.get("factuality", {}),
             "input_claims": to_jsonable(user_res.get("claims", [])),
             "input_clarification": to_jsonable(user_res.get("clarification", {})),
-            "model_output_original": model_out,
-            "model_output_corrected": corrected_out,
-            "model_output_corrections": model_res.get("corrections", []),
-            "model_output_factuality": model_res.get("factuality", {}),
-            "model_output_claims": to_jsonable(model_res.get("claims", [])),
-            "model_output_clarification": to_jsonable(model_res.get("clarification", {})),
+            # Outputs
+            "model_output_original": final_original,
+            "model_output_corrected": final_corrected_out,
+            "model_output_corrections": final.get("model_res", {}).get("corrections", []),
+            "model_output_factuality": final.get("model_res", {}).get("factuality", {}),
+            "model_output_claims": to_jsonable(final.get("model_res", {}).get("claims", [])),
+            "model_output_clarification": to_jsonable(final.get("model_res", {}).get("clarification", {})),
             # Analysis artifacts (may be derived from yes/no + question hypothesis)
-            "analysis_source": analysis_source,
-            "analysis_claims": to_jsonable(claims_for_analysis),
-            "analysis_clarification": to_jsonable(clar_for_analysis),
-            "analysis_factuality": to_jsonable(fact_for_analysis),
+            "analysis_source": final.get("analysis_source"),
+            "analysis_claims": to_jsonable(final.get("claims_for_analysis", [])),
+            "analysis_clarification": to_jsonable(final.get("clar_for_analysis", {})),
+            "analysis_factuality": to_jsonable(final.get("fact_for_analysis", {})),
+            # Adjudication context
+            "adjudication": {
+                "decision": final_decision,
+                "fast_path": q0_passed,
+                "q0_prompt": q0_prompt,
+                "q1_prompt": q1_prompt,
+            },
             "mmhal": mmhal,
         }
         return record

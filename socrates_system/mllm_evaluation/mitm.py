@@ -90,6 +90,38 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
         corrected_text, corrections = _compute_corrected_text(text, claims, clar, stage="pre")
     else:
         corrected_text, corrections = text, []
+
+    # Fallback: if no corrections were applied (even if claims exist),
+    # optionally attempt an LLM-based question rewrite to remove ambiguity.
+    # This helps generate a meaningful Q1 prompt in dual-query flows.
+    try:
+        if (not corrections) and corrected_text == text and os.getenv("SOC_FALLBACK_Q_REWRITE", "true").lower() == "true":
+            llm = getattr(pipeline, "llm_manager", None)
+            if llm is not None:
+                system = (
+                    "You rewrite user questions to be precise, unambiguous Yes/No questions "
+                    "without changing their meaning."
+                )
+                prompt = (
+                    "Rewrite the following question to be explicit and unambiguous, preserving the intended meaning. "
+                    "Keep it a single Yes/No question. Return only the rewritten question.\n\n"
+                    f"Question: {text}"
+                )
+                try:
+                    max_tok = int(os.getenv("SOC_Q_REWRITE_MAX_TOKENS", "64"))
+                except Exception:
+                    max_tok = 64
+                rw = llm.generate_text(prompt=prompt, system_prompt=system, max_tokens=max_tok, temperature=0.2)  # type: ignore
+                if isinstance(rw, str) and rw.strip():
+                    cleaned = rw.strip().splitlines()[0].strip()
+                    if not cleaned.endswith("?"):
+                        cleaned = cleaned.rstrip(".") + "?"
+                    # Ensure the rewrite is non-trivial and still looks like a question
+                    if len(cleaned.split()) >= 3:
+                        corrected_text = cleaned
+    except Exception:
+        # Be conservative: ignore rewrite failures silently
+        pass
     return {
         "claims": claims,
         "clarification": clar,

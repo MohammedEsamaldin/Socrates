@@ -456,3 +456,17 @@
 2025-08-27 18:12:44,501 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
 2025-08-27 18:33:45,165 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-27 18:38:40,476 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 20:22:16,049 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-27 20:43:24,630 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
+2025-08-27 21:00:34,877 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
+2025-08-28 05:33:08,851 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 05:35:08,160 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 06:22:46,371 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 06:29:12,764 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 06:58:32,233 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 06:59:40,609 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 07:00:56,271 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 07:03:22,998 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 07:17:54,860 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
+2025-08-28 17:21:48,766 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-28 17:41:11,606 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
