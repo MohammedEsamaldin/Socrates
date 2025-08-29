@@ -2907,3 +2907,17 @@
 2025-08-29 04:45:54,487 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
 2025-08-29 04:46:05,917 - socrates_system.modules.llm_manager - INFO - Connected to Ollama @ http://localhost:11434. Model llama3.1:8b is available.
 2025-08-29 04:46:05,918 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=ollama, model=llama3.1:8b
+2025-08-29 07:07:35,934 - socrates_system.modules.llm_manager - WARNING - OPENAI_API_KEY not set; OpenAI calls will fail
+2025-08-29 07:07:36,106 - socrates_system.modules.llm_manager - WARNING - OpenAI connectivity check failed: HTTP 401
+2025-08-29 07:07:36,107 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-29 07:07:36,107 - socrates_system.modules.llm_manager - WARNING - OPENAI_API_KEY not set; OpenAI calls will fail
+2025-08-29 07:07:36,914 - socrates_system.modules.llm_manager - WARNING - OpenAI connectivity check failed: HTTP 401
+2025-08-29 07:07:36,916 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-29 07:08:00,644 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-29 07:08:00,647 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-29 07:08:01,146 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-29 07:08:01,148 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-29 07:09:21,107 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-29 07:09:21,110 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini
+2025-08-29 07:09:22,594 - socrates_system.modules.llm_manager - INFO - Connected to OpenAI @ https://api.openai.com/v1 (model=gpt-4o-mini)
+2025-08-29 07:09:22,595 - socrates_system.modules.llm_manager - INFO - LLMManager initialized with provider=openai, model=gpt-4o-mini

@@ -1,0 +1,14 @@
+{
+  "benchmark": "mme",
+  "dataset_path": "/Users/mohammed/Desktop/Socrates/Socrates/mllm_evaluation/datasets/MME_Benchmark/existence",
+  "sut_provider": "openai",
+  "sut_model": "gpt-4o-mini",
+  "pipeline_provider": "openai",
+  "pipeline_model": "gpt-4o-mini",
+  "max_gen_tokens": 64,
+  "temperature": 0.2,
+  "image_key": "image",
+  "image_root": "mllm_evaluation/datasets/MME_Benchmark/existence",
+  "force_yes_no": true,
+  "start_time": "2025-08-29T06:09:29.074211+00:00"
+}

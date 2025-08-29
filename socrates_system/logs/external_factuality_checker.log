@@ -3411,3 +3411,9 @@ The man is a 24-year-old Algerian and was led away by police after the train arr
 2025-08-29 04:46:01,185 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
 2025-08-29 04:46:01,185 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
 2025-08-29 04:46:01,185 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:08:08,347 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:08:08,348 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:08:08,348 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully

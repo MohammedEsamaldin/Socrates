@@ -185,6 +185,8 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
 
         # Optional pre-Q1 verification subprocess to guide a neutral, non-leading rewrite
         ev_counts = {"PASS": 0, "FAIL": 0, "UNCERTAIN": 0}
+        ev_digest_text: str = ""
+        negative_signal: bool = False
         if evidence_mode:
             _restore_ev = False
             _orig_fact = None
@@ -219,10 +221,52 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
                 if image_path:
                     _ = pipeline.run(text, image_path=image_path)
                     ev = getattr(pipeline, "_last_factuality_results", {}) or {}
+                    digest_lines: List[str] = []
                     for _, v in (ev.items() if isinstance(ev, dict) else []):
                         st = str((v or {}).get("status", "")).upper() or "UNCERTAIN"
                         if st in ev_counts:
                             ev_counts[st] += 1
+                        try:
+                            conf = float((v or {}).get("confidence", 0.0) or 0.0)
+                        except Exception:
+                            conf = 0.0
+                        vis = (v or {}).get("visual_description") or (v or {}).get("visual_summary") or ""
+                        vis = str(vis or "")
+                        if len(vis) > 120:
+                            vis = vis[:117] + "..."
+                        # Evidence strings
+                        ev_list = (v or {}).get("evidence", []) or []
+                        ev_texts: List[str] = []
+                        for e in ev_list[:2]:
+                            if isinstance(e, dict):
+                                s = e.get("summary") or e.get("text") or str(e)
+                            else:
+                                s = str(e)
+                            if s:
+                                ev_texts.append(s)
+                        ev_join = "; ".join(ev_texts)
+                        if len(ev_join) > 160:
+                            ev_join = ev_join[:157] + "..."
+                        # Contradictions
+                        cons = (v or {}).get("contradictions", []) or []
+                        con_texts: List[str] = []
+                        for c in cons[:2]:
+                            if isinstance(c, dict):
+                                cs = c.get("summary") or c.get("text") or str(c)
+                            else:
+                                cs = str(c)
+                            if cs:
+                                con_texts.append(cs)
+                        con_join = "; ".join(con_texts)
+                        if len(con_join) > 160:
+                            con_join = con_join[:157] + "..."
+                        digest_lines.append(f"- {st} (conf {conf:.2f}); visual: {vis or 'n/a'}; evidence: {ev_join or 'n/a'}; contradictions: {con_join or 'n/a'}")
+                    # Mark negative signal for downstream guidance
+                    negative_signal = (ev_counts.get('FAIL', 0) > 0) and (ev_counts.get('PASS', 0) == 0)
+                    if digest_lines:
+                        ev_digest_text = "\n".join(digest_lines)
+                        if len(ev_digest_text) > 600:
+                            ev_digest_text = ev_digest_text[:597] + '...'
                 # else: keep ev_counts at zeros
             finally:
                 if _restore_ev:
@@ -271,6 +315,7 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
                 if " any " in t_low:
                     guidance_lines.append("Avoid leading phrasing like 'any'; ask neutrally about presence or absence.")
                 guidance_lines.append("Do not introduce details, attributes, or nouns not present in the original question.")
+                guidance_lines.append("Preserve the original objects, attributes, and relationships; use the same nouns and modifiers as in the original question.")
                 guidance_lines.append("Do not reveal or imply an answer; keep the wording neutral and verifier-friendly.")
                 guidance_lines.append("Keep it a single sentence ending with a question mark.")
 
@@ -288,13 +333,30 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
                             "Keep the meaning unchanged while removing residual ambiguity.",
                             "Maintain a crisp Yes/No formulation that remains easy to verify visually.",
                         ])
+                    # Conditional polarity guidance based on evidence and env policy
+                    try:
+                        allow_flip_env_prompt = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
+                    except Exception:
+                        allow_flip_env_prompt = False
+                    if negative_signal:
+                        if allow_flip_env_prompt:
+                            guidance_lines.append("If the evidence indicates absence of the claimed object/attribute, you may use explicit negation using only the original terms (e.g., 'Is it true that there is no ...?').")
+                        else:
+                            guidance_lines.append("Do not change polarity; ask neutrally about presence using only the original terms.")
 
                 system = (
                     "You are a verifier-oriented question rewriter. Your goal is to make the question explicit, "
-                    "unambiguous, and strictly non-leading for downstream verification. Follow the rules strictly and "
-                    "do not add external knowledge or hints about the answer. Return ONLY the rewritten question."
+                    "unambiguous, and strictly non-leading for downstream verification. Preserve original objects, attributes, and relationships. "
+                    "Use the verifier evidence summary ONLY to disambiguate and, if allowed, adjust presence/absence; do not quote it verbatim or add new entities. "
+                    "Follow the rules strictly and do not add external knowledge or hints about the answer. Return ONLY the rewritten question."
                 )
+                evidence_section = ""
+                if evidence_mode and ev_digest_text:
+                    evidence_section = (
+                        "Verifier evidence summary (for your reference; do not quote verbatim):\n" + ev_digest_text + "\n\n"
+                    )
                 prompt = (
+                    evidence_section +
                     "Original question:\n" + text + "\n\n" +
                     "Rewrite the question to be explicit and non-leading while preserving the intended meaning.\n" +
                     "Apply these constraints:\n" +
