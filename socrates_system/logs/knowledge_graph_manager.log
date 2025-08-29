@@ -17476,3 +17476,9 @@ cannot import name 'ImageNetInfo' from 'timm.data' (/Users/mohammed/miniconda3/e
 2025-08-29 20:05:55,262 - socrates_system.modules.knowledge_graph_manager - INFO - Extracting entities and relations from: The answer to the arithmetic question in the image...
 2025-08-29 20:05:59,640 - socrates_system.modules.knowledge_graph_manager - INFO - Extracted 5 entities and 6 relations (LLM+pattern hybrid)
 2025-08-29 20:05:59,642 - socrates_system.modules.knowledge_graph_manager - INFO - Attribute facts added to KG: 0 entities, 0 relations
+2025-08-29 20:06:23,977 - socrates_system.modules.knowledge_graph_manager - INFO - Extracting entities and relations from: The answer to the arithmetic question in the image...
+2025-08-29 20:06:27,890 - socrates_system.modules.knowledge_graph_manager - INFO - Extracted 3 entities and 4 relations (LLM+pattern hybrid)
+2025-08-29 20:06:27,891 - socrates_system.modules.knowledge_graph_manager - INFO - Attribute facts added to KG: 0 entities, 0 relations
+2025-08-29 20:06:47,621 - socrates_system.modules.knowledge_graph_manager - INFO - Extracting entities and relations from: The answer to the arithmetic question in the image...
+2025-08-29 20:06:50,203 - socrates_system.modules.knowledge_graph_manager - INFO - Extracted 3 entities and 2 relations (LLM+pattern hybrid)
+2025-08-29 20:06:50,206 - socrates_system.modules.knowledge_graph_manager - INFO - Attribute facts added to KG: 0 entities, 0 relations
