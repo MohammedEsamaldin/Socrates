@@ -1,8 +1,1 @@
-existence
-count
-position
-color
-commonsense_reasoning
-OCR
-position
 numerical_calculation

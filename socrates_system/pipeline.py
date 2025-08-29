@@ -931,9 +931,9 @@ class SocratesPipeline:
                                 )
                                 verdict_str = (out or {}).get("verdict", "Uncertain")
                                 if verdict_str == "True":
-                                    _status, _conf = "PASS", 0.90
+                                    _status, _conf = "PASS", 0.85
                                 elif verdict_str == "False":
-                                    _status, _conf = "FAIL", 0.90
+                                    _status, _conf = "FAIL", 0.85
                                 else:
                                     _status, _conf = "UNCERTAIN", 0.5
                                 _truth = (out or {}).get("truth") or ""

@@ -5188,3 +5188,273 @@
 2025-08-29 19:08:51,943 - INFO - [96mSample numerical_calculation/0009#1 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 2?[0m
 2025-08-29 19:08:52,872 - INFO - Sample numerical_calculation/0009#1 - Model output: No
 2025-08-29 19:08:53,482 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:16:50,830 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 19:16:50,918 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 460 samples
+2025-08-29 19:16:50,919 - INFO - Loaded 460 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-29 19:16:50,961 - INFO - Resuming with 436 already processed samples
+2025-08-29 19:17:29,487 - INFO - [96mSample numerical_calculation/0009#1 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 2?[0m
+2025-08-29 19:17:30,530 - INFO - Sample numerical_calculation/0009#1 - Model output: No
+2025-08-29 19:17:31,173 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:17:44,575 - INFO - [96mSample numerical_calculation/0009#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:17:44,576 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture is not equal to 2." -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is equal to 2.; AGLA verdict: False
+2025-08-29 19:17:44,576 - INFO - Sample numerical_calculation/0009#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:17:44,576 - INFO - [91mSample numerical_calculation/0009#1 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:17:44,576 - INFO - [92mSample numerical_calculation/0009#1 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:17:44,577 - INFO - Sample numerical_calculation/0009#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:18:08,318 - INFO - [96mSample numerical_calculation/0009#2 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 3?[0m
+2025-08-29 19:18:08,774 - INFO - Sample numerical_calculation/0009#2 - Model output: No
+2025-08-29 19:18:09,245 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:18:21,508 - INFO - [96mSample numerical_calculation/0009#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:18:21,510 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture does not equal 3" -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is equal to 3.; AGLA verdict: False
+2025-08-29 19:18:21,510 - INFO - Sample numerical_calculation/0009#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:18:21,511 - INFO - [91mSample numerical_calculation/0009#2 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:18:21,511 - INFO - [92mSample numerical_calculation/0009#2 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:18:21,511 - INFO - Sample numerical_calculation/0009#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:18:45,665 - INFO - [96mSample numerical_calculation/0010#1 - Q1 (formulated):[0m [95mIs the value obtained from the arithmetic question in the image equal to 13?[0m
+2025-08-29 19:18:46,424 - INFO - Sample numerical_calculation/0010#1 - Model output: Yes
+2025-08-29 19:18:47,202 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:18:50,669 - INFO - [96mSample numerical_calculation/0010#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:18:50,669 - INFO - Sample numerical_calculation/0010#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:18:51,667 - INFO - Sample numerical_calculation/0010#1 - Model output: Yes
+2025-08-29 19:18:52,141 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:19:02,693 - INFO - [96mSample numerical_calculation/0010#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:19:02,695 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value obtained from the arithmetic question in the image is equal to 13" -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The arithmetic question in the image is "13 + 3 = ?", and the answer is 13.; AGLA verdict: True
+2025-08-29 19:19:02,695 - INFO - Sample numerical_calculation/0010#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:19:02,695 - INFO - [93mSample numerical_calculation/0010#1 - Adjudication scores (content-only): Q0=0.00, Q1=3.00[0m
+2025-08-29 19:19:02,695 - INFO - [92mSample numerical_calculation/0010#1 - Final adjudication: Q1[0m
+2025-08-29 19:19:02,695 - INFO - Sample numerical_calculation/0010#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:19:25,197 - INFO - [96mSample numerical_calculation/0010#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 12?[0m
+2025-08-29 19:19:25,965 - INFO - Sample numerical_calculation/0010#2 - Model output: Yes
+2025-08-29 19:19:26,526 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:19:29,499 - INFO - [96mSample numerical_calculation/0010#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:19:29,499 - INFO - Sample numerical_calculation/0010#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:19:30,002 - INFO - Sample numerical_calculation/0010#2 - Model output: No
+2025-08-29 19:19:30,824 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:19:33,410 - INFO - [96mSample numerical_calculation/0010#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:19:33,410 - INFO - Sample numerical_calculation/0010#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:19:33,410 - INFO - [93mSample numerical_calculation/0010#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:19:33,410 - INFO - [92mSample numerical_calculation/0010#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:19:33,410 - INFO - Sample numerical_calculation/0010#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:20:04,787 - INFO - [96mSample numerical_calculation/0011#1 - Q1 (formulated):[0m [95mIs the area of the parallelogram in the picture equal to 24?[0m
+2025-08-29 19:20:05,553 - INFO - Sample numerical_calculation/0011#1 - Model output: No
+2025-08-29 19:20:06,245 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:20:24,525 - INFO - [96mSample numerical_calculation/0011#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:20:24,526 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The area of the parallelogram in the picture is not equal to 24." -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The area of the parallelogram in the picture is not equal to 24 because the parallelogram is drawn on a p…; AGLA verdict: True
+2025-08-29 19:20:24,526 - INFO - Sample numerical_calculation/0011#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:20:24,526 - INFO - [92mSample numerical_calculation/0011#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 19:20:24,527 - INFO - [92mSample numerical_calculation/0011#1 - Final adjudication: Q0[0m
+2025-08-29 19:20:24,527 - INFO - Sample numerical_calculation/0011#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:20:53,805 - INFO - [96mSample numerical_calculation/0011#2 - Q1 (formulated):[0m [95mIs the area of the parallelogram in the picture equal to 6?[0m
+2025-08-29 19:20:54,499 - INFO - Sample numerical_calculation/0011#2 - Model output: No
+2025-08-29 19:20:54,971 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:21:12,732 - INFO - [96mSample numerical_calculation/0011#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:21:12,733 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The area of the parallelogram in the picture is not equal to 6, based on the given measurements." -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The area of the parallelogram is calculated by multiplying the base by the height, which is 6 x 6 = 36. H…; AGLA verdict: True
+2025-08-29 19:21:12,733 - INFO - Sample numerical_calculation/0011#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:21:12,733 - INFO - [92mSample numerical_calculation/0011#2 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 19:21:12,733 - INFO - [92mSample numerical_calculation/0011#2 - Final adjudication: Q0[0m
+2025-08-29 19:21:12,733 - INFO - Sample numerical_calculation/0011#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:21:37,348 - INFO - [96mSample numerical_calculation/0012#1 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 9?[0m
+2025-08-29 19:21:38,451 - INFO - Sample numerical_calculation/0012#1 - Model output: No
+2025-08-29 19:21:38,976 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:21:51,544 - INFO - [96mSample numerical_calculation/0012#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:21:51,545 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture does not equal 9" -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is equal to 9.; AGLA verdict: False
+2025-08-29 19:21:51,546 - INFO - Sample numerical_calculation/0012#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:21:51,546 - INFO - [91mSample numerical_calculation/0012#1 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:21:51,546 - INFO - [92mSample numerical_calculation/0012#1 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:21:51,546 - INFO - Sample numerical_calculation/0012#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:22:20,859 - INFO - [96mSample numerical_calculation/0012#2 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 1?[0m
+2025-08-29 19:22:21,730 - INFO - Sample numerical_calculation/0012#2 - Model output: No
+2025-08-29 19:22:22,202 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:22:33,057 - INFO - [96mSample numerical_calculation/0012#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:22:33,057 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture does not equal 1" -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is equal to 1.; AGLA verdict: False
+2025-08-29 19:22:33,057 - INFO - Sample numerical_calculation/0012#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:22:33,057 - INFO - [91mSample numerical_calculation/0012#2 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:22:33,058 - INFO - [92mSample numerical_calculation/0012#2 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:22:33,058 - INFO - Sample numerical_calculation/0012#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:23:03,638 - INFO - [96mSample numerical_calculation/0013#1 - Q1 (formulated):[0m [95mIs the area of the right triangle in the picture equal to 24?[0m
+2025-08-29 19:23:04,336 - INFO - Sample numerical_calculation/0013#1 - Model output: No
+2025-08-29 19:23:04,830 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:23:22,579 - INFO - [96mSample numerical_calculation/0013#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:23:22,579 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The area of the right triangle in the picture is not equal to 24." -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The area of the right triangle in the picture is not equal to 24 because the triangle is not a perfect ri…; AGLA verdict: True
+2025-08-29 19:23:22,579 - INFO - Sample numerical_calculation/0013#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:23:22,580 - INFO - [92mSample numerical_calculation/0013#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 19:23:22,580 - INFO - [92mSample numerical_calculation/0013#1 - Final adjudication: Q0[0m
+2025-08-29 19:23:22,580 - INFO - Sample numerical_calculation/0013#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:23:51,676 - INFO - [96mSample numerical_calculation/0013#2 - Q1 (formulated):[0m [95mIs the area of the right triangle in the picture equal to 8?[0m
+2025-08-29 19:23:52,261 - INFO - Sample numerical_calculation/0013#2 - Model output: No
+2025-08-29 19:23:53,058 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:24:02,744 - INFO - [96mSample numerical_calculation/0013#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:24:02,747 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The area of the right triangle in the picture is not equal to 8" -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The area of the right triangle in the picture is not equal to 8 because the triangle has a base of 8 and …; AGLA verdict: True
+2025-08-29 19:24:02,747 - INFO - Sample numerical_calculation/0013#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:24:02,747 - INFO - [92mSample numerical_calculation/0013#2 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 19:24:02,747 - INFO - [92mSample numerical_calculation/0013#2 - Final adjudication: Q0[0m
+2025-08-29 19:24:02,747 - INFO - Sample numerical_calculation/0013#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:24:23,761 - INFO - [96mSample numerical_calculation/0014#1 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 200?[0m
+2025-08-29 19:24:24,530 - INFO - Sample numerical_calculation/0014#1 - Model output: Yes
+2025-08-29 19:24:24,919 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:24:28,273 - INFO - [96mSample numerical_calculation/0014#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:24:28,273 - INFO - Sample numerical_calculation/0014#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:24:29,114 - INFO - Sample numerical_calculation/0014#1 - Model output: Yes
+2025-08-29 19:24:29,500 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:24:38,755 - INFO - [96mSample numerical_calculation/0014#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:24:38,757 - INFO - Sample numerical_calculation/0014#1 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:24:38,757 - INFO - [93mSample numerical_calculation/0014#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:24:38,757 - INFO - [92mSample numerical_calculation/0014#1 - Final adjudication: Q0_tie[0m
+2025-08-29 19:24:38,757 - INFO - Sample numerical_calculation/0014#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:25:13,254 - INFO - [96mSample numerical_calculation/0014#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 400?[0m
+2025-08-29 19:25:14,500 - INFO - Sample numerical_calculation/0014#2 - Model output: No
+2025-08-29 19:25:15,071 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:25:26,157 - INFO - [96mSample numerical_calculation/0014#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:25:26,157 - INFO - Sample numerical_calculation/0014#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:25:26,848 - INFO - Sample numerical_calculation/0014#2 - Model output: No
+2025-08-29 19:25:27,498 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:25:37,520 - INFO - [96mSample numerical_calculation/0014#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:25:37,520 - INFO - Sample numerical_calculation/0014#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:25:37,521 - INFO - [93mSample numerical_calculation/0014#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:25:37,521 - INFO - [92mSample numerical_calculation/0014#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:25:37,521 - INFO - Sample numerical_calculation/0014#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:26:00,715 - INFO - [96mSample numerical_calculation/0015#1 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 11?[0m
+2025-08-29 19:26:02,066 - INFO - Sample numerical_calculation/0015#1 - Model output: No
+2025-08-29 19:26:02,663 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:26:13,172 - INFO - [96mSample numerical_calculation/0015#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:26:13,173 - INFO - Sample numerical_calculation/0015#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:26:13,896 - INFO - Sample numerical_calculation/0015#1 - Model output: No
+2025-08-29 19:26:14,466 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:26:25,969 - INFO - [96mSample numerical_calculation/0015#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:26:25,970 - INFO - Sample numerical_calculation/0015#1 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:26:25,970 - INFO - [93mSample numerical_calculation/0015#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:26:25,970 - INFO - [92mSample numerical_calculation/0015#1 - Final adjudication: Q0_tie[0m
+2025-08-29 19:26:25,970 - INFO - Sample numerical_calculation/0015#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:26:49,094 - INFO - [96mSample numerical_calculation/0015#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 111?[0m
+2025-08-29 19:26:49,894 - INFO - Sample numerical_calculation/0015#2 - Model output: No
+2025-08-29 19:26:50,343 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:27:02,142 - INFO - [96mSample numerical_calculation/0015#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:27:02,142 - INFO - Sample numerical_calculation/0015#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:27:03,236 - INFO - Sample numerical_calculation/0015#2 - Model output: No
+2025-08-29 19:27:04,667 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:27:14,960 - INFO - [96mSample numerical_calculation/0015#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:27:14,960 - INFO - Sample numerical_calculation/0015#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:27:14,960 - INFO - [93mSample numerical_calculation/0015#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:27:14,960 - INFO - [92mSample numerical_calculation/0015#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:27:14,960 - INFO - Sample numerical_calculation/0015#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:27:36,403 - INFO - [96mSample numerical_calculation/0016#1 - Q1 (formulated):[0m [95mIs the value of the arithmetic question in the image equal to 9?[0m
+2025-08-29 19:27:36,975 - INFO - Sample numerical_calculation/0016#1 - Model output: No
+2025-08-29 19:27:37,722 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:27:49,977 - INFO - [96mSample numerical_calculation/0016#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:27:49,977 - INFO - Sample numerical_calculation/0016#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:27:50,610 - INFO - Sample numerical_calculation/0016#1 - Model output: No
+2025-08-29 19:27:51,234 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:28:02,528 - INFO - [96mSample numerical_calculation/0016#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:28:02,529 - INFO - Sample numerical_calculation/0016#1 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:28:02,529 - INFO - [93mSample numerical_calculation/0016#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:28:02,529 - INFO - [92mSample numerical_calculation/0016#1 - Final adjudication: Q0_tie[0m
+2025-08-29 19:28:02,529 - INFO - Sample numerical_calculation/0016#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:28:33,542 - INFO - [96mSample numerical_calculation/0016#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 16?[0m
+2025-08-29 19:28:34,641 - INFO - Sample numerical_calculation/0016#2 - Model output: No
+2025-08-29 19:28:35,470 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:28:46,722 - INFO - [96mSample numerical_calculation/0016#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:28:46,724 - INFO - Sample numerical_calculation/0016#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:28:48,339 - INFO - Sample numerical_calculation/0016#2 - Model output: No
+2025-08-29 19:28:48,914 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:29:00,151 - INFO - [96mSample numerical_calculation/0016#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:29:00,153 - INFO - Sample numerical_calculation/0016#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:29:00,153 - INFO - [93mSample numerical_calculation/0016#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:29:00,153 - INFO - [92mSample numerical_calculation/0016#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:29:00,153 - INFO - Sample numerical_calculation/0016#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:29:35,608 - INFO - [96mSample numerical_calculation/0017#1 - Q1 (formulated):[0m [95mIs the value of the arithmetic question in the image equal to 14?[0m
+2025-08-29 19:29:36,577 - INFO - Sample numerical_calculation/0017#1 - Model output: No
+2025-08-29 19:29:37,050 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:29:48,784 - INFO - [96mSample numerical_calculation/0017#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:29:48,785 - INFO - Sample numerical_calculation/0017#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:29:49,536 - INFO - Sample numerical_calculation/0017#1 - Model output: No
+2025-08-29 19:29:50,048 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:30:01,934 - INFO - [96mSample numerical_calculation/0017#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:30:01,935 - INFO - Sample numerical_calculation/0017#1 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:30:01,935 - INFO - [93mSample numerical_calculation/0017#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:30:01,935 - INFO - [92mSample numerical_calculation/0017#1 - Final adjudication: Q0_tie[0m
+2025-08-29 19:30:01,935 - INFO - Sample numerical_calculation/0017#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:30:27,303 - INFO - [96mSample numerical_calculation/0017#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 83?[0m
+2025-08-29 19:30:28,158 - INFO - Sample numerical_calculation/0017#2 - Model output: No
+2025-08-29 19:30:28,779 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:30:40,298 - INFO - [96mSample numerical_calculation/0017#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:30:40,298 - INFO - Sample numerical_calculation/0017#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:30:41,764 - INFO - Sample numerical_calculation/0017#2 - Model output: No
+2025-08-29 19:30:42,469 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:30:54,097 - INFO - [96mSample numerical_calculation/0017#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:30:54,099 - INFO - Sample numerical_calculation/0017#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:30:54,099 - INFO - [93mSample numerical_calculation/0017#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:30:54,099 - INFO - [92mSample numerical_calculation/0017#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:30:54,099 - INFO - Sample numerical_calculation/0017#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:31:26,560 - INFO - [96mSample numerical_calculation/0018#1 - Q1 (formulated):[0m [95mDoes the value of "a" in the picture equal 3?[0m
+2025-08-29 19:31:27,286 - INFO - Sample numerical_calculation/0018#1 - Model output: No
+2025-08-29 19:31:27,962 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:31:40,099 - INFO - [96mSample numerical_calculation/0018#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:31:40,100 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture does not equal 3" -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is indeed equal to 3.; AGLA verdict: False
+2025-08-29 19:31:40,100 - INFO - Sample numerical_calculation/0018#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:31:40,100 - INFO - [91mSample numerical_calculation/0018#1 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:31:40,100 - INFO - [92mSample numerical_calculation/0018#1 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:31:40,100 - INFO - Sample numerical_calculation/0018#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:32:05,210 - INFO - [96mSample numerical_calculation/0018#2 - Q1 (formulated):[0m [95mIs the value of "a" in the picture equal to 2?[0m
+2025-08-29 19:32:06,131 - INFO - Sample numerical_calculation/0018#2 - Model output: No
+2025-08-29 19:32:06,601 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:32:20,038 - INFO - [96mSample numerical_calculation/0018#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:32:20,038 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of 'a' in the picture is not equal to 2." -> [91mFAIL[0m (conf 0.90); evidence: AGLA evidance: The value of 'a' in the picture is equal to 2.; AGLA verdict: False
+2025-08-29 19:32:20,039 - INFO - Sample numerical_calculation/0018#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 19:32:20,039 - INFO - [91mSample numerical_calculation/0018#2 - Early overturn: strong contradictory evidence in Q0 (max_conf=0.90 >= 0.90); skipping Q1[0m
+2025-08-29 19:32:20,039 - INFO - [92mSample numerical_calculation/0018#2 - Final adjudication: Q0_early_overturn[0m
+2025-08-29 19:32:20,039 - INFO - Sample numerical_calculation/0018#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 19:32:39,332 - INFO - [96mSample numerical_calculation/0019#1 - Q1 (formulated):[0m [95mIs the value obtained from the arithmetic question in the image equal to 18?[0m
+2025-08-29 19:32:40,134 - INFO - Sample numerical_calculation/0019#1 - Model output: No
+2025-08-29 19:32:40,584 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:32:51,528 - INFO - [96mSample numerical_calculation/0019#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:32:51,530 - INFO - Sample numerical_calculation/0019#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:32:52,273 - INFO - Sample numerical_calculation/0019#1 - Model output: No
+2025-08-29 19:32:52,772 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:33:04,798 - INFO - [96mSample numerical_calculation/0019#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:33:04,798 - INFO - Sample numerical_calculation/0019#1 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:33:04,799 - INFO - [93mSample numerical_calculation/0019#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:33:04,799 - INFO - [92mSample numerical_calculation/0019#1 - Final adjudication: Q0_tie[0m
+2025-08-29 19:33:04,799 - INFO - Sample numerical_calculation/0019#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:33:29,149 - INFO - [96mSample numerical_calculation/0019#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 36?[0m
+2025-08-29 19:33:30,371 - INFO - Sample numerical_calculation/0019#2 - Model output: No
+2025-08-29 19:33:30,841 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:33:43,319 - INFO - [96mSample numerical_calculation/0019#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:33:43,320 - INFO - Sample numerical_calculation/0019#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:33:44,620 - INFO - Sample numerical_calculation/0019#2 - Model output: No
+2025-08-29 19:33:45,481 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:33:55,974 - INFO - [96mSample numerical_calculation/0019#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:33:55,974 - INFO - Sample numerical_calculation/0019#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:33:55,974 - INFO - [93mSample numerical_calculation/0019#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:33:55,975 - INFO - [92mSample numerical_calculation/0019#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:33:55,975 - INFO - Sample numerical_calculation/0019#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:34:18,895 - INFO - [96mSample numerical_calculation/0020#1 - Q1 (formulated):[0m [95mIs the value of the arithmetic question in the image equal to 9?[0m
+2025-08-29 19:34:19,927 - INFO - Sample numerical_calculation/0020#1 - Model output: Yes
+2025-08-29 19:34:20,409 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:34:29,901 - INFO - [96mSample numerical_calculation/0020#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:34:29,903 - INFO - Sample numerical_calculation/0020#1 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:34:31,670 - INFO - Sample numerical_calculation/0020#1 - Model output: Yes
+2025-08-29 19:34:32,262 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:34:43,250 - INFO - [96mSample numerical_calculation/0020#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:34:43,251 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The value of the arithmetic question in the image is equal to 9" -> [92mPASS[0m (conf 0.90); evidence: AGLA evidance: The image shows a handwritten equation with the value of the arithmetic question being equal to 9.; AGLA verdict: True
+2025-08-29 19:34:43,251 - INFO - Sample numerical_calculation/0020#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 19:34:43,251 - INFO - [93mSample numerical_calculation/0020#1 - Adjudication scores (content-only): Q0=0.00, Q1=3.00[0m
+2025-08-29 19:34:43,251 - INFO - [92mSample numerical_calculation/0020#1 - Final adjudication: Q1[0m
+2025-08-29 19:34:43,251 - INFO - Sample numerical_calculation/0020#1 - Hallucination source: [92mNONE[0m
+2025-08-29 19:35:04,536 - INFO - [96mSample numerical_calculation/0020#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 45?[0m
+2025-08-29 19:35:05,565 - INFO - Sample numerical_calculation/0020#2 - Model output: No
+2025-08-29 19:35:11,346 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:35:22,050 - INFO - [96mSample numerical_calculation/0020#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:35:22,052 - INFO - Sample numerical_calculation/0020#2 - Q0 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:35:22,885 - INFO - Sample numerical_calculation/0020#2 - Model output: No
+2025-08-29 19:35:23,437 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 19:35:34,067 - INFO - [96mSample numerical_calculation/0020#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 19:35:34,069 - INFO - Sample numerical_calculation/0020#2 - Q1 evidence | all: P=0 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mundecided[0m has_pos_pass=False has_fail=False
+2025-08-29 19:35:34,069 - INFO - [93mSample numerical_calculation/0020#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 19:35:34,069 - INFO - [92mSample numerical_calculation/0020#2 - Final adjudication: Q0_tie[0m
+2025-08-29 19:35:34,069 - INFO - Sample numerical_calculation/0020#2 - Hallucination source: [92mNONE[0m
+2025-08-29 19:35:34,074 - INFO - Evaluation complete. MME results written to: socrates_system/mllm_evaluation/runs/newer_smoke_mme/mme/mme_results
+2025-08-29 19:47:38,391 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 19:47:38,480 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 460 samples
+2025-08-29 19:47:38,480 - INFO - Loaded 460 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-29 19:47:38,525 - INFO - Resuming with 460 already processed samples
+2025-08-29 19:47:38,525 - INFO - Evaluation complete. MME results written to: socrates_system/mllm_evaluation/runs/newer_smoke_mme/mme/mme_results

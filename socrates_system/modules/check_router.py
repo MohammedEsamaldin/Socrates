@@ -91,12 +91,21 @@ class CheckRouter:
                     justification="Visual grounding required - routed to cross-modal verification"
                 )
         
+        # DISABLED: Route EXTERNAL_KNOWLEDGE_REQUIRED to cross-modal instead of external source
+        # This ensures numerical calculation claims go to AGLA for MME evaluation
         if ClaimCategoryType.EXTERNAL_KNOWLEDGE_REQUIRED in claim_categories:
-            if VerificationMethod.EXTERNAL_SOURCE in self.available_methods:
+            if VerificationMethod.CROSS_MODAL in self.available_methods:
+                return self._create_route(
+                    VerificationMethod.CROSS_MODAL,
+                    confidence=0.90,
+                    justification="External knowledge required - redirected to cross-modal verification (AGLA) for MME evaluation"
+                )
+            # Fallback to external source if cross-modal not available
+            elif VerificationMethod.EXTERNAL_SOURCE in self.available_methods:
                 return self._create_route(
                     VerificationMethod.EXTERNAL_SOURCE,
                     confidence=0.90,
-                    justification="External knowledge required - routed to external source verification"
+                    justification="External knowledge required - using external source verification (fallback)"
                 )
         
         if ClaimCategoryType.SELF_CONSISTENCY_REQUIRED in claim_categories:
