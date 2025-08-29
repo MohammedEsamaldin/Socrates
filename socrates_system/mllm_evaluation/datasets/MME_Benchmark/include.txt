@@ -1,1 +1,4 @@
 existence
+count
+position
+color

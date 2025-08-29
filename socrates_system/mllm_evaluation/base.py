@@ -79,12 +79,21 @@ class BaseEvaluator:
         # LLM used for generating the system-under-test answer (can be different, e.g., LLaVA)
         self.sut_llm_manager: LLMManager = build_llm_manager(provider=_sut_provider, model_name=_sut_model)
 
+        # Determine post-factuality clarification policy:
+        # If SOC_POST_FACTUALITY_CLAR is set, honor it. Otherwise, disable for MME specifically.
+        _pf_env = os.getenv("SOC_POST_FACTUALITY_CLAR")
+        if _pf_env is not None:
+            _pf_enabled = str(_pf_env).strip().lower() == "true"
+        else:
+            _pf_enabled = (self.BENCHMARK_NAME.lower() != "mme")
+
         self.pipeline = build_pipeline(
             llm_manager=self.pipeline_llm_manager,
             factuality_enabled=True,
             clarification_enabled=True,
             clarification_dev_mode=False,
             question_gen_enabled=False,
+            post_factuality_clarification_enabled=_pf_enabled,
         )
 
         self.limit = limit
@@ -315,6 +324,11 @@ class BaseEvaluator:
 
         # Helper: analyze a model output with MITM verification and (if yes/no) derived hypothesis
         def _analyze_output(model_text: str, question_text: str) -> Dict[str, Any]:
+            # Tag stage for downstream DEBUG logging of cross-modal verification
+            try:
+                setattr(self.pipeline, "_verification_stage", "Q0")
+            except Exception:
+                pass
             res = process_model_turn(self.pipeline, model_text, image_path=image_path)
             corrected = res.get("corrected_text") or model_text
             try:
@@ -344,7 +358,13 @@ class BaseEvaluator:
                         )
                     except Exception:
                         pass
-                    derived = process_model_turn(self.pipeline, hypo, image_path=image_path)
+                    # Tag as Q1 for downstream logging; suppress external knowledge/self-consistency checks for hypothesis verification
+                    # to prioritize cross-modal-only verification signals.
+                    try:
+                        setattr(self.pipeline, "_verification_stage", "Q1")
+                    except Exception:
+                        pass
+                    derived = process_model_turn(self.pipeline, hypo, image_path=image_path, hypothesis_mode=True)
                     # If original claims are empty, use derived artifacts for analysis
                     if (not claims_a) and derived is not None:
                         claims_a = derived.get("claims", [])
@@ -372,6 +392,22 @@ class BaseEvaluator:
             n_pass_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
             n_fail_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
             n_unc_c = sum(1 for it in mmhal_items if _is_content_item(it) and isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
+            # Track strongest contradicting confidence among content-only FAILs
+            max_fail_conf_c = 0.0
+            try:
+                for it in mmhal_items:
+                    if not _is_content_item(it):
+                        continue
+                    f = it.get("factuality") or {}
+                    if isinstance(f, dict) and (f.get("status") == "FAIL"):
+                        try:
+                            cf = float(f.get("confidence", 0.0) or 0.0)
+                        except Exception:
+                            cf = 0.0
+                        if cf > max_fail_conf_c:
+                            max_fail_conf_c = cf
+            except Exception:
+                max_fail_conf_c = 0.0
 
             # If we derived a hypothesis, compute directional signal for yes/no
             yn_sig = None
@@ -425,6 +461,7 @@ class BaseEvaluator:
                 "num_pass_content": n_pass_c,
                 "num_fail_content": n_fail_c,
                 "num_uncertain_content": n_unc_c,
+                "max_fail_conf_content": max_fail_conf_c,
                 "yn_detected": yn_det,
                 "yn_signal": yn_sig,
                 "yn_signal_content": yn_sig_content,
@@ -452,10 +489,16 @@ class BaseEvaluator:
 
         a0 = _analyze_output(a0_text, prompt)
         try:
+            # Color helpers
+            GREEN = "\033[92m"; YELLOW = "\033[93m"; RED = "\033[91m"; CYAN = "\033[96m"; RESET = "\033[0m"
             self.logger.info(
-                f"Sample {sample_id} - Q0 evidence | all: P={a0.get('num_pass',0)} F={a0.get('num_fail',0)} U={a0.get('num_uncertain',0)}; "
-                f"content: P={a0.get('num_pass_content',0)} F={a0.get('num_fail_content',0)} U={a0.get('num_uncertain_content',0)}; "
-                f"yn_content={a0.get('yn_signal_content_direction','undecided')} has_pos_pass={a0.get('has_content_positive_pass', False)} has_fail={a0.get('has_any_content_fail', False)}"
+                f"Sample {sample_id} - Q0 evidence | all: P={a0.get('num_pass',0)} "
+                f"F={a0.get('num_fail',0)} U={a0.get('num_uncertain',0)}; "
+                f"content: P={a0.get('num_pass_content',0)} "
+                f"F={RED}{a0.get('num_fail_content',0)}{RESET} U={a0.get('num_uncertain_content',0)}; "
+                f"yn_content={CYAN}{a0.get('yn_signal_content_direction','undecided')}{RESET} "
+                f"has_pos_pass={a0.get('has_content_positive_pass', False)} "
+                f"has_fail={a0.get('has_any_content_fail', False)}"
             )
         except Exception:
             pass
@@ -468,116 +511,145 @@ class BaseEvaluator:
             stage="pre",
         )
 
-        # Fast-path: only content-relevant evidence can skip Q1/adjudication
-        q0_yesno_supported = (
-            a0.get("yn_detected") is not None
-            and a0.get("desired") is not None
-            and bool(a0.get("desired")) == bool(a0.get("yn_detected"))
-        )
-        q0_claims_supported = (
-            a0.get("num_fail_content", 0) == 0 and a0.get("num_pass_content", 0) > 0
-        )
-        q0_passed = bool(q0_yesno_supported or q0_claims_supported)
-
-        if q0_passed:
+        # Early overturn: if Q0 has strong content-only contradiction with high confidence, skip Q1 entirely.
+        early_overturn_enabled = str(os.getenv("SOC_EARLY_OVERTURN_ENABLED", "true")).lower() == "true"
+        try:
+            thr = float(os.getenv("SOC_EARLY_OVERTURN_MIN_CONF", "0.9") or 0.9)
+        except Exception:
+            thr = 0.9
+        early_overturn = bool(early_overturn_enabled and int(a0.get("num_fail_content", 0) or 0) > 0 and float(a0.get("max_fail_conf_content", 0.0) or 0.0) >= thr)
+        if early_overturn:
             try:
-                self.logger.info(f"Sample {sample_id} - Fast path: Q0 verified; skipping Q1 and adjudication")
+                RED = "\033[91m"; RESET = "\033[0m"
+                self.logger.info(f"{RED}Sample {sample_id} - Early overturn: strong contradictory evidence in Q0 (max_conf={a0.get('max_fail_conf_content',0.0):.2f} >= {thr:.2f}); skipping Q1{RESET}")
             except Exception:
                 pass
-            final_decision = "Q0"
+            final_decision = "Q0_early_overturn"
+            # Tag strong contradiction for downstream coercion/logging
+            a0["strong_content_contradiction"] = True
             final = a0
             final_original = a0_text
         else:
-            # 3) Query SUT with Q1 (corrected question from clarifications)
-            try:
-                a1_text = self.sut_llm_manager.generate_text(
-                    q1_prompt,
-                    max_tokens=self.max_gen_tokens,
-                    temperature=self.temperature,
-                    images=[image_path] if image_path else None,
-                )
-            except Exception as e:
-                self.logger.error(f"Generation error (Q1) for sample {sample_id}: {e}")
-                a1_text = ""
+            # Fast-path: only content-relevant evidence can skip Q1/adjudication
+            q0_yesno_supported = (
+                a0.get("yn_detected") is not None
+                and a0.get("desired") is not None
+                and bool(a0.get("desired")) == bool(a0.get("yn_detected"))
+            )
+            q0_claims_supported = (
+                a0.get("num_fail_content", 0) == 0 and a0.get("num_pass_content", 0) > 0
+            )
+            q0_passed = bool(q0_yesno_supported or q0_claims_supported)
 
-            a1 = _analyze_output(a1_text, corrected_prompt_candidate)
-            try:
-                self.logger.info(
-                    f"Sample {sample_id} - Q1 evidence | all: P={a1.get('num_pass',0)} F={a1.get('num_fail',0)} U={a1.get('num_uncertain',0)}; "
-                    f"content: P={a1.get('num_pass_content',0)} F={a1.get('num_fail_content',0)} U={a1.get('num_uncertain_content',0)}; "
-                    f"yn_content={a1.get('yn_signal_content_direction','undecided')} has_pos_pass={a1.get('has_content_positive_pass', False)} has_fail={a1.get('has_any_content_fail', False)}"
-                )
-            except Exception:
-                pass
-
-            # 4) Adjudicate between A0 and A1 deterministically using verification evidence
-            def _score(ana: Dict[str, Any]) -> float:
-                # Content-only evidence score: stronger penalty for fails, light penalty for uncertain
-                pass_c = float(ana.get("num_pass_content", 0) or 0)
-                fail_c = float(ana.get("num_fail_content", 0) or 0)
-                unc_c = float(ana.get("num_uncertain_content", 0) or 0)
-                s = pass_c - 2.0 * fail_c - 0.5 * unc_c
-                # Dominant directional signal from verification (content-only)
-                if ana.get("desired") is True:
-                    s += 2.0
-                elif ana.get("desired") is False:
-                    s -= 2.0
-                return s
-
-            s0, s1 = _score(a0), _score(a1)
-            try:
-                self.logger.info(
-                    f"Sample {sample_id} - Adjudication scores (content-only): Q0={s0:.2f}, Q1={s1:.2f}"
-                )
-            except Exception:
-                pass
-            # Helper: detect existence-type question
-            def _is_existence_question(q: str) -> bool:
-                ql = (q or "").strip().lower()
-                return (
-                    ql.startswith("is there ")
-                    or ql.startswith("are there ")
-                    or "does the image contain" in ql
-                    or ql.startswith("is a ") or ql.startswith("is an ")
-                    or "any" in ql and (ql.startswith("is there") or ql.startswith("are there"))
-                )
-
-            is_existence = _is_existence_question(prompt) or _is_existence_question(corrected_prompt_candidate)
-
-            if s1 > s0:
-                final_decision = "Q1"
-                final = a1
-                final_original = a1_text
-            elif s1 < s0:
+            if not early_overturn and q0_passed:
+                try:
+                    GREEN = "\033[92m"; RESET = "\033[0m"
+                    self.logger.info(f"{GREEN}Sample {sample_id} - Fast path: Q0 verified; skipping Q1 and adjudication{RESET}")
+                except Exception:
+                    pass
                 final_decision = "Q0"
                 final = a0
                 final_original = a0_text
-            else:
-                # Tie-breaker per Rule B
-                if is_existence:
-                    # If one branch has positive content support, pick it; else prefer 'No'
-                    if bool(a0.get("has_content_positive_pass")) ^ bool(a1.get("has_content_positive_pass")):
-                        choose_q1 = bool(a1.get("has_content_positive_pass"))
-                    else:
-                        # Prefer the branch whose desired direction is 'No'
-                        if a0.get("desired") is False and a1.get("desired") is not True:
-                            choose_q1 = False
-                        elif a1.get("desired") is False and a0.get("desired") is not True:
-                            choose_q1 = True
-                        else:
-                            # Default conservative: keep Q0
-                            choose_q1 = False
-                else:
-                    # Non-existence: prefer corrected only if strictly stronger content not equal
-                    choose_q1 = False
-                if choose_q1:
-                    final_decision = "Q1_tie"
+            elif not early_overturn:
+                # 3) Query SUT with Q1 (corrected question from clarifications)
+                try:
+                    a1_text = self.sut_llm_manager.generate_text(
+                        q1_prompt,
+                        max_tokens=self.max_gen_tokens,
+                        temperature=self.temperature,
+                        images=[image_path] if image_path else None,
+                    )
+                except Exception as e:
+                    self.logger.error(f"Generation error (Q1) for sample {sample_id}: {e}")
+                    a1_text = ""
+
+                a1 = _analyze_output(a1_text, corrected_prompt_candidate)
+                try:
+                    CYAN = "\033[96m"; RED = "\033[91m"; RESET = "\033[0m"
+                    self.logger.info(
+                        f"Sample {sample_id} - Q1 evidence | all: P={a1.get('num_pass',0)} F={a1.get('num_fail',0)} U={a1.get('num_uncertain',0)}; "
+                        f"content: P={a1.get('num_pass_content',0)} F={RED}{a1.get('num_fail_content',0)}{RESET} U={a1.get('num_uncertain_content',0)}; "
+                        f"yn_content={CYAN}{a1.get('yn_signal_content_direction','undecided')}{RESET} has_pos_pass={a1.get('has_content_positive_pass', False)} has_fail={a1.get('has_any_content_fail', False)}"
+                    )
+                except Exception:
+                    pass
+
+                # 4) Adjudicate between A0 and A1 deterministically using verification evidence
+                def _score(ana: Dict[str, Any]) -> float:
+                    # Content-only evidence score: stronger penalty for fails, light penalty for uncertain
+                    pass_c = float(ana.get("num_pass_content", 0) or 0)
+                    fail_c = float(ana.get("num_fail_content", 0) or 0)
+                    unc_c = float(ana.get("num_uncertain_content", 0) or 0)
+                    s = pass_c - 2.0 * fail_c - 0.5 * unc_c
+                    # Dominant directional signal from verification (content-only)
+                    if ana.get("desired") is True:
+                        s += 2.0
+                    elif ana.get("desired") is False:
+                        s -= 2.0
+                    return s
+
+                s0, s1 = _score(a0), _score(a1)
+                try:
+                    YELLOW = "\033[93m"; RESET = "\033[0m"
+                    self.logger.info(
+                        f"{YELLOW}Sample {sample_id} - Adjudication scores (content-only): Q0={s0:.2f}, Q1={s1:.2f}{RESET}"
+                    )
+                except Exception:
+                    pass
+                # Helper: detect existence-type question
+                def _is_existence_question(q: str) -> bool:
+                    ql = (q or "").strip().lower()
+                    return (
+                        ql.startswith("is there ")
+                        or ql.startswith("are there ")
+                        or "does the image contain" in ql
+                        or ql.startswith("is a ") or ql.startswith("is an ")
+                        or "any" in ql and (ql.startswith("is there") or ql.startswith("are there"))
+                    )
+
+                is_existence = _is_existence_question(prompt) or _is_existence_question(corrected_prompt_candidate)
+
+                if s1 > s0:
+                    final_decision = "Q1"
                     final = a1
                     final_original = a1_text
-                else:
-                    final_decision = "Q0_tie"
+                elif s1 < s0:
+                    final_decision = "Q0"
                     final = a0
                     final_original = a0_text
+                else:
+                    # Tie-breaker per Rule B
+                    if is_existence:
+                        # If one branch has positive content support, pick it; else prefer 'No'
+                        if bool(a0.get("has_content_positive_pass")) ^ bool(a1.get("has_content_positive_pass")):
+                            choose_q1 = bool(a1.get("has_content_positive_pass"))
+                        else:
+                            # Prefer the branch whose desired direction is 'No'
+                            if a0.get("desired") is False and a1.get("desired") is not True:
+                                choose_q1 = False
+                            elif a1.get("desired") is False and a0.get("desired") is not True:
+                                choose_q1 = True
+                            else:
+                                # Default conservative: keep Q0
+                                choose_q1 = False
+                    else:
+                        # Non-existence: prefer corrected only if strictly stronger content not equal
+                        choose_q1 = False
+                    if choose_q1:
+                        final_decision = "Q1_tie"
+                        final = a1
+                        final_original = a1_text
+                    else:
+                        final_decision = "Q0_tie"
+                        final = a0
+                        final_original = a0_text
+
+        # Log final adjudication decision
+        try:
+            GREEN = "\033[92m"; RESET = "\033[0m"
+            self.logger.info(f"{GREEN}Sample {sample_id} - Final adjudication: {final_decision}{RESET}")
+        except Exception:
+            pass
 
         # Coerce final corrected output to strict Yes/No if requested
         final_corrected_out = final.get("corrected_out") or final_original
@@ -589,7 +661,7 @@ class BaseEvaluator:
             y_fail_c = int((ysig or {}).get("fail", 0) or 0)
             y_pass_c = int((ysig or {}).get("pass", 0) or 0)
             # 1) Any derived content FAIL -> No
-            if y_fail_c > 0:
+            if y_fail_c > 0 or bool(final.get("strong_content_contradiction", False)):
                 final_corrected_out = "No"
             # 2) Strong verification direction -> follow it
             elif desired is True:
@@ -627,6 +699,45 @@ class BaseEvaluator:
             },
         }
 
+        # Classify hallucination source explicitly for logging/analysis
+        halluc_source = "NONE"
+        try:
+            if int(final.get("num_fail_content", 0) or 0) > 0:
+                halluc_source = "MODEL_CONTENT_HALLUCINATION"
+            else:
+                # Detect question ambiguity/meta in prompt-side claims
+                EXCLUDED_META_CATS = {"AMBIGUOUS_RESOLUTION_REQUIRED", "SUBJECTIVE_OPINION", "PROCEDURAL_DESCRIPTIVE"}
+                prompt_has_meta = False
+                try:
+                    for it in (mmhal_prompt_claims or []):
+                        cats = it.get("categories") or []
+                        if any(c in EXCLUDED_META_CATS for c in cats):
+                            prompt_has_meta = True
+                            break
+                except Exception:
+                    prompt_has_meta = False
+                if prompt_has_meta:
+                    halluc_source = "QUESTION_AMBIGUITY"
+                elif int(final.get("num_fail", 0) or 0) > 0:
+                    # Fails exist but none in content-only -> meta/non-content
+                    halluc_source = "META_NONCONTENT_HALLUCINATION"
+        except Exception:
+            halluc_source = "UNKNOWN"
+        try:
+            # Colorize source classification
+            GREEN = "\033[92m"; YELLOW = "\033[93m"; RED = "\033[91m"; MAGENTA = "\033[95m"; RESET = "\033[0m"
+            color_map = {
+                "NONE": GREEN,
+                "MODEL_CONTENT_HALLUCINATION": RED,
+                "QUESTION_AMBIGUITY": YELLOW,
+                "META_NONCONTENT_HALLUCINATION": MAGENTA,
+                "UNKNOWN": YELLOW,
+            }
+            col = color_map.get(halluc_source, YELLOW)
+            self.logger.info(f"Sample {sample_id} - Hallucination source: {col}{halluc_source}{RESET}")
+        except Exception:
+            pass
+
         record = {
             "sample_id": sample_id,
             "image_path": image_path,
@@ -655,6 +766,7 @@ class BaseEvaluator:
                 "q0_prompt": q0_prompt,
                 "q1_prompt": q1_prompt,
             },
+            "hallucination_source": halluc_source,
             "mmhal": mmhal,
         }
         return record

@@ -192,3 +192,771 @@
 2025-08-28 18:18:19,918 - INFO - Deriving hypothesis from yes/no answer for verification
 2025-08-28 18:18:38,134 - INFO - Sample artwork/10256#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
 2025-08-28 18:18:38,134 - INFO - Sample artwork/10256#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:25:14,301 - ERROR - Failed to read include list mllm_evaluation/datasets/MME_Benchmark/include.txt: [Errno 2] No such file or directory: 'mllm_evaluation/datasets/MME_Benchmark/include.txt'
+2025-08-28 18:25:14,301 - WARNING - Include list mllm_evaluation/datasets/MME_Benchmark/include.txt was empty; proceeding with all samples
+2025-08-28 18:25:14,301 - INFO - Loaded 2374 MME samples from /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-28 18:25:14,308 - INFO - Resuming with 45 already processed samples
+2025-08-28 18:26:30,536 - ERROR - Failed to read include list /Users/mohammed/Desktop/Socrates/Socrates/mllm_evaluation/datasets/MME_Benchmark/include.txt: [Errno 2] No such file or directory: '/Users/mohammed/Desktop/Socrates/Socrates/mllm_evaluation/datasets/MME_Benchmark/include.txt'
+2025-08-28 18:26:30,536 - WARNING - Include list /Users/mohammed/Desktop/Socrates/Socrates/mllm_evaluation/datasets/MME_Benchmark/include.txt was empty; proceeding with all samples
+2025-08-28 18:26:30,536 - INFO - Loaded 2374 MME samples from /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-28 18:26:30,542 - INFO - Resuming with 45 already processed samples
+2025-08-28 18:28:12,652 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 60 samples
+2025-08-28 18:28:12,652 - INFO - Loaded 60 MME samples from /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-28 18:28:12,658 - INFO - Resuming with 45 already processed samples
+2025-08-28 18:28:48,444 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 240 samples
+2025-08-28 18:28:48,444 - INFO - Loaded 240 MME samples from /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-28 18:28:48,450 - INFO - Resuming with 45 already processed samples
+2025-08-28 18:29:36,051 - INFO - Sample color/000000006723#1 - Model output: Yes
+2025-08-28 18:29:36,574 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:29:58,547 - INFO - Sample color/000000006723#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:30:11,368 - INFO - Sample color/000000006723#1 - Model output: Yes
+2025-08-28 18:30:11,968 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:31:10,368 - INFO - Sample color/000000006723#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:31:10,370 - INFO - Sample color/000000006723#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 18:31:51,747 - INFO - Sample color/000000006723#2 - Model output: No
+2025-08-28 18:31:52,334 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:32:14,660 - INFO - Sample color/000000006723#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:32:51,954 - INFO - Sample color/000000006723#2 - Model output: No
+2025-08-28 18:32:52,423 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:33:22,904 - INFO - Sample color/000000006723#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:33:22,906 - INFO - Sample color/000000006723#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 18:34:04,336 - INFO - Sample color/000000008277#1 - Model output: Yes
+2025-08-28 18:34:04,777 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:34:15,637 - INFO - Sample color/000000008277#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:34:15,638 - INFO - Sample color/000000008277#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:35:05,855 - INFO - Sample color/000000008277#2 - Model output: No
+2025-08-28 18:35:06,416 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:36:04,097 - INFO - Sample color/000000008277#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:36:32,282 - INFO - Sample color/000000008277#2 - Model output: No
+2025-08-28 18:36:32,708 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:37:03,019 - INFO - Sample color/000000008277#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:37:03,020 - INFO - Sample color/000000008277#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 18:37:55,007 - INFO - Sample color/000000012120#1 - Model output: Yes
+2025-08-28 18:37:55,620 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:38:20,311 - INFO - Sample color/000000012120#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:38:20,312 - INFO - Sample color/000000012120#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:38:46,981 - INFO - Sample color/000000012120#2 - Model output: No
+2025-08-28 18:38:47,401 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:39:05,159 - INFO - Sample color/000000012120#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:39:05,159 - INFO - Sample color/000000012120#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:40:11,441 - INFO - Sample color/000000014831#1 - Model output: Yes
+2025-08-28 18:40:12,041 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:40:24,839 - INFO - Sample color/000000014831#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:40:24,839 - INFO - Sample color/000000014831#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:41:08,517 - INFO - Sample color/000000014831#2 - Model output: No
+2025-08-28 18:41:09,046 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:41:47,035 - INFO - Sample color/000000014831#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:42:01,001 - INFO - Sample color/000000014831#2 - Model output: No
+2025-08-28 18:42:01,510 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:42:31,931 - INFO - Sample color/000000014831#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:42:31,932 - INFO - Sample color/000000014831#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 18:43:06,766 - INFO - Sample color/000000028993#1 - Model output: No
+2025-08-28 18:43:07,258 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:43:17,657 - INFO - Sample color/000000028993#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:43:17,658 - INFO - Sample color/000000028993#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:44:00,193 - INFO - Sample color/000000028993#2 - Model output: No
+2025-08-28 18:44:00,698 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:44:29,067 - INFO - Sample color/000000028993#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:44:42,874 - INFO - Sample color/000000028993#2 - Model output: No
+2025-08-28 18:44:43,399 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:45:11,450 - INFO - Sample color/000000028993#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:45:11,451 - INFO - Sample color/000000028993#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 18:45:35,808 - INFO - Sample color/000000029393#1 - Model output: Yes
+2025-08-28 18:45:36,303 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:45:49,493 - INFO - Sample color/000000029393#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:45:49,494 - INFO - Sample color/000000029393#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:46:25,626 - INFO - Sample color/000000029393#2 - Model output: No
+2025-08-28 18:46:26,125 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:46:52,315 - INFO - Sample color/000000029393#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:46:52,316 - INFO - Sample color/000000029393#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:47:28,061 - INFO - Sample color/000000035770#1 - Model output: Yes
+2025-08-28 18:47:28,640 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:47:41,498 - INFO - Sample color/000000035770#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:47:41,498 - INFO - Sample color/000000035770#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:48:15,881 - INFO - Sample color/000000035770#2 - Model output: No
+2025-08-28 18:48:16,424 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:48:45,341 - INFO - Sample color/000000035770#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:48:58,791 - INFO - Sample color/000000035770#2 - Model output: No
+2025-08-28 18:48:59,296 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:49:27,058 - INFO - Sample color/000000035770#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:49:27,059 - INFO - Sample color/000000035770#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 18:50:09,170 - INFO - Sample color/000000038118#1 - Model output: Yes
+2025-08-28 18:50:09,576 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:50:34,311 - INFO - Sample color/000000038118#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:51:20,830 - INFO - Sample color/000000038118#1 - Model output: Yes
+2025-08-28 18:51:21,318 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:52:11,201 - INFO - Sample color/000000038118#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:52:11,203 - INFO - Sample color/000000038118#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-1.00
+2025-08-28 18:53:03,777 - INFO - Sample color/000000038118#2 - Model output: No
+2025-08-28 18:53:04,265 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:53:34,476 - INFO - Sample color/000000038118#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:53:47,569 - INFO - Sample color/000000038118#2 - Model output: No
+2025-08-28 18:53:48,226 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:54:16,925 - INFO - Sample color/000000038118#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:54:16,925 - INFO - Sample color/000000038118#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 18:54:42,587 - INFO - Sample color/000000047112#1 - Model output: Yes
+2025-08-28 18:54:43,171 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:54:54,682 - INFO - Sample color/000000047112#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:54:54,683 - INFO - Sample color/000000047112#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:55:29,523 - INFO - Sample color/000000047112#2 - Model output: No
+2025-08-28 18:55:30,002 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:55:58,854 - INFO - Sample color/000000047112#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 18:56:58,462 - INFO - Sample color/000000047112#2 - Model output: Yes
+2025-08-28 18:56:59,081 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:57:12,207 - INFO - Sample color/000000047112#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 18:57:12,207 - INFO - Sample color/000000047112#2 - Adjudication scores (content-only): Q0=2.00, Q1=1.00
+2025-08-28 18:58:19,431 - INFO - Sample color/000000047121#1 - Model output: Yes
+2025-08-28 18:58:19,830 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:58:34,455 - INFO - Sample color/000000047121#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 18:58:34,455 - INFO - Sample color/000000047121#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 18:59:09,162 - INFO - Sample color/000000047121#2 - Model output: No
+2025-08-28 18:59:09,655 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 18:59:39,035 - INFO - Sample color/000000047121#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:00:15,162 - INFO - Sample color/000000047121#2 - Model output: Yes
+2025-08-28 19:00:15,833 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:00:40,577 - INFO - Sample color/000000047121#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:00:40,577 - INFO - Sample color/000000047121#2 - Adjudication scores (content-only): Q0=2.00, Q1=1.00
+2025-08-28 19:01:04,250 - INFO - Sample color/000000053529#1 - Model output: Yes
+2025-08-28 19:01:05,173 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:01:18,360 - INFO - Sample color/000000053529#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:01:18,361 - INFO - Sample color/000000053529#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:01:53,587 - INFO - Sample color/000000053529#2 - Model output: No
+2025-08-28 19:01:54,054 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:02:23,572 - INFO - Sample color/000000053529#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:02:35,618 - INFO - Sample color/000000053529#2 - Model output: Yes
+2025-08-28 19:02:36,165 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:03:18,893 - INFO - Sample color/000000053529#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:03:18,894 - INFO - Sample color/000000053529#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:04:38,038 - INFO - Sample color/000000053994#1 - Model output: Yes
+2025-08-28 19:04:38,544 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:05:03,677 - INFO - Sample color/000000053994#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:05:03,678 - INFO - Sample color/000000053994#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:05:53,638 - INFO - Sample color/000000053994#2 - Model output: No
+2025-08-28 19:05:54,058 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:06:24,714 - INFO - Sample color/000000053994#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:06:38,479 - INFO - Sample color/000000053994#2 - Model output: No
+2025-08-28 19:06:38,986 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:07:08,632 - INFO - Sample color/000000053994#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:07:08,632 - INFO - Sample color/000000053994#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:07:32,726 - INFO - Sample color/000000055072#1 - Model output: Yes
+2025-08-28 19:07:33,231 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:07:53,530 - INFO - Sample color/000000055072#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:07:53,531 - INFO - Sample color/000000055072#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:08:36,770 - INFO - Sample color/000000055072#2 - Model output: No
+2025-08-28 19:08:37,216 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:09:06,638 - INFO - Sample color/000000055072#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:09:18,277 - INFO - Sample color/000000055072#2 - Model output: No
+2025-08-28 19:09:19,144 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:09:49,822 - INFO - Sample color/000000055072#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:09:49,823 - INFO - Sample color/000000055072#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:10:26,633 - INFO - Sample color/000000057597#1 - Model output: Yes
+2025-08-28 19:10:27,143 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:10:46,256 - INFO - Sample color/000000057597#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:10:59,240 - INFO - Sample color/000000057597#1 - Model output: No
+2025-08-28 19:10:59,852 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:11:22,878 - INFO - Sample color/000000057597#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:11:22,878 - INFO - Sample color/000000057597#1 - Adjudication scores (content-only): Q0=-2.00, Q1=0.00
+2025-08-28 19:12:08,885 - INFO - Sample color/000000057597#2 - Model output: No
+2025-08-28 19:12:09,430 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:12:31,345 - INFO - Sample color/000000057597#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:12:44,099 - INFO - Sample color/000000057597#2 - Model output: No
+2025-08-28 19:12:44,708 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:13:07,651 - INFO - Sample color/000000057597#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:13:07,651 - INFO - Sample color/000000057597#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:13:43,390 - INFO - Sample color/000000061658#1 - Model output: Yes
+2025-08-28 19:13:43,977 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:14:07,923 - INFO - Sample color/000000061658#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:14:21,535 - INFO - Sample color/000000061658#1 - Model output: No
+2025-08-28 19:14:22,137 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:14:33,633 - INFO - Sample color/000000061658#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:14:33,633 - INFO - Sample color/000000061658#1 - Adjudication scores (content-only): Q0=-2.00, Q1=0.00
+2025-08-28 19:15:09,761 - INFO - Sample color/000000061658#2 - Model output: Yes
+2025-08-28 19:15:14,108 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:15:37,134 - INFO - Sample color/000000061658#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:15:49,598 - INFO - Sample color/000000061658#2 - Model output: No
+2025-08-28 19:15:50,054 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:16:03,598 - INFO - Sample color/000000061658#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:16:03,598 - INFO - Sample color/000000061658#2 - Adjudication scores (content-only): Q0=-2.00, Q1=0.00
+2025-08-28 19:16:53,134 - INFO - Sample color/000000338560#1 - Model output: Yes
+2025-08-28 19:16:53,615 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:17:39,220 - INFO - Sample color/000000338560#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:18:06,553 - INFO - Sample color/000000338560#1 - Model output: No
+2025-08-28 19:18:07,099 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:18:18,840 - INFO - Sample color/000000338560#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:18:18,840 - INFO - Sample color/000000338560#1 - Adjudication scores (content-only): Q0=-2.00, Q1=0.00
+2025-08-28 19:19:14,038 - INFO - Sample color/000000338560#2 - Model output: No
+2025-08-28 19:19:14,602 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:19:37,465 - INFO - Sample color/000000338560#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:19:50,640 - INFO - Sample color/000000338560#2 - Model output: No
+2025-08-28 19:19:51,208 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:20:05,086 - INFO - Sample color/000000338560#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 19:20:05,086 - INFO - Sample color/000000338560#2 - Adjudication scores (content-only): Q0=2.00, Q1=0.00
+2025-08-28 19:20:47,627 - INFO - Sample color/000000370208#1 - Model output: No
+2025-08-28 19:20:48,287 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:21:06,178 - INFO - Sample color/000000370208#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:21:06,178 - INFO - Sample color/000000370208#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:22:09,049 - INFO - Sample color/000000370208#2 - Model output: No
+2025-08-28 19:22:09,657 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:22:31,569 - INFO - Sample color/000000370208#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:22:46,163 - INFO - Sample color/000000370208#2 - Model output: No
+2025-08-28 19:22:46,820 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:22:54,447 - INFO - Sample color/000000370208#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:22:54,447 - INFO - Sample color/000000370208#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:23:25,533 - INFO - Sample color/000000377723#1 - Model output: Yes
+2025-08-28 19:23:25,932 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:23:38,327 - INFO - Sample color/000000377723#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:23:38,328 - INFO - Sample color/000000377723#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:24:12,347 - INFO - Sample color/000000377723#2 - Model output: No
+2025-08-28 19:24:12,837 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:24:41,369 - INFO - Sample color/000000377723#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:24:55,141 - INFO - Sample color/000000377723#2 - Model output: Yes
+2025-08-28 19:24:55,743 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:26:01,116 - INFO - Sample color/000000377723#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:26:01,116 - INFO - Sample color/000000377723#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:26:26,166 - INFO - Sample color/000000405205#1 - Model output: Yes
+2025-08-28 19:26:26,677 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:26:38,868 - INFO - Sample color/000000405205#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:26:38,869 - INFO - Sample color/000000405205#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:27:20,940 - INFO - Sample color/000000405205#2 - Model output: No
+2025-08-28 19:27:21,460 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:27:44,875 - INFO - Sample color/000000405205#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:28:00,045 - INFO - Sample color/000000405205#2 - Model output: No
+2025-08-28 19:28:00,526 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:28:09,187 - INFO - Sample color/000000405205#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:28:09,188 - INFO - Sample color/000000405205#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:28:57,102 - INFO - Sample color/000000410612#1 - Model output: Yes
+2025-08-28 19:28:57,595 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:29:09,298 - INFO - Sample color/000000410612#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:29:09,298 - INFO - Sample color/000000410612#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:29:51,193 - INFO - Sample color/000000410612#2 - Model output: No
+2025-08-28 19:29:51,681 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:30:29,882 - INFO - Sample color/000000410612#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:30:51,157 - INFO - Sample color/000000410612#2 - Model output: No
+2025-08-28 19:30:51,738 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:31:27,636 - INFO - Sample color/000000410612#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:31:27,636 - INFO - Sample color/000000410612#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:32:00,989 - INFO - Sample color/000000427034#1 - Model output: Yes
+2025-08-28 19:32:01,380 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:32:13,842 - INFO - Sample color/000000427034#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:32:13,842 - INFO - Sample color/000000427034#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:32:51,860 - INFO - Sample color/000000427034#2 - Model output: No
+2025-08-28 19:32:52,433 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:33:24,089 - INFO - Sample color/000000427034#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:33:37,194 - INFO - Sample color/000000427034#2 - Model output: No
+2025-08-28 19:33:37,622 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:34:07,692 - INFO - Sample color/000000427034#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:34:07,692 - INFO - Sample color/000000427034#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:35:08,823 - INFO - Sample color/000000442456#1 - Model output: Yes
+2025-08-28 19:35:09,239 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:35:23,908 - INFO - Sample color/000000442456#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:35:23,909 - INFO - Sample color/000000442456#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:36:01,169 - INFO - Sample color/000000442456#2 - Model output: No
+2025-08-28 19:36:01,842 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:36:36,510 - INFO - Sample color/000000442456#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:36:49,817 - INFO - Sample color/000000442456#2 - Model output: No
+2025-08-28 19:36:50,520 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:37:23,920 - INFO - Sample color/000000442456#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:37:23,920 - INFO - Sample color/000000442456#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:38:33,419 - INFO - Sample color/000000492362#1 - Model output: Yes
+2025-08-28 19:38:33,944 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:39:08,205 - INFO - Sample color/000000492362#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:39:21,878 - INFO - Sample color/000000492362#1 - Model output: Yes
+2025-08-28 19:39:22,490 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:40:06,755 - INFO - Sample color/000000492362#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:40:06,756 - INFO - Sample color/000000492362#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 19:40:43,341 - INFO - Sample color/000000492362#2 - Model output: No
+2025-08-28 19:40:43,903 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:41:15,318 - INFO - Sample color/000000492362#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:41:35,789 - INFO - Sample color/000000492362#2 - Model output: No
+2025-08-28 19:41:36,328 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:42:13,755 - INFO - Sample color/000000492362#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:42:13,755 - INFO - Sample color/000000492362#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:43:29,393 - INFO - Sample color/000000492992#1 - Model output: Yes
+2025-08-28 19:43:29,911 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:44:14,713 - INFO - Sample color/000000492992#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:44:14,714 - INFO - Sample color/000000492992#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:45:00,572 - INFO - Sample color/000000492992#2 - Model output: No
+2025-08-28 19:45:01,033 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:45:31,114 - INFO - Sample color/000000492992#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:45:43,051 - INFO - Sample color/000000492992#2 - Model output: No
+2025-08-28 19:45:43,992 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:46:06,542 - INFO - Sample color/000000492992#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:46:06,544 - INFO - Sample color/000000492992#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:46:47,817 - INFO - Sample color/000000512929#1 - Model output: Yes
+2025-08-28 19:46:48,245 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:47:10,084 - INFO - Sample color/000000512929#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:47:22,448 - INFO - Sample color/000000512929#1 - Model output: Yes
+2025-08-28 19:47:22,875 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:47:42,015 - INFO - Sample color/000000512929#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:47:42,015 - INFO - Sample color/000000512929#1 - Adjudication scores (content-only): Q0=-2.00, Q1=2.00
+2025-08-28 19:48:16,511 - INFO - Sample color/000000512929#2 - Model output: No
+2025-08-28 19:48:16,989 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:48:38,840 - INFO - Sample color/000000512929#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:48:52,482 - INFO - Sample color/000000512929#2 - Model output: No
+2025-08-28 19:48:53,086 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:49:22,783 - INFO - Sample color/000000512929#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:49:22,783 - INFO - Sample color/000000512929#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 19:50:27,605 - INFO - Sample color/000000530457#1 - Model output: Yes
+2025-08-28 19:50:27,965 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:50:51,522 - INFO - Sample color/000000530457#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:51:04,658 - INFO - Sample color/000000530457#1 - Model output: Yes
+2025-08-28 19:51:05,343 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:51:33,945 - INFO - Sample color/000000530457#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:51:33,947 - INFO - Sample color/000000530457#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 19:52:17,857 - INFO - Sample color/000000530457#2 - Model output: No
+2025-08-28 19:52:18,487 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:52:40,819 - INFO - Sample color/000000530457#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:53:02,407 - INFO - Sample color/000000530457#2 - Model output: No
+2025-08-28 19:53:02,954 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:53:34,494 - INFO - Sample color/000000530457#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:53:34,495 - INFO - Sample color/000000530457#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:54:42,866 - INFO - Sample color/000000532761#1 - Model output: Yes
+2025-08-28 19:54:43,387 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:55:03,979 - INFO - Sample color/000000532761#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:55:03,979 - INFO - Sample color/000000532761#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:55:45,238 - INFO - Sample color/000000532761#2 - Model output: No
+2025-08-28 19:55:45,844 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:56:20,462 - INFO - Sample color/000000532761#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:56:54,320 - INFO - Sample color/000000532761#2 - Model output: No
+2025-08-28 19:56:54,802 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:57:23,513 - INFO - Sample color/000000532761#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 19:57:23,514 - INFO - Sample color/000000532761#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 19:58:24,167 - INFO - Sample color/000000534041#1 - Model output: Yes
+2025-08-28 19:58:24,679 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:58:37,011 - INFO - Sample color/000000534041#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 19:58:37,011 - INFO - Sample color/000000534041#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 19:59:18,732 - INFO - Sample color/000000534041#2 - Model output: No
+2025-08-28 19:59:19,460 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 19:59:55,195 - INFO - Sample color/000000534041#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:00:15,061 - INFO - Sample color/000000534041#2 - Model output: No
+2025-08-28 20:00:15,413 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:00:37,442 - INFO - Sample color/000000534041#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:00:37,443 - INFO - Sample color/000000534041#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:01:03,109 - INFO - Sample color/000000563758#1 - Model output: Yes
+2025-08-28 20:01:03,701 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:01:15,053 - INFO - Sample color/000000563758#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:01:15,053 - INFO - Sample color/000000563758#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:01:51,631 - INFO - Sample color/000000563758#2 - Model output: No
+2025-08-28 20:01:52,037 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:02:21,489 - INFO - Sample color/000000563758#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:02:53,362 - INFO - Sample color/000000563758#2 - Model output: Yes
+2025-08-28 20:02:53,950 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:03:06,708 - INFO - Sample color/000000563758#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 20:03:06,708 - INFO - Sample color/000000563758#2 - Adjudication scores (content-only): Q0=2.00, Q1=1.00
+2025-08-28 20:04:06,758 - INFO - Sample color/000000564280#1 - Model output: Yes
+2025-08-28 20:04:07,156 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:04:28,553 - INFO - Sample color/000000564280#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:04:28,553 - INFO - Sample color/000000564280#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:05:03,247 - INFO - Sample color/000000564280#2 - Model output: No
+2025-08-28 20:05:03,723 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:05:32,256 - INFO - Sample color/000000564280#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:05:45,612 - INFO - Sample color/000000564280#2 - Model output: No
+2025-08-28 20:05:46,044 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:06:12,588 - INFO - Sample color/000000564280#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:06:12,589 - INFO - Sample color/000000564280#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 20:07:07,948 - INFO - Sample count/000000006040#1 - Model output: Yes
+2025-08-28 20:07:08,458 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:07:28,679 - INFO - Sample count/000000006040#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:07:28,680 - INFO - Sample count/000000006040#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:08:10,339 - INFO - Sample count/000000006040#2 - Model output: No
+2025-08-28 20:08:10,919 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:08:38,433 - INFO - Sample count/000000006040#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:08:51,241 - INFO - Sample count/000000006040#2 - Model output: No
+2025-08-28 20:08:52,513 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:09:03,740 - INFO - Sample count/000000006040#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:09:03,740 - INFO - Sample count/000000006040#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 20:10:10,445 - INFO - Sample count/000000044279#1 - Model output: Yes
+2025-08-28 20:10:10,937 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:10:33,985 - INFO - Sample count/000000044279#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:10:33,986 - INFO - Sample count/000000044279#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:11:16,443 - INFO - Sample count/000000044279#2 - Model output: No
+2025-08-28 20:11:16,901 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:11:37,347 - INFO - Sample count/000000044279#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:11:50,691 - INFO - Sample count/000000044279#2 - Model output: No
+2025-08-28 20:11:51,403 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:12:17,156 - INFO - Sample count/000000044279#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:12:17,157 - INFO - Sample count/000000044279#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:12:59,919 - INFO - Sample count/000000067213#1 - Model output: No
+2025-08-28 20:13:08,256 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:13:27,725 - INFO - Sample count/000000067213#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:13:27,726 - INFO - Sample count/000000067213#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:14:38,956 - INFO - Sample count/000000067213#2 - Model output: No
+2025-08-28 20:14:39,362 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:15:08,114 - INFO - Sample count/000000067213#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:15:30,403 - INFO - Sample count/000000067213#2 - Model output: No
+2025-08-28 20:15:30,916 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:15:57,348 - INFO - Sample count/000000067213#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:15:57,348 - INFO - Sample count/000000067213#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 20:16:46,935 - INFO - Sample count/000000071226#1 - Model output: No
+2025-08-28 20:16:47,545 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:17:15,373 - INFO - Sample count/000000071226#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:17:29,632 - INFO - Sample count/000000071226#1 - Model output: No
+2025-08-28 20:17:30,352 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:17:55,104 - INFO - Sample count/000000071226#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:17:55,107 - INFO - Sample count/000000071226#1 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:19:21,093 - INFO - Sample count/000000071226#2 - Model output: No
+2025-08-28 20:19:21,579 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:19:44,399 - INFO - Sample count/000000071226#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:19:57,294 - INFO - Sample count/000000071226#2 - Model output: No
+2025-08-28 20:19:59,421 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:21:02,830 - INFO - Sample count/000000071226#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:21:02,832 - INFO - Sample count/000000071226#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:22:10,657 - INFO - Sample count/000000097994#1 - Model output: Yes
+2025-08-28 20:22:11,070 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:22:32,508 - INFO - Sample count/000000097994#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:22:32,510 - INFO - Sample count/000000097994#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:23:30,831 - INFO - Sample count/000000097994#2 - Model output: Yes
+2025-08-28 20:23:31,314 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:23:51,540 - INFO - Sample count/000000097994#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:23:51,542 - INFO - Sample count/000000097994#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:24:24,641 - INFO - Sample count/000000195918#1 - Model output: Yes
+2025-08-28 20:24:25,038 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:24:46,002 - INFO - Sample count/000000195918#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:24:57,581 - INFO - Sample count/000000195918#1 - Model output: No
+2025-08-28 20:24:58,048 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:25:21,649 - INFO - Sample count/000000195918#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:25:21,649 - INFO - Sample count/000000195918#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 20:26:04,331 - INFO - Sample count/000000195918#2 - Model output: No
+2025-08-28 20:26:04,814 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:26:25,639 - INFO - Sample count/000000195918#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:26:45,675 - INFO - Sample count/000000195918#2 - Model output: No
+2025-08-28 20:26:46,278 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:27:25,490 - INFO - Sample count/000000195918#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:27:25,490 - INFO - Sample count/000000195918#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 20:28:17,594 - INFO - Sample count/000000236721#1 - Model output: Yes
+2025-08-28 20:28:18,073 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:28:46,752 - INFO - Sample count/000000236721#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:29:26,817 - INFO - Sample count/000000236721#1 - Model output: Yes
+2025-08-28 20:29:28,121 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:29:50,515 - INFO - Sample count/000000236721#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:29:50,515 - INFO - Sample count/000000236721#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-1.00
+2025-08-28 20:30:35,405 - INFO - Sample count/000000236721#2 - Model output: No
+2025-08-28 20:30:35,971 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:31:03,490 - INFO - Sample count/000000236721#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:31:15,366 - INFO - Sample count/000000236721#2 - Model output: Yes
+2025-08-28 20:31:15,829 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:31:35,188 - INFO - Sample count/000000236721#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:31:35,190 - INFO - Sample count/000000236721#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 20:32:06,249 - INFO - Sample count/000000261712#1 - Model output: Yes
+2025-08-28 20:32:06,801 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:32:17,502 - INFO - Sample count/000000261712#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:32:17,503 - INFO - Sample count/000000261712#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:33:08,037 - INFO - Sample count/000000261712#2 - Model output: No
+2025-08-28 20:33:08,490 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:33:43,995 - INFO - Sample count/000000261712#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:33:57,103 - INFO - Sample count/000000261712#2 - Model output: No
+2025-08-28 20:33:58,423 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:34:36,179 - INFO - Sample count/000000261712#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:34:36,181 - INFO - Sample count/000000261712#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:35:19,321 - INFO - Sample count/000000274066#1 - Model output: No
+2025-08-28 20:35:19,711 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:35:29,822 - INFO - Sample count/000000274066#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:35:29,822 - INFO - Sample count/000000274066#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:36:13,513 - INFO - Sample count/000000274066#2 - Model output: No
+2025-08-28 20:36:13,906 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:36:40,060 - INFO - Sample count/000000274066#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:36:40,061 - INFO - Sample count/000000274066#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:37:29,085 - INFO - Sample count/000000276434#1 - Model output: No
+2025-08-28 20:37:29,599 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:37:47,308 - INFO - Sample count/000000276434#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:37:47,309 - INFO - Sample count/000000276434#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:38:15,505 - INFO - Sample count/000000276434#2 - Model output: Yes
+2025-08-28 20:38:15,878 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:38:33,014 - INFO - Sample count/000000276434#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:38:33,014 - INFO - Sample count/000000276434#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:39:46,701 - INFO - Sample count/000000289059#1 - Model output: Yes
+2025-08-28 20:39:47,182 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:39:59,609 - INFO - Sample count/000000289059#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:39:59,610 - INFO - Sample count/000000289059#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:40:32,049 - INFO - Sample count/000000289059#2 - Model output: No
+2025-08-28 20:40:32,400 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:40:52,421 - INFO - Sample count/000000289059#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:40:52,422 - INFO - Sample count/000000289059#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:45:06,192 - INFO - Sample count/000000290081#1 - Model output: Yes
+2025-08-28 20:45:06,933 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:45:15,243 - INFO - Sample count/000000290081#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:45:15,243 - INFO - Sample count/000000290081#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:45:47,405 - INFO - Sample count/000000290081#2 - Model output: No
+2025-08-28 20:45:47,812 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:46:03,149 - INFO - Sample count/000000290081#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:46:03,149 - INFO - Sample count/000000290081#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:47:01,494 - INFO - Sample count/000000301867#1 - Model output: Yes
+2025-08-28 20:47:01,932 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:47:22,928 - INFO - Sample count/000000301867#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:47:22,929 - INFO - Sample count/000000301867#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:48:07,297 - INFO - Sample count/000000301867#2 - Model output: No
+2025-08-28 20:48:08,045 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:48:38,875 - INFO - Sample count/000000301867#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:49:25,975 - INFO - Sample count/000000301867#2 - Model output: No
+2025-08-28 20:49:26,591 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:49:51,444 - INFO - Sample count/000000301867#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:49:51,444 - INFO - Sample count/000000301867#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:50:11,793 - INFO - Sample count/000000335954#1 - Model output: Yes
+2025-08-28 20:50:12,175 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:50:22,842 - INFO - Sample count/000000335954#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:50:22,843 - INFO - Sample count/000000335954#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:51:02,444 - INFO - Sample count/000000335954#2 - Model output: No
+2025-08-28 20:51:02,850 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:51:35,816 - INFO - Sample count/000000335954#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:51:48,196 - INFO - Sample count/000000335954#2 - Model output: Yes
+2025-08-28 20:51:49,032 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:51:59,753 - INFO - Sample count/000000335954#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 20:51:59,753 - INFO - Sample count/000000335954#2 - Adjudication scores (content-only): Q0=2.00, Q1=0.00
+2025-08-28 20:52:47,264 - INFO - Sample count/000000357816#1 - Model output: No
+2025-08-28 20:52:47,715 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:53:18,115 - INFO - Sample count/000000357816#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:53:30,471 - INFO - Sample count/000000357816#1 - Model output: No
+2025-08-28 20:53:31,024 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:54:35,949 - INFO - Sample count/000000357816#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:54:35,949 - INFO - Sample count/000000357816#1 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:55:21,414 - INFO - Sample count/000000357816#2 - Model output: No
+2025-08-28 20:55:21,922 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:55:56,539 - INFO - Sample count/000000357816#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:56:07,575 - INFO - Sample count/000000357816#2 - Model output: No
+2025-08-28 20:56:08,004 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:56:35,609 - INFO - Sample count/000000357816#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 20:56:35,610 - INFO - Sample count/000000357816#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 20:57:32,284 - INFO - Sample count/000000372819#1 - Model output: Yes
+2025-08-28 20:57:32,689 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:57:52,835 - INFO - Sample count/000000372819#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:57:52,836 - INFO - Sample count/000000372819#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:58:23,954 - INFO - Sample count/000000372819#2 - Model output: No
+2025-08-28 20:58:24,536 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:58:42,851 - INFO - Sample count/000000372819#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:58:42,852 - INFO - Sample count/000000372819#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 20:59:26,144 - INFO - Sample count/000000410612#1 - Model output: Yes
+2025-08-28 20:59:26,679 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 20:59:47,036 - INFO - Sample count/000000410612#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 20:59:47,036 - INFO - Sample count/000000410612#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:00:22,847 - INFO - Sample count/000000410612#2 - Model output: No
+2025-08-28 21:00:23,221 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:00:49,598 - INFO - Sample count/000000410612#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:01:02,911 - INFO - Sample count/000000410612#2 - Model output: Yes
+2025-08-28 21:01:03,262 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:01:33,426 - INFO - Sample count/000000410612#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:01:33,427 - INFO - Sample count/000000410612#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 21:02:39,642 - INFO - Sample count/000000423944#1 - Model output: Yes
+2025-08-28 21:02:40,104 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:03:26,417 - INFO - Sample count/000000423944#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:03:26,418 - INFO - Sample count/000000423944#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:03:57,518 - INFO - Sample count/000000423944#2 - Model output: Yes
+2025-08-28 21:03:57,874 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:04:14,449 - INFO - Sample count/000000423944#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:04:14,450 - INFO - Sample count/000000423944#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:04:44,726 - INFO - Sample count/000000427034#1 - Model output: Yes
+2025-08-28 21:04:45,337 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:04:55,422 - INFO - Sample count/000000427034#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:04:55,422 - INFO - Sample count/000000427034#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:05:48,024 - INFO - Sample count/000000427034#2 - Model output: No
+2025-08-28 21:05:48,371 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:06:21,088 - INFO - Sample count/000000427034#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:06:34,520 - INFO - Sample count/000000427034#2 - Model output: Yes
+2025-08-28 21:06:35,112 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:06:44,038 - INFO - Sample count/000000427034#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:06:44,038 - INFO - Sample count/000000427034#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:07:14,430 - INFO - Sample count/000000430286#1 - Model output: No
+2025-08-28 21:07:14,945 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:07:43,522 - INFO - Sample count/000000430286#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:07:43,522 - INFO - Sample count/000000430286#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:08:08,166 - INFO - Sample count/000000430286#2 - Model output: No
+2025-08-28 21:08:08,806 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:08:22,328 - INFO - Sample count/000000430286#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:08:22,329 - INFO - Sample count/000000430286#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:09:02,257 - INFO - Sample count/000000432468#1 - Model output: No
+2025-08-28 21:09:02,897 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:09:23,532 - INFO - Sample count/000000432468#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:09:23,532 - INFO - Sample count/000000432468#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:10:22,765 - INFO - Sample count/000000432468#2 - Model output: Yes
+2025-08-28 21:10:23,161 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:10:39,033 - INFO - Sample count/000000432468#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:10:39,033 - INFO - Sample count/000000432468#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:11:26,603 - INFO - Sample count/000000434479#1 - Model output: Yes
+2025-08-28 21:11:27,054 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:11:39,334 - INFO - Sample count/000000434479#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:11:39,335 - INFO - Sample count/000000434479#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:12:11,223 - INFO - Sample count/000000434479#2 - Model output: No
+2025-08-28 21:12:11,675 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:12:22,608 - INFO - Sample count/000000434479#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:12:22,608 - INFO - Sample count/000000434479#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:13:14,072 - INFO - Sample count/000000438304#1 - Model output: Yes
+2025-08-28 21:13:14,581 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:13:35,884 - INFO - Sample count/000000438304#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:13:47,955 - INFO - Sample count/000000438304#1 - Model output: Yes
+2025-08-28 21:13:48,424 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:14:10,081 - INFO - Sample count/000000438304#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:14:10,082 - INFO - Sample count/000000438304#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:14:59,028 - INFO - Sample count/000000438304#2 - Model output: No
+2025-08-28 21:14:59,632 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:15:32,616 - INFO - Sample count/000000438304#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:15:46,992 - INFO - Sample count/000000438304#2 - Model output: No
+2025-08-28 21:15:48,109 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:16:18,413 - INFO - Sample count/000000438304#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:16:18,414 - INFO - Sample count/000000438304#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:17:05,911 - INFO - Sample count/000000450303#1 - Model output: No
+2025-08-28 21:17:06,518 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:17:29,886 - INFO - Sample count/000000450303#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:17:29,886 - INFO - Sample count/000000450303#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:18:13,857 - INFO - Sample count/000000450303#2 - Model output: No
+2025-08-28 21:18:14,363 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:18:40,734 - INFO - Sample count/000000450303#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:18:52,564 - INFO - Sample count/000000450303#2 - Model output: No
+2025-08-28 21:18:53,584 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:19:21,341 - INFO - Sample count/000000450303#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:19:21,342 - INFO - Sample count/000000450303#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:19:43,191 - INFO - Sample count/000000470121#1 - Model output: No
+2025-08-28 21:19:43,675 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:19:58,165 - INFO - Sample count/000000470121#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:19:58,165 - INFO - Sample count/000000470121#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:20:37,732 - INFO - Sample count/000000470121#2 - Model output: Yes
+2025-08-28 21:20:38,233 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:21:05,288 - INFO - Sample count/000000470121#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:21:17,254 - INFO - Sample count/000000470121#2 - Model output: No
+2025-08-28 21:21:18,189 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:21:46,957 - INFO - Sample count/000000470121#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:21:46,957 - INFO - Sample count/000000470121#2 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:22:43,373 - INFO - Sample count/000000476215#1 - Model output: Yes
+2025-08-28 21:22:43,780 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:23:07,333 - INFO - Sample count/000000476215#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:23:17,780 - INFO - Sample count/000000476215#1 - Model output: Yes
+2025-08-28 21:23:18,218 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:23:46,044 - INFO - Sample count/000000476215#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:23:46,044 - INFO - Sample count/000000476215#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:24:25,216 - INFO - Sample count/000000476215#2 - Model output: No
+2025-08-28 21:24:25,770 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:24:50,342 - INFO - Sample count/000000476215#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:25:13,629 - INFO - Sample count/000000476215#2 - Model output: No
+2025-08-28 21:25:14,304 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:25:45,957 - INFO - Sample count/000000476215#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:25:45,959 - INFO - Sample count/000000476215#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:26:04,902 - INFO - Sample count/000000482100#1 - Model output: Yes
+2025-08-28 21:26:05,302 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:26:21,074 - INFO - Sample count/000000482100#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:26:21,075 - INFO - Sample count/000000482100#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:27:06,684 - INFO - Sample count/000000482100#2 - Model output: No
+2025-08-28 21:27:07,253 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:27:29,304 - INFO - Sample count/000000482100#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:27:53,242 - INFO - Sample count/000000482100#2 - Model output: No
+2025-08-28 21:27:53,745 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:28:19,622 - INFO - Sample count/000000482100#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:28:19,623 - INFO - Sample count/000000482100#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:29:22,651 - INFO - Sample count/000000491867#1 - Model output: Yes
+2025-08-28 21:29:23,137 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:29:44,155 - INFO - Sample count/000000491867#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:29:44,155 - INFO - Sample count/000000491867#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:30:35,380 - INFO - Sample count/000000491867#2 - Model output: No
+2025-08-28 21:30:35,845 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:30:57,052 - INFO - Sample count/000000491867#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:31:08,615 - INFO - Sample count/000000491867#2 - Model output: No
+2025-08-28 21:31:09,017 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:31:33,570 - INFO - Sample count/000000491867#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:31:33,571 - INFO - Sample count/000000491867#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:32:21,727 - INFO - Sample count/000000556000#1 - Model output: Yes
+2025-08-28 21:32:22,183 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:32:31,562 - INFO - Sample count/000000556000#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:32:31,562 - INFO - Sample count/000000556000#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:33:28,153 - INFO - Sample count/000000556000#2 - Model output: No
+2025-08-28 21:33:28,616 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:33:49,249 - INFO - Sample count/000000556000#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:33:49,249 - INFO - Sample count/000000556000#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:34:20,131 - INFO - Sample count/000000565045#1 - Model output: Yes
+2025-08-28 21:34:20,613 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:34:31,753 - INFO - Sample count/000000565045#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:34:31,753 - INFO - Sample count/000000565045#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:35:02,288 - INFO - Sample count/000000565045#2 - Model output: No
+2025-08-28 21:35:02,797 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:35:19,657 - INFO - Sample count/000000565045#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:35:19,658 - INFO - Sample count/000000565045#2 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:35:46,963 - INFO - Sample existence/000000006040#1 - Model output: Yes
+2025-08-28 21:35:47,371 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:35:56,142 - INFO - Sample existence/000000006040#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:35:56,143 - INFO - Sample existence/000000006040#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:36:29,537 - INFO - Sample existence/000000006040#2 - Model output: No
+2025-08-28 21:36:30,149 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:36:52,366 - INFO - Sample existence/000000006040#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:37:29,737 - INFO - Sample existence/000000006040#2 - Model output: Yes
+2025-08-28 21:37:30,253 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:37:41,087 - INFO - Sample existence/000000006040#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=undecided has_pos_pass=False has_fail=False
+2025-08-28 21:37:41,088 - INFO - Sample existence/000000006040#2 - Adjudication scores (content-only): Q0=2.00, Q1=1.00
+2025-08-28 21:38:16,145 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-28 21:38:16,557 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:38:37,078 - INFO - Sample existence/000000006471#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:38:49,207 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-28 21:38:50,451 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:39:19,575 - INFO - Sample existence/000000006471#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:39:19,575 - INFO - Sample existence/000000006471#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:40:14,920 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-28 21:40:15,322 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:40:37,829 - INFO - Sample existence/000000006471#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:40:50,272 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-28 21:40:50,692 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:41:15,507 - INFO - Sample existence/000000006471#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:41:15,508 - INFO - Sample existence/000000006471#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:42:00,269 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-28 21:42:00,902 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:42:22,201 - INFO - Sample existence/000000007108#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:42:41,605 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-28 21:42:42,033 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:43:02,500 - INFO - Sample existence/000000007108#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:43:02,501 - INFO - Sample existence/000000007108#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:43:41,357 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-28 21:43:41,840 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:44:03,164 - INFO - Sample existence/000000007108#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:44:15,254 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-28 21:44:15,780 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:44:37,680 - INFO - Sample existence/000000007108#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:44:37,682 - INFO - Sample existence/000000007108#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:45:36,656 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-28 21:45:37,270 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:46:00,720 - INFO - Sample existence/000000007816#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:46:13,068 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-28 21:46:13,726 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:46:35,586 - INFO - Sample existence/000000007816#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:46:35,586 - INFO - Sample existence/000000007816#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:47:16,259 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-28 21:47:16,751 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:47:47,672 - INFO - Sample existence/000000007816#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:48:01,551 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-28 21:48:02,068 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:48:29,666 - INFO - Sample existence/000000007816#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:48:29,668 - INFO - Sample existence/000000007816#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:49:10,456 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-28 21:49:11,496 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:49:33,476 - INFO - Sample existence/000000007977#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:49:45,437 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-28 21:49:46,007 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:50:08,224 - INFO - Sample existence/000000007977#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:50:08,224 - INFO - Sample existence/000000007977#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:50:40,816 - INFO - Sample existence/000000007977#2 - Model output: No
+2025-08-28 21:50:41,300 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:51:07,649 - INFO - Sample existence/000000007977#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:51:20,314 - INFO - Sample existence/000000007977#2 - Model output: Yes
+2025-08-28 21:51:20,928 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:51:47,875 - INFO - Sample existence/000000007977#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:51:47,875 - INFO - Sample existence/000000007977#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00
+2025-08-28 21:52:52,579 - INFO - Sample existence/000000008844#1 - Model output: Yes
+2025-08-28 21:52:53,085 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:53:14,187 - INFO - Sample existence/000000008844#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:53:14,188 - INFO - Sample existence/000000008844#1 - Fast path: Q0 verified; skipping Q1 and adjudication
+2025-08-28 21:53:48,382 - INFO - Sample existence/000000008844#2 - Model output: No
+2025-08-28 21:53:48,898 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:54:21,600 - INFO - Sample existence/000000008844#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:54:59,757 - INFO - Sample existence/000000008844#2 - Model output: Yes
+2025-08-28 21:55:00,249 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:55:26,585 - INFO - Sample existence/000000008844#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:55:26,586 - INFO - Sample existence/000000008844#2 - Adjudication scores (content-only): Q0=2.00, Q1=3.00
+2025-08-28 21:56:00,495 - INFO - Sample existence/000000009590#1 - Model output: Yes
+2025-08-28 21:56:00,855 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:56:20,622 - INFO - Sample existence/000000009590#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:56:32,221 - INFO - Sample existence/000000009590#1 - Model output: No
+2025-08-28 21:56:32,838 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:56:58,317 - INFO - Sample existence/000000009590#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:56:58,318 - INFO - Sample existence/000000009590#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00
+2025-08-28 21:57:31,716 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-28 21:57:32,235 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:58:01,509 - INFO - Sample existence/000000009590#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=no has_pos_pass=False has_fail=True
+2025-08-28 21:58:14,957 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-28 21:58:15,549 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-28 21:58:42,426 - INFO - Sample existence/000000009590#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=0 U=0; yn_content=yes has_pos_pass=True has_fail=False
+2025-08-28 21:58:42,426 - INFO - Sample existence/000000009590#2 - Adjudication scores (content-only): Q0=2.00, Q1=-2.00
+2025-08-28 21:59:15,794 - INFO - Sample existence/000000010363#1 - Model output: No
+2025-08-28 21:59:16,276 - INFO - Deriving hypothesis from yes/no answer for verification

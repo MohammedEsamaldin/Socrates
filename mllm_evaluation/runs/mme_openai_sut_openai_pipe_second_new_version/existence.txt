@@ -1,0 +1,14 @@
+000000006040.jpg	Is there a train in this image? Please answer yes or no.	Yes	Yes
+000000006040.jpg	Is there a bed in this image? Please answer yes or no.	No	No
+000000006471.jpg	Is there a baseball bat in this image? Please answer yes or no.	Yes	No
+000000006471.jpg	Is there a giraffe in this image? Please answer yes or no.	No	No
+000000007108.jpg	Is there a elephant in this image? Please answer yes or no.	Yes	No
+000000007108.jpg	Is there a hair drier in this image? Please answer yes or no.	No	No
+000000007816.jpg	Is there a motorcycle in this image? Please answer yes or no.	Yes	No
+000000007816.jpg	Is there a airplane in this image? Please answer yes or no.	No	No
+000000007977.jpg	Is there a skateboard in this image? Please answer yes or no.	Yes	No
+000000007977.jpg	Is there a spoon in this image? Please answer yes or no.	No	Yes
+000000008844.jpg	Is there a person in this image? Please answer yes or no.	Yes	No
+000000008844.jpg	Is there a sink in this image? Please answer yes or no.	No	Yes
+000000009590.jpg	Is there a bottle in this image? Please answer yes or no.	Yes	No
+000000009590.jpg	Is there a scissors in this image? Please answer yes or no.	No	No

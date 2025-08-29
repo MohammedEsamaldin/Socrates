@@ -80,8 +80,21 @@ except Exception:
     AGLA_API_VERIFY_PATH = None
     AGLA_API_TIMEOUT = None
 
-# Setup basic loggingSocratesPipeline
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# --- Utility: conservative negation detection to guard polarity flips ---
+def _has_negation(text: Optional[str]) -> bool:
+    if not text:
+        return False
+    s = f" {str(text).strip().lower()} "
+    neg_terms = [
+        " not ", " no ", " never ", " none ", " without ", " nothing ", " nowhere ",
+        "n't ", "n't,", "n't.", "n't?",
+    ]
+    return any(t in s for t in neg_terms)
+
+# Setup basic logging for SocratesPipeline; honor SOC_LOG_LEVEL (e.g., DEBUG, INFO)
+_lvl_name = os.getenv('SOC_LOG_LEVEL', 'INFO').upper()
+_lvl = getattr(logging, _lvl_name, logging.INFO)
+logging.basicConfig(level=_lvl, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # ---------------- Console Colors (centralized) ----------------
 # Simple ANSI color helper with env overrides, e.g. SOC_COLOR_HEADING=cyan
@@ -150,7 +163,7 @@ class ConsoleColors:
 class SocratesPipeline:
     """Orchestrates the claim processing pipeline."""
 
-    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None, router_mode: Optional[str] = None):
+    def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None, router_mode: Optional[str] = None, post_factuality_clarification_enabled: Optional[bool] = None):
         """Initializes the pipeline with all necessary components."""
         logging.info("Initializing Socrates Pipeline...")
         self.claim_extractor = ClaimExtractor(llm_manager=llm_manager)
@@ -323,6 +336,16 @@ class SocratesPipeline:
                 self.clarifier = None
         else:
             self.clarifier = None
+        # Resolve post-factuality clarifications toggle (defaults to enabled)
+        try:
+            if post_factuality_clarification_enabled is None:
+                pf_raw = os.getenv("SOC_POST_FACTUALITY_CLAR", "true")
+                self.post_factuality_clarification_enabled = str(pf_raw).strip().lower() == "true"
+            else:
+                self.post_factuality_clarification_enabled = bool(post_factuality_clarification_enabled)
+            logging.info(f"Post-factuality clarifications: {'ENABLED' if self.post_factuality_clarification_enabled else 'DISABLED'}")
+        except Exception:
+            self.post_factuality_clarification_enabled = True
         self._clarification_results: Dict[int, Any] = {}
 
         # Socratic question generation toggle from CLI/env
@@ -751,11 +774,16 @@ class SocratesPipeline:
                     clr_res = self.clarifier.resolve_claim(ctx)
                     self._clarification_results[i] = {"pre": clr_res}
                     if clr_res.corrected_claim and clr_res.corrected_claim.strip() and clr_res.corrected_claim.strip() != categorized_claim.text.strip():
-                        logging.info("Applying corrected claim from clarification (pre-route)")
-                        categorized_claim.text = clr_res.corrected_claim.strip()
-                        # Re-categorize after correction
-                        categorized_claim = self.claim_categorizer.categorize_claim(categorized_claim)
-                        logging.info(f"Re-categorized as: {[c.name for c in categorized_claim.categories]}")
+                        proposed = clr_res.corrected_claim.strip()
+                        allow_flip_env = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
+                        if (not allow_flip_env) and (_has_negation(categorized_claim.text) != _has_negation(proposed)):
+                            logging.info("Skipping pre-route correction due to polarity flip guard")
+                        else:
+                            logging.info("Applying corrected claim from clarification (pre-route)")
+                            categorized_claim.text = proposed
+                            # Re-categorize after correction
+                            categorized_claim = self.claim_categorizer.categorize_claim(categorized_claim)
+                            logging.info(f"Re-categorized as: {[c.name for c in categorized_claim.categories]}")
             except Exception as e:
                 logging.warning(f"Pre-routing clarification failed: {e}")
 
@@ -845,6 +873,8 @@ class SocratesPipeline:
 
             # 4. Cross-modal alignment check when visual grounding is required
             if route.method == VerificationMethod.CROSS_MODAL:
+                stage_name = getattr(self, "_verification_stage", "UNKNOWN")
+                logging.debug(f"[XMOD {stage_name}] Starting cross-modal check | claim: {categorized_claim.text}")
                 logging.info("Performing cross-modal alignment check for this claim...")
                 try:
                     if not getattr(self, "cross_checker", None) and not getattr(self, "agla_client", None):
@@ -918,6 +948,8 @@ class SocratesPipeline:
                     factuality_results[i] = result
                     status = result.get("status")
                     conf = result.get("confidence", 0.0)
+                    used = "AGLA" if result.get("reasoning") == "Remote AGLA verification" else "LOCAL"
+                    logging.debug(f"[XMOD {stage_name}] Result via {used}: {status} (conf {conf:.2f}) | claim: {categorized_claim.text}")
                     logging.info(f"Cross-modal: {status} (conf {conf:.2f})")
                     # Persist onto claim
                     categorized_claim.factuality_status = status
@@ -953,7 +985,7 @@ class SocratesPipeline:
                 else:
                     # Post-factuality clarification for cross-modal uncertainties/conflicts
                     try:
-                        if self.clarifier and status in ("FAIL", "UNCERTAIN"):
+                        if self.post_factuality_clarification_enabled and self.clarifier and status in ("FAIL", "UNCERTAIN"):
                             logging.info("Invoking Clarification Module for cross-modal conflict/uncertainty (post-factuality)...")
                             ev_list = []
                             for ev in (result.get("evidence", []) or []):
@@ -977,13 +1009,18 @@ class SocratesPipeline:
                                 failed_check_type="CROSS_MODAL",
                                 issue_type=IssueType.VISUAL_CONFLICT,
                                 claim_id=str(i),
-                                metadata={"stage": "post_factuality", "agla_truth": result.get("agla_truth")},
+                                metadata={"stage": "post_factuality", "verification_stage": getattr(self, "_verification_stage", "UNKNOWN"), "agla_truth": result.get("agla_truth")},
                             )
                             clr_res_cm = self.clarifier.resolve_claim(ctx)
                             self._clarification_results.setdefault(i, {})["post"] = clr_res_cm
                             if clr_res_cm.corrected_claim and clr_res_cm.corrected_claim.strip() and clr_res_cm.corrected_claim.strip() != categorized_claim.text.strip():
-                                logging.info("Applying corrected claim from cross-modal clarification (post-factuality)")
-                                categorized_claim.text = clr_res_cm.corrected_claim.strip()
+                                proposed2 = clr_res_cm.corrected_claim.strip()
+                                allow_flip_env2 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
+                                if (not allow_flip_env2) and (_has_negation(categorized_claim.text) != _has_negation(proposed2)):
+                                    logging.info("Skipping post-factuality correction (cross-modal) due to polarity flip guard")
+                                else:
+                                    categorized_claim.text = proposed2
+                                    logging.info("Applying corrected claim from cross-modal clarification (post-factuality)")
                                 # Optionally re-run cross-modal check if requested
                                 if getattr(clr_res_cm, 'rerun_verification', False):
                                     try:
@@ -1120,7 +1157,7 @@ class SocratesPipeline:
                     except Exception as e:
                         logging.warning(f"Failed to persist attribute facts from external PASS: {e}")
                     # 4.1 If conflict or uncertainty, run clarification and optionally rerun verification
-                    if self.clarifier and status in ("FAIL", "UNCERTAIN"):
+                    if self.post_factuality_clarification_enabled and self.clarifier and status in ("FAIL", "UNCERTAIN"):
                         logging.info("Conflict/uncertainty detected; invoking Clarification Resolution Module (post-factuality)...")
                         # Map evidence strings to dicts with 'summary'
                         ev_list = []
@@ -1149,7 +1186,7 @@ class SocratesPipeline:
                                 failed_check_type="EXTERNAL_SOURCE",
                                 issue_type=IssueType.EXTERNAL_FACTUAL_CONFLICT,
                                 claim_id=str(i),
-                                metadata={"stage": "post_factuality"},
+                                metadata={"stage": "post_factuality", "verification_stage": getattr(self, "_verification_stage", "UNKNOWN")},
                             )
                         except Exception:
                             # If category missing, reuse ambiguous fallback
@@ -1160,7 +1197,7 @@ class SocratesPipeline:
                                 failed_check_type="EXTERNAL_SOURCE",
                                 issue_type=IssueType.EXTERNAL_FACTUAL_CONFLICT,
                                 claim_id=str(i),
-                                metadata={"stage": "post_factuality"},
+                                metadata={"stage": "post_factuality", "verification_stage": getattr(self, "_verification_stage", "UNKNOWN")},
                             )
                         clr_res2 = self.clarifier.resolve_claim(ctx)
                         self._clarification_results.setdefault(i, {})["post"] = clr_res2
@@ -1179,8 +1216,13 @@ class SocratesPipeline:
                         except Exception as e:
                             logging.warning(f"Failed to apply post-clarification routing override: {e}")
                         if clr_res2.corrected_claim and clr_res2.corrected_claim.strip() and clr_res2.corrected_claim.strip() != categorized_claim.text.strip():
-                            logging.info("Applying corrected claim from clarification (post-factuality)")
-                            categorized_claim.text = clr_res2.corrected_claim.strip()
+                            proposed3 = clr_res2.corrected_claim.strip()
+                            allow_flip_env3 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
+                            if (not allow_flip_env3) and (_has_negation(categorized_claim.text) != _has_negation(proposed3)):
+                                logging.info("Skipping post-factuality correction (external) due to polarity flip guard")
+                            else:
+                                categorized_claim.text = proposed3
+                                logging.info("Applying corrected claim from clarification (post-factuality)")
                             # Optionally rerun external verification based on module decision
                             if getattr(clr_res2, 'rerun_verification', False):
                                 try:
@@ -1278,7 +1320,7 @@ class SocratesPipeline:
                     categorized_claim.factuality_reasoning = final_result.get("reasoning")
                     # Final aggregated clarification stage: forward combined evidence for hallucination correction
                     try:
-                        if self.clarifier and str(final_result.get("status", "")).upper() in ("FAIL", "UNCERTAIN"):
+                        if self.post_factuality_clarification_enabled and self.clarifier and str(final_result.get("status", "")).upper() in ("FAIL", "UNCERTAIN"):
                             ev_all = []
                             # External evidence
                             for ev in ((ext_result or {}).get("evidence") or (ext_result or {}).get("external_facts") or []):
@@ -1299,7 +1341,7 @@ class SocratesPipeline:
                                     ev_all.append(con)
                             fc_final = ClarFactCheckResult(
                                 verdict=final_result.get("status"),
-                                confidence=float(final_result.get("confidence", 0.0) or 0.0),
+                                confidence=float(final_result.get("confidence", 0.0)),
                                 reasoning=final_result.get("reasoning"),
                                 evidence=ev_all,
                                 sources=(ext_result or {}).get("sources", []) or [],
@@ -1320,13 +1362,18 @@ class SocratesPipeline:
                                 failed_check_type="MERGED",
                                 issue_type=issue,
                                 claim_id=str(i),
-                                metadata={"stage": "final_post_merge"},
+                                metadata={"stage": "final_post_merge", "verification_stage": getattr(self, "_verification_stage", "UNKNOWN")},
                             )
                             clr_res_final = self.clarifier.resolve_claim(ctx_final)
                             self._clarification_results.setdefault(i, {})["final"] = clr_res_final
                             # Optionally apply corrected claim text (no auto-rerun here to avoid loops)
                             if getattr(clr_res_final, 'corrected_claim', None) and clr_res_final.corrected_claim.strip() and clr_res_final.corrected_claim.strip() != categorized_claim.text.strip():
-                                categorized_claim.text = clr_res_final.corrected_claim.strip()
+                                proposed4 = clr_res_final.corrected_claim.strip()
+                                allow_flip_env4 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
+                                if (not allow_flip_env4) and (_has_negation(categorized_claim.text) != _has_negation(proposed4)):
+                                    logging.info("Skipping final post-merge correction due to polarity flip guard")
+                                else:
+                                    categorized_claim.text = proposed4
                     except Exception as e:
                         logging.warning(f"Final aggregated clarification failed: {e}")
                     # Add to KG if recommended (exclude meta/ambiguous categories)
