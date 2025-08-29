@@ -245,6 +245,17 @@ def main():
         force_yes_no=args.force_yes_no,
     )
 
+    # Respect preservation policy in writer as well
+    preserve_raw_env = str(os.getenv(
+        "SOC_PRESERVE_RAW_ANSWERS",
+        "true" if (evaluator.BENCHMARK_NAME.lower() == "mme") else "false",
+    )).strip().lower() == "true"
+    if preserve_raw_env:
+        try:
+            evaluator.logger.info("MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion")
+        except Exception:
+            pass
+
     # Run with MME writer
     data = evaluator.load_dataset(args.dataset)
     # Optional: filter to a specific subset via include list
@@ -316,9 +327,21 @@ def main():
             rec = {"sample_id": sid, "error": str(e)}
 
         # Choose which output to use for official MME line
-        use_corrected = (not args.mme_original)
+        # Prefer original when preservation is enabled (default for MME) unless --mme-original is explicitly false
+        use_corrected = (not args.mme_original) and (not preserve_raw_env)
         response_text = rec.get("model_output_corrected") if use_corrected else rec.get("model_output_original")
+        
+        # Debug logging for empty responses
+        if not response_text or not response_text.strip():
+            evaluator.logger.warning(f"Empty response for sample {sid}: corrected='{rec.get('model_output_corrected')}', original='{rec.get('model_output_original')}', use_corrected={use_corrected}")
+            # Fallback to the other output if one is empty
+            if not response_text and rec.get("model_output_corrected"):
+                response_text = rec.get("model_output_corrected")
+            elif not response_text and rec.get("model_output_original"):
+                response_text = rec.get("model_output_original")
+        
         # When requested, coerce output to canonical 'Yes' or 'No'
+        # Apply --force-yes-no even when preserving raw answers if explicitly requested
         if args.force_yes_no:
             yn = evaluator._detect_yes_no(response_text or "")
             if yn is True:
@@ -332,8 +355,12 @@ def main():
                 elif ("no" in s) and ("yes" not in s):
                     response_text = "No"
                 else:
-                    # Default fallback to 'No' to ensure strict Y/N output
-                    response_text = "No"
+                    # Keep original response if it's not empty, otherwise default to 'No'
+                    if response_text and response_text.strip():
+                        evaluator.logger.info(f"Sample {sid}: Keeping original response '{response_text}' (could not detect clear yes/no)")
+                    else:
+                        response_text = "No"
+                        evaluator.logger.info(f"Sample {sid}: Coerced empty/ambiguous response to 'No' due to --force-yes-no")
         img_base = sample.get("image_basename") or os.path.basename(sample.get("image", ""))
         category = sample.get("category", "unknown")
         question = sample.get("question", "")

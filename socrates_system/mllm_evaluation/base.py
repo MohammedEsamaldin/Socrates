@@ -304,6 +304,20 @@ class BaseEvaluator:
         sample_id = self.get_sample_id(sample)
         prompt = self.sample_to_prompt(sample)
 
+        # Policy toggles
+        # Preserve raw model answers (do not coerce post-verification) by default for MME,
+        # or when SOC_PRESERVE_RAW_ANSWERS=true
+        _preserve_raw = str(os.getenv(
+            "SOC_PRESERVE_RAW_ANSWERS",
+            "true" if (self.BENCHMARK_NAME.lower() == "mme") else "false",
+        )).strip().lower() == "true"
+        # Skip analyzing the raw Yes/No output (to avoid duplicate claim extraction logs);
+        # instead, verify only the derived hypothesis. Default true for MME.
+        _skip_raw_yn_analysis = str(os.getenv(
+            "SOC_SKIP_YN_ANALYSIS",
+            "true" if (self.BENCHMARK_NAME.lower() == "mme") else "false",
+        )).strip().lower() == "true"
+
         # 1) User turn on ORIGINAL question (collect clarifications; do NOT apply to Q0)
         image_path = self.sample_to_image_path(sample)
         user_res = process_user_turn(self.pipeline, prompt, image_path=image_path)
@@ -329,20 +343,39 @@ class BaseEvaluator:
                 setattr(self.pipeline, "_verification_stage", "Q0")
             except Exception:
                 pass
-            res = process_model_turn(self.pipeline, model_text, image_path=image_path)
-            corrected = res.get("corrected_text") or model_text
+
+            # Always log the raw model output
             try:
                 self.logger.info(f"Sample {sample_id} - Model output: {model_text}")
-                if corrected != model_text:
-                    self.logger.info(f"Sample {sample_id} - Output corrected via MITM: {corrected}")
             except Exception:
                 pass
 
+            # Detect strict Yes/No early to optionally skip raw analysis of 'Yes'/'No'
             yn_det = self._detect_yes_no(model_text)
+            skip_raw = bool(yn_det is not None and _skip_raw_yn_analysis)
+
+            res = None
+            corrected = model_text
             analysis_src = "original"
-            claims_a = res.get("claims", [])
-            clar_a = res.get("clarification", {})
-            fact_a = res.get("factuality", {})
+            claims_a: List[Dict[str, Any]] = []
+            clar_a: Dict[str, Any] = {}
+            fact_a: Dict[str, Any] = {}
+
+            if not skip_raw:
+                res = process_model_turn(self.pipeline, model_text, image_path=image_path)
+                # Robustness: ensure dict to avoid AttributeError when process_model_turn returns None
+                if not isinstance(res, dict):
+                    res = {}
+                corrected = res.get("corrected_text") or model_text
+                try:
+                    if corrected != model_text:
+                        self.logger.info(f"Sample {sample_id} - Output corrected via MITM: {corrected}")
+                except Exception:
+                    pass
+                # Safe extractions with fallbacks
+                claims_a = res.get("claims") or []
+                clar_a = res.get("clarification") or {}
+                fact_a = res.get("factuality") or {}
 
             derived = None
             desired: Optional[bool] = None
@@ -374,6 +407,76 @@ class BaseEvaluator:
 
             # Build MMHal-style items from chosen analysis artifacts
             mmhal_items = self._claims_to_mmhal(claims_a, clar_a, fact_a, stage="post")
+            # Detailed per-claim cross-modal outcomes (status/confidence/evidence)
+            try:
+                if mmhal_items:
+                    GREEN = "\033[92m"; YELLOW = "\033[93m"; RED = "\033[91m"; LABEL = "\033[96m"; RESET = "\033[0m"
+                    self.logger.info(f"{LABEL}Sample {sample_id} - Cross-modal outcomes ({analysis_src}):{RESET}")
+                    # Cap number of evidence snippets per claim via env
+                    try:
+                        _max_ev = int(os.getenv("SOC_MAX_EVIDENCE_LOG", "2") or 2)
+                    except Exception:
+                        _max_ev = 2
+                    for it in mmhal_items:
+                        f = (it.get("factuality") or {}) if isinstance(it, dict) else {}
+                        st = (f.get("status") or "").upper()
+                        if st not in {"PASS", "FAIL", "UNCERTAIN"}:
+                            continue
+                        color = GREEN if st == "PASS" else (RED if st == "FAIL" else YELLOW)
+                        try:
+                            conf = float(f.get("confidence", 0.0) or 0.0)
+                        except Exception:
+                            conf = 0.0
+                        ev = f.get("evidence") or []
+                        ev_summ: list = []
+                        try:
+                            if isinstance(ev, (list, tuple)):
+                                for e in list(ev)[: max(0, _max_ev)]:
+                                    s = ""
+                                    if isinstance(e, dict):
+                                        for k in ("text", "description", "desc", "explanation", "reason"):
+                                            if isinstance(e.get(k), str) and e.get(k).strip():
+                                                s = e.get(k).strip()
+                                                break
+                                        if not s:
+                                            if "bbox" in e:
+                                                s = f"bbox={e.get('bbox')}"
+                                            elif "region" in e:
+                                                s = f"region={e.get('region')}"
+                                            else:
+                                                # Fallback: show up to 3 key=val pairs
+                                                try:
+                                                    s = ", ".join(f"{kk}={vv}" for kk, vv in list(e.items())[:3])
+                                                except Exception:
+                                                    s = str(e)
+                                    else:
+                                        s = str(e)
+                                    s = (s[:120] + "…") if len(s) > 120 else s
+                                    if s:
+                                        ev_summ.append(s)
+                            elif isinstance(ev, dict):
+                                s = ev.get("text") or ev.get("description") or ev.get("desc") or ev.get("explanation") or str(ev)
+                                s = (s[:120] + "…") if isinstance(s, str) and len(s) > 120 else s
+                                if s:
+                                    ev_summ.append(s)
+                            elif ev:
+                                ev_summ.append(str(ev))
+                        except Exception:
+                            pass
+                        claim_txt = (it.get("text") or "").strip()
+                        cats = []
+                        try:
+                            cats = list(it.get("categories") or [])
+                        except Exception:
+                            cats = []
+                        cat_str = ",".join(cats) if cats else ""
+                        idx = it.get("index")
+                        ev_str = "; ".join(ev_summ) if ev_summ else "none"
+                        self.logger.info(
+                            f"  Claim #{idx}{(' [' + cat_str + ']') if cat_str else ''}: \"{claim_txt}\" -> {color}{st}{RESET} (conf {conf:.2f}); evidence: {ev_str}"
+                        )
+            except Exception:
+                pass
             n_pass = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "PASS")
             n_fail = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "FAIL")
             n_unc = sum(1 for it in mmhal_items if isinstance(it.get("factuality"), dict) and (it["factuality"] or {}).get("status") == "UNCERTAIN")
@@ -471,10 +574,68 @@ class BaseEvaluator:
                 "desired": desired,
             }
 
-        # Prepare prompts: Q0 is ORIGINAL; Q1 uses corrected prompt if Q0 fails
+        # Integrate cross-modal evidence into Q1 formulation
+        # Extract evidence from Q0's cross-modal verification to inform Q1
+        evidence_summary = ""
+        try:
+            if a0.get("fact_for_analysis"):
+                fact_dict = a0.get("fact_for_analysis", {})
+                for claim_idx, claim_fact in fact_dict.items():
+                    if isinstance(claim_fact, dict):
+                        status = claim_fact.get("status", "").upper()
+                        evidence = claim_fact.get("evidence", [])
+                        if status == "FAIL" and evidence:
+                            # Extract corrective evidence
+                            for ev in evidence[:2]:  # Use first 2 pieces of evidence
+                                if isinstance(ev, dict) and "correction" in str(ev).lower():
+                                    correction_text = str(ev).replace("AGLA correction: ", "")
+                                    if correction_text and correction_text != str(ev):
+                                        evidence_summary = correction_text
+                                        break
+                                elif isinstance(ev, str) and "correction:" in ev.lower():
+                                    evidence_summary = ev.split("correction:", 1)[1].strip()
+                                    break
+        except Exception:
+            pass
+        
+        # Rewrite Q1 using evidence if available
+        if evidence_summary and evidence_summary.strip():
+            # Use evidence to reformulate the question
+            try:
+                # Convert evidence into a question format
+                if "there is no" in evidence_summary.lower():
+                    # Evidence says something doesn't exist, ask about that
+                    corrected_prompt_candidate = evidence_summary.replace("There is no", "Is there a").replace("there is no", "is there a")
+                    if not corrected_prompt_candidate.endswith("?"):
+                        corrected_prompt_candidate += "?"
+                elif "there is" in evidence_summary.lower() and "not" not in evidence_summary.lower():
+                    # Evidence says something exists, ask about that
+                    corrected_prompt_candidate = evidence_summary.replace("There is", "Is there").replace("there is", "is there")
+                    if not corrected_prompt_candidate.endswith("?"):
+                        corrected_prompt_candidate += "?"
+                else:
+                    # Use evidence as context for rewriting
+                    corrected_prompt_candidate = f"Based on the evidence that {evidence_summary.lower()}, {prompt.lower()}"
+            except Exception:
+                # Fallback: keep original corrected prompt
+                pass
+        
+        # Prepare prompts: Q0 is ORIGINAL; Q1 uses evidence-informed corrected prompt
         q0_prompt = _append_yn_instr(prompt)
         q1_prompt = _append_yn_instr(corrected_prompt_candidate)
+        # Log Q1 after formulation (colored)
+        try:
+            MAGENTA = "\033[95m"; RESET = "\033[0m"; LABEL = "\033[96m"  # bright cyan label
+            if evidence_summary:
+                self.logger.info(f"{LABEL}Sample {sample_id} - Evidence used for Q1:{RESET} {evidence_summary}")
+            self.logger.info(f"{LABEL}Sample {sample_id} - Q1 (formulated):{RESET} {MAGENTA}{corrected_prompt_candidate}{RESET}")
+        except Exception:
+            pass
 
+        # Initialize variables for robustness
+        a1 = None
+        a1_text = ""
+        
         # 2) Query SUT with Q0 (original)
         try:
             a0_text = self.sut_llm_manager.generate_text(
@@ -518,6 +679,12 @@ class BaseEvaluator:
         except Exception:
             thr = 0.9
         early_overturn = bool(early_overturn_enabled and int(a0.get("num_fail_content", 0) or 0) > 0 and float(a0.get("max_fail_conf_content", 0.0) or 0.0) >= thr)
+        # Initialize variables that may be used later
+        final_decision = None
+        final = None
+        final_original = None
+        q0_passed = False
+        
         if early_overturn:
             try:
                 RED = "\033[91m"; RESET = "\033[0m"
@@ -618,31 +785,34 @@ class BaseEvaluator:
                     final = a0
                     final_original = a0_text
                 else:
-                    # Tie-breaker per Rule B
-                    if is_existence:
-                        # If one branch has positive content support, pick it; else prefer 'No'
-                        if bool(a0.get("has_content_positive_pass")) ^ bool(a1.get("has_content_positive_pass")):
-                            choose_q1 = bool(a1.get("has_content_positive_pass"))
-                        else:
-                            # Prefer the branch whose desired direction is 'No'
-                            if a0.get("desired") is False and a1.get("desired") is not True:
-                                choose_q1 = False
-                            elif a1.get("desired") is False and a0.get("desired") is not True:
-                                choose_q1 = True
-                            else:
-                                # Default conservative: keep Q0
-                                choose_q1 = False
-                    else:
-                        # Non-existence: prefer corrected only if strictly stronger content not equal
-                        choose_q1 = False
-                    if choose_q1:
-                        final_decision = "Q1_tie"
-                        final = a1
-                        final_original = a1_text
-                    else:
-                        final_decision = "Q0_tie"
-                        final = a0
-                        final_original = a0_text
+                    final_decision = "Q0_tie"
+                    final = a0
+                    final_original = a0_text
+                    # # Tie-breaker per Rule B
+                    # if is_existence:
+                    #     # If one branch has positive content support, pick it; else prefer 'No'
+                    #     if bool(a0.get("has_content_positive_pass")) ^ bool(a1.get("has_content_positive_pass")):
+                    #         choose_q1 = bool(a1.get("has_content_positive_pass"))
+                    #     else:
+                    #         # Prefer the branch whose desired direction is 'No'
+                    #         if a0.get("desired") is False and a1.get("desired") is not True:
+                    #             choose_q1 = False
+                    #         elif a1.get("desired") is False and a0.get("desired") is not True:
+                    #             choose_q1 = True
+                    #         else:
+                    #             # Default conservative: keep Q0
+                    #             choose_q1 = False
+                    # else:
+                    #     # Non-existence: prefer corrected only if strictly stronger content not equal
+                    #     choose_q1 = False
+                    # if choose_q1:
+                    #     final_decision = "Q1_tie"
+                    #     final = a1
+                    #     final_original = a1_text
+                    # else:
+                    #     final_decision = "Q0_tie"
+                    #     final = a0
+                    #     final_original = a0_text
 
         # Log final adjudication decision
         try:
@@ -651,9 +821,11 @@ class BaseEvaluator:
         except Exception:
             pass
 
-        # Coerce final corrected output to strict Yes/No if requested
-        final_corrected_out = final.get("corrected_out") or final_original
-        if getattr(self, "force_yes_no", False):
+        # Coerce final corrected output to strict Yes/No only if explicitly requested
+        # AND we are not preserving raw model answers.
+        # Ensure final_corrected_out is never None
+        final_corrected_out = (final.get("corrected_out") if final else None) or final_original or ""
+        if getattr(self, "force_yes_no", False) and not _preserve_raw:
             # Prefer verification (derived content-only) over raw model answer
             yn = self._detect_yes_no(final_corrected_out or "")
             desired = final.get("desired")
@@ -738,6 +910,43 @@ class BaseEvaluator:
         except Exception:
             pass
 
+        # Attach Q0/Q1 summaries for downstream analysis/decisions
+        def _mk_summary(ana: Dict[str, Any], ans_text: str) -> Dict[str, Any]:
+            try:
+                return {
+                    "answer": ans_text,
+                    "yn": ana.get("yn_detected"),
+                    "num_pass_content": int(ana.get("num_pass_content", 0) or 0),
+                    "num_fail_content": int(ana.get("num_fail_content", 0) or 0),
+                    "num_uncertain_content": int(ana.get("num_uncertain_content", 0) or 0),
+                    "yn_signal_content": ana.get("yn_signal_content") or None,
+                    "yn_signal_content_direction": ana.get("yn_signal_content_direction"),
+                    "desired": ana.get("desired"),
+                    "max_fail_conf_content": float(ana.get("max_fail_conf_content", 0.0) or 0.0),
+                }
+            except Exception:
+                return {
+                    "answer": ans_text,
+                    "yn": None,
+                    "num_pass_content": 0,
+                    "num_fail_content": 0,
+                    "num_uncertain_content": 0,
+                    "yn_signal_content": None,
+                    "yn_signal_content_direction": "undecided",
+                    "desired": None,
+                    "max_fail_conf_content": 0.0,
+                }
+
+        q0_summary = _mk_summary(a0, a0_text)
+        q1_summary = _mk_summary(a1, a1_text) if a1 is not None else None
+
+        # Ensure final is not None and has required structure
+        if final is None:
+            final = {}
+        
+        # Robust extraction with None checks
+        final_model_res = final.get("model_res") or {}
+        
         record = {
             "sample_id": sample_id,
             "image_path": image_path,
@@ -748,23 +957,26 @@ class BaseEvaluator:
             "input_claims": to_jsonable(user_res.get("claims", [])),
             "input_clarification": to_jsonable(user_res.get("clarification", {})),
             # Outputs
-            "model_output_original": final_original,
-            "model_output_corrected": final_corrected_out,
-            "model_output_corrections": final.get("model_res", {}).get("corrections", []),
-            "model_output_factuality": final.get("model_res", {}).get("factuality", {}),
-            "model_output_claims": to_jsonable(final.get("model_res", {}).get("claims", [])),
-            "model_output_clarification": to_jsonable(final.get("model_res", {}).get("clarification", {})),
+            "model_output_original": final_original or "",
+            "model_output_corrected": final_corrected_out or "",
+            # Branch summaries
+            "q0": q0_summary,
+            "q1": q1_summary,
+            "model_output_corrections": final_model_res.get("corrections", []),
+            "model_output_factuality": final_model_res.get("factuality", {}),
+            "model_output_claims": to_jsonable(final_model_res.get("claims", [])),
+            "model_output_clarification": to_jsonable(final_model_res.get("clarification", {})),
             # Analysis artifacts (may be derived from yes/no + question hypothesis)
-            "analysis_source": final.get("analysis_source"),
-            "analysis_claims": to_jsonable(final.get("claims_for_analysis", [])),
-            "analysis_clarification": to_jsonable(final.get("clar_for_analysis", {})),
-            "analysis_factuality": to_jsonable(final.get("fact_for_analysis", {})),
+            "analysis_source": final.get("analysis_source") if final else None,
+            "analysis_claims": to_jsonable(final.get("claims_for_analysis", []) if final else []),
+            "analysis_clarification": to_jsonable(final.get("clar_for_analysis", {}) if final else {}),
+            "analysis_factuality": to_jsonable(final.get("fact_for_analysis", {}) if final else {}),
             # Adjudication context
             "adjudication": {
-                "decision": final_decision,
+                "decision": final_decision or "unknown",
                 "fast_path": q0_passed,
-                "q0_prompt": q0_prompt,
-                "q1_prompt": q1_prompt,
+                "q0_prompt": q0_prompt or "",
+                "q1_prompt": q1_prompt or "",
             },
             "hallucination_source": halluc_source,
             "mmhal": mmhal,

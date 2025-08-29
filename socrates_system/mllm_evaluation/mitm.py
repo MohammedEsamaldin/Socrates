@@ -116,6 +116,8 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
     # Determine whether to apply MitM corrections on input
     use_mitm = os.getenv("SOC_USE_MITM", "true").lower() == "true"
     verify_input = os.getenv("SOC_MITM_VERIFY_INPUT", "true").lower() == "true"
+    # Optional: skip the second pre-answer pass and reuse artifacts from the first
+    skip_second_pre = os.getenv("SOC_SKIP_SECOND_PRE_PASS", "false").lower() == "true"
 
     # Optionally disable pre-evidence extraction (MME preference):
     # - suppress external factuality and self-consistency/conflict resolution
@@ -194,34 +196,39 @@ def process_user_turn(pipeline: SocratesPipeline, text: str, image_path: Optiona
             _orig_conf = None
             try:
                 # Cross-modal-only precheck for neutral, non-leading cues
-                _restore_ev = True
-                try:
-                    _orig_fact = getattr(pipeline, "factuality_enabled", True)
-                    _orig_self = getattr(pipeline, "self_checker", None)
-                    _orig_conf = getattr(pipeline, "conflict_resolver", None)
-                except Exception:
-                    pass
-                try:
-                    setattr(pipeline, "factuality_enabled", False)
-                except Exception:
-                    pass
-                try:
-                    setattr(pipeline, "self_checker", None)
-                except Exception:
-                    pass
-                try:
-                    setattr(pipeline, "conflict_resolver", None)
-                except Exception:
-                    pass
+                if not skip_second_pre:
+                    _restore_ev = True
+                    try:
+                        _orig_fact = getattr(pipeline, "factuality_enabled", True)
+                        _orig_self = getattr(pipeline, "self_checker", None)
+                        _orig_conf = getattr(pipeline, "conflict_resolver", None)
+                    except Exception:
+                        pass
+                    try:
+                        setattr(pipeline, "factuality_enabled", False)
+                    except Exception:
+                        pass
+                    try:
+                        setattr(pipeline, "self_checker", None)
+                    except Exception:
+                        pass
+                    try:
+                        setattr(pipeline, "conflict_resolver", None)
+                    except Exception:
+                        pass
                 try:
                     setattr(pipeline, "_verification_stage", "Q1_PRECHECK")
                 except Exception:
                     pass
                 # Only run if image is available; otherwise, just proceed with generic guidance
                 if image_path:
-                    _ = pipeline.run(text, image_path=image_path)
-                    ev = getattr(pipeline, "_last_factuality_results", {}) or {}
                     digest_lines: List[str] = []
+                    if skip_second_pre:
+                        # Reuse artifacts from the first pass; do not call pipeline.run again
+                        ev = getattr(pipeline, "_last_factuality_results", {}) or {}
+                    else:
+                        _ = pipeline.run(text, image_path=image_path)
+                        ev = getattr(pipeline, "_last_factuality_results", {}) or {}
                     for _, v in (ev.items() if isinstance(ev, dict) else []):
                         st = str((v or {}).get("status", "")).upper() or "UNCERTAIN"
                         if st in ev_counts:

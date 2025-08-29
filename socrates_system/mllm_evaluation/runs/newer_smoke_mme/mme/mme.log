@@ -1,0 +1,676 @@
+2025-08-29 09:32:35,331 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 09:32:35,334 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 09:32:35,334 - INFO - Resuming with 0 already processed samples
+2025-08-29 09:33:00,909 - INFO - [96mSample existence/000000006040#1 - Q1 (formulated):[0m [95mIs there a train in the image?[0m
+2025-08-29 09:33:02,231 - INFO - Sample existence/000000006040#1 - Model output: Yes
+2025-08-29 09:33:02,585 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:33:08,453 - INFO - [96mSample existence/000000006040#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:33:08,454 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a train in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:33:08,454 - INFO - Sample existence/000000006040#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:33:08,454 - INFO - [92mSample existence/000000006040#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:33:08,454 - INFO - [92mSample existence/000000006040#1 - Final adjudication: Q0[0m
+2025-08-29 09:33:08,454 - INFO - Sample existence/000000006040#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:33:22,946 - INFO - [96mSample existence/000000006040#2 - Q1 (formulated):[0m [95mIs there a bed in the image?[0m
+2025-08-29 09:33:23,687 - INFO - Sample existence/000000006040#2 - Model output: No
+2025-08-29 09:33:24,095 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:33:28,608 - INFO - [96mSample existence/000000006040#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:33:28,608 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no bed in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a train with a bed in it.; AGLA verdict: False
+2025-08-29 09:33:28,608 - INFO - Sample existence/000000006040#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:33:29,703 - INFO - Sample existence/000000006040#2 - Model output: No
+2025-08-29 09:33:30,069 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:33:34,479 - INFO - [96mSample existence/000000006040#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:33:34,479 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no bed in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a train with a bed in it.; AGLA verdict: False
+2025-08-29 09:33:34,479 - INFO - Sample existence/000000006040#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:33:34,479 - INFO - [93mSample existence/000000006040#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:33:34,479 - INFO - [92mSample existence/000000006040#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:33:34,479 - INFO - Sample existence/000000006040#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:33:55,245 - INFO - [96mSample existence/000000006471#1 - Q1 (formulated):[0m [95mIs a baseball bat visible in this image?[0m
+2025-08-29 09:33:57,140 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-29 09:33:57,530 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:34:01,884 - INFO - [96mSample existence/000000006471#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:34:01,884 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a baseball bat in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A baseball player is holding a bat in the image.; AGLA verdict: False
+2025-08-29 09:34:01,884 - INFO - Sample existence/000000006471#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:34:03,134 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-29 09:34:03,679 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:34:08,445 - INFO - [96mSample existence/000000006471#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:34:08,445 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "A baseball bat is visible in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A baseball player is holding a bat in the image.; AGLA verdict: False
+2025-08-29 09:34:08,446 - INFO - Sample existence/000000006471#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:34:08,446 - INFO - [93mSample existence/000000006471#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:34:08,446 - INFO - [92mSample existence/000000006471#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:34:08,446 - INFO - Sample existence/000000006471#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:34:37,122 - INFO - [96mSample existence/000000006471#2 - Q1 (formulated):[0m [95mIs a giraffe present in this image?[0m
+2025-08-29 09:34:38,627 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-29 09:34:39,020 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:34:44,025 - INFO - [96mSample existence/000000006471#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:34:44,025 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no giraffe in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A baseball player is holding a bat and wearing a helmet, and there is a giraffe in the image.; AGLA verdict: False
+2025-08-29 09:34:44,025 - INFO - Sample existence/000000006471#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:34:44,913 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-29 09:34:45,417 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:34:50,700 - INFO - [96mSample existence/000000006471#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:34:50,700 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no giraffe present in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A giraffe is present in the image, standing in the background behind the baseball player.; AGLA verdict: False
+2025-08-29 09:34:50,700 - INFO - Sample existence/000000006471#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:34:50,700 - INFO - [93mSample existence/000000006471#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:34:50,700 - INFO - [92mSample existence/000000006471#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:34:50,700 - INFO - Sample existence/000000006471#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:35:10,301 - INFO - [96mSample existence/000000007108#1 - Q1 (formulated):[0m [95mIs an elephant visible in this image?[0m
+2025-08-29 09:35:11,620 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-29 09:35:11,977 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:35:16,769 - INFO - [96mSample existence/000000007108#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:35:16,771 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is an elephant in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a baby elephant standing next to two other elephants.; AGLA verdict: False
+2025-08-29 09:35:16,771 - INFO - Sample existence/000000007108#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:35:17,570 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-29 09:35:17,953 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:35:22,897 - INFO - [96mSample existence/000000007108#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:35:22,897 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "An elephant is visible in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A baby elephant is visible in this image.; AGLA verdict: False
+2025-08-29 09:35:22,897 - INFO - Sample existence/000000007108#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:35:22,898 - INFO - [93mSample existence/000000007108#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:35:22,898 - INFO - [92mSample existence/000000007108#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:35:22,898 - INFO - Sample existence/000000007108#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:35:42,480 - INFO - [96mSample existence/000000007108#2 - Q1 (formulated):[0m [95mIs there a hair drier present in the image?[0m
+2025-08-29 09:35:43,042 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-29 09:35:43,512 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:35:48,531 - INFO - [96mSample existence/000000007108#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:35:48,531 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no hair drier in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a baby elephant with a hair drier on its trunk.; AGLA verdict: False
+2025-08-29 09:35:48,531 - INFO - Sample existence/000000007108#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:35:49,234 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-29 09:35:49,632 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:36:01,203 - INFO - [96mSample existence/000000007108#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:36:01,204 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no hair drier present in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The elephant has a hair drier on its trunk.; AGLA verdict: False
+2025-08-29 09:36:01,205 - INFO - Sample existence/000000007108#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:36:01,205 - INFO - [93mSample existence/000000007108#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:36:01,205 - INFO - [92mSample existence/000000007108#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:36:01,205 - INFO - Sample existence/000000007108#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:36:20,729 - INFO - [96mSample existence/000000007816#1 - Q1 (formulated):[0m [95mIs a motorcycle present in the image?[0m
+2025-08-29 09:36:22,078 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-29 09:36:22,532 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:36:27,646 - INFO - [96mSample existence/000000007816#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:36:27,647 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a motorcycle in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is riding a motorcycle on a road.; AGLA verdict: False
+2025-08-29 09:36:27,647 - INFO - Sample existence/000000007816#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:36:28,850 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-29 09:36:29,230 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:36:34,613 - INFO - [96mSample existence/000000007816#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:36:34,613 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a motorcycle in the image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:36:34,613 - INFO - Sample existence/000000007816#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:36:34,613 - INFO - [93mSample existence/000000007816#1 - Adjudication scores (content-only): Q0=-4.00, Q1=3.00[0m
+2025-08-29 09:36:34,614 - INFO - [92mSample existence/000000007816#1 - Final adjudication: Q1[0m
+2025-08-29 09:36:34,614 - INFO - Sample existence/000000007816#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:36:55,806 - INFO - [96mSample existence/000000007816#2 - Q1 (formulated):[0m [95mIs there an airplane in the image?[0m
+2025-08-29 09:36:57,491 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-29 09:36:57,986 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:37:02,490 - INFO - [96mSample existence/000000007816#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:37:02,491 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no airplane in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a man riding a motorcycle with a plane on the front.; AGLA verdict: False
+2025-08-29 09:37:02,491 - INFO - Sample existence/000000007816#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:37:03,960 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-29 09:37:04,538 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:37:09,136 - INFO - [96mSample existence/000000007816#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:37:09,136 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no airplane in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a man riding a motorcycle with a plane painted on the side.; AGLA verdict: False
+2025-08-29 09:37:09,136 - INFO - Sample existence/000000007816#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:37:09,136 - INFO - [93mSample existence/000000007816#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:37:09,136 - INFO - [92mSample existence/000000007816#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:37:09,136 - INFO - Sample existence/000000007816#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:37:30,728 - INFO - [96mSample existence/000000007977#1 - Q1 (formulated):[0m [95mIs a skateboard present in this image?[0m
+2025-08-29 09:37:32,338 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-29 09:37:32,807 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:37:37,612 - INFO - [96mSample existence/000000007977#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:37:37,612 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a skateboard in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is riding a skateboard in the image.; AGLA verdict: False
+2025-08-29 09:37:37,612 - INFO - Sample existence/000000007977#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:37:39,078 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-29 09:37:39,558 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:37:43,720 - INFO - [96mSample existence/000000007977#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:37:43,721 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "A skateboard is present in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A person is riding a skateboard in the image.; AGLA verdict: False
+2025-08-29 09:37:43,721 - INFO - Sample existence/000000007977#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:37:43,721 - INFO - [93mSample existence/000000007977#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:37:43,721 - INFO - [92mSample existence/000000007977#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:37:43,721 - INFO - Sample existence/000000007977#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:37:51,924 - INFO - [96mSample existence/000000007977#2 - Q1 (formulated):[0m [95mIs there a spoon present in the image?[0m
+2025-08-29 09:37:53,174 - INFO - Sample existence/000000007977#2 - Model output: No
+2025-08-29 09:37:53,618 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:38:04,794 - INFO - [96mSample existence/000000007977#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:38:04,795 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no spoon visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A skateboarder is performing a trick in the street.; AGLA verdict: False
+2025-08-29 09:38:04,796 - INFO - Sample existence/000000007977#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:38:06,221 - INFO - Sample existence/000000007977#2 - Model output: No
+2025-08-29 09:38:06,795 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:38:11,362 - INFO - [96mSample existence/000000007977#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:38:11,362 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no spoon present in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is riding a skateboard on a sidewalk.; AGLA verdict: False
+2025-08-29 09:38:11,362 - INFO - Sample existence/000000007977#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:38:11,362 - INFO - [93mSample existence/000000007977#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:38:11,362 - INFO - [92mSample existence/000000007977#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:38:11,362 - INFO - Sample existence/000000007977#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:38:29,729 - INFO - [96mSample existence/000000008844#1 - Q1 (formulated):[0m [95mIs a person visible in this image?[0m
+2025-08-29 09:38:30,694 - INFO - Sample existence/000000008844#1 - Model output: Yes
+2025-08-29 09:38:31,814 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:38:37,610 - INFO - [96mSample existence/000000008844#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:38:37,611 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is at least one person in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A woman is smiling in front of a bunch of bananas.; AGLA verdict: False
+2025-08-29 09:38:37,612 - INFO - Sample existence/000000008844#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:38:38,722 - INFO - Sample existence/000000008844#1 - Model output: Yes
+2025-08-29 09:38:39,228 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:38:49,922 - INFO - [96mSample existence/000000008844#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:38:49,923 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "It is unclear whether a person is visible in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A woman is standing behind a pile of bananas.; AGLA verdict: False
+2025-08-29 09:38:49,923 - INFO - Sample existence/000000008844#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:38:49,923 - INFO - [93mSample existence/000000008844#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:38:49,923 - INFO - [92mSample existence/000000008844#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:38:49,923 - INFO - Sample existence/000000008844#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:39:10,816 - INFO - [96mSample existence/000000008844#2 - Q1 (formulated):[0m [95mIs a sink visible in the image?[0m
+2025-08-29 09:39:12,227 - INFO - Sample existence/000000008844#2 - Model output: No
+2025-08-29 09:39:12,645 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:39:17,004 - INFO - [96mSample existence/000000008844#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:39:17,005 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no sink in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a woman standing next to a sink.; AGLA verdict: False
+2025-08-29 09:39:17,005 - INFO - Sample existence/000000008844#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:39:18,766 - INFO - Sample existence/000000008844#2 - Model output: No
+2025-08-29 09:39:19,299 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:39:29,911 - INFO - [96mSample existence/000000008844#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:39:29,912 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no sink visible in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A sink is visible in the image, located behind the woman and the bananas.; AGLA verdict: False
+2025-08-29 09:39:29,912 - INFO - Sample existence/000000008844#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:39:29,912 - INFO - [93mSample existence/000000008844#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:39:29,912 - INFO - [92mSample existence/000000008844#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:39:29,912 - INFO - Sample existence/000000008844#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:39:37,994 - INFO - [96mSample existence/000000009590#1 - Q1 (formulated):[0m [95mIs there a bottle in the image?[0m
+2025-08-29 09:39:38,800 - INFO - Sample existence/000000009590#1 - Model output: Yes
+2025-08-29 09:39:39,235 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:39:44,793 - INFO - [96mSample existence/000000009590#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:39:44,793 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bottle in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is no bottle in the image.; AGLA verdict: False
+2025-08-29 09:39:44,793 - INFO - Sample existence/000000009590#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:39:46,047 - INFO - Sample existence/000000009590#1 - Model output: Yes
+2025-08-29 09:39:46,500 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:39:52,718 - INFO - [96mSample existence/000000009590#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:39:52,718 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bottle in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is no bottle in the image.; AGLA verdict: False
+2025-08-29 09:39:52,718 - INFO - Sample existence/000000009590#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:39:52,718 - INFO - [93mSample existence/000000009590#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:39:52,718 - INFO - [92mSample existence/000000009590#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:39:52,718 - INFO - Sample existence/000000009590#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:39:59,856 - INFO - [96mSample existence/000000009590#2 - Q1 (formulated):[0m [95mIs a scissors present in the image?[0m
+2025-08-29 09:40:00,846 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-29 09:40:01,233 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:40:11,497 - INFO - [96mSample existence/000000009590#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:40:11,498 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There are no scissors in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a pair of scissors on the table in the image.; AGLA verdict: False
+2025-08-29 09:40:11,498 - INFO - Sample existence/000000009590#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:40:13,273 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-29 09:40:13,758 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:40:24,048 - INFO - [96mSample existence/000000009590#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:40:24,050 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no scissors present in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A pair of scissors is present on the table in the image.; AGLA verdict: False
+2025-08-29 09:40:24,051 - INFO - Sample existence/000000009590#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:40:24,051 - INFO - [93mSample existence/000000009590#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:40:24,051 - INFO - [92mSample existence/000000009590#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:40:24,051 - INFO - Sample existence/000000009590#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:40:38,382 - INFO - [96mSample existence/000000010363#1 - Q1 (formulated):[0m [95mIs there a bottle in the image?[0m
+2025-08-29 09:40:39,265 - INFO - Sample existence/000000010363#1 - Model output: No
+2025-08-29 09:40:39,734 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:40:44,023 - INFO - [96mSample existence/000000010363#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:40:44,023 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no bottle in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a bottle in the image.; AGLA verdict: False
+2025-08-29 09:40:44,023 - INFO - Sample existence/000000010363#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:40:44,788 - INFO - Sample existence/000000010363#1 - Model output: Yes
+2025-08-29 09:40:45,167 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:40:49,247 - INFO - [96mSample existence/000000010363#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:40:49,247 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bottle in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is no bottle in the image.; AGLA verdict: False
+2025-08-29 09:40:49,247 - INFO - Sample existence/000000010363#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:40:49,247 - INFO - [93mSample existence/000000010363#1 - Adjudication scores (content-only): Q0=0.00, Q1=-4.00[0m
+2025-08-29 09:40:49,247 - INFO - [92mSample existence/000000010363#1 - Final adjudication: Q0[0m
+2025-08-29 09:40:49,247 - INFO - Sample existence/000000010363#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:41:04,909 - INFO - [96mSample existence/000000010363#2 - Q1 (formulated):[0m [95mIs an apple present in the image?[0m
+2025-08-29 09:41:05,725 - INFO - Sample existence/000000010363#2 - Model output: No
+2025-08-29 09:41:06,124 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:41:19,264 - INFO - [96mSample existence/000000010363#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:41:19,264 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no apple visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The cat is standing on the hood of a car.; AGLA verdict: False
+2025-08-29 09:41:19,265 - INFO - Sample existence/000000010363#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:41:20,576 - INFO - Sample existence/000000010363#2 - Model output: No
+2025-08-29 09:41:21,768 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:41:26,854 - INFO - [96mSample existence/000000010363#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:41:26,855 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no apple present in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a cat standing on the hood of a car.; AGLA verdict: False
+2025-08-29 09:41:26,855 - INFO - Sample existence/000000010363#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:41:26,855 - INFO - [93mSample existence/000000010363#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:41:26,855 - INFO - [92mSample existence/000000010363#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:41:26,855 - INFO - Sample existence/000000010363#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:41:48,619 - INFO - [96mSample existence/000000011197#1 - Q1 (formulated):[0m [95mIs there a car in the image?[0m
+2025-08-29 09:41:52,053 - INFO - Sample existence/000000011197#1 - Model output: Yes
+2025-08-29 09:41:52,446 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:41:57,266 - INFO - [96mSample existence/000000011197#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:41:57,266 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a car in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is standing on a sidewalk near a street sign.; AGLA verdict: False
+2025-08-29 09:41:57,267 - INFO - Sample existence/000000011197#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:41:58,908 - INFO - Sample existence/000000011197#1 - Model output: Yes
+2025-08-29 09:41:59,250 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:42:03,258 - INFO - [96mSample existence/000000011197#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:42:03,258 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a car in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is no car in the image.; AGLA verdict: False
+2025-08-29 09:42:03,258 - INFO - Sample existence/000000011197#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:42:03,258 - INFO - [93mSample existence/000000011197#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:42:03,258 - INFO - [92mSample existence/000000011197#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:42:03,258 - INFO - Sample existence/000000011197#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:42:10,840 - INFO - [96mSample existence/000000011197#2 - Q1 (formulated):[0m [95mIs a fork visible in this image?[0m
+2025-08-29 09:42:11,836 - INFO - Sample existence/000000011197#2 - Model output: Yes
+2025-08-29 09:42:12,258 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:42:16,821 - INFO - [96mSample existence/000000011197#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:42:16,822 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a fork in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is standing on the sidewalk near a street sign.; AGLA verdict: False
+2025-08-29 09:42:16,822 - INFO - Sample existence/000000011197#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:42:17,606 - INFO - Sample existence/000000011197#2 - Model output: No
+2025-08-29 09:42:18,153 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:42:30,179 - INFO - [96mSample existence/000000011197#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:42:30,180 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no fork visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A fork is visible in the image, as it is part of the street sign.; AGLA verdict: False
+2025-08-29 09:42:30,180 - INFO - Sample existence/000000011197#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:42:30,180 - INFO - [93mSample existence/000000011197#2 - Adjudication scores (content-only): Q0=-4.00, Q1=0.00[0m
+2025-08-29 09:42:30,180 - INFO - [92mSample existence/000000011197#2 - Final adjudication: Q1[0m
+2025-08-29 09:42:30,180 - INFO - Sample existence/000000011197#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:42:37,791 - INFO - [96mSample existence/000000015254#1 - Q1 (formulated):[0m [95mDoes the image contain a spoon?[0m
+2025-08-29 09:42:38,496 - INFO - Sample existence/000000015254#1 - Model output: Yes
+2025-08-29 09:42:38,955 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:42:43,236 - INFO - [96mSample existence/000000015254#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:42:43,237 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a spoon in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is no spoon in the image.; AGLA verdict: False
+2025-08-29 09:42:43,237 - INFO - Sample existence/000000015254#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:42:44,188 - INFO - Sample existence/000000015254#1 - Model output: Yes
+2025-08-29 09:42:44,569 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:42:49,966 - INFO - [96mSample existence/000000015254#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:42:49,967 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The image contains a spoon" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image does not contain a spoon.; AGLA verdict: False
+2025-08-29 09:42:49,967 - INFO - Sample existence/000000015254#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:42:49,967 - INFO - [93mSample existence/000000015254#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:42:49,967 - INFO - [92mSample existence/000000015254#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:42:49,967 - INFO - Sample existence/000000015254#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:43:05,071 - INFO - [96mSample existence/000000015254#2 - Q1 (formulated):[0m [95mIs a donut visible in the image?[0m
+2025-08-29 09:43:06,313 - INFO - Sample existence/000000015254#2 - Model output: No
+2025-08-29 09:43:06,728 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:43:17,937 - INFO - [96mSample existence/000000015254#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:43:17,938 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no donut visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A donut is not visible in the image.; AGLA verdict: False
+2025-08-29 09:43:17,938 - INFO - Sample existence/000000015254#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:43:18,520 - INFO - Sample existence/000000015254#2 - Model output: No
+2025-08-29 09:43:18,918 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:43:23,194 - INFO - [96mSample existence/000000015254#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:43:23,194 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no donut visible in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a plate of food containing a donut.; AGLA verdict: False
+2025-08-29 09:43:23,194 - INFO - Sample existence/000000015254#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:43:23,194 - INFO - [93mSample existence/000000015254#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:43:23,194 - INFO - [92mSample existence/000000015254#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:43:23,194 - INFO - Sample existence/000000015254#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:43:30,711 - INFO - [96mSample existence/000000015517#1 - Q1 (formulated):[0m [95mDoes the image contain a bus?[0m
+2025-08-29 09:43:32,173 - INFO - Sample existence/000000015517#1 - Model output: Yes
+2025-08-29 09:43:32,642 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:43:37,450 - INFO - [96mSample existence/000000015517#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:43:37,450 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bus in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a parking lot with multiple buses parked in it.; AGLA verdict: False
+2025-08-29 09:43:37,450 - INFO - Sample existence/000000015517#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:43:38,745 - INFO - Sample existence/000000015517#1 - Model output: Yes
+2025-08-29 09:43:39,192 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:43:43,345 - INFO - [96mSample existence/000000015517#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:43:43,345 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The image contains a bus" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a parking lot filled with buses.; AGLA verdict: False
+2025-08-29 09:43:43,345 - INFO - Sample existence/000000015517#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:43:43,345 - INFO - [93mSample existence/000000015517#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:43:43,345 - INFO - [92mSample existence/000000015517#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:43:43,345 - INFO - Sample existence/000000015517#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:44:05,549 - INFO - [96mSample existence/000000015517#2 - Q1 (formulated):[0m [95mIs a cow visible in the image?[0m
+2025-08-29 09:44:08,775 - INFO - Sample existence/000000015517#2 - Model output: No
+2025-08-29 09:44:09,147 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:44:32,744 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 09:44:32,747 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 09:44:32,750 - INFO - Resuming with 21 already processed samples
+2025-08-29 09:44:59,986 - INFO - [96mSample existence/000000015517#2 - Q1 (formulated):[0m [95mIs there a cow in the image?[0m
+2025-08-29 09:45:00,839 - INFO - Sample existence/000000015517#2 - Model output: No
+2025-08-29 09:45:01,212 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:45:14,099 - INFO - [96mSample existence/000000015517#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:45:14,099 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no cow present in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A cow is present in the image, standing near the buses.; AGLA verdict: False
+2025-08-29 09:45:14,100 - INFO - Sample existence/000000015517#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:45:15,120 - INFO - Sample existence/000000015517#2 - Model output: No
+2025-08-29 09:45:15,528 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:45:28,721 - INFO - [96mSample existence/000000015517#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:45:28,721 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no clear visual evidence of a cow in the image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a cow in the background.; AGLA verdict: False
+2025-08-29 09:45:28,721 - INFO - Sample existence/000000015517#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:45:28,721 - INFO - [93mSample existence/000000015517#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:45:28,721 - INFO - [92mSample existence/000000015517#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:45:28,721 - INFO - Sample existence/000000015517#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:45:55,410 - INFO - [96mSample existence/000000015746#1 - Q1 (formulated):[0m [95mIs a fire hydrant visible in the image?[0m
+2025-08-29 09:45:56,089 - INFO - Sample existence/000000015746#1 - Model output: Yes
+2025-08-29 09:45:56,666 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:46:05,040 - INFO - [96mSample existence/000000015746#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:46:05,041 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a fire hydrant in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:46:05,041 - INFO - Sample existence/000000015746#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:46:05,041 - INFO - [92mSample existence/000000015746#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:46:05,042 - INFO - [92mSample existence/000000015746#1 - Final adjudication: Q0[0m
+2025-08-29 09:46:05,042 - INFO - Sample existence/000000015746#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:46:28,267 - INFO - [96mSample existence/000000015746#2 - Q1 (formulated):[0m [95mIs a person visible in this image?[0m
+2025-08-29 09:46:29,074 - INFO - Sample existence/000000015746#2 - Model output: No
+2025-08-29 09:46:29,479 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:46:44,496 - INFO - [96mSample existence/000000015746#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:46:44,497 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no identifiable person in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A person is visible in the background of the image.; AGLA verdict: False
+2025-08-29 09:46:44,498 - INFO - Sample existence/000000015746#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:46:45,561 - INFO - Sample existence/000000015746#2 - Model output: No
+2025-08-29 09:46:45,922 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:47:00,322 - INFO - [96mSample existence/000000015746#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:47:00,323 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no person visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A person is visible in the image, standing near the red fire hydrant.; AGLA verdict: False
+2025-08-29 09:47:00,323 - INFO - Sample existence/000000015746#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:47:00,324 - INFO - [93mSample existence/000000015746#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:47:00,324 - INFO - [92mSample existence/000000015746#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:47:00,324 - INFO - Sample existence/000000015746#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:47:25,027 - INFO - [96mSample existence/000000037751#1 - Q1 (formulated):[0m [95mIs a backpack visible in this image?[0m
+2025-08-29 09:47:26,401 - INFO - Sample existence/000000037751#1 - Model output: No
+2025-08-29 09:47:26,965 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:47:31,937 - INFO - [96mSample existence/000000037751#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:47:31,937 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no backpack in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The man is wearing a backpack while riding his motorcycle.; AGLA verdict: False
+2025-08-29 09:47:31,937 - INFO - Sample existence/000000037751#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:47:32,815 - INFO - Sample existence/000000037751#1 - Model output: No
+2025-08-29 09:47:33,201 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:47:44,690 - INFO - [96mSample existence/000000037751#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:47:44,691 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no visible backpack in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is wearing a backpack while riding a motorcycle.; AGLA verdict: False
+2025-08-29 09:47:44,691 - INFO - Sample existence/000000037751#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:47:44,691 - INFO - [93mSample existence/000000037751#1 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:47:44,691 - INFO - [92mSample existence/000000037751#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:47:44,692 - INFO - Sample existence/000000037751#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:48:07,135 - INFO - [96mSample existence/000000037751#2 - Q1 (formulated):[0m [95mIs there a microwave in the image?[0m
+2025-08-29 09:48:07,604 - INFO - Sample existence/000000037751#2 - Model output: No
+2025-08-29 09:48:07,984 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:48:13,964 - INFO - [96mSample existence/000000037751#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:48:13,965 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no microwave in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a microwave in the image, but it is not the main focus of the scene.; AGLA verdict: False
+2025-08-29 09:48:13,966 - INFO - Sample existence/000000037751#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:48:15,372 - INFO - Sample existence/000000037751#2 - Model output: No
+2025-08-29 09:48:15,724 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:48:20,788 - INFO - [96mSample existence/000000037751#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:48:20,788 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no microwave in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A person is riding a motorcycle on a dirt road.; AGLA verdict: False
+2025-08-29 09:48:20,788 - INFO - Sample existence/000000037751#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:48:20,788 - INFO - [93mSample existence/000000037751#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:48:20,788 - INFO - [92mSample existence/000000037751#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:48:20,788 - INFO - Sample existence/000000037751#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:48:39,605 - INFO - [96mSample existence/000000050145#1 - Q1 (formulated):[0m [95mIs a bicycle present in the image?[0m
+2025-08-29 09:48:40,411 - INFO - Sample existence/000000050145#1 - Model output: Yes
+2025-08-29 09:48:40,932 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:48:45,493 - INFO - [96mSample existence/000000050145#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:48:45,494 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bicycle in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is standing next to a motorcycle.; AGLA verdict: False
+2025-08-29 09:48:45,494 - INFO - Sample existence/000000050145#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:48:46,998 - INFO - Sample existence/000000050145#1 - Model output: Yes
+2025-08-29 09:48:47,418 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:48:51,929 - INFO - [96mSample existence/000000050145#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:48:51,930 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a bicycle in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is standing next to a motorcycle.; AGLA verdict: False
+2025-08-29 09:48:51,930 - INFO - Sample existence/000000050145#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:48:51,930 - INFO - [93mSample existence/000000050145#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:48:51,930 - INFO - [92mSample existence/000000050145#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:48:51,930 - INFO - Sample existence/000000050145#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:49:06,450 - INFO - [96mSample existence/000000050145#2 - Q1 (formulated):[0m [95mIs an apple visible in this image?[0m
+2025-08-29 09:49:07,481 - INFO - Sample existence/000000050145#2 - Model output: No
+2025-08-29 09:49:07,929 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:49:13,214 - INFO - [96mSample existence/000000050145#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:49:13,214 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no apple in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is an apple in the image, as the man is holding a bag of apples.; AGLA verdict: False
+2025-08-29 09:49:13,214 - INFO - Sample existence/000000050145#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:49:13,918 - INFO - Sample existence/000000050145#2 - Model output: No
+2025-08-29 09:49:14,299 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:49:25,760 - INFO - [96mSample existence/000000050145#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:49:25,762 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no visible apple in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a man holding a bicycle with an apple in his hand.; AGLA verdict: False
+2025-08-29 09:49:25,762 - INFO - Sample existence/000000050145#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:49:25,762 - INFO - [93mSample existence/000000050145#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:49:25,762 - INFO - [92mSample existence/000000050145#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:49:25,762 - INFO - Sample existence/000000050145#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:49:33,898 - INFO - [96mSample existence/000000061418#1 - Q1 (formulated):[0m [95mDoes the image contain a chair?[0m
+2025-08-29 09:49:35,195 - INFO - Sample existence/000000061418#1 - Model output: Yes
+2025-08-29 09:49:35,649 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:49:41,641 - INFO - [96mSample existence/000000061418#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:49:41,642 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a chair in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a group of children playing a game of checkers on a boardwalk.; AGLA verdict: False
+2025-08-29 09:49:41,642 - INFO - Sample existence/000000061418#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:49:43,286 - INFO - Sample existence/000000061418#1 - Model output: Yes
+2025-08-29 09:49:44,155 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:49:49,685 - INFO - [96mSample existence/000000061418#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:49:49,686 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The image contains a chair" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image does not contain a chair.; AGLA verdict: False
+2025-08-29 09:49:49,686 - INFO - Sample existence/000000061418#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:49:49,686 - INFO - [93mSample existence/000000061418#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:49:49,686 - INFO - [92mSample existence/000000061418#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:49:49,686 - INFO - Sample existence/000000061418#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:50:10,641 - INFO - [96mSample existence/000000061418#2 - Q1 (formulated):[0m [95mIs an airplane visible in the image?[0m
+2025-08-29 09:50:11,929 - INFO - Sample existence/000000061418#2 - Model output: No
+2025-08-29 09:50:12,308 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:50:17,661 - INFO - [96mSample existence/000000061418#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:50:17,662 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no airplane in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a boat in the water near the children playing with paddle boats.; AGLA verdict: False
+2025-08-29 09:50:17,662 - INFO - Sample existence/000000061418#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:50:19,259 - INFO - Sample existence/000000061418#2 - Model output: No
+2025-08-29 09:50:19,640 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:50:30,668 - INFO - [96mSample existence/000000061418#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:50:30,669 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no airplane visible in the image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A plane is visible in the image, flying over the water.; AGLA verdict: False
+2025-08-29 09:50:30,669 - INFO - Sample existence/000000061418#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:50:30,669 - INFO - [93mSample existence/000000061418#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:50:30,669 - INFO - [92mSample existence/000000061418#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:50:30,669 - INFO - Sample existence/000000061418#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:50:49,405 - INFO - [96mSample existence/000000417779#1 - Q1 (formulated):[0m [95mIs a car visible in this image?[0m
+2025-08-29 09:50:49,964 - INFO - Sample existence/000000417779#1 - Model output: Yes
+2025-08-29 09:50:50,370 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:50:54,974 - INFO - [96mSample existence/000000417779#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:50:54,975 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a car in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a car parked on the side of the road.; AGLA verdict: False
+2025-08-29 09:50:54,975 - INFO - Sample existence/000000417779#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:50:55,591 - INFO - Sample existence/000000417779#1 - Model output: Yes
+2025-08-29 09:50:55,929 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:51:00,320 - INFO - [96mSample existence/000000417779#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:51:00,320 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "A car is visible in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A car is not visible in this image.; AGLA verdict: False
+2025-08-29 09:51:00,320 - INFO - Sample existence/000000417779#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:51:00,320 - INFO - [93mSample existence/000000417779#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:51:00,320 - INFO - [92mSample existence/000000417779#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:51:00,320 - INFO - Sample existence/000000417779#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:51:16,823 - INFO - [96mSample existence/000000417779#2 - Q1 (formulated):[0m [95mIs a kite visible in this image?[0m
+2025-08-29 09:51:17,869 - INFO - Sample existence/000000417779#2 - Model output: No
+2025-08-29 09:51:18,249 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:51:30,530 - INFO - [96mSample existence/000000417779#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:51:30,531 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no visible kite in this image based on the current evidence." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A kite is visible in the image, but it is not the main focus of the scene.; AGLA verdict: False
+2025-08-29 09:51:30,531 - INFO - Sample existence/000000417779#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:51:31,329 - INFO - Sample existence/000000417779#2 - Model output: No
+2025-08-29 09:51:31,673 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:51:43,332 - INFO - [96mSample existence/000000417779#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:51:43,332 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no kite visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A kite is visible in the image.; AGLA verdict: False
+2025-08-29 09:51:43,332 - INFO - Sample existence/000000417779#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:51:43,332 - INFO - [93mSample existence/000000417779#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:51:43,332 - INFO - [92mSample existence/000000417779#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:51:43,332 - INFO - Sample existence/000000417779#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:52:03,103 - INFO - [96mSample existence/000000424521#1 - Q1 (formulated):[0m [95mIs a skateboard present in this image?[0m
+2025-08-29 09:52:04,220 - INFO - Sample existence/000000424521#1 - Model output: Yes
+2025-08-29 09:52:04,732 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:52:09,610 - INFO - [96mSample existence/000000424521#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:52:09,610 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a skateboard in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is performing a trick on a skateboard.; AGLA verdict: False
+2025-08-29 09:52:09,610 - INFO - Sample existence/000000424521#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:52:10,739 - INFO - Sample existence/000000424521#1 - Model output: Yes
+2025-08-29 09:52:11,046 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:52:15,527 - INFO - [96mSample existence/000000424521#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:52:15,528 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "A skateboard is present in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The skateboarder is performing a trick in the air.; AGLA verdict: False
+2025-08-29 09:52:15,528 - INFO - Sample existence/000000424521#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:52:15,529 - INFO - [93mSample existence/000000424521#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:52:15,529 - INFO - [92mSample existence/000000424521#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:52:15,529 - INFO - Sample existence/000000424521#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:52:24,208 - INFO - [96mSample existence/000000424521#2 - Q1 (formulated):[0m [95mIs a banana visible in the image?[0m
+2025-08-29 09:52:25,010 - INFO - Sample existence/000000424521#2 - Model output: No
+2025-08-29 09:52:25,398 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:52:29,620 - INFO - [96mSample existence/000000424521#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:52:29,620 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no banana in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a banana in the image.; AGLA verdict: False
+2025-08-29 09:52:29,620 - INFO - Sample existence/000000424521#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:52:30,125 - INFO - Sample existence/000000424521#2 - Model output: No
+2025-08-29 09:52:30,606 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:52:41,232 - INFO - [96mSample existence/000000424521#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:52:41,233 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no banana visible in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A banana is visible in the image.; AGLA verdict: False
+2025-08-29 09:52:41,233 - INFO - Sample existence/000000424521#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:52:41,233 - INFO - [93mSample existence/000000424521#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:52:41,233 - INFO - [92mSample existence/000000424521#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:52:41,233 - INFO - Sample existence/000000424521#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:53:02,318 - INFO - [96mSample existence/000000438304#1 - Q1 (formulated):[0m [95mIs a sports ball visible in this image?[0m
+2025-08-29 09:53:03,840 - INFO - Sample existence/000000438304#1 - Model output: Yes
+2025-08-29 09:53:04,261 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:53:10,271 - INFO - [96mSample existence/000000438304#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:53:10,272 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a sports ball in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A woman is swinging a tennis racket at a tennis ball.; AGLA verdict: False
+2025-08-29 09:53:10,272 - INFO - Sample existence/000000438304#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:53:11,129 - INFO - Sample existence/000000438304#1 - Model output: Yes
+2025-08-29 09:53:11,658 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:53:16,637 - INFO - [96mSample existence/000000438304#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:53:16,637 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "A sports ball is visible in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A woman is holding a tennis racket and ball on a tennis court.; AGLA verdict: False
+2025-08-29 09:53:16,637 - INFO - Sample existence/000000438304#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:53:16,638 - INFO - [93mSample existence/000000438304#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:53:16,638 - INFO - [92mSample existence/000000438304#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:53:16,638 - INFO - Sample existence/000000438304#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:53:37,151 - INFO - [96mSample existence/000000438304#2 - Q1 (formulated):[0m [95mIs there a horse in the image?[0m
+2025-08-29 09:53:38,184 - INFO - Sample existence/000000438304#2 - Model output: No
+2025-08-29 09:53:38,512 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:53:49,986 - INFO - [96mSample existence/000000438304#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:53:49,987 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no horse visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A woman is playing tennis on a court with a man.; AGLA verdict: False
+2025-08-29 09:53:49,988 - INFO - Sample existence/000000438304#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:53:51,188 - INFO - Sample existence/000000438304#2 - Model output: No
+2025-08-29 09:53:51,614 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:53:56,800 - INFO - [96mSample existence/000000438304#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:53:56,801 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no horse in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a woman playing tennis, and there is a horse in the background.; AGLA verdict: False
+2025-08-29 09:53:56,801 - INFO - Sample existence/000000438304#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:53:56,801 - INFO - [93mSample existence/000000438304#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:53:56,801 - INFO - [92mSample existence/000000438304#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:53:56,801 - INFO - Sample existence/000000438304#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:54:18,574 - INFO - [96mSample existence/000000494427#1 - Q1 (formulated):[0m [95mIs there a laptop in the image?[0m
+2025-08-29 09:54:19,587 - INFO - Sample existence/000000494427#1 - Model output: Yes
+2025-08-29 09:54:19,982 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:54:25,184 - INFO - [96mSample existence/000000494427#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:54:25,185 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a laptop in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:54:25,185 - INFO - Sample existence/000000494427#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:54:25,185 - INFO - [92mSample existence/000000494427#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:54:25,185 - INFO - [92mSample existence/000000494427#1 - Final adjudication: Q0[0m
+2025-08-29 09:54:25,185 - INFO - Sample existence/000000494427#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:54:46,235 - INFO - [96mSample existence/000000494427#2 - Q1 (formulated):[0m [95mIs there a potted plant in the image?[0m
+2025-08-29 09:54:47,267 - INFO - Sample existence/000000494427#2 - Model output: No
+2025-08-29 09:54:47,804 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:54:52,244 - INFO - [96mSample existence/000000494427#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:54:52,244 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no potted plant in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a potted plant in the background of the image.; AGLA verdict: False
+2025-08-29 09:54:52,245 - INFO - Sample existence/000000494427#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:54:53,446 - INFO - Sample existence/000000494427#2 - Model output: No
+2025-08-29 09:54:54,009 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:54:58,219 - INFO - [96mSample existence/000000494427#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:54:58,219 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no potted plant in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: There is a potted plant in the image.; AGLA verdict: False
+2025-08-29 09:54:58,219 - INFO - Sample existence/000000494427#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:54:58,219 - INFO - [93mSample existence/000000494427#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:54:58,219 - INFO - [92mSample existence/000000494427#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:54:58,219 - INFO - Sample existence/000000494427#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:55:18,566 - INFO - [96mSample existence/000000495448#1 - Q1 (formulated):[0m [95mIs there a cake in the image?[0m
+2025-08-29 09:55:19,618 - INFO - Sample existence/000000495448#1 - Model output: Yes
+2025-08-29 09:55:20,061 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:55:26,089 - INFO - [96mSample existence/000000495448#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:55:26,090 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a cake in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:55:26,090 - INFO - Sample existence/000000495448#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:55:26,090 - INFO - [92mSample existence/000000495448#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:55:26,090 - INFO - [92mSample existence/000000495448#1 - Final adjudication: Q0[0m
+2025-08-29 09:55:26,090 - INFO - Sample existence/000000495448#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:55:43,973 - INFO - [96mSample existence/000000495448#2 - Q1 (formulated):[0m [95mIs there a tie in the image?[0m
+2025-08-29 09:55:45,305 - INFO - Sample existence/000000495448#2 - Model output: No
+2025-08-29 09:55:45,712 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:55:57,187 - INFO - [96mSample existence/000000495448#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:55:57,188 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no tie visible in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a three-tiered cake with a tie on it.; AGLA verdict: False
+2025-08-29 09:55:57,188 - INFO - Sample existence/000000495448#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:55:58,128 - INFO - Sample existence/000000495448#2 - Model output: No
+2025-08-29 09:55:58,537 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:56:09,741 - INFO - [96mSample existence/000000495448#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:56:09,744 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no tie in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a three-tiered wedding cake with a tie on it.; AGLA verdict: False
+2025-08-29 09:56:09,744 - INFO - Sample existence/000000495448#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:56:09,744 - INFO - [93mSample existence/000000495448#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:56:09,744 - INFO - [92mSample existence/000000495448#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:56:09,744 - INFO - Sample existence/000000495448#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:56:32,002 - INFO - [96mSample existence/000000498463#1 - Q1 (formulated):[0m [95mIs there a refrigerator in the image?[0m
+2025-08-29 09:56:32,921 - INFO - Sample existence/000000498463#1 - Model output: Yes
+2025-08-29 09:56:33,437 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:56:38,599 - INFO - [96mSample existence/000000498463#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:56:38,599 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a refrigerator in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:56:38,600 - INFO - Sample existence/000000498463#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:56:38,600 - INFO - [92mSample existence/000000498463#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:56:38,600 - INFO - [92mSample existence/000000498463#1 - Final adjudication: Q0[0m
+2025-08-29 09:56:38,600 - INFO - Sample existence/000000498463#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:56:45,990 - INFO - [96mSample existence/000000498463#2 - Q1 (formulated):[0m [95mDoes the image contain a donut?[0m
+2025-08-29 09:56:47,243 - INFO - Sample existence/000000498463#2 - Model output: No
+2025-08-29 09:56:47,632 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:56:59,143 - INFO - [96mSample existence/000000498463#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:56:59,144 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no donut visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A donut is not visible in the image.; AGLA verdict: False
+2025-08-29 09:56:59,144 - INFO - Sample existence/000000498463#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:56:59,750 - INFO - Sample existence/000000498463#2 - Model output: No
+2025-08-29 09:57:00,165 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:57:04,625 - INFO - [96mSample existence/000000498463#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:57:04,625 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The image does not contain a donut" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image contains a donut.; AGLA verdict: False
+2025-08-29 09:57:04,625 - INFO - Sample existence/000000498463#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:57:04,625 - INFO - [93mSample existence/000000498463#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 09:57:04,625 - INFO - [92mSample existence/000000498463#2 - Final adjudication: Q0_tie[0m
+2025-08-29 09:57:04,625 - INFO - Sample existence/000000498463#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:57:26,104 - INFO - [96mSample existence/000000519039#1 - Q1 (formulated):[0m [95mIs there a truck in the image?[0m
+2025-08-29 09:57:27,594 - INFO - Sample existence/000000519039#1 - Model output: Yes
+2025-08-29 09:57:28,054 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:57:35,149 - INFO - [96mSample existence/000000519039#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:57:35,149 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a truck in this image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:57:35,149 - INFO - Sample existence/000000519039#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:57:35,150 - INFO - [92mSample existence/000000519039#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 09:57:35,150 - INFO - [92mSample existence/000000519039#1 - Final adjudication: Q0[0m
+2025-08-29 09:57:35,150 - INFO - Sample existence/000000519039#1 - Hallucination source: [92mNONE[0m
+2025-08-29 09:58:06,388 - INFO - [96mSample existence/000000519039#2 - Q1 (formulated):[0m [95mIs there a book in the image?[0m
+2025-08-29 09:58:07,153 - INFO - Sample existence/000000519039#2 - Model output: No
+2025-08-29 09:58:07,577 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:58:20,075 - INFO - [96mSample existence/000000519039#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:58:20,076 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no book visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A book is visible in the image.; AGLA verdict: False
+2025-08-29 09:58:20,076 - INFO - Sample existence/000000519039#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:58:20,854 - INFO - Sample existence/000000519039#2 - Model output: No
+2025-08-29 09:58:21,377 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:58:27,823 - INFO - [96mSample existence/000000519039#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:58:27,823 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no book in the image" -> [92mPASS[0m (conf 0.85); evidence: AGLA verdict: True
+2025-08-29 09:58:27,823 - INFO - Sample existence/000000519039#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 09:58:27,823 - INFO - [93mSample existence/000000519039#2 - Adjudication scores (content-only): Q0=0.00, Q1=-1.00[0m
+2025-08-29 09:58:27,823 - INFO - [92mSample existence/000000519039#2 - Final adjudication: Q0[0m
+2025-08-29 09:58:27,823 - INFO - Sample existence/000000519039#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:58:50,108 - INFO - [96mSample existence/000000523241#1 - Q1 (formulated):[0m [95mIs there a car in the image?[0m
+2025-08-29 09:58:50,909 - INFO - Sample existence/000000523241#1 - Model output: Yes
+2025-08-29 09:58:51,281 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:58:55,977 - INFO - [96mSample existence/000000523241#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:58:55,977 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a car in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image does not contain a car.; AGLA verdict: False
+2025-08-29 09:58:55,977 - INFO - Sample existence/000000523241#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:58:56,512 - INFO - Sample existence/000000523241#1 - Model output: Yes
+2025-08-29 09:58:56,893 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:59:03,317 - INFO - [96mSample existence/000000523241#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:59:03,318 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a car in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a street sign on a pole with a pedestrian crossing sign and a walk sign.; AGLA verdict: False
+2025-08-29 09:59:03,318 - INFO - Sample existence/000000523241#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:59:03,318 - INFO - [93mSample existence/000000523241#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 09:59:03,318 - INFO - [92mSample existence/000000523241#1 - Final adjudication: Q0_tie[0m
+2025-08-29 09:59:03,318 - INFO - Sample existence/000000523241#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 09:59:41,687 - INFO - [96mSample existence/000000523241#2 - Q1 (formulated):[0m [95mIs a cell phone present in the image?[0m
+2025-08-29 09:59:42,664 - INFO - Sample existence/000000523241#2 - Model output: No
+2025-08-29 09:59:43,187 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 09:59:49,124 - INFO - [96mSample existence/000000523241#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 09:59:49,126 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no cell phone in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A cell phone is visible in the image.; AGLA verdict: False
+2025-08-29 09:59:49,126 - INFO - Sample existence/000000523241#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 09:59:50,408 - INFO - Sample existence/000000523241#2 - Model output: No
+2025-08-29 09:59:50,868 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:00:18,156 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 10:00:18,159 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 10:00:18,164 - INFO - Resuming with 45 already processed samples
+2025-08-29 10:00:46,553 - INFO - [96mSample existence/000000523241#2 - Q1 (formulated):[0m [95mIs a cell phone visible in the image?[0m
+2025-08-29 10:00:47,354 - INFO - Sample existence/000000523241#2 - Model output: No
+2025-08-29 10:00:47,807 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:00:52,330 - INFO - [96mSample existence/000000523241#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:00:52,330 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no cell phone in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a cell phone in the scene.; AGLA verdict: False
+2025-08-29 10:00:52,330 - INFO - Sample existence/000000523241#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:00:53,632 - INFO - Sample existence/000000523241#2 - Model output: No
+2025-08-29 10:00:54,270 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:01:05,761 - INFO - [96mSample existence/000000523241#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:01:05,762 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no cell phone visible in the image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A cell phone is visible in the image.; AGLA verdict: False
+2025-08-29 10:01:05,763 - INFO - Sample existence/000000523241#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:01:05,763 - INFO - [93mSample existence/000000523241#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 10:01:05,763 - INFO - [92mSample existence/000000523241#2 - Final adjudication: Q0_tie[0m
+2025-08-29 10:01:05,763 - INFO - Sample existence/000000523241#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 10:01:26,504 - INFO - [96mSample existence/000000530162#1 - Q1 (formulated):[0m [95mIs there an umbrella in the image?[0m
+2025-08-29 10:01:27,154 - INFO - Sample existence/000000530162#1 - Model output: Yes
+2025-08-29 10:01:27,618 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:01:32,490 - INFO - [96mSample existence/000000530162#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:01:32,490 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is an umbrella in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The man is holding an umbrella.; AGLA verdict: False
+2025-08-29 10:01:32,490 - INFO - Sample existence/000000530162#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:01:34,181 - INFO - Sample existence/000000530162#1 - Model output: Yes
+2025-08-29 10:01:35,265 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:01:39,940 - INFO - [96mSample existence/000000530162#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:01:39,940 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is an umbrella in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The man is holding an umbrella.; AGLA verdict: False
+2025-08-29 10:01:39,940 - INFO - Sample existence/000000530162#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:01:39,940 - INFO - [93mSample existence/000000530162#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 10:01:39,940 - INFO - [92mSample existence/000000530162#1 - Final adjudication: Q0_tie[0m
+2025-08-29 10:01:39,940 - INFO - Sample existence/000000530162#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 10:02:01,429 - INFO - [96mSample existence/000000530162#2 - Q1 (formulated):[0m [95mDoes the image contain a horse?[0m
+2025-08-29 10:02:02,321 - INFO - Sample existence/000000530162#2 - Model output: No
+2025-08-29 10:02:03,062 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:02:14,837 - INFO - [96mSample existence/000000530162#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:02:14,839 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is no horse visible in this image." -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: A man is standing next to a woman and two children under a red umbrella.; AGLA verdict: False
+2025-08-29 10:02:14,839 - INFO - Sample existence/000000530162#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:02:16,091 - INFO - Sample existence/000000530162#2 - Model output: No
+2025-08-29 10:02:17,905 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:02:23,233 - INFO - [96mSample existence/000000530162#2 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:02:23,234 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "The image does not contain a horse" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image contains a horse, as evidenced by the presence of a horse statue in the scene.; AGLA verdict: False
+2025-08-29 10:02:23,234 - INFO - Sample existence/000000530162#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:02:23,234 - INFO - [93mSample existence/000000530162#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 10:02:23,234 - INFO - [92mSample existence/000000530162#2 - Final adjudication: Q0_tie[0m
+2025-08-29 10:02:23,234 - INFO - Sample existence/000000530162#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 10:02:30,739 - INFO - [96mSample existence/000000537812#1 - Q1 (formulated):[0m [95mIs there a chair present in the image?[0m
+2025-08-29 10:02:31,458 - INFO - Sample existence/000000537812#1 - Model output: Yes
+2025-08-29 10:02:31,956 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:02:36,452 - INFO - [96mSample existence/000000537812#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:02:36,452 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a chair in this image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a toilet and a bucket on a floor.; AGLA verdict: False
+2025-08-29 10:02:36,452 - INFO - Sample existence/000000537812#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:02:37,581 - INFO - Sample existence/000000537812#1 - Model output: Yes
+2025-08-29 10:02:38,176 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 10:02:42,911 - INFO - [96mSample existence/000000537812#1 - Cross-modal outcomes (derived_yesno):[0m
+2025-08-29 10:02:42,911 - INFO -   Claim #1 [VISUAL_GROUNDING_REQUIRED]: "There is a chair present in the image" -> [91mFAIL[0m (conf 0.85); evidence: AGLA correction: The image shows a toilet and a bucket on the floor.; AGLA verdict: False
+2025-08-29 10:02:42,911 - INFO - Sample existence/000000537812#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 10:02:42,911 - INFO - [93mSample existence/000000537812#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 10:02:42,911 - INFO - [92mSample existence/000000537812#1 - Final adjudication: Q0_tie[0m
+2025-08-29 10:02:42,911 - INFO - Sample existence/000000537812#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m

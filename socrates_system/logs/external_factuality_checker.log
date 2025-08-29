@@ -3417,3 +3417,98 @@ The man is a 24-year-old Algerian and was led away by police after the train arr
 2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
 2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
 2025-08-29 07:09:29,073 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:12:51,629 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:12:51,629 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:12:51,629 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:18:10,313 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:18:10,313 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:18:10,313 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:22:33,671 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:22:33,671 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:22:33,672 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:33:12,413 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:33:12,414 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:33:12,414 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 07:42:22,374 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 07:42:22,374 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 07:42:22,374 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:02:24,788 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:02:24,788 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:02:24,788 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:06:52,614 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed.
+2025-08-29 08:06:56,106 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:06:56,814 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence] claim='The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed.' | source=OpenAI | status=INCONCLUSIVE | conf=0.60 | evidence='The claim is ambiguous and requires further context to determine its accuracy.' | content='The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed.' | sources=
+2025-08-29 08:06:56,814 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence Aggregation] claim='The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed.' | evidence_preview='- The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed. - The claim is ambiguous and requires further context to determine its accuracy.' | sources_n=0
+2025-08-29 08:06:58,541 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Verdict] claim='The statement 'Yes' affirms that the claim is correct, but additional context is needed to specify what is being affirmed.' | status=UNCERTAIN | conf=0.60 | support_n=2 | contradict_n=0
+2025-08-29 08:06:58,541 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-29 08:12:32,843 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' confirms that the previous claim is true.
+2025-08-29 08:12:36,331 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:12:38,259 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence] claim='The statement 'Yes' confirms that the previous claim is true.' | source=OpenAI | status=INCONCLUSIVE | conf=0.80 | evidence='The word 'Yes' does not necessarily confirm the truth of a previous claim.; Confirmation of a claim requires more than a simple 'Yes' response.' | content='The statement 'Yes' confirms that the previous claim is true.' | sources=https://www.merriam-webster.com/dictionary/yes, https://www.dictionary.com/browse/yes
+2025-08-29 08:12:38,259 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence Aggregation] claim='The statement 'Yes' confirms that the previous claim is true.' | evidence_preview='- The statement 'Yes' confirms that the previous claim is true. - The word 'Yes' does not necessarily confirm the truth of a previous claim. - Confirmation of a claim requires more than a simple 'Yes' response.' | sources_n=2
+2025-08-29 08:12:40,267 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Verdict] claim='The statement 'Yes' confirms that the previous claim is true.' | status=FAIL | conf=0.95 | support_n=3 | contradict_n=0
+2025-08-29 08:12:40,267 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-29 08:14:25,442 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed.
+2025-08-29 08:14:28,915 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:14:30,167 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence] claim='The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed.' | source=OpenAI | status=INCONCLUSIVE | conf=0.90 | evidence='The word 'Yes' is commonly used to confirm a statement or claim.; Additional details are often required to provide clarity on the specific claim being confirmed.' | content='The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed.' | sources=https://www.merriam-webster.com/dictionary/yes, https://www.grammarly.com/blog/yes-or-no/
+2025-08-29 08:14:30,167 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence Aggregation] claim='The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed.' | evidence_preview='- The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed. - The word 'Yes' is commonly used to confirm a statement or claim. - Additional details are often required to provide clarity on the specific claim being confirmed.' | sources_n=2
+2025-08-29 08:14:32,780 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Verdict] claim='The statement 'Yes' confirms that the specific claim in question has been acknowledged, but additional details are needed to clarify which claim is being confirmed.' | status=UNCERTAIN | conf=0.60 | support_n=3 | contradict_n=0
+2025-08-29 08:14:32,781 - socrates_system.modules.external_factuality_checker - INFO - External verification status: UNCERTAIN (conf 0.60)
+2025-08-29 08:19:11,949 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' confirms that the previous claim is true.
+2025-08-29 08:19:15,445 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:19:16,251 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence] claim='The statement 'Yes' confirms that the previous claim is true.' | source=OpenAI | status=INCONCLUSIVE | conf=0.80 | evidence='The word 'Yes' does not necessarily confirm the truth of a previous claim.; Confirmation requires more explicit agreement or evidence.' | content='The statement 'Yes' confirms that the previous claim is true.' | sources=
+2025-08-29 08:19:16,252 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence Aggregation] claim='The statement 'Yes' confirms that the previous claim is true.' | evidence_preview='- The statement 'Yes' confirms that the previous claim is true. - The word 'Yes' does not necessarily confirm the truth of a previous claim. - Confirmation requires more explicit agreement or evidence.' | sources_n=0
+2025-08-29 08:19:18,941 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Verdict] claim='The statement 'Yes' confirms that the previous claim is true.' | status=FAIL | conf=0.95 | support_n=3 | contradict_n=0
+2025-08-29 08:19:18,941 - socrates_system.modules.external_factuality_checker - INFO - External verification status: FAIL (conf 0.95)
+2025-08-29 08:20:47,131 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear.
+2025-08-29 08:20:50,555 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:20:51,598 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence] claim='The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear.' | source=OpenAI | status=INCONCLUSIVE | conf=0.90 | evidence='The word 'Yes' is commonly used to indicate agreement or affirmation.; The specific context or content of agreement may vary based on the conversation.' | content='The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear.' | sources=https://www.merriam-webster.com/dictionary/yes, https://www.oxfordlearnersdictionaries.com/definition/english/yes_1
+2025-08-29 08:20:51,599 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Evidence Aggregation] claim='The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear.' | evidence_preview='- The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear. - The word 'Yes' is commonly used to indicate agreement or affirmation. - The specific context or content of agreement may vary based on the conversation.' | sources_n=2
+2025-08-29 08:20:53,642 - socrates_system.modules.external_factuality_checker - INFO - [Claim+Verdict] claim='The statement 'Yes' confirms that the subject agrees with the previous statement or question, but the specific context or content is unclear.' | status=PASS | conf=0.95 | support_n=3 | contradict_n=0
+2025-08-29 08:20:53,642 - socrates_system.modules.external_factuality_checker - INFO - External verification status: PASS (conf 0.95)
+2025-08-29 08:22:33,358 - socrates_system.modules.external_factuality_checker - INFO - Verifying claim externally: The statement 'Yes' affirms that the claim is correct, but additional context is needed to understand what specifically is being affirmed.
+2025-08-29 08:22:36,782 - socrates_system.modules.external_factuality_checker - INFO - Tavily API key not set; skipping Tavily fallback
+2025-08-29 08:23:34,464 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:23:34,464 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:23:34,464 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:37:53,076 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:37:53,077 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:37:53,077 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:50:06,289 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:50:06,289 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:50:06,289 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:53:32,428 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:53:32,428 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:53:32,428 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 08:55:43,117 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 08:55:43,117 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 08:55:43,117 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:02:50,942 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:02:50,943 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:02:50,943 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:04:59,918 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:04:59,918 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:04:59,918 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:07:10,089 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:07:10,090 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:07:10,090 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:10:41,374 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:10:41,375 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:10:41,375 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:20:14,130 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:20:14,130 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:20:14,130 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:24:32,920 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:24:32,921 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:24:32,921 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:29:22,504 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:29:22,504 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:29:22,504 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:32:35,330 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:32:35,330 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:32:35,330 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 09:44:32,742 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 09:44:32,743 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 09:44:32,743 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully
+2025-08-29 10:00:18,155 - socrates_system.modules.external_factuality_checker - INFO - Initializing External Factuality Checker...
+2025-08-29 10:00:18,155 - socrates_system.modules.external_factuality_checker - INFO - Google Fact Check client enabled
+2025-08-29 10:00:18,155 - socrates_system.modules.external_factuality_checker - INFO - External Factuality Checker initialized successfully

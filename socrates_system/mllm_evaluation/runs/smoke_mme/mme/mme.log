@@ -1,0 +1,271 @@
+2025-08-29 07:33:12,418 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 07:33:12,418 - INFO - Resuming with 0 already processed samples
+2025-08-29 07:34:05,655 - INFO - Sample existence/000000006040#1 - Model output: Yes
+2025-08-29 07:34:06,498 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:34:21,414 - INFO - Sample existence/000000006040#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 07:34:21,415 - INFO - [92mSample existence/000000006040#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 07:34:21,416 - INFO - [92mSample existence/000000006040#1 - Final adjudication: Q0[0m
+2025-08-29 07:34:21,416 - INFO - Sample existence/000000006040#1 - Hallucination source: [92mNONE[0m
+2025-08-29 07:34:50,455 - INFO - Sample existence/000000006040#2 - Model output: No
+2025-08-29 07:34:50,945 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:35:04,901 - INFO - Sample existence/000000006040#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:35:06,393 - INFO - Sample existence/000000006040#2 - Model output: No
+2025-08-29 07:35:07,032 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:35:19,306 - INFO - Sample existence/000000006040#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:35:19,308 - INFO - [93mSample existence/000000006040#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 07:35:19,308 - INFO - [92mSample existence/000000006040#2 - Final adjudication: Q0_tie[0m
+2025-08-29 07:35:19,308 - INFO - Sample existence/000000006040#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:35:41,421 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-29 07:35:42,075 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:35:53,650 - INFO - Sample existence/000000006471#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:35:55,793 - INFO - Sample existence/000000006471#1 - Model output: Yes
+2025-08-29 07:35:56,303 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:36:08,435 - INFO - Sample existence/000000006471#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:36:08,436 - INFO - [93mSample existence/000000006471#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 07:36:08,436 - INFO - [92mSample existence/000000006471#1 - Final adjudication: Q0_tie[0m
+2025-08-29 07:36:08,436 - INFO - Sample existence/000000006471#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:36:33,998 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-29 07:36:34,503 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:36:47,133 - INFO - Sample existence/000000006471#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:36:48,560 - INFO - Sample existence/000000006471#2 - Model output: No
+2025-08-29 07:36:49,144 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:37:02,564 - INFO - Sample existence/000000006471#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:37:02,566 - INFO - [93mSample existence/000000006471#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 07:37:02,566 - INFO - [92mSample existence/000000006471#2 - Final adjudication: Q0_tie[0m
+2025-08-29 07:37:02,566 - INFO - Sample existence/000000006471#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:37:33,319 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-29 07:37:33,795 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:37:45,471 - INFO - Sample existence/000000007108#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:37:48,168 - INFO - Sample existence/000000007108#1 - Model output: Yes
+2025-08-29 07:37:49,029 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:38:05,422 - INFO - Sample existence/000000007108#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 07:38:05,422 - INFO - [93mSample existence/000000007108#1 - Adjudication scores (content-only): Q0=-4.00, Q1=3.00[0m
+2025-08-29 07:38:05,423 - INFO - [92mSample existence/000000007108#1 - Final adjudication: Q1[0m
+2025-08-29 07:38:05,423 - INFO - Sample existence/000000007108#1 - Hallucination source: [92mNONE[0m
+2025-08-29 07:38:05,425 - INFO - Reached sample limit 5; stopping.
+2025-08-29 07:38:05,425 - INFO - Evaluation complete. MME results written to: socrates_system/mllm_evaluation/runs/smoke_mme/mme/mme_results
+2025-08-29 07:42:22,378 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 07:42:22,379 - INFO - Resuming with 5 already processed samples
+2025-08-29 07:42:47,295 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-29 07:42:47,887 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:43:00,772 - INFO - Sample existence/000000007108#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:43:02,864 - INFO - Sample existence/000000007108#2 - Model output: No
+2025-08-29 07:43:03,510 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:43:17,125 - INFO - Sample existence/000000007108#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:43:17,126 - INFO - [93mSample existence/000000007108#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 07:43:17,126 - INFO - [92mSample existence/000000007108#2 - Final adjudication: Q0_tie[0m
+2025-08-29 07:43:17,126 - INFO - Sample existence/000000007108#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:43:42,345 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-29 07:43:42,889 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:43:53,878 - INFO - Sample existence/000000007816#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:43:55,336 - INFO - Sample existence/000000007816#1 - Model output: Yes
+2025-08-29 07:43:55,813 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:44:07,159 - INFO - Sample existence/000000007816#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:44:07,161 - INFO - [93mSample existence/000000007816#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 07:44:07,161 - INFO - [92mSample existence/000000007816#1 - Final adjudication: Q0_tie[0m
+2025-08-29 07:44:07,161 - INFO - Sample existence/000000007816#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:44:30,440 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-29 07:44:30,885 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:44:43,143 - INFO - Sample existence/000000007816#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:44:44,345 - INFO - Sample existence/000000007816#2 - Model output: No
+2025-08-29 07:44:44,881 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:44:56,450 - INFO - Sample existence/000000007816#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:44:56,451 - INFO - [93mSample existence/000000007816#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 07:44:56,451 - INFO - [92mSample existence/000000007816#2 - Final adjudication: Q0_tie[0m
+2025-08-29 07:44:56,451 - INFO - Sample existence/000000007816#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:45:23,222 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-29 07:45:23,816 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:45:36,283 - INFO - Sample existence/000000007977#1 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:45:38,459 - INFO - Sample existence/000000007977#1 - Model output: Yes
+2025-08-29 07:45:38,970 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:45:51,681 - INFO - Sample existence/000000007977#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:45:51,682 - INFO - [93mSample existence/000000007977#1 - Adjudication scores (content-only): Q0=-4.00, Q1=-4.00[0m
+2025-08-29 07:45:51,682 - INFO - [92mSample existence/000000007977#1 - Final adjudication: Q0_tie[0m
+2025-08-29 07:45:51,682 - INFO - Sample existence/000000007977#1 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:46:20,639 - INFO - Sample existence/000000007977#2 - Model output: No
+2025-08-29 07:46:21,167 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:46:33,563 - INFO - Sample existence/000000007977#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:46:35,061 - INFO - Sample existence/000000007977#2 - Model output: No
+2025-08-29 07:46:35,772 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 07:46:52,633 - INFO - Sample existence/000000007977#2 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 07:46:52,633 - INFO - [93mSample existence/000000007977#2 - Adjudication scores (content-only): Q0=0.00, Q1=0.00[0m
+2025-08-29 07:46:52,633 - INFO - [92mSample existence/000000007977#2 - Final adjudication: Q0_tie[0m
+2025-08-29 07:46:52,634 - INFO - Sample existence/000000007977#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
+2025-08-29 07:46:52,636 - INFO - Reached sample limit 5; stopping.
+2025-08-29 07:46:52,636 - INFO - Evaluation complete. MME results written to: socrates_system/mllm_evaluation/runs/smoke_mme/mme/mme_results
+2025-08-29 08:02:24,792 - INFO - Loaded 60 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark/existence
+2025-08-29 08:02:24,794 - INFO - Resuming with 10 already processed samples
+2025-08-29 08:03:05,398 - INFO - Sample existence/000000008844#1 - Model output: Yes
+2025-08-29 08:03:05,752 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:03:11,200 - INFO - Sample existence/000000008844#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:03:20,549 - INFO - Sample existence/000000008844#1 - Model output: Yes
+2025-08-29 08:03:21,099 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:03:25,828 - INFO - Sample existence/000000008844#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:03:25,828 - INFO - [93mSample existence/000000008844#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00[0m
+2025-08-29 08:03:25,828 - INFO - [92mSample existence/000000008844#1 - Final adjudication: Q0_tie[0m
+2025-08-29 08:03:25,828 - INFO - Sample existence/000000008844#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:03:58,249 - INFO - Sample existence/000000008844#2 - Model output: No
+2025-08-29 08:03:58,725 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:04:10,593 - INFO - Sample existence/000000008844#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:04:23,082 - INFO - Sample existence/000000008844#2 - Model output: No
+2025-08-29 08:04:23,446 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:04:35,504 - INFO - Sample existence/000000008844#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:04:35,506 - INFO - [93mSample existence/000000008844#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:04:35,506 - INFO - [92mSample existence/000000008844#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:04:35,507 - INFO - Sample existence/000000008844#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:05:00,709 - INFO - Sample existence/000000009590#1 - Model output: Yes
+2025-08-29 08:05:01,077 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:05:05,845 - INFO - Sample existence/000000009590#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:05:16,506 - INFO - Sample existence/000000009590#1 - Model output: Yes
+2025-08-29 08:05:17,102 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:05:21,505 - INFO - Sample existence/000000009590#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:05:21,505 - INFO - [93mSample existence/000000009590#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00[0m
+2025-08-29 08:05:21,505 - INFO - [92mSample existence/000000009590#1 - Final adjudication: Q0_tie[0m
+2025-08-29 08:05:21,505 - INFO - Sample existence/000000009590#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:05:38,861 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-29 08:05:39,212 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:05:44,240 - INFO - Sample existence/000000009590#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:06:03,351 - INFO - Sample existence/000000009590#2 - Model output: No
+2025-08-29 08:06:03,772 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:06:08,645 - INFO - Sample existence/000000009590#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:06:08,645 - INFO - [93mSample existence/000000009590#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:06:08,645 - INFO - [92mSample existence/000000009590#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:06:08,645 - INFO - Sample existence/000000009590#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:06:37,007 - INFO - Sample existence/000000010363#1 - Model output: No
+2025-08-29 08:06:37,423 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:06:42,425 - INFO - Sample existence/000000010363#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:06:59,320 - INFO - Sample existence/000000010363#1 - Model output: Yes
+2025-08-29 08:07:00,232 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:07:04,226 - INFO - Sample existence/000000010363#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:07:04,226 - INFO - [93mSample existence/000000010363#1 - Adjudication scores (content-only): Q0=2.00, Q1=-1.00[0m
+2025-08-29 08:07:04,226 - INFO - [92mSample existence/000000010363#1 - Final adjudication: Q0[0m
+2025-08-29 08:07:04,226 - INFO - Sample existence/000000010363#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:07:30,467 - INFO - Sample existence/000000010363#2 - Model output: No
+2025-08-29 08:07:31,265 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:07:36,425 - INFO - Sample existence/000000010363#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:07:59,894 - INFO - Sample existence/000000010363#2 - Model output: No
+2025-08-29 08:08:00,296 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:08:04,904 - INFO - Sample existence/000000010363#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:08:04,904 - INFO - [93mSample existence/000000010363#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:08:04,904 - INFO - [92mSample existence/000000010363#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:08:04,904 - INFO - Sample existence/000000010363#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:08:39,253 - INFO - Sample existence/000000011197#1 - Model output: Yes
+2025-08-29 08:08:39,735 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:08:45,547 - INFO - Sample existence/000000011197#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:08:56,532 - INFO - Sample existence/000000011197#1 - Model output: Yes
+2025-08-29 08:08:57,264 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:09:03,508 - INFO - Sample existence/000000011197#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 08:09:03,509 - INFO - [93mSample existence/000000011197#1 - Adjudication scores (content-only): Q0=-2.00, Q1=2.00[0m
+2025-08-29 08:09:03,509 - INFO - [92mSample existence/000000011197#1 - Final adjudication: Q1[0m
+2025-08-29 08:09:03,509 - INFO - Sample existence/000000011197#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:09:22,225 - INFO - Sample existence/000000011197#2 - Model output: Yes
+2025-08-29 08:09:22,576 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:09:27,874 - INFO - Sample existence/000000011197#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:09:39,719 - INFO - Sample existence/000000011197#2 - Model output: No
+2025-08-29 08:09:40,124 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:09:52,558 - INFO - Sample existence/000000011197#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:09:52,559 - INFO - [93mSample existence/000000011197#2 - Adjudication scores (content-only): Q0=-2.00, Q1=2.00[0m
+2025-08-29 08:09:52,559 - INFO - [92mSample existence/000000011197#2 - Final adjudication: Q1[0m
+2025-08-29 08:09:52,559 - INFO - Sample existence/000000011197#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:10:12,606 - INFO - Sample existence/000000015254#1 - Model output: Yes
+2025-08-29 08:10:13,044 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:10:17,635 - INFO - Sample existence/000000015254#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:10:29,516 - INFO - Sample existence/000000015254#1 - Model output: Yes
+2025-08-29 08:10:29,936 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:10:36,716 - INFO - Sample existence/000000015254#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:10:36,717 - INFO - [93mSample existence/000000015254#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-2.00[0m
+2025-08-29 08:10:36,717 - INFO - [92mSample existence/000000015254#1 - Final adjudication: Q0_tie[0m
+2025-08-29 08:10:36,717 - INFO - Sample existence/000000015254#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:11:04,419 - INFO - Sample existence/000000015254#2 - Model output: No
+2025-08-29 08:11:04,872 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:11:16,117 - INFO - Sample existence/000000015254#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:11:38,331 - INFO - Sample existence/000000015254#2 - Model output: No
+2025-08-29 08:11:38,699 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:11:50,161 - INFO - Sample existence/000000015254#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:11:50,163 - INFO - [93mSample existence/000000015254#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:11:50,163 - INFO - [92mSample existence/000000015254#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:11:50,163 - INFO - Sample existence/000000015254#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:12:18,259 - INFO - Sample existence/000000015517#1 - Model output: Yes
+2025-08-29 08:12:18,685 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:12:23,561 - INFO - Sample existence/000000015517#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:12:41,146 - INFO - Sample existence/000000015517#1 - Model output: Yes
+2025-08-29 08:12:41,526 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:12:46,863 - INFO - Sample existence/000000015517#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:12:46,863 - INFO - [93mSample existence/000000015517#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-4.00[0m
+2025-08-29 08:12:46,864 - INFO - [92mSample existence/000000015517#1 - Final adjudication: Q0[0m
+2025-08-29 08:12:46,864 - INFO - Sample existence/000000015517#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:13:18,547 - INFO - Sample existence/000000015517#2 - Model output: No
+2025-08-29 08:13:19,021 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:13:28,966 - INFO - Sample existence/000000015517#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:13:40,074 - INFO - Sample existence/000000015517#2 - Model output: No
+2025-08-29 08:13:40,426 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:13:51,892 - INFO - Sample existence/000000015517#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:13:51,892 - INFO - [93mSample existence/000000015517#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:13:51,893 - INFO - [92mSample existence/000000015517#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:13:51,893 - INFO - Sample existence/000000015517#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:14:43,231 - INFO - Sample existence/000000015746#1 - Model output: Yes
+2025-08-29 08:14:43,582 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:14:50,855 - INFO - Sample existence/000000015746#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
+2025-08-29 08:14:50,855 - INFO - [92mSample existence/000000015746#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 08:14:50,855 - INFO - [92mSample existence/000000015746#1 - Final adjudication: Q0[0m
+2025-08-29 08:14:50,855 - INFO - Sample existence/000000015746#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:15:23,955 - INFO - Sample existence/000000015746#2 - Model output: No
+2025-08-29 08:15:24,275 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:15:28,793 - INFO - Sample existence/000000015746#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:15:38,217 - INFO - Sample existence/000000015746#2 - Model output: No
+2025-08-29 08:15:38,645 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:15:50,684 - INFO - Sample existence/000000015746#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:15:50,685 - INFO - [93mSample existence/000000015746#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:15:50,685 - INFO - [92mSample existence/000000015746#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:15:50,685 - INFO - Sample existence/000000015746#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:16:36,872 - INFO - Sample existence/000000037751#1 - Model output: No
+2025-08-29 08:16:37,287 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:16:49,209 - INFO - Sample existence/000000037751#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:17:01,321 - INFO - Sample existence/000000037751#1 - Model output: No
+2025-08-29 08:17:01,787 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:17:06,724 - INFO - Sample existence/000000037751#1 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:17:06,724 - INFO - [93mSample existence/000000037751#1 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:17:06,724 - INFO - [92mSample existence/000000037751#1 - Final adjudication: Q0_tie[0m
+2025-08-29 08:17:06,724 - INFO - Sample existence/000000037751#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:17:41,137 - INFO - Sample existence/000000037751#2 - Model output: No
+2025-08-29 08:17:41,568 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:17:54,285 - INFO - Sample existence/000000037751#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:18:13,701 - INFO - Sample existence/000000037751#2 - Model output: No
+2025-08-29 08:18:14,086 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:18:25,100 - INFO - Sample existence/000000037751#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:18:25,101 - INFO - [93mSample existence/000000037751#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:18:25,101 - INFO - [92mSample existence/000000037751#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:18:25,101 - INFO - Sample existence/000000037751#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:18:57,718 - INFO - Sample existence/000000050145#1 - Model output: Yes
+2025-08-29 08:18:58,169 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:19:02,680 - INFO - Sample existence/000000050145#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:19:19,613 - INFO - Sample existence/000000050145#1 - Model output: Yes
+2025-08-29 08:19:20,079 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:19:24,860 - INFO - Sample existence/000000050145#1 - Q1 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:19:24,861 - INFO - [93mSample existence/000000050145#1 - Adjudication scores (content-only): Q0=-2.00, Q1=-4.00[0m
+2025-08-29 08:19:24,861 - INFO - [92mSample existence/000000050145#1 - Final adjudication: Q0[0m
+2025-08-29 08:19:24,861 - INFO - Sample existence/000000050145#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:19:49,853 - INFO - Sample existence/000000050145#2 - Model output: No
+2025-08-29 08:19:50,212 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:19:55,021 - INFO - Sample existence/000000050145#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:20:05,786 - INFO - Sample existence/000000050145#2 - Model output: No
+2025-08-29 08:20:06,749 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:20:20,356 - INFO - Sample existence/000000050145#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:20:20,357 - INFO - [93mSample existence/000000050145#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:20:20,357 - INFO - [92mSample existence/000000050145#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:20:20,357 - INFO - Sample existence/000000050145#2 - Hallucination source: [92mNONE[0m
+2025-08-29 08:21:08,031 - INFO - Sample existence/000000061418#1 - Model output: Yes
+2025-08-29 08:21:08,835 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:21:13,657 - INFO - Sample existence/000000061418#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:21:13,658 - INFO - [92mSample existence/000000061418#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
+2025-08-29 08:21:13,659 - INFO - [92mSample existence/000000061418#1 - Final adjudication: Q0[0m
+2025-08-29 08:21:13,659 - INFO - Sample existence/000000061418#1 - Hallucination source: [92mNONE[0m
+2025-08-29 08:21:44,776 - INFO - Sample existence/000000061418#2 - Model output: No
+2025-08-29 08:21:45,214 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:21:49,669 - INFO - Sample existence/000000061418#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:21:58,279 - INFO - Sample existence/000000061418#2 - Model output: No
+2025-08-29 08:21:58,717 - INFO - Deriving hypothesis from yes/no answer for verification
+2025-08-29 08:22:04,148 - INFO - Sample existence/000000061418#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=0 F=[91m0[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
+2025-08-29 08:22:04,148 - INFO - [93mSample existence/000000061418#2 - Adjudication scores (content-only): Q0=2.00, Q1=2.00[0m
+2025-08-29 08:22:04,148 - INFO - [92mSample existence/000000061418#2 - Final adjudication: Q0_tie[0m
+2025-08-29 08:22:04,149 - INFO - Sample existence/000000061418#2 - Hallucination source: [92mNONE[0m

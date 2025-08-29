@@ -876,6 +876,15 @@ class SocratesPipeline:
                 stage_name = getattr(self, "_verification_stage", "UNKNOWN")
                 logging.debug(f"[XMOD {stage_name}] Starting cross-modal check | claim: {categorized_claim.text}")
                 logging.info("Performing cross-modal alignment check for this claim...")
+                # Colored, explicit log of the claim being sent to cross-modal
+                try:
+                    logging.info(
+                        ConsoleColors.c('heading', f"[XMOD {stage_name}] ")
+                        + ConsoleColors.c('label', 'Claim: ')
+                        + ConsoleColors.c('value', f"{categorized_claim.text}")
+                    )
+                except Exception:
+                    logging.info(f"[XMOD {stage_name}] Claim: {categorized_claim.text}")
                 try:
                     if not getattr(self, "cross_checker", None) and not getattr(self, "agla_client", None):
                         raise RuntimeError("No cross-modal verifier available (AGLA/local)")
@@ -904,6 +913,16 @@ class SocratesPipeline:
                                         ).get("question")
                                 except Exception:
                                     pass
+                                # Log the chosen verifier path and Socratic question
+                                try:
+                                    logging.info(ConsoleColors.c('label', 'Verifier: ') + ConsoleColors.c('value', 'AGLA'))
+                                    if soc_q:
+                                        logging.info(
+                                            ConsoleColors.c('label', 'Socratic Q: ')
+                                            + ConsoleColors.c('question', f"{soc_q}")
+                                        )
+                                except Exception:
+                                    logging.info("Verifier: AGLA")
                                 out = self.agla_client.verify(
                                     image=image_path,
                                     claim=categorized_claim.text,
@@ -944,13 +963,78 @@ class SocratesPipeline:
                                 else:
                                     raise
                         else:
+                            try:
+                                logging.info(ConsoleColors.c('label', 'Verifier: ') + ConsoleColors.c('value', 'LOCAL'))
+                            except Exception:
+                                logging.info("Verifier: LOCAL")
                             result = self.cross_checker.check_alignment(categorized_claim.text, image_path)
+                    # Robustness: ensure result is a dict; coerce None/invalid returns
+                    if not isinstance(result, dict):
+                        logging.warning("Cross-modal verifier returned non-dict/None; coercing to UNCERTAIN result")
+                        result = {
+                            "status": "UNCERTAIN",
+                            "confidence": 0.0,
+                            "evidence": [],
+                            "sources": [],
+                            "contradictions": [],
+                            "reasoning": "Invalid verifier return",
+                        }
+                    # Evidence-based override for inconsistent third-party API results
+                    original_status = result.get("status")
+                    original_conf = result.get("confidence", 0.0)
+                    
+                    # Check if evidence contradicts the verdict (common with AGLA API)
+                    if original_status == "FAIL" and result.get("evidence"):
+                        evidence_supports_claim = self._analyze_evidence_support(
+                            categorized_claim.text, result.get("evidence", [])
+                        )
+                        if evidence_supports_claim:
+                            logging.info(f"Evidence-based override: FAIL → PASS (evidence supports claim)")
+                            # Override the result
+                            result = dict(result)  # Make a copy
+                            result["status"] = "PASS"
+                            result["confidence"] = min(0.75, original_conf)  # Moderate confidence for override
+                            result["reasoning"] = f"Evidence-based override of {result.get('reasoning', 'API')} verdict"
+                            if "evidence" in result:
+                                result["evidence"].append(f"Override reason: Evidence text supports claim despite API verdict")
+                    
                     factuality_results[i] = result
                     status = result.get("status")
                     conf = result.get("confidence", 0.0)
-                    used = "AGLA" if result.get("reasoning") == "Remote AGLA verification" else "LOCAL"
+                    used = "AGLA" if "AGLA" in str(result.get("reasoning", "")) else "LOCAL"
                     logging.debug(f"[XMOD {stage_name}] Result via {used}: {status} (conf {conf:.2f}) | claim: {categorized_claim.text}")
                     logging.info(f"Cross-modal: {status} (conf {conf:.2f})")
+                    # Evidence dump (capped)
+                    try:
+                        try:
+                            _max_ev = int(os.getenv("SOC_MAX_EVIDENCE_LOG", "2") or 2)
+                        except Exception:
+                            _max_ev = 2
+                        ev_list = result.get("evidence") or []
+                        if ev_list:
+                            ev_lines = []
+                            if isinstance(ev_list, (list, tuple)):
+                                for _e in list(ev_list)[: max(0, _max_ev)]:
+                                    if isinstance(_e, dict):
+                                        for k in ("text", "description", "desc", "explanation", "reason"):
+                                            if isinstance(_e.get(k), str) and _e.get(k).strip():
+                                                ev_lines.append(_e.get(k).strip())
+                                                break
+                                        if not ev_lines or len(ev_lines) < 1:
+                                            try:
+                                                ev_lines.append(", ".join(f"{kk}={vv}" for kk, vv in list(_e.items())[:3]))
+                                            except Exception:
+                                                ev_lines.append(str(_e))
+                                    else:
+                                        ev_lines.append(str(_e))
+                            else:
+                                ev_lines.append(str(ev_list))
+                            # Trim lines to reasonable length
+                            ev_lines = [ (s[:200] + "…") if isinstance(s, str) and len(s) > 200 else s for s in ev_lines ]
+                            for j, line in enumerate(ev_lines, 1):
+                                logging.info(f"Cross-modal evidence [{j}]: {line}")
+                    except Exception:
+                        pass
                     # Persist onto claim
                     categorized_claim.factuality_status = status
                     categorized_claim.factuality_confidence = conf
@@ -1445,6 +1529,176 @@ class SocratesPipeline:
         # Factuality results are logged; CLI mode prints them below.
         self._last_factuality_results = factuality_results
         return processed_claims
+    
+    def _analyze_evidence_support(self, claim_text: str, evidence_list: List[Any]) -> bool:
+        """
+        LLM-powered analysis of whether evidence text actually supports a claim.
+        
+        This handles cases where third-party APIs (like AGLA) return FAIL verdicts
+        but their evidence text actually supports the claim, using sophisticated
+        semantic understanding via LLM.
+        
+        Args:
+            claim_text: The original claim being verified
+            evidence_list: List of evidence items from the verifier
+            
+        Returns:
+            True if evidence supports the claim, False otherwise
+        """
+        if not claim_text or not evidence_list:
+            return False
+            
+        try:
+            # Extract evidence text from various formats
+            evidence_texts = []
+            for ev in evidence_list:
+                if isinstance(ev, str):
+                    evidence_texts.append(ev)
+                elif isinstance(ev, dict):
+                    # Try common evidence text keys
+                    for key in ["text", "description", "correction", "summary", "explanation"]:
+                        if key in ev and isinstance(ev[key], str):
+                            evidence_texts.append(ev[key])
+                            break
+                    # Also handle AGLA-style evidence
+                    if not evidence_texts and str(ev).startswith("AGLA correction:"):
+                        evidence_texts.append(str(ev))
+            
+            if not evidence_texts:
+                return False
+            
+            # Combine all evidence into a single text for analysis
+            combined_evidence = " ".join(evidence_texts)
+            
+            # Use LLM to analyze semantic relationship between claim and evidence
+            return self._llm_analyze_claim_evidence_alignment(claim_text, combined_evidence)
+            
+        except Exception as e:
+            logging.debug(f"Error in LLM evidence analysis: {e}")
+            # Fallback to simple heuristic if LLM fails
+            return self._fallback_evidence_analysis(claim_text, evidence_list)
+    
+    def _llm_analyze_claim_evidence_alignment(self, claim: str, evidence: str) -> bool:
+        """
+        Use LLM to determine if evidence supports a claim with semantic understanding.
+        
+        Args:
+            claim: The claim to verify
+            evidence: The evidence text to analyze
+            
+        Returns:
+            True if evidence supports the claim, False otherwise
+        """
+        try:
+            # Get the pipeline LLM (fallback to main LLM if not available)
+            llm = getattr(self, 'llm_manager', None)
+            if not llm:
+                logging.debug("No LLM available for evidence analysis")
+                return False
+            
+            # Construct a focused prompt for claim-evidence alignment
+            prompt = f"""You are an expert fact-checker analyzing whether evidence supports a claim.
+
+CLAIM: "{claim}"
+
+EVIDENCE: "{evidence}"
+
+Task: Determine if the evidence semantically supports the claim, even if the wording is different.
+
+Consider:
+- Semantic equivalence (e.g., "holding a bat" supports "bat is present")
+- Logical implications (e.g., "player with bat" implies "bat exists")
+- Context and relationships (e.g., "baseball player holding bat" supports "baseball bat in image")
+
+Ignore:
+- Minor wording differences
+- Exact phrase matching requirements
+- Overly strict interpretations
+
+Respond with ONLY one word:
+- "SUPPORTS" if the evidence supports or is consistent with the claim
+- "CONTRADICTS" if the evidence contradicts or refutes the claim
+- "UNCLEAR" if the relationship is ambiguous or insufficient
+
+Response:"""
+            
+            # Generate LLM response with minimal tokens
+            try:
+                response = llm.generate_text(
+                    prompt,
+                    max_tokens=10,  # Very short response
+                    temperature=0.1  # Low temperature for consistency
+                )
+                
+                if response:
+                    response_clean = response.strip().upper()
+                    if "SUPPORTS" in response_clean:
+                        logging.debug(f"LLM evidence analysis: SUPPORTS - '{evidence[:100]}...' supports '{claim}'")
+                        return True
+                    elif "CONTRADICTS" in response_clean:
+                        logging.debug(f"LLM evidence analysis: CONTRADICTS - '{evidence[:100]}...' contradicts '{claim}'")
+                        return False
+                    else:
+                        logging.debug(f"LLM evidence analysis: UNCLEAR - '{evidence[:100]}...' unclear for '{claim}'")
+                        return False
+                else:
+                    logging.debug("LLM returned empty response for evidence analysis")
+                    return False
+                    
+            except Exception as e:
+                logging.debug(f"LLM generation failed in evidence analysis: {e}")
+                return False
+                
+        except Exception as e:
+            logging.debug(f"Error in LLM evidence analysis: {e}")
+            return False
+    
+    def _fallback_evidence_analysis(self, claim_text: str, evidence_list: List[Any]) -> bool:
+        """
+        Fallback rule-based evidence analysis when LLM is unavailable.
+        
+        Args:
+            claim_text: The original claim being verified
+            evidence_list: List of evidence items from the verifier
+            
+        Returns:
+            True if evidence supports the claim, False otherwise
+        """
+        try:
+            # Extract evidence text
+            evidence_texts = []
+            for ev in evidence_list:
+                if isinstance(ev, str):
+                    evidence_texts.append(ev.lower())
+                elif isinstance(ev, dict):
+                    for key in ["text", "description", "correction", "summary", "explanation"]:
+                        if key in ev and isinstance(ev[key], str):
+                            evidence_texts.append(ev[key].lower())
+                            break
+            
+            if not evidence_texts:
+                return False
+            
+            claim_lower = claim_text.lower().strip()
+            
+            # Simple keyword-based analysis for existence claims
+            if any(phrase in claim_lower for phrase in ["is present", "is in", "there is", "contains", "has a"]):
+                # Extract main entity
+                for phrase in ["there is a ", "is a ", "contains a ", "has a "]:
+                    if phrase in claim_lower:
+                        parts = claim_lower.split(phrase, 1)
+                        if len(parts) > 1:
+                            entity = parts[1].split()[0].strip(".?!,")
+                            # Check if entity appears positively in evidence
+                            for ev_text in evidence_texts:
+                                if entity in ev_text and not any(neg in ev_text for neg in ["no ", "not ", "without "]):
+                                    return True
+            
+            return False
+            
+        except Exception as e:
+            logging.debug(f"Error in fallback evidence analysis: {e}")
+            return False
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run the Socrates claim processing pipeline")
