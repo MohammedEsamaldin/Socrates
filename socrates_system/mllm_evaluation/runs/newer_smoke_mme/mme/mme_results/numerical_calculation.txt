@@ -1,0 +1,16 @@
+0001.png	Is the answer to the arithmetic question in the image 225? Please answer yes or no.	Yes	Yes
+0001.png	Is the answer to the arithmetic question in the image 1515? Please answer yes or no.	No	No
+0002.png	Is the answer to the arithmetic question in the image 340? Please answer yes or no.	Yes	No
+0002.png	Is the answer to the arithmetic question in the image 17? Please answer yes or no.	No	No
+0003.png	Is the answer to the arithmetic question in the image 65? Please answer yes or no.	Yes	No
+0003.png	Is the answer to the arithmetic question in the image 56? Please answer yes or no.	No	No
+0004.png	Is the answer to the arithmetic question in the image 33? Please answer yes or no.	Yes	No
+0004.png	Is the answer to the arithmetic question in the image 32? Please answer yes or no.	No	No
+0005.png	Is the area of the square in the picture equal to 40? Please answer yes or no.	Yes	No
+0005.png	Is the area of the square in the picture equal to 8? Please answer yes or no.	No	No
+0006.png	Is the area of the square in the picture equal to 9? Please answer yes or no.	Yes	Yes
+0006.png	Is the area of the square in the picture equal to 3? Please answer yes or no.	No	No
+0007.png	Is the answer to the arithmetic question in the image 49? Please answer yes or no.	Yes	No
+0007.png	Is the answer to the arithmetic question in the image 39? Please answer yes or no.	No	Yes
+0008.png	Should the value of "a" in the picture equal 7? Please answer yes or no.	Yes	No
+0008.png	Should the value of "a" in the picture equal 14? Please answer yes or no.	No	No

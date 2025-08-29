@@ -504,3 +504,10 @@
 2025-08-29 09:32:35,330 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-29 09:44:32,743 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-29 10:00:18,155 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 10:03:31,400 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 10:09:50,420 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 10:31:35,247 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 12:20:26,886 - socrates_system.clarification_resolution.core - WARNING - Failed to parse refined questions JSON: No valid JSON object/array found in LLM output
+2025-08-29 18:28:22,865 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 18:29:24,999 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 18:58:35,920 - socrates_system.clarification_resolution.core - WARNING - Failed to parse corrected claim JSON: No valid JSON object/array found in LLM output

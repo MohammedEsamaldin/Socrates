@@ -931,15 +931,16 @@ class SocratesPipeline:
                                 )
                                 verdict_str = (out or {}).get("verdict", "Uncertain")
                                 if verdict_str == "True":
-                                    _status, _conf = "PASS", 0.85
+                                    _status, _conf = "PASS", 0.90
                                 elif verdict_str == "False":
-                                    _status, _conf = "FAIL", 0.85
+                                    _status, _conf = "FAIL", 0.90
                                 else:
                                     _status, _conf = "UNCERTAIN", 0.5
                                 _truth = (out or {}).get("truth") or ""
                                 ev = []
-                                if _status == "FAIL" and _truth:
-                                    ev.append(f"AGLA correction: {_truth}")
+                                # if _status == "FAIL" and _truth:
+                                if _truth:
+                                    ev.append(f"AGLA evidance: {_truth}")
                                 ev.append(f"AGLA verdict: {verdict_str}")
                                 srcs = []
                                 try:
@@ -1140,8 +1141,9 @@ class SocratesPipeline:
                                                         _status2, _conf2 = "UNCERTAIN", 0.5
                                                     _truth2 = (out2 or {}).get("truth") or ""
                                                     ev2 = []
-                                                    if _status2 == "FAIL" and _truth2:
-                                                        ev2.append(f"AGLA correction: {_truth2}")
+                                                    # if _status2 == "FAIL" and _truth2:
+                                                    if _truth2:
+                                                        ev2.append(f"AGLA evidance: {_truth2}")
                                                     ev2.append(f"AGLA verdict: {verdict2}")
                                                     srcs2 = []
                                                     try:

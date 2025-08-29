@@ -45,8 +45,8 @@ res = agla.verify_claim(
     image="/path/to/image.jpg",
     claim="There is a yellow taxi in the image.",
     use_agla=True,          # enable augmentation when available
-    alpha=2.0,              # contrastive decoding alpha
-    beta=0.5,               # contrastive decoding beta
+    alpha=2.5,              # contrastive decoding alpha
+    beta=0.8,               # contrastive decoding beta
     return_debug=True       # include prompts, timings
 )
 print(res)
