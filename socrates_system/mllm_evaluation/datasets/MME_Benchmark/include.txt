@@ -1,1 +1,6 @@
-numerical_calculation
+color
+position
+count
+existence
+OCR
+commonsense_reasoning

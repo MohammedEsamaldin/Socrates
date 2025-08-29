@@ -940,7 +940,7 @@ class SocratesPipeline:
                                 ev = []
                                 # if _status == "FAIL" and _truth:
                                 if _truth:
-                                    ev.append(f"AGLA evidance: {_truth}")
+                                    ev.append(f"AGLA evidence: {_truth}")
                                 ev.append(f"AGLA verdict: {verdict_str}")
                                 srcs = []
                                 try:
@@ -1143,7 +1143,7 @@ class SocratesPipeline:
                                                     ev2 = []
                                                     # if _status2 == "FAIL" and _truth2:
                                                     if _truth2:
-                                                        ev2.append(f"AGLA evidance: {_truth2}")
+                                                        ev2.append(f"AGLA evidence: {_truth2}")
                                                     ev2.append(f"AGLA verdict: {verdict2}")
                                                     srcs2 = []
                                                     try:
@@ -1555,16 +1555,28 @@ class SocratesPipeline:
             evidence_texts = []
             for ev in evidence_list:
                 if isinstance(ev, str):
-                    evidence_texts.append(ev)
+                    s = ev.strip()
+                    sl = s.lower()
+                    # Drop meta/label lines that bias analysis
+                    if sl.startswith("agla verdict:") or sl.startswith("socratic question:") or sl.startswith("override reason:"):
+                        continue
+                    # Normalize AGLA prefixes to keep only descriptive content
+                    for pref in ("AGLA evidence:", "AGLA correction:"):
+                        if s.startswith(pref):
+                            s = s[len(pref):].strip()
+                            break
+                    if s:
+                        evidence_texts.append(s)
                 elif isinstance(ev, dict):
                     # Try common evidence text keys
                     for key in ["text", "description", "correction", "summary", "explanation"]:
                         if key in ev and isinstance(ev[key], str):
                             evidence_texts.append(ev[key])
                             break
-                    # Also handle AGLA-style evidence
-                    if not evidence_texts and str(ev).startswith("AGLA correction:"):
-                        evidence_texts.append(str(ev))
+                    # Also handle AGLA-style evidence dicts if any
+                    _s = str(ev)
+                    if _s.startswith("AGLA correction:"):
+                        evidence_texts.append(_s[len("AGLA correction:"):].strip())
             
             if not evidence_texts:
                 return False
@@ -1599,20 +1611,21 @@ class SocratesPipeline:
                 return False
             
             # Construct a focused prompt for claim-evidence alignment
-            prompt = f"""You are an expert fact-checker analyzing whether evidence supports a claim.
+            prompt = f"""You are an expert fact-checker analyzing whether EVIDENCE supports a CLAIM.
 
 CLAIM: "{claim}"
 
 EVIDENCE: "{evidence}"
 
-Task: Determine if the evidence semantically supports the claim, even if the wording is different.
+Task: Determine if the evidence semantically supports the claim, even if the wording differs.
 
 Consider:
 - Semantic equivalence (e.g., "holding a bat" supports "bat is present")
 - Logical implications (e.g., "player with bat" implies "bat exists")
-- Context and relationships (e.g., "baseball player holding bat" supports "baseball bat in image")
+- Context and relationships (e.g., "pizza on a white plate" supports "there is a white plate")
 
 Ignore:
+- Any metadata or labels such as "AGLA verdict:", "Socratic question:", or "Override reason:" (these lines are not descriptive evidence)
 - Minor wording differences
 - Exact phrase matching requirements
 - Overly strict interpretations

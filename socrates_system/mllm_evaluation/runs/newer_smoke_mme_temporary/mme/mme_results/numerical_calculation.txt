@@ -1,4 +1,0 @@
-0001.png	Is the answer to the arithmetic question in the image 225? Please answer yes or no.	Yes	Yes
-0001.png	Is the answer to the arithmetic question in the image 1515? Please answer yes or no.	No	No
-0002.png	Is the answer to the arithmetic question in the image 340? Please answer yes or no.	Yes	No
-0002.png	Is the answer to the arithmetic question in the image 17? Please answer yes or no.	No	No

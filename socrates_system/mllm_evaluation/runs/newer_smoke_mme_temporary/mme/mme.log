@@ -1,45 +1,4 @@
-2025-08-29 20:02:58,965 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
-2025-08-29 20:02:59,056 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 40 samples
-2025-08-29 20:02:59,056 - INFO - Loaded 40 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
-2025-08-29 20:02:59,056 - INFO - Resuming with 0 already processed samples
-2025-08-29 20:03:43,535 - INFO - [96mSample numerical_calculation/0001#1 - Q1 (formulated):[0m [95mIs 225 the correct answer to the arithmetic problem shown in the image?[0m
-2025-08-29 20:03:44,018 - INFO - Sample numerical_calculation/0001#1 - Model output: Yes
-2025-08-29 20:03:44,528 - INFO - Deriving hypothesis from yes/no answer for verification
-2025-08-29 20:04:02,366 - INFO - [96mSample numerical_calculation/0001#1 - Cross-modal outcomes (derived_yesno):[0m
-2025-08-29 20:04:02,366 - INFO -   Claim #1 [EXTERNAL_KNOWLEDGE_REQUIRED]: "The answer to the arithmetic question is 225, based on the calculation of 15 multiplied by 15." -> [92mPASS[0m (conf 0.85); evidence: AGLA evidance: The answer to the arithmetic question is 225, based on the calculation of 15 multiplied by 15, as shown i…; AGLA verdict: True
-2025-08-29 20:04:02,367 - INFO - Sample numerical_calculation/0001#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
-2025-08-29 20:04:02,367 - INFO - [92mSample numerical_calculation/0001#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
-2025-08-29 20:04:02,367 - INFO - [92mSample numerical_calculation/0001#1 - Final adjudication: Q0[0m
-2025-08-29 20:04:02,367 - INFO - Sample numerical_calculation/0001#1 - Hallucination source: [92mNONE[0m
-2025-08-29 20:04:39,736 - INFO - [96mSample numerical_calculation/0001#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic problem in the image 1515?[0m
-2025-08-29 20:04:40,615 - INFO - Sample numerical_calculation/0001#2 - Model output: No
-2025-08-29 20:04:40,996 - INFO - Deriving hypothesis from yes/no answer for verification
-2025-08-29 20:04:54,189 - INFO - [96mSample numerical_calculation/0001#2 - Cross-modal outcomes (derived_yesno):[0m
-2025-08-29 20:04:54,190 - INFO -   Claim #1 [EXTERNAL_KNOWLEDGE_REQUIRED]: "The answer to the arithmetic question cannot be 1515 without additional context or information." -> [91mFAIL[0m (conf 0.85); evidence: AGLA evidance: The correct statement is that the answer to the arithmetic question cannot be 1515 without additional con…; AGLA verdict: False
-2025-08-29 20:04:54,190 - INFO - Sample numerical_calculation/0001#2 - Q0 evidence | all: P=0 F=1 U=0; content: P=0 F=[91m1[0m U=0; yn_content=[96mno[0m has_pos_pass=False has_fail=True
-2025-08-29 20:04:56,094 - INFO - Sample numerical_calculation/0001#2 - Model output: No
-2025-08-29 20:04:56,584 - INFO - Deriving hypothesis from yes/no answer for verification
-2025-08-29 20:05:12,740 - INFO - [96mSample numerical_calculation/0001#2 - Cross-modal outcomes (derived_yesno):[0m
-2025-08-29 20:05:12,740 - INFO -   Claim #1 [EXTERNAL_KNOWLEDGE_REQUIRED]: "The answer to the arithmetic problem is not 1515." -> [92mPASS[0m (conf 0.85); evidence: AGLA evidance: The arithmetic problem is not 1515 because the image shows a handwritten equation with the numbers 15 and…; AGLA verdict: True
-2025-08-29 20:05:12,740 - INFO - Sample numerical_calculation/0001#2 - Q1 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
-2025-08-29 20:05:12,741 - INFO - [93mSample numerical_calculation/0001#2 - Adjudication scores (content-only): Q0=0.00, Q1=-1.00[0m
-2025-08-29 20:05:12,741 - INFO - [92mSample numerical_calculation/0001#2 - Final adjudication: Q0[0m
-2025-08-29 20:05:12,741 - INFO - Sample numerical_calculation/0001#2 - Hallucination source: [91mMODEL_CONTENT_HALLUCINATION[0m
-2025-08-29 20:05:41,431 - INFO - [96mSample numerical_calculation/0002#1 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image 340?[0m
-2025-08-29 20:05:42,036 - INFO - Sample numerical_calculation/0002#1 - Model output: No
-2025-08-29 20:05:42,678 - INFO - Deriving hypothesis from yes/no answer for verification
-2025-08-29 20:05:59,643 - INFO - [96mSample numerical_calculation/0002#1 - Cross-modal outcomes (derived_yesno):[0m
-2025-08-29 20:05:59,643 - INFO -   Claim #1 [EXTERNAL_KNOWLEDGE_REQUIRED]: "The answer to the arithmetic question in the image is not 340." -> [92mPASS[0m (conf 0.85); evidence: AGLA evidance: The image shows a handwritten number 20, which is the answer to the arithmetic question.; AGLA verdict: True
-2025-08-29 20:05:59,643 - INFO - Sample numerical_calculation/0002#1 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
-2025-08-29 20:05:59,643 - INFO - [92mSample numerical_calculation/0002#1 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
-2025-08-29 20:05:59,643 - INFO - [92mSample numerical_calculation/0002#1 - Final adjudication: Q0[0m
-2025-08-29 20:05:59,644 - INFO - Sample numerical_calculation/0002#1 - Hallucination source: [92mNONE[0m
-2025-08-29 20:06:28,619 - INFO - [96mSample numerical_calculation/0002#2 - Q1 (formulated):[0m [95mIs the answer to the arithmetic question in the image equal to 17?[0m
-2025-08-29 20:06:29,515 - INFO - Sample numerical_calculation/0002#2 - Model output: No
-2025-08-29 20:06:29,995 - INFO - Deriving hypothesis from yes/no answer for verification
-2025-08-29 20:06:50,206 - INFO - [96mSample numerical_calculation/0002#2 - Cross-modal outcomes (derived_yesno):[0m
-2025-08-29 20:06:50,206 - INFO -   Claim #1 [EXTERNAL_KNOWLEDGE_REQUIRED]: "The answer to the arithmetic question in the image is not 17." -> [92mPASS[0m (conf 0.85); evidence: AGLA evidance: The image shows a handwritten number 20 on a piece of paper, which is not equal to 17.; AGLA verdict: True
-2025-08-29 20:06:50,207 - INFO - Sample numerical_calculation/0002#2 - Q0 evidence | all: P=1 F=0 U=0; content: P=1 F=[91m0[0m U=0; yn_content=[96myes[0m has_pos_pass=True has_fail=False
-2025-08-29 20:06:50,207 - INFO - [92mSample numerical_calculation/0002#2 - Fast path: Q0 verified; skipping Q1 and adjudication[0m
-2025-08-29 20:06:50,207 - INFO - [92mSample numerical_calculation/0002#2 - Final adjudication: Q0[0m
-2025-08-29 20:06:50,207 - INFO - Sample numerical_calculation/0002#2 - Hallucination source: [92mNONE[0m
+2025-08-29 21:07:01,782 - INFO - MME writer: SOC_PRESERVE_RAW_ANSWERS=true -> using original model outputs and skipping post-hoc coercion
+2025-08-29 21:07:01,877 - INFO - Applied include list /Users/mohammed/Desktop/Socrates/Socrates/socrates_system/mllm_evaluation/datasets/MME_Benchmark/include.txt: 2374 -> 420 samples
+2025-08-29 21:07:01,877 - INFO - Loaded 420 MME samples from socrates_system/mllm_evaluation/datasets/MME_Benchmark
+2025-08-29 21:07:01,877 - INFO - Resuming with 0 already processed samples
