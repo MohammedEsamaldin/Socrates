@@ -43,6 +43,7 @@ class LLMProvider(Enum):
     OPENAI = "openai"
     CLAUDE = "claude"
     LLAVA_HF = "llava_hf"
+    LLAVA_ORIGINAL = "llava_original"
 
 @dataclass
 class LLMRequest:
@@ -116,6 +117,9 @@ class LLMManager:
                 self.model_name = "gpt-4o-mini"
             elif self.provider == LLMProvider.LLAVA_HF:
                 self.model_name = "llava-hf/llava-1.5-7b-hf"
+            elif self.provider == LLMProvider.LLAVA_ORIGINAL:
+                # Use the original LLaVA implementation weights by default
+                self.model_name = "liuhaotian/llava-v1.5-7b"
             else:  # CLAUDE
                 self.model_name = "claude-3-haiku-20240307"
 
@@ -420,6 +424,17 @@ Respond with only the required JSON object."""
                     logger.info(f"Using local LLaVA-HF provider (model={self.model_name})")
                 except Exception as e:
                     logger.warning(f"LLaVA-HF availability check failed: {e}")
+            elif self.provider == LLMProvider.LLAVA_ORIGINAL:
+                try:
+                    # Try importing the original LLaVA package
+                    import importlib
+                    importlib.import_module("llava")
+                    logger.info(f"Original LLaVA package detected (model={self.model_name})")
+                except Exception as e:
+                    logger.warning(
+                        "Original LLaVA not importable. Ensure it's installed via 'pip install git+https://github.com/haotian-liu/LLaVA.git'. "
+                        f"Detail: {e}"
+                    )
         except Exception as e:
             logger.warning(f"LLM connectivity check encountered an error: {e}")
 
@@ -481,6 +496,8 @@ Respond with only the required JSON object."""
             return await self._call_claude(prompt, system_prompt, temperature, max_tokens, images=images)
         elif self.provider == LLMProvider.LLAVA_HF:
             return await self._call_llava_hf(prompt, system_prompt, temperature, max_tokens, images=images)
+        elif self.provider == LLMProvider.LLAVA_ORIGINAL:
+            return await self._call_llava_original(prompt, system_prompt, temperature, max_tokens, images=images)
         else:
             raise RuntimeError(f"Unsupported provider: {self.provider}")
 
@@ -508,6 +525,144 @@ Respond with only the required JSON object."""
                 temperature=temperature,
             )
         return await loop.run_in_executor(self.executor, _run)
+
+    async def _call_llava_original(self, prompt: str, system_prompt: str, temperature: float, max_tokens: int, images: Optional[List[str]] = None) -> str:
+        """Call the original LLaVA implementation via its CLI (subprocess) or Python API.
+        Notes:
+        - Requires the original LLaVA repo installed: pip install git+https://github.com/haotian-liu/LLaVA.git
+        - Only the first image is used.
+        - Uses conversation templates from the original implementation; system_prompt is ignored.
+        """
+        image_path = images[0] if images else None
+        if not image_path:
+            raise ValueError("llava_original requires at least one image for multimodal prompting")
+
+        # Environment toggles
+        use_cli = str(os.getenv("SOC_LLAVA_ORIG_USE_CLI", "")).lower() in ("1", "true", "yes")
+        conv_template = os.getenv("SOC_LLAVA_CONV_TEMPLATE", "llava_v1")
+        timeout_sec = int(os.getenv("SOC_LLAVA_TIMEOUT_SEC", "180"))
+
+        # Prefer in-process Python API when possible; fallback to CLI if requested or import fails
+        if not use_cli:
+            try:
+                # Lazy imports for original LLaVA
+                import torch  # noqa: F401
+                from llava.conversation import conv_templates
+                from llava.model.builder import load_pretrained_model
+                from llava.mm_utils import (
+                    get_model_name_from_path,
+                    process_images,
+                    tokenizer_image_token,
+                    KeywordsStoppingCriteria,
+                )
+                from PIL import Image
+
+                # Cache model components
+                if not hasattr(self, "_llava_orig_cache"):
+                    model_name_clean = get_model_name_from_path(self.model_name)
+                    tokenizer, model, image_processor, context_len = load_pretrained_model(
+                        model_path=self.model_name,
+                        model_base=None,
+                        model_name=model_name_clean,
+                    )
+                    self._llava_orig_cache = {
+                        "tokenizer": tokenizer,
+                        "model": model,
+                        "image_processor": image_processor,
+                        "context_len": context_len,
+                    }
+
+                tok = self._llava_orig_cache["tokenizer"]
+                model = self._llava_orig_cache["model"]
+                image_processor = self._llava_orig_cache["image_processor"]
+
+                # Build conversation
+                if conv_template not in conv_templates:
+                    conv = conv_templates["llava_v1"].copy()
+                else:
+                    conv = conv_templates[conv_template].copy()
+                conv.append_message(conv.roles[0], f"<image>\n{prompt}")
+                conv.append_message(conv.roles[1], None)
+                question = conv.get_prompt()
+
+                # Prepare image tensor
+                from pathlib import Path
+                img = Image.open(Path(image_path)).convert("RGB")
+                images_proc = process_images([img], image_processor, model.config)
+
+                # Tokenize with image token
+                input_ids = tokenizer_image_token(question, tok, return_tensors='pt').unsqueeze(0).to(model.device)
+
+                # Stopping criteria based on template separators
+                stop_str = conv.sep if hasattr(conv, 'sep') else None
+                stopping_criteria = None
+                if stop_str:
+                    stopping_criteria = KeywordsStoppingCriteria([stop_str], tok, input_ids)
+
+                # Run generation in threadpool to avoid blocking
+                loop = asyncio.get_event_loop()
+                def _run_generate():
+                    with torch.inference_mode():
+                        output_ids = model.generate(
+                            input_ids,
+                            images=images_proc,
+                            do_sample=(temperature > 0.0),
+                            temperature=temperature,
+                            max_new_tokens=max_tokens,
+                            use_cache=True,
+                            stopping_criteria=stopping_criteria,
+                        )
+                    out = tok.decode(output_ids[0], skip_special_tokens=True)
+                    # Heuristic: take text after the last assistant marker if present
+                    if conv.sep2 in out if hasattr(conv, 'sep2') else False:
+                        out = out.split(conv.sep2)[-1].strip()
+                    return out.strip()
+
+                return await loop.run_in_executor(self.executor, _run_generate)
+            except Exception as e:
+                logger.warning(f"Falling back to LLaVA CLI due to Python API error: {e}")
+
+        # Subprocess CLI fallback
+        import shlex
+        import subprocess
+        loop = asyncio.get_event_loop()
+
+        def _run_cli() -> str:
+            cmd = [
+                sys.executable, "-m", "llava.eval.model_vqa_loader",
+                "--model-path", str(self.model_name),
+                "--image-file", str(image_path),
+                "--question", str(prompt),
+                "--temperature", str(temperature),
+                "--max-new-tokens", str(max_tokens),
+            ]
+            if conv_template:
+                cmd += ["--conv-template", conv_template]
+            try:
+                proc = subprocess.run(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=timeout_sec,
+                )
+            except Exception as se:
+                raise RuntimeError(f"Failed running LLaVA CLI: {se}")
+            if proc.returncode != 0:
+                raise RuntimeError(f"LLaVA CLI error (code {proc.returncode}): {proc.stderr.strip()}")
+
+            # Parse output: take the last non-empty line; strip common prefixes
+            out_lines = [ln.strip() for ln in proc.stdout.splitlines() if ln.strip()]
+            if not out_lines:
+                return ""
+            ans = out_lines[-1]
+            for prefix in ("ASSISTANT:", "Assistant:", "assistant:"):
+                if ans.startswith(prefix):
+                    ans = ans[len(prefix):].strip()
+                    break
+            return ans
+
+        return await loop.run_in_executor(self.executor, _run_cli)
 
     # -------------------- Image helpers (multimodal support) --------------------
     @staticmethod

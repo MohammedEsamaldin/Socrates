@@ -517,3 +517,133 @@
 2025-08-29 20:02:58,964 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
 2025-08-29 20:30:34,594 - socrates_system.clarification_resolution.core - WARNING - Failed to parse corrected claim JSON: No valid JSON object/array found in LLM output
 2025-08-29 21:07:01,782 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 21:16:21,250 - socrates_system.clarification_resolution.core - WARNING - Failed to parse corrected claim JSON: No valid JSON object/array found in LLM output
+2025-08-29 21:43:53,803 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 22:11:59,455 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)
+2025-08-29 23:10:03,400 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:10:06,636 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:10:11,211 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:10:14,692 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:11:24,377 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:11:27,526 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:11:41,666 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:11:44,579 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:11:58,517 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:12:02,968 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:12:29,720 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:12:33,942 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:12:37,934 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:12:42,098 - socrates_system.clarification_resolution.core - WARNING - LLM refinement failed; using base questions. Error: OpenAI API error: 429 - {
+    "error": {
+        "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "type": "insufficient_quota",
+        "param": null,
+        "code": "insufficient_quota"
+    }
+}
+
+2025-08-29 23:36:10,546 - socrates_system.clarification_resolution.core - INFO - ClarificationResolutionModule initialized (dev_mode=False)

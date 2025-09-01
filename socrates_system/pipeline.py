@@ -1748,8 +1748,12 @@ if __name__ == '__main__':
     # Router mode
     parser.add_argument("--router-mode", dest="router_mode", type=str, choices=["llm", "deterministic", "hybrid"], default=None, help="Routing mode: 'llm', 'deterministic', or 'hybrid'")
     # LLM selection
-    parser.add_argument("--llm-provider", dest="llm_provider", type=str, choices=["ollama", "openai", "claude"], default=None, help="LLM provider to use (overrides SOC_LLM_PROVIDER)")
+    parser.add_argument("--llm-provider", dest="llm_provider", type=str, choices=["ollama", "openai", "claude", "llava_hf", "llava_original"], default=None, help="LLM provider to use (overrides SOC_LLM_PROVIDER). Supports: ollama | openai | claude | llava_hf | llava_original")
     parser.add_argument("--llm-model", dest="llm_model", type=str, default=None, help="Model name for the selected provider (overrides SOC_LLM_MODEL)")
+    # Original LLaVA provider advanced options (mapped to env toggles used by LLMManager)
+    parser.add_argument("--llava-orig-use-cli", dest="llava_orig_use_cli", action="store_true", help="Force original LLaVA CLI fallback (sets SOC_LLAVA_ORIG_USE_CLI=true)")
+    parser.add_argument("--llava-conv-template", dest="llava_conv_template", type=str, default=None, help="Conversation template for original LLaVA (sets SOC_LLAVA_CONV_TEMPLATE)")
+    parser.add_argument("--llava-timeout-sec", dest="llava_timeout_sec", type=int, default=None, help="Timeout seconds for LLaVA CLI calls (sets SOC_LLAVA_TIMEOUT_SEC)")
     args = parser.parse_args()
 
     # Resolve factuality toggle from CLI overriding env
@@ -1783,6 +1787,16 @@ if __name__ == '__main__':
     # Resolve LLM selection (CLI overrides env)
     selected_provider = args.llm_provider or os.getenv("SOC_LLM_PROVIDER")
     selected_model = args.llm_model or os.getenv("SOC_LLM_MODEL")
+    # Apply LLaVA original toggles from CLI flags via env for LLMManager consumption
+    try:
+        if getattr(args, "llava_orig_use_cli", False):
+            os.environ["SOC_LLAVA_ORIG_USE_CLI"] = "true"
+        if getattr(args, "llava_conv_template", None):
+            os.environ["SOC_LLAVA_CONV_TEMPLATE"] = str(args.llava_conv_template)
+        if getattr(args, "llava_timeout_sec", None) is not None:
+            os.environ["SOC_LLAVA_TIMEOUT_SEC"] = str(int(args.llava_timeout_sec))
+    except Exception as _e:
+        logging.warning(f"Failed to apply LLaVA CLI/env overrides: {_e}")
     # Instantiate LLMManager with selected provider/model
     llm_manager = LLMManager(model_name=selected_model, provider=selected_provider)
     pipeline = SocratesPipeline(
