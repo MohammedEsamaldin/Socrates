@@ -37,6 +37,8 @@ from ..utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 class CheckStatus(Enum):
+    """Outcome states for a single verification check."""
+
     PASS = "PASS"
     FAIL = "FAIL"
     PENDING = "PENDING"
@@ -125,7 +127,18 @@ class SocratesAgent:
         logger.info("Socrates Agent initialized successfully")
     
     def start_session(self, session_id: str = None) -> str:
-        """Start a new verification session"""
+        """Start a new verification session.
+
+        Resets conversation history and verified claims, then initialises the
+        session knowledge graph for the given session ID.
+
+        Args:
+            session_id: Optional explicit session identifier. If ``None``, a
+                timestamp-based ID is generated automatically.
+
+        Returns:
+            The session ID that was created or provided.
+        """
         if session_id is None:
             session_id = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
@@ -209,9 +222,26 @@ class SocratesAgent:
             }
     
     def _verify_claim_socratically(self, claim: ExtractedClaim, original_input: str, image_path: Optional[str]) -> ClaimVerificationResult:
-        """
-        Apply Socratic methodology to verify a single claim
-        Implements the four-stage verification process
+        """Apply Socratic methodology to verify a single claim.
+
+        Dispatches to the appropriate checker(s) based on the claim's
+        verification route: cross-modal (AGLA or local alignment), external
+        factuality (Wikipedia/Wikidata/GFC), or knowledge-graph self-consistency.
+        Also runs an ambiguity pass and generates capability-aware Socratic
+        questions for every claim.
+
+        Args:
+            claim: The :class:`ExtractedClaim` to verify, including categories
+                and a routing decision if available.
+            original_input: The full original user text (used for ambiguity
+                context).
+            image_path: Local path to an uploaded image, or ``None`` for
+                text-only verification.
+
+        Returns:
+            A :class:`ClaimVerificationResult` containing the final status,
+            confidence, evidence, contradictions, and generated Socratic
+            questions.
         """
         claim_text = claim.text if isinstance(claim, ExtractedClaim) else str(claim)
         logger.info(f"Verifying claim: {claim_text}")
@@ -439,7 +469,13 @@ class SocratesAgent:
         )
     
     def _update_knowledge_base(self, verification_results: List[ClaimVerificationResult]):
-        """Update the knowledge graph with verified claims"""
+        """Persist PASS-status claims from this turn into the session knowledge graph.
+
+        Args:
+            verification_results: List of :class:`ClaimVerificationResult` objects
+                from the current processing turn. Only results with status
+                ``CheckStatus.PASS`` are added to the knowledge graph.
+        """
         logger.info("Updating knowledge base...")
         
         for result in verification_results:
@@ -453,11 +489,24 @@ class SocratesAgent:
                 )
                 self.verified_claims.append(result)
     
-    def _compile_socratic_response(self, verification_results: List[ClaimVerificationResult], 
+    def _compile_socratic_response(self, verification_results: List[ClaimVerificationResult],
                                  original_input: str) -> Dict[str, Any]:
-        """
-        Compile a comprehensive Socratic response based on verification results
-        to provide a complete answer for the verification process
+        """Compile a comprehensive Socratic response from per-claim verification results.
+
+        Aggregates individual claim statuses, generates the Socratic dialogue
+        transcript, and produces a structured dict suitable for JSON serialisation
+        and return to the caller.
+
+        Args:
+            verification_results: List of :class:`ClaimVerificationResult` objects
+                from the current processing turn.
+            original_input: The original user input string included verbatim in
+                the response.
+
+        Returns:
+            A dict with keys: ``session_id``, ``timestamp``, ``original_input``,
+            ``verification_summary``, ``socratic_dialogue``, ``detailed_results``,
+            and ``next_steps``.
         """
         logger.info("Compiling Socratic response...")
         
@@ -497,7 +546,18 @@ class SocratesAgent:
         return response
     
     def _generate_socratic_dialogue(self, verification_results: List[ClaimVerificationResult]) -> List[Dict[str, str]]:
-        """Generate a Socratic dialogue based on verification results"""
+        """Build a Socratic dialogue transcript from per-claim verification results.
+
+        For each claim, appends one entry per Socratic question followed by a
+        ``verification_result`` or ``contradiction_found`` entry.
+
+        Args:
+            verification_results: List of :class:`ClaimVerificationResult` objects.
+
+        Returns:
+            List of dialogue-entry dicts, each with at minimum ``"type"`` and
+            ``"content"`` keys.
+        """
         dialogue = []
         
         for result in verification_results:
@@ -527,7 +587,17 @@ class SocratesAgent:
         return dialogue
     
     def _generate_next_steps(self, verification_results: List[ClaimVerificationResult]) -> List[str]:
-        """Generate suggested next steps based on verification results"""
+        """Generate a list of suggested next-step action strings.
+
+        If all claims passed, returns a single "all verified" message. If any
+        failed, lists clarification requests for each failed claim.
+
+        Args:
+            verification_results: List of :class:`ClaimVerificationResult` objects.
+
+        Returns:
+            List of human-readable next-step strings.
+        """
         next_steps = []
         
         failed_results = [r for r in verification_results if r.status == CheckStatus.FAIL]
@@ -544,7 +614,13 @@ class SocratesAgent:
         return next_steps
     
     def get_session_summary(self) -> Dict[str, Any]:
-        """Get a summary of the current session"""
+        """Return a summary dict of the current session state.
+
+        Returns:
+            Dict with keys ``session_id``, ``total_claims_verified``,
+            ``verified_claims`` (count of PASS results), ``timestamp``, and
+            ``knowledge_graph_size`` (number of nodes in the session KG).
+        """
         return {
             "session_id": self.session_id,
             "total_inputs": len(self.conversation_history),

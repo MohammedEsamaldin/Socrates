@@ -6,15 +6,37 @@ from .base import BaseEvaluator
 
 
 class MMEEvaluator(BaseEvaluator):
+    """Evaluator for the MME (Multimodal Model Evaluation) benchmark.
+
+    Supports loading from a directory of per-category ``.txt`` files in addition
+    to standard JSON/JSONL/CSV dataset files.
+    """
+
     BENCHMARK_NAME = "mme"
 
     def get_sample_id(self, sample: Dict[str, Any]):
+        """Extract a stable sample ID from common MME field names.
+
+        Args:
+            sample: A single MME sample dict.
+
+        Returns:
+            The sample identifier, or the base class fallback.
+        """
         for k in [self.id_key, "id", "qid", "uid", "sample_id", "idx"]:
             if k and sample.get(k) is not None:
                 return sample.get(k)
         return super().get_sample_id(sample)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the question text from common MME field names.
+
+        Args:
+            sample: A single MME sample dict.
+
+        Returns:
+            The prompt string to pass to the model.
+        """
         for k in [self.prompt_key, "question", "prompt", "instruction", "query", "text"]:
             if k and isinstance(sample.get(k), str) and sample[k].strip():
                 return sample[k]
@@ -196,6 +218,11 @@ class MMEEvaluator(BaseEvaluator):
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the MME evaluator.
+
+    Returns:
+        A configured :class:`argparse.ArgumentParser` instance.
+    """
     p = argparse.ArgumentParser(description="Evaluate MME with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the MME_Benchmark directory or dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
@@ -221,6 +248,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    """Entry point: parse CLI args and run the MME evaluation."""
     args = build_arg_parser().parse_args()
 
     evaluator = MMEEvaluator(
@@ -277,6 +305,17 @@ def main():
             stem_selectors = set([s for s in nohash if ("." not in s and "/" not in s and s not in category_selectors)])
 
             def sample_matches(sample: Dict[str, Any]) -> bool:
+                """Determine whether a sample should be included based on the include-list selectors.
+
+                Matches against sample ID, category, ``category/stem``, image basename, and stem.
+                Supports ``stem#i`` / ``cat/stem#i`` indexed selectors for per-question filtering.
+
+                Args:
+                    sample: A single MME sample dict.
+
+                Returns:
+                    ``True`` if the sample matches any selector in the include list.
+                """
                 sid = evaluator.get_sample_id(sample) or ""
                 if sid in id_selectors:
                     return True

@@ -50,6 +50,15 @@ DEVICE_DEFAULT = "cuda" if torch.cuda.is_available() else "cpu"
 
 @dataclass
 class AGLAResult:
+    """Result returned by the AGLA visual claim verifier.
+
+    Attributes:
+        verdict: One of ``"True"``, ``"False"``, or ``"Uncertain"``.
+        truth: Corrected or restated claim text when ``verdict == "False"``; empty otherwise.
+        latency_ms: Wall-clock time in milliseconds for the verification call.
+        debug: Optional dict with internal diagnostic data (e.g. token logits).
+    """
+
     verdict: str  # "True", "False", or "Uncertain"
     truth: str    # correction / restated truth when verdict == "False" else ""
     latency_ms: int
@@ -57,6 +66,26 @@ class AGLAResult:
 
 
 class AGLAVerifier:
+    """Local AGLA verifier using a LLaVA model for image-claim verification.
+
+    Implements two-stage generation:
+      Stage A: True/False constrained generation for a binary verdict.
+      Stage B: Open correction generation when the verdict is False.
+
+    Heavy model weights are loaded lazily on the first call to
+    :meth:`verify_claim` or explicitly via :meth:`load_models`.
+
+    Attributes:
+        device: Torch device string (``"cuda"`` or ``"cpu"``).
+        model_path: HuggingFace model id or local path for LLaVA weights.
+        llava_repo_path: Path to a compatible LLaVA repository root or
+            ``None`` if ``llava`` is installed in the active environment.
+        default_use_agla: Whether to enable AGLA contrastive augmentation
+            by default.
+        default_alpha: Default alpha for contrastive decoding.
+        default_beta: Default beta for contrastive decoding.
+    """
+
     def __init__(
         self,
         model_path: Optional[str] = None,
@@ -66,6 +95,19 @@ class AGLAVerifier:
         default_alpha: float = 2.0,
         default_beta: float = 0.5,
     ) -> None:
+        """Initialize AGLAVerifier with model configuration.
+
+        Args:
+            model_path: HuggingFace model id or local weights path.
+                Defaults to env ``LLAVA_MODEL`` or ``"liuhaotian/llava-v1.5-7b"``.
+            device: Torch device (``"cuda"`` or ``"cpu"``).
+                Defaults to CUDA if available.
+            llava_repo_path: Path to a repo root containing a compatible
+                ``llava/`` package. Defaults to env ``LLAVA_REPO_PATH``.
+            default_use_agla: Use AGLA augmentation by default.
+            default_alpha: Default alpha hyperparameter for AGLA.
+            default_beta: Default beta hyperparameter for AGLA.
+        """
         self.device = device or DEVICE_DEFAULT
         self.model_path = model_path or os.environ.get("LLAVA_MODEL", "liuhaotian/llava-v1.5-7b")
         self.llava_repo_path = llava_repo_path or os.environ.get("LLAVA_REPO_PATH")
@@ -198,6 +240,11 @@ class AGLAVerifier:
             logger.info(f"Added to sys.path for llava import: {repo_root}")
 
     def _load_all_models(self) -> None:
+        """Eagerly import llava and load all model weights into memory.
+
+        Raises:
+            RuntimeError: If the ``llava`` package cannot be imported.
+        """
         self._ensure_llava_on_path()
         try:
             # llava imports (must be available via repo path or pip)
@@ -385,6 +432,15 @@ class AGLAVerifier:
         prompt_len = prompt_ids.shape[1]
 
         def prefix_allowed_tokens_fn(batch_id, input_ids):
+            """Constrained decoding callback that restricts generation to 'True' or 'False'.
+
+            Args:
+                batch_id: Batch index (unused; required by the HuggingFace API).
+                input_ids: Token IDs generated so far, shape ``(1, seq_len)`` or ``(seq_len,)``.
+
+            Returns:
+                A list of allowed next token IDs at the current generation step.
+            """
             gen = input_ids[0, prompt_len:] if input_ids.dim() == 2 else input_ids[prompt_len:]
             gen = gen.tolist()
             allowed = set()
@@ -499,6 +555,31 @@ class AGLAVerifier:
                 streamer: Optional["BaseStreamer"] = None,
                 **model_kwargs,
             ) -> Union[SampleOutput, torch.LongTensor]:
+                """Patched sample() that injects VCD (Visual Contrastive Decoding) alpha/beta parameters.
+
+                Overrides the HuggingFace ``GenerationMixin.sample`` method on a specific model
+                instance to support contrastive decoding between augmented and original image inputs.
+
+                Args:
+                    input_ids: Prompt token IDs.
+                    logits_processor: Optional list of logits processors.
+                    stopping_criteria: Optional list of stopping criteria.
+                    logits_warper: Optional logits warper for sampling.
+                    max_length: Deprecated max generation length.
+                    pad_token_id: Token ID used for padding.
+                    eos_token_id: End-of-sequence token ID(s).
+                    output_attentions: Whether to return attention weights.
+                    output_hidden_states: Whether to return hidden states.
+                    output_scores: Whether to return step-level scores.
+                    return_dict_in_generate: Whether to return a ``ModelOutput`` dict.
+                    synced_gpus: Whether to sync GPUs at each step for distributed use.
+                    streamer: Optional streaming callback.
+                    **model_kwargs: Extra keyword arguments forwarded to the model.
+
+                Returns:
+                    Either a :class:`SampleOutput` dict or a raw :class:`torch.LongTensor`
+                    depending on ``return_dict_in_generate``.
+                """
                 # init values
                 logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()
                 stopping_criteria = stopping_criteria if stopping_criteria is not None else StoppingCriteriaList()

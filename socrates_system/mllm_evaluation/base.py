@@ -124,9 +124,25 @@ class BaseEvaluator:
 
     # ------ to be implemented by subclasses ------
     def load_dataset(self, path: str) -> List[Dict[str, Any]]:
+        """Load the benchmark dataset from a file path.
+
+        Args:
+            path: Path to the dataset file (JSON, JSONL, or CSV).
+
+        Returns:
+            A list of sample dicts.
+        """
         return load_dataset_generic(path)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the prompt string from a dataset sample.
+
+        Args:
+            sample: A single dataset sample dict.
+
+        Returns:
+            The prompt text to pass to the model.
+        """
         return get_prompt_text(sample, key_override=self.prompt_key, fallback_keys=self.fallback_keys)
     # ------------------------------------------------
 
@@ -301,6 +317,21 @@ class BaseEvaluator:
         return sample.get("id") or sample.get("sample_id") or sample.get("idx")
 
     def evaluate_sample(self, sample: Dict[str, Any]) -> Dict[str, Any]:
+        """Run the full MitM evaluation pipeline on a single dataset sample.
+
+        Generates the raw model output, applies pre- and post-processing corrections
+        via ``HallucinationMitM``, and returns a structured record containing the
+        original and corrected outputs, extracted claims, factuality results, and
+        MMHal-formatted metadata.
+
+        Args:
+            sample: A single dataset sample dict.
+
+        Returns:
+            A dict containing ``sample_id``, ``model_output_original``,
+            ``model_output_corrected``, ``corrections``, ``claims``, ``factuality``,
+            and ``mmhal`` keys among others.
+        """
         sample_id = self.get_sample_id(sample)
         prompt = self.sample_to_prompt(sample)
 
@@ -984,6 +1015,12 @@ class BaseEvaluator:
         return record
 
     def run(self) -> None:
+        """Run the full evaluation loop over the benchmark dataset.
+
+        Iterates over all samples, skipping previously checkpointed ones when
+        ``resume=True``, evaluates each via ``evaluate_sample``, and appends
+        results to the checkpoint file.
+        """
         data = self.load_dataset(self.dataset_path)
         self.logger.info(f"Loaded {len(data)} samples from {self.dataset_path}")
 

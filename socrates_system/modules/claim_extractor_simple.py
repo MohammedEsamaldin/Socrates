@@ -22,12 +22,21 @@ class ExtractedClaim:
     dependencies: List[str]
 
 class ClaimExtractor:
-    """
-    Simplified claim extraction using pattern matching
+    """Simplified claim extraction using pattern matching.
+
     Identifies factual claims, relationships, and attributes from user input
+    without requiring heavy NLP dependencies (spaCy or sentence-transformers).
+    Uses compiled regex patterns and heuristics to classify claims by type
+    (attribute, relationship, temporal, comparative) and compute a confidence
+    score based on entity presence and linguistic cues.
+
+    Attributes:
+        claim_patterns: Mapping of claim-type name to a list of regex patterns.
+        entity_patterns: Mapping of entity-type name to a detection regex.
     """
-    
+
     def __init__(self):
+        """Initialize the Simplified Claim Extractor with compiled regex patterns."""
         logger.info("Initializing Simplified Claim Extractor...")
         
         # Claim patterns for different types of factual statements
@@ -108,13 +117,28 @@ class ClaimExtractor:
             return []
     
     def _split_sentences(self, text: str) -> List[str]:
-        """Simple sentence splitting"""
+        """Split text into sentences on `.`, `!`, or `?` boundaries.
+
+        Args:
+            text: Raw input text.
+
+        Returns:
+            List of non-empty sentence strings.
+        """
         # Split on periods, exclamation marks, and question marks
         sentences = re.split(r'[.!?]+', text)
         return [s.strip() for s in sentences if s.strip()]
     
     def _extract_claims_from_sentence(self, sentence: str, position: int) -> List[ExtractedClaim]:
-        """Extract claims from a single sentence"""
+        """Extract claims from a single sentence using pattern matching.
+
+        Args:
+            sentence: A single sentence to analyse.
+            position: Zero-based index of the sentence in the original text.
+
+        Returns:
+            List of :class:`ExtractedClaim` objects found in the sentence.
+        """
         claims = []
         
         # Extract entities from sentence
@@ -155,7 +179,14 @@ class ClaimExtractor:
         return claims
     
     def _extract_simple_entities(self, sentence: str) -> List[Dict[str, Any]]:
-        """Extract entities using simple pattern matching"""
+        """Extract named entities using simple pattern matching.
+
+        Args:
+            sentence: The sentence to scan for entities.
+
+        Returns:
+            List of entity dicts with keys ``text``, ``label``, ``start``, ``end``.
+        """
         entities = []
         
         for entity_type, pattern in self.entity_patterns.items():
@@ -171,7 +202,19 @@ class ClaimExtractor:
         return entities
     
     def _calculate_claim_confidence(self, sentence: str, entities: List[Dict], match) -> float:
-        """Calculate confidence score for a claim"""
+        """Calculate a heuristic confidence score for a matched claim.
+
+        Boosts confidence for entity presence and capitalised words; reduces
+        it for uncertain language modifiers or question-ending sentences.
+
+        Args:
+            sentence: The full sentence containing the claim.
+            entities: Entities already extracted from the sentence.
+            match: The regex match object that triggered this claim candidate.
+
+        Returns:
+            Float confidence in [0.0, 1.0].
+        """
         confidence = 0.5  # Base confidence
         
         # Boost confidence based on entities
@@ -194,7 +237,16 @@ class ClaimExtractor:
         return min(confidence, 1.0)
     
     def _is_factual_sentence(self, sentence: str, entities: List[Dict]) -> bool:
-        """Determine if a sentence contains factual content"""
+        """Determine if a sentence contains factual content worth extracting.
+
+        Args:
+            sentence: The candidate sentence.
+            entities: Entities detected in the sentence.
+
+        Returns:
+            True if the sentence has at least one entity, a factual indicator
+            verb, and is not a question.
+        """
         # Check for factual indicators
         factual_indicators = [
             'is', 'are', 'was', 'were', 'has', 'have', 'contains',
@@ -207,7 +259,14 @@ class ClaimExtractor:
                 not sentence.strip().endswith('?'))
     
     def _filter_and_rank_claims(self, claims: List[ExtractedClaim]) -> List[ExtractedClaim]:
-        """Filter and rank claims by confidence and importance"""
+        """Deduplicate and rank extracted claims by confidence and entity count.
+
+        Args:
+            claims: Unfiltered list of candidate claims.
+
+        Returns:
+            Deduplicated list sorted by descending (confidence, entity count).
+        """
         # Remove duplicates
         unique_claims = []
         seen_texts = set()
@@ -223,7 +282,16 @@ class ClaimExtractor:
         return unique_claims
     
     def get_claim_summary(self, claims: List[ExtractedClaim]) -> Dict[str, Any]:
-        """Get summary statistics of extracted claims"""
+        """Compute summary statistics for a list of extracted claims.
+
+        Args:
+            claims: List of :class:`ExtractedClaim` objects.
+
+        Returns:
+            Dictionary with keys ``total_claims``, ``claim_types``,
+            ``total_entities``, ``average_confidence``,
+            ``highest_confidence``, ``lowest_confidence``.
+        """
         if not claims:
             return {"total_claims": 0}
         

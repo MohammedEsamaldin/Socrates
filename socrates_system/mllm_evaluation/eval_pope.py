@@ -6,15 +6,33 @@ from .base import BaseEvaluator
 
 
 class POPEEvaluator(BaseEvaluator):
+    """Evaluator for the POPE (Polling-based Object Probing Evaluation) benchmark."""
+
     BENCHMARK_NAME = "pope"
 
     def get_sample_id(self, sample: Dict[str, Any]):
+        """Extract a stable sample ID from common POPE field names.
+
+        Args:
+            sample: A single POPE sample dict.
+
+        Returns:
+            The sample identifier, or the base class fallback.
+        """
         for k in [self.id_key, "id", "uid", "sample_id", "idx"]:
             if k and sample.get(k) is not None:
                 return sample.get(k)
         return super().get_sample_id(sample)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the question text from common POPE field names.
+
+        Args:
+            sample: A single POPE sample dict.
+
+        Returns:
+            The question string (ignoring the paired ground-truth answer field).
+        """
         # POPE often has question/answer pairs; we only need the question
         for k in [self.prompt_key, "question", "prompt", "instruction", "query", "text"]:
             if k and isinstance(sample.get(k), str) and sample[k].strip():
@@ -23,6 +41,11 @@ class POPEEvaluator(BaseEvaluator):
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the POPE evaluator.
+
+    Returns:
+        A configured :class:`argparse.ArgumentParser` instance.
+    """
     p = argparse.ArgumentParser(description="Evaluate POPE with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
@@ -38,6 +61,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    """Entry point: parse CLI args and run the POPE evaluation."""
     args = build_arg_parser().parse_args()
 
     evaluator = POPEEvaluator(

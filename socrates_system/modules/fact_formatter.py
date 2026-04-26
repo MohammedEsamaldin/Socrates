@@ -17,6 +17,12 @@ def _safe_float(x, default=0.0) -> float:
 
 @dataclass
 class GraphRAGFactFormatter:
+    """Converts a session knowledge graph and high-confidence claims into a linearized text summary.
+
+    The output format is inspired by GraphRAG linearization and is intended for
+    injection into LLM contradiction-detection prompts.
+    """
+
     def format_session_facts(self, kg_export: Dict[str, Any], high_conf_claims: List[Dict[str, Any]], max_items: int = 50) -> str:
         """Return a GraphRAG-style linearized summary string of the session knowledge.
         Args:

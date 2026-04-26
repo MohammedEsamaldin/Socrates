@@ -59,6 +59,18 @@ class DeterministicRouter:
         )
 
     def route_claim(self, claim: ExtractedClaim) -> VerificationRoute:
+        """Route a single extracted claim to the most appropriate verification method.
+
+        Scoring considers claim categories, vision flags, KG coverage, detected
+        contradictions, and any ``route_hint`` attached to the claim.
+
+        Args:
+            claim: An :class:`ExtractedClaim` with text, categories, and optional metadata.
+
+        Returns:
+            A :class:`VerificationRoute` specifying the chosen verification method,
+            confidence score, and diagnostic metadata.
+        """
         if not claim or not getattr(claim, "text", "").strip():
             return self._create_route(
                 VerificationMethod.UNVERIFIABLE,

@@ -15,6 +15,17 @@ from transformers import (
 
 
 def load_image(path: str) -> Image.Image:
+    """Load an image from disk and convert it to RGB.
+
+    Args:
+        path: Absolute or relative path to the image file.
+
+    Returns:
+        An RGB :class:`PIL.Image.Image` object.
+
+    Raises:
+        FileNotFoundError: If the file does not exist at ``path``.
+    """
     if not os.path.exists(path):
         raise FileNotFoundError(f"Image not found: {path}")
     img = Image.open(path)
@@ -27,6 +38,24 @@ def resolve_image_path(
     image_key: str,
     image_ext: Optional[str],
 ) -> str:
+    """Resolve the image file path for a dataset record.
+
+    Tries common image field names (``image_path``, ``image``, etc.) and falls
+    back to constructing a path from ``image_id`` and ``image_ext``.
+
+    Args:
+        record: A single dataset record dict.
+        images_dir: Root directory for resolving relative image paths.
+        image_key: Primary field name to look up first.
+        image_ext: Fallback extension (e.g., ``"jpg"``) used when the path is
+            constructed from ``image_id``.
+
+    Returns:
+        An absolute or relative path string to the image file.
+
+    Raises:
+        KeyError: If no image path can be resolved from the record.
+    """
     # Try common keys first
     for k in [image_key, "image_path", "image", "image_name", "img", "filename"]:
         if k in record and record[k]:
@@ -45,6 +74,16 @@ def resolve_image_path(
 
 
 def build_llava_inputs(processor: AutoProcessor, image: Image.Image, question: str):
+    """Build tokenised inputs for a LLaVA-HF model from an image and question.
+
+    Args:
+        processor: The HuggingFace processor associated with the LLaVA model.
+        image: An RGB PIL image to pass as the visual context.
+        question: The text question to ask about the image.
+
+    Returns:
+        A dict of tensors (``input_ids``, ``pixel_values``, etc.) ready for model forward pass.
+    """
     # LLaVA HF uses a chat template with an implicit <image> token
     messages = [
         {
@@ -61,6 +100,7 @@ def build_llava_inputs(processor: AutoProcessor, image: Image.Image, question: s
 
 
 def main():
+    """Entry point: generate LLaVA answers for MMHal-Bench records and write output JSON."""
     parser = argparse.ArgumentParser(
         description="Generate LLaVA-1.5-7B answers for MMHal-Bench and save to JSON compatible with eval_gpt4.py",
     )

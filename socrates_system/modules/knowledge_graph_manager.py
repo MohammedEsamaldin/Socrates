@@ -57,22 +57,56 @@ class Claim:
     timestamp: datetime
 
 class StableId:
+    """Generates deterministic, content-addressed IDs for KG entities and relations.
+
+    All IDs are SHA-256 hashes of the canonical input, truncated to 12 hex chars
+    and prefixed with the node type (``ent_``, ``rel_``, ``canonical_``).
+    """
+
     @staticmethod
     def _sha(prefix: str, content: str) -> str:
         return f"{prefix}_{hashlib.sha256(content.encode()).hexdigest()[:12]}"
 
     @staticmethod
     def entity(text: str, label: str) -> str:
+        """Compute a stable ID for a named entity.
+
+        Args:
+            text: The entity surface text (lowercased and stripped before hashing).
+            label: The entity type label (e.g. ``PERSON``, ``ORG``).
+
+        Returns:
+            A deterministic string ID of the form ``ent_<12-hex-chars>``.
+        """
         base = f"{(text or '').lower().strip()}|{label}"
         return StableId._sha("ent", base)
 
     @staticmethod
     def relation(subject_id: str, predicate: str, object_id: str) -> str:
+        """Compute a stable ID for a directed relation between two entities.
+
+        Args:
+            subject_id: Stable ID of the subject entity.
+            predicate: Relation predicate string.
+            object_id: Stable ID of the object entity.
+
+        Returns:
+            A deterministic string ID of the form ``rel_<12-hex-chars>``.
+        """
         base = f"{subject_id}|{predicate}|{object_id}"
         return StableId._sha("rel", base)
 
     @staticmethod
     def canonical(normalized_text: str, entity_type: str) -> str:
+        """Compute a stable ID for a canonical entity form.
+
+        Args:
+            normalized_text: Normalised entity text (lowercased, stripped).
+            entity_type: The entity type label.
+
+        Returns:
+            A deterministic string ID of the form ``canonical_<12-hex-chars>``.
+        """
         base = f"{(normalized_text or '').lower().strip()}|{entity_type}"
         return StableId._sha("canonical", base)
 
@@ -394,6 +428,11 @@ class KnowledgeGraphManager:
         """Merge two relation lists by (subject, normalized predicate, object) with confidence fusion and evidence union."""
         merged: Dict[Tuple[str, str, str], Relation] = {}
         def add_rel(rel: Relation):
+            """Add a relation to the merge dict, fusing confidence and deduplicating evidence.
+
+            Args:
+                rel: The :class:`Relation` to merge into the accumulator.
+            """
             key = (rel.subject_id, self._normalize_predicate(rel.predicate), rel.object_id)
             if key in merged:
                 existing = merged[key]

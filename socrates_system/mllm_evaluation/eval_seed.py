@@ -6,15 +6,33 @@ from .base import BaseEvaluator
 
 
 class SEEDEvaluator(BaseEvaluator):
+    """Evaluator for the SEED-Bench multimodal benchmark."""
+
     BENCHMARK_NAME = "seed_bench"
 
     def get_sample_id(self, sample: Dict[str, Any]):
+        """Extract a stable sample ID from common SEED-Bench field names.
+
+        Args:
+            sample: A single SEED-Bench sample dict.
+
+        Returns:
+            The sample identifier, or the base class fallback.
+        """
         for k in [self.id_key, "id", "uid", "sample_id", "idx"]:
             if k and sample.get(k) is not None:
                 return sample.get(k)
         return super().get_sample_id(sample)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the question text from common SEED-Bench field names.
+
+        Args:
+            sample: A single SEED-Bench sample dict.
+
+        Returns:
+            The prompt string to pass to the model.
+        """
         for k in [self.prompt_key, "question", "prompt", "instruction", "query", "text"]:
             if k and isinstance(sample.get(k), str) and sample[k].strip():
                 return sample[k]
@@ -22,6 +40,11 @@ class SEEDEvaluator(BaseEvaluator):
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the SEED-Bench evaluator.
+
+    Returns:
+        A configured :class:`argparse.ArgumentParser` instance.
+    """
     p = argparse.ArgumentParser(description="Evaluate SEED-Bench with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
@@ -37,6 +60,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    """Entry point: parse CLI args and run the SEED-Bench evaluation."""
     args = build_arg_parser().parse_args()
 
     evaluator = SEEDEvaluator(

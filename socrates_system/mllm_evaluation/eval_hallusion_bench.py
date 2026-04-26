@@ -7,6 +7,13 @@ from .base import BaseEvaluator
 
 
 class HallusionBenchEvaluator(BaseEvaluator):
+    """Evaluator for the HallusionBench visual hallucination benchmark.
+
+    Extends :class:`BaseEvaluator` with HallusionBench-specific image path resolution
+    and a custom ``run()`` that writes a ``HallusionBench_result.json`` file alongside
+    the dataset, compatible with the official evaluation script.
+    """
+
     BENCHMARK_NAME = "hallusion_bench"
 
     def __init__(
@@ -55,6 +62,14 @@ class HallusionBenchEvaluator(BaseEvaluator):
                 self.image_root = inferred_root
 
     def get_sample_id(self, sample: Dict[str, Any]):
+        """Extract a stable sample ID from common HallusionBench / VQA field names.
+
+        Args:
+            sample: A single HallusionBench sample dict.
+
+        Returns:
+            The sample identifier, or the base class fallback.
+        """
         # Common IDs seen across VQA-like datasets
         for k in [self.id_key, "question_id", "qid", "uid", "id", "idx", "index"]:
             if k and sample.get(k) is not None:
@@ -62,14 +77,33 @@ class HallusionBenchEvaluator(BaseEvaluator):
         return super().get_sample_id(sample)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the question text from common HallusionBench field names.
+
+        Args:
+            sample: A single HallusionBench sample dict.
+
+        Returns:
+            The question string to pass to the model.
+        """
         # HallusionBench is question-centric
         for k in [self.prompt_key, "question", "instruction", "prompt", "query", "text"]:
             if k and isinstance(sample.get(k), str) and sample[k].strip():
                 return sample[k]
         return super().sample_to_prompt(sample)
 
-    # Derive image path from HallusionBench schema if not explicitly provided in the sample.
     def sample_to_image_path(self, sample: Dict[str, Any]) -> Optional[str]:
+        """Resolve the image file path for a HallusionBench sample.
+
+        Falls back to HallusionBench's ``category/subcategory/<set_id>_<figure_id>.png``
+        path convention when no explicit image field is present in the sample.
+
+        Args:
+            sample: A single HallusionBench sample dict.
+
+        Returns:
+            An absolute or relative image path string, or ``None`` if the sample
+            has ``visual_input=0`` or insufficient metadata to construct a path.
+        """
         # If explicit path/url fields exist, defer to base behavior
         explicit = super().sample_to_image_path(sample)
         if explicit:
@@ -95,6 +129,13 @@ class HallusionBenchEvaluator(BaseEvaluator):
         return candidate
 
     def run(self) -> None:
+        """Run evaluation and write a ``HallusionBench_result.json`` output file.
+
+        Iterates over all samples with checkpoint resumption support. Each sample's
+        ``model_prediction`` field is populated from either the raw or corrected model
+        output (controlled by ``hb_use_corrected``). The final JSON file is compatible
+        with the official HallusionBench evaluation script.
+        """
         # Load dataset (we also need the original entries to write model_prediction back)
         data = self.load_dataset(self.dataset_path)
         self.logger.info(f"Loaded {len(data)} samples from {self.dataset_path}")
@@ -171,6 +212,11 @@ class HallusionBenchEvaluator(BaseEvaluator):
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the HallusionBench evaluator.
+
+    Returns:
+        A configured :class:`argparse.ArgumentParser` instance.
+    """
     p = argparse.ArgumentParser(description="Evaluate HallusionBench with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to HallusionBench.json")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
@@ -197,6 +243,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    """Entry point: parse CLI args and run the HallusionBench evaluation."""
     args = build_arg_parser().parse_args()
 
     # Apply CLI overrides to env for MitM toggles (mirror eval_mmhal)

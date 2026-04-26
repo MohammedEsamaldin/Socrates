@@ -110,12 +110,34 @@ class LLMMainModelAdapter:
         )
 
     def generate(self, text: str, image_path: Optional[str] = None, **kwargs) -> str:
+        """Generate a text response via the wrapped LLMManager.
+
+        Args:
+            text: Prompt string to send to the LLM.
+            image_path: Ignored; LLMManager is text-first. [inferred]
+            **kwargs: Absorbed but unused extra keyword arguments.
+
+        Returns:
+            The model's generated text string.
+        """
         # For simplicity, ignore image here; LLMManager is text-first.
         return self.llm.generate_text(prompt=text, max_tokens=512)
 
 
 @dataclass
 class Correction:
+    """A single span-level correction applied to an input or output string.
+
+    Attributes:
+        start: Character start index of the corrected span.
+        end: Character end index (exclusive) of the corrected span.
+        original: The original text within the span.
+        replacement: The corrected text that replaces the original.
+        reason: Human-readable explanation for the correction.
+        confidence: Confidence score in [0, 1] for this correction.
+        sources: Evidence sources that justified this correction.
+    """
+
     start: int
     end: int
     original: str
@@ -127,6 +149,17 @@ class Correction:
 
 @dataclass
 class MitMRunResult:
+    """Full result of a single MitM (man-in-the-middle) hallucination interception run.
+
+    Attributes:
+        corrected_input: The user input after pre-processing corrections.
+        input_corrections: Corrections applied to the user input.
+        raw_output: The main model's raw response before post-processing.
+        corrected_output: The main model's response after post-processing corrections.
+        output_corrections: Corrections applied to the model output.
+        session_id: Unique identifier for this MitM session.
+    """
+
     corrected_input: str
     input_corrections: List[Correction]
     raw_output: str
@@ -136,6 +169,14 @@ class MitMRunResult:
 
 
 class HallucinationMitM:
+    """Man-in-the-middle hallucination guard that intercepts LLM inputs and outputs.
+
+    Wraps a main model with a multi-stage verification pipeline: claim extraction,
+    categorization, routing, external factuality checking, cross-modal alignment
+    (AGLA), self-contradiction detection, and conflict resolution. Each stage can
+    be enabled or disabled independently for ablation studies.
+    """
+
     def __init__(
         self,
         main_model: Optional[MainModelAdapter] = None,

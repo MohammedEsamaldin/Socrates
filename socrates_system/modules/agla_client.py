@@ -31,12 +31,47 @@ except Exception:  # pragma: no cover
 
 
 class AGLAClient:
+    """HTTP client for a remote AGLA (Adaptive Grounding and Language Alignment) service.
+
+    The remote service is expected to expose a FastAPI endpoint that accepts
+    a multipart/form-data POST with an image file and claim text and returns
+    a JSON body containing at minimum a ``"verdict"`` field.
+
+    Attributes:
+        base_url: Base URL of the remote service (trailing slash stripped).
+        verify_path: Endpoint path for claim verification.
+        timeout: HTTP request timeout in seconds.
+    """
+
     def __init__(self, base_url: str, verify_path: str = "/verify", timeout: int = 120) -> None:
+        """Initialize the AGLAClient.
+
+        Args:
+            base_url: Base URL of the remote AGLA service
+                (e.g. ``"https://myapp.modal.run"``).
+            verify_path: Path to the verification endpoint.
+            timeout: Request timeout in seconds.
+        """
         self.base_url = base_url.rstrip("/")
         self.verify_path = verify_path
         self.timeout = timeout
 
     def _coerce_image_bytes(self, image: Union[str, bytes, bytearray, Image.Image]) -> bytes:
+        """Convert a variety of image representations to raw JPEG bytes.
+
+        Args:
+            image: One of: a local file path (``str``), an HTTP/HTTPS URL
+                (``str``), raw ``bytes`` / ``bytearray``, or a
+                ``PIL.Image.Image`` instance.
+
+        Returns:
+            JPEG-encoded bytes ready for multipart upload.
+
+        Raises:
+            TypeError: If ``image`` is none of the supported types.
+            requests.HTTPError: If a URL cannot be fetched.
+            FileNotFoundError: If a local path does not exist.
+        """
         if isinstance(image, (bytes, bytearray)):
             return bytes(image)
         if isinstance(image, str):
@@ -62,6 +97,29 @@ class AGLAClient:
         beta: Optional[float] = None,
         return_debug: bool = False,
     ) -> Dict[str, Any]:
+        """Send a claim and image to the remote AGLA service for verification.
+
+        Args:
+            image: Image to verify against (path, URL, bytes, or PIL Image).
+            claim: Textual claim to verify.
+            socratic_question: Optional Socratic question for additional
+                context; forwarded to the service but may be ignored.
+            use_agla: Whether to use the AGLA contrastive decoding method
+                on the server side; ``None`` means use the server default.
+            alpha: AGLA alpha hyperparameter; ``None`` uses server default.
+            beta: AGLA beta hyperparameter; ``None`` uses server default.
+            return_debug: Whether to request debug information in the
+                response body.
+
+        Returns:
+            Parsed JSON response dict from the remote service, including at
+            minimum a ``"verdict"`` key (``"True"``, ``"False"``, or
+            ``"Uncertain"``).
+
+        Raises:
+            requests.HTTPError: If the remote service returns a non-2xx
+                status code.
+        """
         url = f"{self.base_url}{self.verify_path}"
         img_bytes = self._coerce_image_bytes(image)
 

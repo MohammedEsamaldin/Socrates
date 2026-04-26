@@ -38,6 +38,8 @@ class VerificationStage(Enum):
     SOCRATIC_SYNTHESIS = "socratic_synthesis"
 
 class CheckStatus(Enum):
+    """Outcome states for a single verification check, including the ERROR terminal state."""
+
     PASS = "PASS"
     FAIL = "FAIL"
     PENDING = "PENDING"
@@ -95,7 +97,21 @@ class AdvancedSocratesAgent:
         logger.info("Advanced Socrates Agent initialized successfully")
     
     def start_session(self, session_id: str = None, domain: str = "general") -> str:
-        """Start a new advanced verification session"""
+        """Start a new advanced verification session.
+
+        Resets conversation history and initialises the KALA knowledge graph
+        for the specified domain.
+
+        Args:
+            session_id: Optional explicit session identifier. If ``None``, a
+                timestamp-based ID prefixed with ``"advanced_session_"`` is
+                generated.
+            domain: Thematic domain for knowledge graph specialisation (e.g.
+                ``"general"``, ``"science"``, ``"history"``).
+
+        Returns:
+            The session ID that was created or provided.
+        """
         if session_id is None:
             session_id = f"advanced_session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
@@ -169,10 +185,29 @@ class AdvancedSocratesAgent:
             logger.error(f"Advanced processing failed: {e}")
             return self._create_error_response(user_input, str(e))
     
-    async def _verify_claim_advanced(self, claim: AdvancedClaim, original_input: str, 
+    async def _verify_claim_advanced(self, claim: AdvancedClaim, original_input: str,
                                    image_path: Optional[str], context: Dict[str, Any] = None) -> AdvancedVerificationResult:
-        """
-        Advanced claim verification using sophisticated multi-stage pipeline
+        """Run the full advanced multi-stage verification pipeline on a single claim.
+
+        Stages executed in order:
+          1. Socratic inquiry chain generation.
+          2. Cross-alignment check (only when ``image_path`` is provided).
+          3. Enhanced external factuality check.
+          4. Self-contradiction check (KG-based).
+          5. Ambiguity check.
+          6. Knowledge graph integration for PASS-status claims.
+
+        Args:
+            claim: The :class:`AdvancedClaim` to verify.
+            original_input: Full original user text (used for context logging).
+            image_path: Local path to an uploaded image, or ``None`` for
+                text-only verification.
+            context: Optional dict of extra metadata passed through to checkers.
+
+        Returns:
+            An :class:`AdvancedVerificationResult` containing stage-level results,
+            the overall status, confidence, Socratic inquiry chain, and
+            factuality result.
         """
         start_time = datetime.now()
         logger.info(f"Advanced verification for claim: {claim.text[:50]}...")
@@ -318,7 +353,18 @@ class AdvancedSocratesAgent:
             )
     
     async def _perform_cross_alignment_check(self, claim: AdvancedClaim, image_path: str) -> Dict[str, Any]:
-        """Perform cross-alignment check with enhanced error handling"""
+        """Invoke the cross-alignment checker and normalise its result dict.
+
+        Args:
+            claim: The :class:`AdvancedClaim` whose text is checked against the
+                image.
+            image_path: Local path to the uploaded image file.
+
+        Returns:
+            Dict with keys ``status`` (:class:`CheckStatus`), ``confidence``,
+            ``evidence``, ``contradictions``, and ``clarification_needed``.
+            On exception, returns an ERROR-status dict.
+        """
         try:
             result = self.cross_alignment_checker.check_alignment(claim.text, image_path)
             return {
@@ -339,7 +385,16 @@ class AdvancedSocratesAgent:
             }
     
     async def _perform_self_contradiction_check(self, claim: AdvancedClaim) -> Dict[str, Any]:
-        """Perform self-contradiction check with session context"""
+        """Check the claim against the session knowledge graph for contradictions.
+
+        Args:
+            claim: The :class:`AdvancedClaim` to check.
+
+        Returns:
+            Dict with keys ``status``, ``confidence``, ``evidence``,
+            ``contradictions``, and ``clarification_needed``. On exception,
+            returns an ERROR-status dict.
+        """
         try:
             result = self.self_contradiction_checker.check_contradiction(claim.text, self.session_id)
             return {
@@ -360,7 +415,17 @@ class AdvancedSocratesAgent:
             }
     
     async def _perform_ambiguity_check(self, claim: AdvancedClaim, original_input: str) -> Dict[str, Any]:
-        """Perform ambiguity check with enhanced logic"""
+        """Check a claim for ambiguous language using the :class:`AmbiguityChecker`.
+
+        Args:
+            claim: The :class:`AdvancedClaim` to assess.
+            original_input: Full original user text provided as context.
+
+        Returns:
+            Dict with keys ``needs_clarification``, ``clarification_questions``,
+            ``ambiguity_score``, and ``ambiguous_terms``. On exception, returns
+            a dict indicating clarification is needed due to the technical error.
+        """
         try:
             result = self.ambiguity_checker.check_ambiguity(claim.text, original_input)
             return {
@@ -378,9 +443,23 @@ class AdvancedSocratesAgent:
                 "ambiguous_terms": []
             }
     
-    def _should_check_ambiguity(self, claim: AdvancedClaim, overall_status: CheckStatus, 
+    def _should_check_ambiguity(self, claim: AdvancedClaim, overall_status: CheckStatus,
                               stage_results: Dict[VerificationStage, Dict[str, Any]]) -> bool:
-        """Determine if ambiguity check is needed based on current state"""
+        """Decide whether the ambiguity checker should run for this claim.
+
+        The check is skipped when the claim already failed another stage.
+        It is triggered when verifiability is low/subjective, external
+        factuality was inconclusive, or the claim has more than two
+        relationships.
+
+        Args:
+            claim: The :class:`AdvancedClaim` being evaluated.
+            overall_status: Status accumulated from preceding stages.
+            stage_results: Mapping of completed stage results.
+
+        Returns:
+            True if the ambiguity check should run, False otherwise.
+        """
         # Skip ambiguity check if claim already failed other checks
         if overall_status == CheckStatus.FAIL:
             return False
@@ -400,9 +479,25 @@ class AdvancedSocratesAgent:
         
         return False
     
-    async def _compile_advanced_socratic_response(self, verification_results: List[AdvancedVerificationResult], 
+    async def _compile_advanced_socratic_response(self, verification_results: List[AdvancedVerificationResult],
                                                 original_input: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Compile comprehensive Socratic response with advanced insights"""
+        """Compile the full advanced Socratic response dict from per-claim results.
+
+        Aggregates claim-level statuses, generates the Socratic dialogue,
+        collects knowledge-graph update statistics, and produces action
+        insights for the caller.
+
+        Args:
+            verification_results: List of :class:`AdvancedVerificationResult`
+                objects from the current processing turn.
+            original_input: The original user input string.
+            context: Optional extra metadata (currently unused in this method).
+
+        Returns:
+            A dict with keys including ``session_id``, ``verification_summary``,
+            ``socratic_dialogue``, ``detailed_results``, ``knowledge_graph_updates``,
+            ``next_steps``, and ``insights``.
+        """
         logger.info("Compiling advanced Socratic response...")
         
         # Analyze overall verification status
@@ -468,7 +563,19 @@ class AdvancedSocratesAgent:
         return response
     
     async def _generate_advanced_socratic_dialogue(self, verification_results: List[AdvancedVerificationResult]) -> List[Dict[str, Any]]:
-        """Generate sophisticated Socratic dialogue based on verification results"""
+        """Build a structured Socratic dialogue transcript from per-claim results.
+
+        Each claim contributes a ``claim_introduction`` entry, one entry per
+        Socratic question in the inquiry chain, and a final
+        ``verification_result`` or ``contradiction_found`` entry.
+
+        Args:
+            verification_results: List of :class:`AdvancedVerificationResult` objects.
+
+        Returns:
+            List of dialogue-entry dicts, each with at minimum ``"type"`` and
+            ``"content"`` keys.
+        """
         dialogue = []
         
         for result in verification_results:

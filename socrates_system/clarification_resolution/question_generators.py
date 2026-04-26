@@ -1,3 +1,11 @@
+"""
+Issue-specific Socratic question generators for the clarification module.
+
+Each generator subclasses :class:`BaseQuestionGenerator` and produces
+questions tailored to a specific :class:`IssueType`. A module-level registry
+``GENERATOR_BY_ISSUE`` maps each issue type to its singleton generator
+instance.
+"""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -17,6 +25,11 @@ _CACHED_LLM = None
 
 
 def _get_llm():
+    """Lazily initialise and cache the shared LLM manager singleton.
+
+    Returns:
+        A shared LLMManager instance, or ``None`` if initialisation fails.
+    """
     global _CACHED_LLM
     if _CACHED_LLM is not None:
         return _CACHED_LLM
@@ -35,6 +48,20 @@ def _make_q(
     expects: Optional[str] = None,
     metadata: Optional[dict] = None,
 ) -> SocraticQuestion:
+    """Construct a :class:`SocraticQuestion` with an auto-generated UUID id.
+
+    Args:
+        text: The question text.
+        qtype: Question type; one of ``"open-ended"``, ``"binary"``,
+            ``"selection"``.
+        choices: List of choice strings for selection-type questions.
+        expects: Hint describing the desired answer (e.g.
+            ``"rewrite_precise_claim"``).
+        metadata: Optional dict of additional metadata to attach.
+
+    Returns:
+        A new :class:`SocraticQuestion` instance.
+    """
     return SocraticQuestion(
         id=str(uuid.uuid4())[:8],
         text=text.strip(),
@@ -46,6 +73,16 @@ def _make_q(
 
 
 def _summarize_evidence(ctx: ClarificationContext, limit: int = 3) -> List[str]:
+    """Extract up to ``limit`` short evidence summary strings from the context.
+
+    Args:
+        ctx: Clarification context whose ``fact_check.evidence`` is scanned.
+        limit: Maximum number of items to return.
+
+    Returns:
+        List of non-empty summary strings extracted from evidence dicts or
+        plain strings.
+    """
     ev_summaries: List[str] = []
     try:
         for e in ctx.fact_check.evidence[:limit]:
@@ -131,13 +168,37 @@ def _llm_tailored_question(ctx: ClarificationContext) -> Optional[SocraticQuesti
 
 
 class SocraticQuestionGenerator(ABC):
+    """Abstract base class for issue-specific Socratic question generators."""
+
     @abstractmethod
     def generate_questions(self, ctx: ClarificationContext, max_questions: int = 3) -> List[SocraticQuestion]:
+        """Generate Socratic questions for a given clarification context.
+
+        Args:
+            ctx: Clarification context containing the claim, issue type, and
+                fact-check result.
+            max_questions: Maximum number of questions to return.
+
+        Returns:
+            List of :class:`SocraticQuestion` objects.
+        """
         raise NotImplementedError
 
 
 class VisualConflictQuestionGenerator(SocraticQuestionGenerator):
+    """Generates questions for claims that conflict with visual evidence."""
+
     def generate_questions(self, ctx: ClarificationContext, max_questions: int = 3) -> List[SocraticQuestion]:
+        """Generate Socratic questions that guide rewriting a visually conflicting claim.
+
+        Args:
+            ctx: Clarification context including the conflicting claim and evidence.
+            max_questions: Maximum number of questions to return.
+
+        Returns:
+            A list of :class:`SocraticQuestion` instances, preferring an LLM-tailored
+            question and falling back to a static rewrite prompt.
+        """
         # Prefer LLM-tailored single question with justification
         q = _llm_tailored_question(ctx)
         if q is not None:
@@ -153,7 +214,18 @@ class VisualConflictQuestionGenerator(SocraticQuestionGenerator):
 
 
 class KnowledgeContradictionQuestionGenerator(SocraticQuestionGenerator):
+    """Generates questions for claims that contradict session knowledge graph facts."""
+
     def generate_questions(self, ctx: ClarificationContext, max_questions: int = 3) -> List[SocraticQuestion]:
+        """Generate questions prompting rewriting of a knowledge-contradicting claim.
+
+        Args:
+            ctx: Clarification context with the contradicting claim and KG evidence.
+            max_questions: Maximum number of questions to return.
+
+        Returns:
+            A list of :class:`SocraticQuestion` instances.
+        """
         q = _llm_tailored_question(ctx)
         if q is not None:
             return [q][:max_questions]
@@ -167,7 +239,18 @@ class KnowledgeContradictionQuestionGenerator(SocraticQuestionGenerator):
 
 
 class AmbiguityQuestionGenerator(SocraticQuestionGenerator):
+    """Generates questions for ambiguous claims that require clarification."""
+
     def generate_questions(self, ctx: ClarificationContext, max_questions: int = 3) -> List[SocraticQuestion]:
+        """Generate questions that disambiguate an ambiguous claim.
+
+        Args:
+            ctx: Clarification context with the ambiguous claim.
+            max_questions: Maximum number of questions to return.
+
+        Returns:
+            A list of :class:`SocraticQuestion` instances.
+        """
         q = _llm_tailored_question(ctx)
         if q is not None:
             return [q][:max_questions]
@@ -181,7 +264,19 @@ class AmbiguityQuestionGenerator(SocraticQuestionGenerator):
 
 
 class ExternalFactualConflictQuestionGenerator(SocraticQuestionGenerator):
+    """Generates questions for claims that conflict with external factuality sources."""
+
     def generate_questions(self, ctx: ClarificationContext, max_questions: int = 3) -> List[SocraticQuestion]:
+        """Generate questions that surface external evidence and prompt claim rewriting.
+
+        Args:
+            ctx: Clarification context including external fact-check evidence.
+            max_questions: Maximum number of questions to return.
+
+        Returns:
+            A list of :class:`SocraticQuestion` instances, with fallback text
+            incorporating available evidence summaries.
+        """
         q = _llm_tailored_question(ctx)
         if q is not None:
             return [q][:max_questions]

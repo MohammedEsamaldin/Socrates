@@ -82,6 +82,18 @@ except Exception:
 
 # --- Utility: conservative negation detection to guard polarity flips ---
 def _has_negation(text: Optional[str]) -> bool:
+    """Detect common negation tokens in a short text to guard against polarity flips.
+
+    Checks for common English negation cues and contractions (e.g. ``not``,
+    ``no``, ``never``, ``n't``). This is intentionally conservative and does
+    not perform full syntactic parsing.
+
+    Args:
+        text: Text to examine. Returns ``False`` if ``None`` or empty.
+
+    Returns:
+        True if any negation cue is found, False otherwise.
+    """
     if not text:
         return False
     s = f" {str(text).strip().lower()} "
@@ -101,6 +113,11 @@ logging.basicConfig(level=_lvl, format='%(asctime)s - %(levelname)s - %(message)
 import sys
 
 class ConsoleColors:
+    """ANSI color helper with per-role defaults and env-variable overrides.
+
+    Role colors can be overridden at runtime via ``SOC_COLOR_<ROLE>=<color>``
+    environment variables (e.g. ``SOC_COLOR_HEADING=cyan``).
+    """
     _ANSI = {
         'reset': "\033[0m",
         'bold': "\033[1m",
@@ -141,6 +158,12 @@ class ConsoleColors:
 
     @staticmethod
     def _supports_color() -> bool:
+        """Return True if the current stdout supports ANSI color codes.
+
+        Returns:
+            True if stdout is a TTY and the ``NO_COLOR`` env var is unset,
+            False otherwise.
+        """
         if os.getenv('NO_COLOR'):
             return False
         try:
@@ -150,6 +173,21 @@ class ConsoleColors:
 
     @classmethod
     def c(cls, role: str, text: str) -> str:
+        """Wrap ``text`` in the ANSI color code for ``role``.
+
+        The color name can be overridden at runtime via the environment variable
+        ``SOC_COLOR_<ROLE>`` (e.g. ``SOC_COLOR_HEADING=cyan``). If the terminal
+        does not support colors, ``text`` is returned unchanged.
+
+        Args:
+            role: Semantic role name (e.g. ``"heading"``, ``"claim"``,
+                ``"factuality_pass"``). Must match a key in ``_ROLE_DEFAULTS``
+                or an env override.
+            text: The string to colorize.
+
+        Returns:
+            ANSI-wrapped string, or ``text`` unmodified when color is unsupported.
+        """
         if not cls._supports_color():
             return text
         # Resolve color name for role (env override wins)
@@ -480,6 +518,14 @@ class SocratesPipeline:
                     logging.warning(f"Deterministic router failed: {e}")
 
             def score(r: Optional[VerificationRoute]) -> float:
+                """Score a VerificationRoute by confidence plus bonuses for KG coverage and contradiction signals.
+
+                Args:
+                    r: A VerificationRoute produced by either the LLM or deterministic router, or None.
+
+                Returns:
+                    A float score; higher is preferred when selecting between competing routes.
+                """
                 if r is None:
                     return 0.0
                 base = float(getattr(r, "confidence", 0.0) or 0.0)
@@ -557,9 +603,22 @@ class SocratesPipeline:
         return route
 
     def _make_module_llm(self, provider_env: Optional[str], model_env: Optional[str], fallback_llm: Optional[LLMManager]) -> Optional[LLMManager]:
-        """Create a module-specific LLMManager if env overrides are provided; else return fallback.
-        provider_env: e.g., 'ollama' | 'openai' | 'claude' (case-insensitive)
-        model_env: model name string for the selected provider
+        """Create a module-specific LLMManager if env overrides are set, else return the fallback.
+
+        This allows individual pipeline stages (e.g. factuality, self-contradiction) to
+        use a different LLM provider or model than the global one, controlled by environment
+        variables such as ``FACTUALITY_LLM_PROVIDER`` / ``FACTUALITY_LLM_MODEL``.
+
+        Args:
+            provider_env: Provider string read from an environment variable
+                (e.g. ``"ollama"``, ``"openai"``, ``"claude"``). May be empty.
+            model_env: Model name read from an environment variable. May be empty.
+            fallback_llm: The shared :class:`LLMManager` to return when no overrides
+                are provided.
+
+        Returns:
+            A new :class:`LLMManager` instance if either ``provider_env`` or
+            ``model_env`` is non-empty; otherwise ``fallback_llm``.
         """
         try:
             prov = (provider_env or "").strip().lower()

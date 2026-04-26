@@ -7,7 +7,21 @@ from pathlib import Path
 from socrates_system.config import LOG_LEVEL, LOG_FORMAT, LOGS_DIR, CONSOLE_LOG_LEVEL
 
 def setup_logger(name: str) -> logging.Logger:
-    """Set up a logger with consistent formatting"""
+    """Set up a dual-handler logger with consistent formatting.
+
+    Creates a logger that writes at `LOG_LEVEL` to a per-module file under
+    `LOGS_DIR` and at `CONSOLE_LOG_LEVEL` to stdout. Idempotent: if the
+    named logger already has handlers, it is returned as-is to avoid
+    duplicate output.
+
+    Args:
+        name: Logger name, typically ``__name__`` of the calling module.
+            The last component (after the final ``.``) is used as the log
+            file stem.
+
+    Returns:
+        A configured :class:`logging.Logger` instance.
+    """
     logger = logging.getLogger(name)
     
     if not logger.handlers:  # Avoid duplicate handlers

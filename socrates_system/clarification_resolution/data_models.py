@@ -1,3 +1,9 @@
+"""
+Data models for the clarification resolution module.
+
+Defines enumerations and dataclasses that form the public API contract
+between :class:`ClarificationResolutionModule` and its callers.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -10,6 +16,8 @@ try:
 except Exception:
     # Fallback lightweight enum to avoid hard dependency at import time
     class ClaimCategoryType(Enum):
+        """Claim verification category used when the shared_structures import is unavailable."""
+
         VISUAL_GROUNDING_REQUIRED = "VISUAL_GROUNDING_REQUIRED"
         EXTERNAL_KNOWLEDGE_REQUIRED = "EXTERNAL_KNOWLEDGE_REQUIRED"
         SELF_CONSISTENCY_REQUIRED = "SELF_CONSISTENCY_REQUIRED"
@@ -62,6 +70,18 @@ class ClarificationContext:
 
 @dataclass
 class SocraticQuestion:
+    """A single Socratic question presented to the user during clarification.
+
+    Attributes:
+        id: Short UUID-based identifier for response mapping.
+        text: The question text shown to the user.
+        qtype: One of ``"open-ended"``, ``"binary"``, or ``"selection"``.
+        choices: List of choice strings for selection-type questions.
+        expects: Hint describing the desired answer form
+            (e.g. ``"rewrite_precise_claim"``).
+        metadata: Optional free-form metadata (e.g. justification, evidence used).
+    """
+
     id: str
     text: str
     qtype: str = "open-ended"  # one of: binary, selection, open-ended

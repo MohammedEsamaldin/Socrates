@@ -6,9 +6,19 @@ from .base import BaseEvaluator
 
 
 class MMHalEvaluator(BaseEvaluator):
+    """Evaluator for the MMHal-Bench multimodal hallucination benchmark."""
+
     BENCHMARK_NAME = "mmhal_bench"
 
     def get_sample_id(self, sample: Dict[str, Any]):
+        """Extract a stable sample ID from common MMHal-Bench field names.
+
+        Args:
+            sample: A single MMHal-Bench sample dict.
+
+        Returns:
+            The sample identifier, or the base class fallback.
+        """
         # Common fields seen in MMHal-like datasets
         for k in [self.id_key, "question_id", "uid", "id", "idx"]:
             if k and sample.get(k) is not None:
@@ -16,6 +26,14 @@ class MMHalEvaluator(BaseEvaluator):
         return super().get_sample_id(sample)
 
     def sample_to_prompt(self, sample: Dict[str, Any]) -> str:
+        """Extract the question text from common MMHal-Bench field names.
+
+        Args:
+            sample: A single MMHal-Bench sample dict.
+
+        Returns:
+            The prompt string to pass to the model.
+        """
         # Typical key for question-based datasets
         for k in [self.prompt_key, "question", "instruction", "prompt", "query", "text"]:
             if k and isinstance(sample.get(k), str) and sample[k].strip():
@@ -26,6 +44,11 @@ class MMHalEvaluator(BaseEvaluator):
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the MMHal-Bench evaluator.
+
+    Returns:
+        A configured :class:`argparse.ArgumentParser` instance.
+    """
     p = argparse.ArgumentParser(description="Evaluate MMHal-Bench with Socrates MITM pipeline")
     p.add_argument("--dataset", required=True, help="Path to the dataset file (json/jsonl/csv)")
     p.add_argument("--run-dir", default=os.path.join("mllm_evaluation", "runs"), help="Directory to store run outputs")
@@ -49,6 +72,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    """Entry point: parse CLI args and run the MMHal-Bench evaluation."""
     args = build_arg_parser().parse_args()
 
     # Apply CLI overrides to env for MitM toggles

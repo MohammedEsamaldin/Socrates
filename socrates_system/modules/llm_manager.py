@@ -39,6 +39,8 @@ class LLMTaskType(Enum):
     CONTRADICTION_DETECTION_SIMPLE = "contradiction_detection_simple"
 
 class LLMProvider(Enum):
+    """Supported LLM backend providers."""
+
     OLLAMA = "ollama"
     OPENAI = "openai"
     CLAUDE = "claude"
@@ -902,6 +904,14 @@ Respond with only the required JSON object."""
         semaphore = asyncio.Semaphore(self.max_concurrent)
         
         async def process_with_semaphore(request):
+            """Acquire the concurrency semaphore and process a single LLM request.
+
+            Args:
+                request: The :class:`LLMRequest` to process.
+
+            Returns:
+                The :class:`LLMResponse` produced by ``process_request``.
+            """
             async with semaphore:
                 return await self.process_request(request)
         

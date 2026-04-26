@@ -48,6 +48,16 @@ from socrates_system.mllm_evaluation.utils.dataset import load_dataset_generic
 
 
 def ensure_list_str(x: Any) -> List[str]:
+    """Coerce a value to a list of strings.
+
+    Args:
+        x: A ``None``, list, comma-separated string, or any other value.
+
+    Returns:
+        A list of strings. ``None`` returns ``[]``, a list returns each element
+        cast to str, a comma-separated string is split on commas, and any other
+        type returns a single-element list.
+    """
     if x is None:
         return []
     if isinstance(x, list):
@@ -59,6 +69,14 @@ def ensure_list_str(x: Any) -> List[str]:
 
 
 def load_mmhal_jsonl(path: str) -> List[Dict[str, Any]]:
+    """Load records from an MMHal checkpoint JSONL file, silently skipping malformed lines.
+
+    Args:
+        path: Path to the JSONL checkpoint file.
+
+    Returns:
+        A list of parsed record dicts, or an empty list if the file does not exist.
+    """
     out: List[Dict[str, Any]] = []
     if not os.path.exists(path):
         return out
@@ -79,6 +97,20 @@ def build_judge_records(
     mmhals: List[Dict[str, Any]],
     prefer_corrected: bool = True,
 ) -> List[Dict[str, Any]]:
+    """Merge dataset records with MMHal checkpoint outputs into judge-ready records.
+
+    Attempts ID-based alignment, falling back to positional when IDs are absent.
+
+    Args:
+        dataset: Original dataset records containing question and ground-truth fields.
+        mmhals: Checkpoint JSONL records produced by the MMHal evaluator.
+        prefer_corrected: When ``True``, use the MitM-corrected model response;
+            otherwise use the raw original response.
+
+    Returns:
+        A list of dicts suitable for GPT-4 judge evaluation, each containing
+        ``image_id``, ``question``, ``gt_answer``, ``model_answer``, and metadata.
+    """
     # Attempt id-based mapping; fallback to positional
     id_to_mmhal: Dict[Any, Dict[str, Any]] = {}
     for m in mmhals:
@@ -119,6 +151,7 @@ def build_judge_records(
 
 
 def main():
+    """Entry point: run the MMHal LLaVA-HF evaluator and export a judge-ready JSON file."""
     ap = argparse.ArgumentParser(description="Run MMHal evaluator with llava_hf and export judge-ready JSON")
     ap.add_argument("--dataset", required=True, help="Path to dataset (json/jsonl/csv)")
     ap.add_argument("--output", required=True, help="Path to write judge-ready JSON")

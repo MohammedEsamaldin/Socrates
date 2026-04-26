@@ -40,6 +40,18 @@ from socrates_system.mllm_evaluation.providers.llava_hf import LlavaHFGenerator
 
 
 def load_dataset(path: str) -> List[Dict[str, Any]]:
+    """Load MMHal dataset records from a JSON or JSONL file.
+
+    Args:
+        path: Path to the dataset file (``.json`` or ``.jsonl``).
+
+    Returns:
+        A list of record dicts.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        ValueError: If the JSON file format is not a recognised list or ``{"data": [...]}`` structure.
+    """
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(f"Dataset not found: {path}")
@@ -66,6 +78,19 @@ def load_dataset(path: str) -> List[Dict[str, Any]]:
 
 
 def resolve_image_path(sample: Dict[str, Any], image_root: Optional[str], dataset_dir: str) -> Optional[str]:
+    """Resolve the image file path for an MMHal sample.
+
+    Checks common image field names and resolves relative paths against ``image_root``
+    (preferred) then ``dataset_dir``. URLs are returned as-is.
+
+    Args:
+        sample: A single dataset record dict.
+        image_root: Optional root directory for resolving relative image paths.
+        dataset_dir: Directory of the dataset file, used as a fallback root.
+
+    Returns:
+        The resolved path string, or ``None`` if no image field is found.
+    """
     # Common keys; follow BaseEvaluator.sample_to_image_path patterns
     keys: List[Optional[str]] = [
         "image",
@@ -98,6 +123,14 @@ def resolve_image_path(sample: Dict[str, Any], image_root: Optional[str], datase
 
 
 def ensure_list_str(x: Any) -> List[str]:
+    """Coerce a value to a list of strings, splitting comma-separated strings.
+
+    Args:
+        x: A ``None``, list, string, or any other value.
+
+    Returns:
+        A list of string values.
+    """
     if x is None:
         return []
     if isinstance(x, list):
@@ -110,6 +143,7 @@ def ensure_list_str(x: Any) -> List[str]:
 
 
 def main():
+    """Entry point: generate LLaVA-HF responses for all MMHal-Bench samples and write output JSON."""
     ap = argparse.ArgumentParser(description="Generate MMHal-Bench responses with LLaVA-HF")
     ap.add_argument("--dataset", required=True, help="Path to MMHal dataset (json/jsonl)")
     ap.add_argument("--output", required=True, help="Path to write responses JSON")

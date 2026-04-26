@@ -42,6 +42,19 @@ DEFAULT_PROMPT_KEYS = [
 
 
 def get_prompt_text(sample: Dict[str, Any], key_override: Optional[str] = None, fallback_keys: Optional[List[str]] = None) -> str:
+    """Extract the prompt string from a sample dict.
+
+    Tries ``key_override`` first, then ``fallback_keys``, then ``DEFAULT_PROMPT_KEYS``.
+    Returns a JSON-serialised fallback if no text field is found.
+
+    Args:
+        sample: A single dataset sample dict.
+        key_override: A field name to check before the fallback list.
+        fallback_keys: Ordered list of field names to try if ``key_override`` fails.
+
+    Returns:
+        The prompt text string.
+    """
     if key_override:
         val = sample.get(key_override)
         if isinstance(val, str) and val.strip():

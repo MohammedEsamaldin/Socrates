@@ -72,6 +72,16 @@ class LlavaHFGenerator:
 
     @classmethod
     def get(cls, model_id: str, no_4bit: bool = False, use_slow_tokenizer: bool = False) -> "LlavaHFGenerator":
+        """Return a cached :class:`LlavaHFGenerator` instance, creating one if needed.
+
+        Args:
+            model_id: HuggingFace model ID (e.g. ``'llava-hf/llava-1.5-7b-hf'``).
+            no_4bit: When ``True``, disables 4-bit quantisation (higher VRAM usage).
+            use_slow_tokenizer: When ``True``, uses the slow tokenizer implementation.
+
+        Returns:
+            A singleton :class:`LlavaHFGenerator` for the given configuration.
+        """
         key = (model_id, no_4bit, use_slow_tokenizer)
         inst = cls._instances.get(key)
         if inst is None:
@@ -86,6 +96,17 @@ class LlavaHFGenerator:
         max_new_tokens: int = 500,
         temperature: float = 0.2,
     ) -> str:
+        """Generate a text response from the LLaVA-HF model.
+
+        Args:
+            prompt: Text prompt to include in the chat message.
+            image_path: Optional path to an image to prepend as a visual context token.
+            max_new_tokens: Maximum number of new tokens to generate.
+            temperature: Sampling temperature; lower values make output more deterministic.
+
+        Returns:
+            The generated response string with the prompt prefix stripped.
+        """
         image = _load_image(image_path) if image_path else None
 
         # Build chat template with optional image

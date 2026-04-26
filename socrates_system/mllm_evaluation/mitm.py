@@ -486,6 +486,20 @@ def build_pipeline(llm_manager: LLMManager,
                    clarification_dev_mode: bool = False,
                    question_gen_enabled: bool = False,
                    post_factuality_clarification_enabled: Optional[bool] = None) -> SocratesPipeline:
+    """Construct and return a :class:`SocratesPipeline` with the given configuration.
+
+    Args:
+        llm_manager: The :class:`LLMManager` instance to use for all pipeline steps.
+        factuality_enabled: Whether external factuality checking is active.
+        clarification_enabled: Whether the clarification resolution module is active.
+        clarification_dev_mode: When ``True``, skips real LLM calls in clarification.
+        question_gen_enabled: Whether Socratic question generation is enabled.
+        post_factuality_clarification_enabled: Override for post-factuality clarification;
+            defaults to the value of ``clarification_enabled`` when ``None``.
+
+    Returns:
+        A configured :class:`SocratesPipeline` instance ready to process claims.
+    """
     return SocratesPipeline(
         llm_manager=llm_manager,
         factuality_enabled=factuality_enabled,

@@ -52,6 +52,18 @@ class ExternalAPIClient:
         raise NotImplementedError
 
     def query(self, claim: str) -> List[Dict[str, Any]]:
+        """Query the external API with the given claim text and return normalised results.
+
+        Iterates over all requests built by ``_build_requests``, performs HTTP calls
+        with exponential-backoff retries, and delegates response parsing to ``_interpret``.
+
+        Args:
+            claim: The claim text to verify against this external source.
+
+        Returns:
+            A list of result dicts, each containing at minimum: ``source``, ``status``,
+            ``confidence``, ``content``, ``evidence``, and ``sources`` keys.
+        """
         results: List[Dict[str, Any]] = []
         for req in self._build_requests(claim):
             method = req.get("method", "GET").upper()
@@ -90,6 +102,8 @@ class ExternalAPIClient:
 
 
 class WikipediaClient(ExternalAPIClient):
+    """External API client that queries the Wikipedia Search API for claim evidence."""
+
     NAME = "Wikipedia"
 
     def __init__(self, api_url: str = WIKIPEDIA_API_URL, **kwargs):
@@ -150,6 +164,8 @@ class WikipediaClient(ExternalAPIClient):
 
 
 class GoogleFactCheckClient(ExternalAPIClient):
+    """External API client that queries the Google Fact Check Tools API."""
+
     NAME = "GoogleFactCheck"
 
     def __init__(self, api_key: str, **kwargs):
@@ -195,6 +211,8 @@ class GoogleFactCheckClient(ExternalAPIClient):
 
 
 class WikidataClient(ExternalAPIClient):
+    """External API client that searches Wikidata entities for claim evidence."""
+
     NAME = "Wikidata"
 
     def __init__(self, **kwargs):
@@ -232,6 +250,8 @@ class WikidataClient(ExternalAPIClient):
 
 
 class ConceptNetClient(ExternalAPIClient):
+    """External API client that queries ConceptNet for commonsense relational evidence."""
+
     NAME = "ConceptNet"
 
     def __init__(self, **kwargs):

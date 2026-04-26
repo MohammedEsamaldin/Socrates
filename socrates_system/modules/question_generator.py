@@ -16,6 +16,8 @@ from collections import OrderedDict
 logger = setup_logger(__name__)
 
 class QuestionType(Enum):
+    """Semantic purpose categories for generated Socratic questions."""
+
     VERIFICATION = "verification"
     CLARIFICATION = "clarification"
     DEEPER_ANALYSIS = "deeper_analysis"
@@ -404,6 +406,8 @@ class AmbiguityResolutionError(SocraticGeneratorError):
 
 
 class SocraticConfig:
+    """Runtime configuration for the :class:`SocraticQuestionGenerator`."""
+
     def __init__(self):
         self.questions_per_claim = 1
         self.questions_per_category = 1
@@ -416,6 +420,11 @@ class SocraticConfig:
         self.retry_temperature_increment = 0.2
 
     def update(self, **kwargs):
+        """Update config attributes by name, silently ignoring unknown keys.
+
+        Args:
+            **kwargs: Attribute names and their new values.
+        """
         for key, value in kwargs.items():
             if hasattr(self, key):
                 setattr(self, key, value)
@@ -427,12 +436,35 @@ class LLMInterfaceAdapter:
         self.manager = llm_manager or get_llm_manager()
 
     def generate(self, prompt: str, temperature: float = 0.2, max_tokens: int = 512) -> str:
+        """Generate text from the underlying LLM manager.
+
+        Args:
+            prompt: The prompt string to send to the model.
+            temperature: Sampling temperature controlling output randomness.
+            max_tokens: Maximum tokens to generate.
+
+        Returns:
+            The generated text string.
+
+        Raises:
+            LLMGenerationError: If the underlying manager raises any exception.
+        """
         try:
             return self.manager.generate_text(prompt, max_tokens=max_tokens, temperature=temperature)
         except Exception as e:
             raise LLMGenerationError(str(e))
 
     def generate_with_config(self, prompt: str, **kwargs) -> str:
+        """Generate text using parameters extracted from a kwargs dict.
+
+        Args:
+            prompt: The prompt string.
+            **kwargs: Accepts ``temperature`` (float, default 0.2) and
+                ``max_tokens`` (int, default 512).
+
+        Returns:
+            The generated text string.
+        """
         temperature = kwargs.get("temperature", 0.2)
         max_tokens = kwargs.get("max_tokens", 512)
         return self.generate(prompt, temperature=temperature, max_tokens=max_tokens)
@@ -445,6 +477,17 @@ class QuestionValidator:
         self.min_confidence_threshold = min_confidence_threshold
 
     def validate_questions(self, questions: List[str], original_claim: str, category: str) -> List[SocraticQuestion]:
+        """Filter raw question strings to those that meet quality thresholds.
+
+        Args:
+            questions: Raw question strings produced by the generator.
+            original_claim: The claim the questions are meant to probe.
+            category: The claim category string used for appropriateness scoring.
+
+        Returns:
+            A list of :class:`SocraticQuestion` instances that passed the quality score
+            threshold defined by ``min_confidence_threshold``.
+        """
         valid_questions: List[SocraticQuestion] = []
         for q in questions:
             score = self._calculate_quality_score(q, original_claim, category)
@@ -546,6 +589,15 @@ class AmbiguityDetector:
         self.llm = llm_interface
 
     def detect_ambiguous_terms(self, claim: str) -> Dict[str, List[str]]:
+        """Detect ambiguous terms in a claim by prompting the LLM.
+
+        Args:
+            claim: The claim text to analyse for ambiguity.
+
+        Returns:
+            A dict mapping each ambiguous term to a list of possible interpretations,
+            or an empty dict if no ambiguity is detected.
+        """
         prompt = f"""
 Analyze this claim for ambiguous terms: "{claim}"
 
@@ -753,6 +805,23 @@ Format: Return only the question(s), one per line.
         return self.question_validator.validate_questions(questions, claim, category)
 
     def generate_questions(self, claim: str, categories: List[Any], num_questions: int = 1, prioritize_category: Optional[Any] = None) -> Dict[str, List[SocraticQuestion]]:
+        """Generate Socratic questions for a claim across multiple categories.
+
+        For each category, attempts primary LLM generation with configurable retries
+        before falling back to static templates. Results for ``prioritize_category``
+        are reordered to the front of the returned dict.
+
+        Args:
+            claim: The claim text to generate questions for.
+            categories: List of claim category values (strings or enum members).
+            num_questions: Target number of questions per category.
+            prioritize_category: If provided, this category's questions appear first
+                in the returned dict.
+
+        Returns:
+            A dict mapping normalised category strings to lists of
+            :class:`SocraticQuestion` instances.
+        """
         results: Dict[str, List[SocraticQuestion]] = {}
         norm_categories = [self._normalize_category(c) for c in categories]
         priority = self._normalize_category(prioritize_category) if prioritize_category else None
@@ -805,6 +874,19 @@ Format: Return only the question(s), one per line.
         return results
 
     def handle_multi_category_claims(self, claim: str, categories: List[Any], num_questions_per_category: int = 1) -> Dict[str, List[SocraticQuestion]]:
+        """Generate questions for a claim that spans multiple categories.
+
+        Performs ambiguity resolution first (if ``AMBIGUOUS_RESOLUTION_REQUIRED`` is
+        present), then generates questions for each remaining category independently.
+
+        Args:
+            claim: The multi-category claim text.
+            categories: List of applicable claim category values.
+            num_questions_per_category: Target number of questions per category.
+
+        Returns:
+            A combined dict mapping category strings to question lists.
+        """
         norm_categories = [self._normalize_category(c) for c in categories]
         # Resolve ambiguity first
         if 'AMBIGUOUS_RESOLUTION_REQUIRED' in norm_categories:

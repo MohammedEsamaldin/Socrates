@@ -14,6 +14,14 @@ def load_json_dataset(path: str) -> List[Dict[str, Any]]:
 
 
 def load_jsonl(path: str) -> List[Dict[str, Any]]:
+    """Load all records from a JSONL file, skipping empty and malformed lines.
+
+    Args:
+        path: Path to the JSONL file.
+
+    Returns:
+        A list of parsed record dicts.
+    """
     rows: List[Dict[str, Any]] = []
     with open(path, "r", encoding="utf-8") as f:
         for line in f:
@@ -94,6 +102,7 @@ def fill_model_answers(
 
 
 def main():
+    """Entry point: fill ``model_answer`` fields in a dataset JSON from mmhal_results.jsonl."""
     p = argparse.ArgumentParser(
         description="Fill model_answer in a JSON dataset using corrected responses from mmhal_results.jsonl",
     )

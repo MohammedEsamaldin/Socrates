@@ -1,3 +1,13 @@
+"""
+Core ClarificationResolutionModule implementation.
+
+Implements the five-step Socratic clarification workflow:
+  1. Generate issue-specific questions.
+  2. Optionally refine/style questions with LLM.
+  3. Collect user responses via callback or interactive prompt.
+  4. Produce a corrected claim using LLM + validate.
+  5. Compute confidence and decide next action (reverify vs direct to KG).
+"""
 from __future__ import annotations
 
 import json
@@ -22,6 +32,14 @@ try:
 except Exception:  # Fallback
     import logging
     def setup_logger(name: str):
+        """Return a stdlib logger configured with INFO level as a fallback.
+
+        Args:
+            name: Logger name, typically ``__name__`` of the calling module.
+
+        Returns:
+            A :class:`logging.Logger` instance.
+        """
         logging.basicConfig(level=logging.INFO)
         return logging.getLogger(name)
 
@@ -67,6 +85,21 @@ class ClarificationResolutionModule:
         response_provider: Optional[ResponseProvider] = None,
         max_questions: int = clar_cfg.MAX_QUESTIONS_PER_SESSION,
     ) -> ClarificationResult:
+        """Run the full clarification resolution workflow for a single claim.
+
+        Args:
+            ctx: Clarification context containing the claim text, category, issue type,
+                and any available fact-check results.
+            responses: Pre-collected question-to-answer mapping. If ``None``, responses
+                are gathered interactively via ``response_provider`` or stdin.
+            response_provider: Callable that accepts a :class:`SocraticQuestion` and
+                returns the user's answer. Used when ``responses`` is not provided.
+            max_questions: Maximum number of Socratic questions to generate per session.
+
+        Returns:
+            A :class:`ClarificationResult` containing the corrected claim, questions,
+            responses, resolution confidence, and the recommended next action.
+        """
         # 1) Generate questions
         questions = self._generate_questions(ctx, max_questions=max_questions)
         # 2) Collect responses if not provided
@@ -94,6 +127,19 @@ class ClarificationResolutionModule:
     # ------------------------ Internal helpers ------------------------
 
     def _generate_questions(self, ctx: ClarificationContext, max_questions: int) -> List[SocraticQuestion]:
+        """Generate, validate, and optionally LLM-refine Socratic questions for the context.
+
+        Args:
+            ctx: Clarification context containing the claim, issue type, and
+                fact-check result.
+            max_questions: Maximum number of questions to generate.
+
+        Returns:
+            List of validated :class:`SocraticQuestion` objects.
+
+        Raises:
+            ValueError: If no generator is registered for ``ctx.issue_type``.
+        """
         gen = GENERATOR_BY_ISSUE.get(ctx.issue_type)
         if gen is None:
             raise ValueError(f"Unsupported issue type: {ctx.issue_type}")
@@ -160,6 +206,14 @@ class ClarificationResolutionModule:
             return questions
 
     def _validate_questions(self, questions: List[SocraticQuestion]) -> List[SocraticQuestion]:
+        """Deduplicate and trim question texts; truncate excessively long ones.
+
+        Args:
+            questions: Raw list of generated questions.
+
+        Returns:
+            Cleaned list of unique, non-empty questions.
+        """
         seen = set()
         cleaned: List[SocraticQuestion] = []
         for q in questions:
@@ -179,6 +233,22 @@ class ClarificationResolutionModule:
         questions: List[SocraticQuestion],
         response_provider: Optional[ResponseProvider],
     ) -> Dict[str, Any]:
+        """Collect user responses to the generated questions.
+
+        Priority:
+          1. ``response_provider`` callable (programmatic mode).
+          2. Interactive CLI prompt when ``REQUIRE_USER_REWRITE=true`` and a
+             TTY is detected.
+          3. Automatic mode (returns ``None`` per question) otherwise.
+
+        Args:
+            questions: List of questions to collect answers for.
+            response_provider: Optional callable that accepts a
+                :class:`SocraticQuestion` and returns any answer value.
+
+        Returns:
+            Mapping from ``question.id`` to the user's answer (may be ``None``).
+        """
         # If a programmatic response provider is supplied, use it
         if response_provider is not None:
             responses = {}
@@ -204,6 +274,15 @@ class ClarificationResolutionModule:
         return {q.id: None for q in questions}
 
     def _summarize_evidence(self, ctx: ClarificationContext, limit: int = 3) -> List[str]:
+        """Extract short evidence summary strings from the fact-check result.
+
+        Args:
+            ctx: Clarification context whose ``fact_check.evidence`` is used.
+            limit: Maximum number of evidence items to return.
+
+        Returns:
+            List of non-empty summary strings.
+        """
         ev_summaries: List[str] = []
         try:
             for e in ctx.fact_check.evidence[:limit]:
@@ -220,6 +299,14 @@ class ClarificationResolutionModule:
 
     # ------------------------ Parsing & text utils ------------------------
     def _strip_code_fences(self, text: str) -> str:
+        """Remove Markdown code fences and language hints from LLM output.
+
+        Args:
+            text: Raw LLM text that may contain code fences.
+
+        Returns:
+            Stripped text with fences and leading ``json`` hints removed.
+        """
         t = (text or "").strip()
         # Remove backticks and leading language hints
         # ```json ... ``` or ``` ... ```
@@ -268,10 +355,26 @@ class ClarificationResolutionModule:
         raise ValueError("No valid JSON object/array found in LLM output")
 
     def _tokenize(self, text: str) -> List[str]:
+        """Split text into word and punctuation tokens.
+
+        Args:
+            text: Input string.
+
+        Returns:
+            List of token strings.
+        """
         # Split into words and punctuation tokens
         return re.findall(r"\w+|[^\w\s]", text or "")
 
     def _detokenize(self, tokens: List[str]) -> str:
+        """Reassemble a token list into a readable sentence.
+
+        Args:
+            tokens: List of word and punctuation tokens.
+
+        Returns:
+            Space-joined string with common punctuation spacing fixed.
+        """
         if not tokens:
             return ""
         s = " ".join(tokens)

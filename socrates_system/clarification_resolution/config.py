@@ -1,15 +1,41 @@
+"""
+Configuration constants for the clarification resolution module.
+
+All settings can be overridden via environment variables.  The module reads
+them once at import time so that the rest of the package can reference plain
+module-level names.
+"""
 from __future__ import annotations
 
 import os
 
 # Clarification module feature flag
 def _env_bool(key: str, default: bool) -> bool:
+    """Read a boolean from an environment variable.
+
+    Args:
+        key: Environment variable name.
+        default: Value to return when the variable is unset.
+
+    Returns:
+        True if the variable is one of ``1``, ``true``, ``yes``, ``on``
+        (case-insensitive), False otherwise, or ``default`` if unset.
+    """
     v = os.getenv(key)
     if v is None:
         return default
     return str(v).strip().lower() in {"1", "true", "yes", "on"}
 
 def _env_float(key: str, default: float) -> float:
+    """Read a float from an environment variable.
+
+    Args:
+        key: Environment variable name.
+        default: Value to return when the variable is unset or unparseable.
+
+    Returns:
+        Float value or ``default``.
+    """
     v = os.getenv(key)
     if v is None:
         return default
@@ -19,6 +45,15 @@ def _env_float(key: str, default: float) -> float:
         return default
 
 def _env_int(key: str, default: int) -> int:
+    """Read an integer from an environment variable.
+
+    Args:
+        key: Environment variable name.
+        default: Value to return when the variable is unset or unparseable.
+
+    Returns:
+        Integer value or ``default``.
+    """
     v = os.getenv(key)
     if v is None:
         return default

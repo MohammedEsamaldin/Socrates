@@ -4,6 +4,18 @@ from .io import ensure_dir
 
 
 def setup_run_logger(run_dir: str, name: str = "eval") -> logging.Logger:
+    """Configure and return a logger that writes to both stdout and a log file in ``run_dir``.
+
+    Log level is read from the ``SOC_LOG_LEVEL`` env var (falling back to ``LOG_LEVEL``,
+    then ``INFO``). Existing handlers on the logger are replaced on each call.
+
+    Args:
+        run_dir: Directory in which ``<name>.log`` will be created.
+        name: Base name for the logger and log file.
+
+    Returns:
+        A configured :class:`logging.Logger` instance.
+    """
     ensure_dir(run_dir)
     log_path = os.path.join(run_dir, f"{name}.log")
 

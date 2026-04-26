@@ -11,6 +11,14 @@ logger = setup_logger(__name__)
 
 
 def _status_to_score(status: Optional[str]) -> float:
+    """Map a string verification status to a numeric score.
+
+    Args:
+        status: One of ``"PASS"``, ``"FAIL"``, or ``None``/anything else.
+
+    Returns:
+        1.0 for PASS, -1.0 for FAIL, 0.0 otherwise (UNCERTAIN/ERROR/None).
+    """
     if not status:
         return 0.0
     s = str(status).upper()
@@ -23,6 +31,15 @@ def _status_to_score(status: Optional[str]) -> float:
 
 
 def _safe_conf(value: Any, default: float = 0.0) -> float:
+    """Safely cast a value to float, returning ``default`` on failure.
+
+    Args:
+        value: Value to cast.
+        default: Fallback if casting fails.
+
+    Returns:
+        Float representation of ``value``, or ``default``.
+    """
     try:
         return float(value)
     except Exception:
@@ -31,6 +48,14 @@ def _safe_conf(value: Any, default: float = 0.0) -> float:
 
 @dataclass
 class ConflictResolverConfig:
+    """Weights and thresholds used by :class:`ConflictResolver` when aggregating signals.
+
+    Attributes:
+        weight_external: Weight applied to the external factuality signal.
+        weight_self: Weight applied to the self-contradiction signal.
+        add_to_kg_threshold: Minimum final confidence to add a resolved claim to the KG.
+    """
+
     weight_external: float = 0.6
     weight_self: float = 0.4
     add_to_kg_threshold: float = 0.7  # final confidence threshold to add claim to KG
@@ -50,9 +75,36 @@ class ConflictResolver:
     """
 
     def __init__(self, config: Optional[ConflictResolverConfig] = None):
+        """Initialize the ConflictResolver.
+
+        Args:
+            config: Optional :class:`ConflictResolverConfig` to override
+                default weights. If ``None``, uses ``weight_external=0.6``
+                and ``weight_self=0.4``.
+        """
         self.config = config or ConflictResolverConfig()
 
     def resolve(self, claim: str, external_result: Optional[Dict[str, Any]], self_result: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        """Aggregate external factuality and self-consistency results into a single verdict.
+
+        Uses weighted scoring: external (default 0.6) vs self-consistency (default 0.4).
+        When only one source is available its weight is normalised to 1.0. A
+        disagreement between sources is penalised with a 0.85 confidence multiplier.
+
+        Args:
+            claim: The claim text being resolved (used for logging only).
+            external_result: Dict from :class:`ExternalFactualityChecker` with keys
+                ``status``, ``confidence``, ``evidence``, ``sources``, ``reasoning``.
+                May be ``None`` if the external check was skipped.
+            self_result: Dict from :class:`SelfContradictionChecker` with keys
+                ``status``, ``confidence``, ``contradictions``, ``evidence``,
+                ``conflicting_claims``. May be ``None`` if skipped.
+
+        Returns:
+            Dict with keys: ``status`` (PASS/FAIL), ``confidence`` (float),
+            ``reasoning`` (str), ``sources`` (list), ``contradictions`` (list),
+            ``evidence`` (list), ``should_add_to_kg`` (bool).
+        """
         try:
             ext_status = (external_result or {}).get("status")
             ext_conf = _safe_conf((external_result or {}).get("confidence", 0.0))

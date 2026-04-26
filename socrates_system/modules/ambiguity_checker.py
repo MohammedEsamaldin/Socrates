@@ -27,6 +27,7 @@ class AmbiguityChecker:
     """
     
     def __init__(self):
+        """Initialize the Ambiguity Checker with categorised indicator dictionaries."""
         logger.info("Initializing Ambiguity Checker...")
         
         # Ambiguous terms and patterns
@@ -105,7 +106,18 @@ class AmbiguityChecker:
             }
     
     def _identify_ambiguous_terms(self, claim: str) -> List[str]:
-        """Identify ambiguous terms in the claim"""
+        """Identify ambiguous terms present in the claim.
+
+        Scans the claim against categorised indicator lists (vague quantifiers,
+        subjective terms, relative terms, temporal vague terms, pronouns, and
+        modal uncertainty markers) plus context-dependent deictic words.
+
+        Args:
+            claim: The claim string to scan.
+
+        Returns:
+            Deduplicated list of matched ambiguous term strings.
+        """
         ambiguous_terms = []
         claim_lower = claim.lower()
         
@@ -122,7 +134,15 @@ class AmbiguityChecker:
         return list(set(ambiguous_terms))  # Remove duplicates
     
     def _check_context_dependency(self, claim: str, context: str) -> List[str]:
-        """Check for context-dependent issues"""
+        """Check for context-dependent issues in the claim.
+
+        Args:
+            claim: The claim string to analyse.
+            context: Optional surrounding context text.
+
+        Returns:
+            List of human-readable issue description strings.
+        """
         issues = []
         
         # Check for pronouns without clear antecedents
@@ -143,7 +163,17 @@ class AmbiguityChecker:
         return issues
     
     def _check_structural_ambiguity(self, claim: str) -> List[str]:
-        """Check for structural ambiguity in the sentence"""
+        """Check for structural ambiguity in the sentence.
+
+        Detects disjunctions, unbalanced parentheses, complex comma lists,
+        and multiple negations.
+
+        Args:
+            claim: The claim string to analyse.
+
+        Returns:
+            List of human-readable issue description strings.
+        """
         issues = []
         
         # Check for multiple possible interpretations
@@ -166,11 +196,22 @@ class AmbiguityChecker:
         
         return issues
     
-    def _calculate_ambiguity_score(self, ambiguous_terms: List[str], 
-                                 context_issues: List[str], 
+    def _calculate_ambiguity_score(self, ambiguous_terms: List[str],
+                                 context_issues: List[str],
                                  structural_issues: List[str]) -> float:
-        """Calculate overall ambiguity score"""
-        # it claculate the ambiuity scores based on the number of terms and issues found
+        """Calculate an overall ambiguity score from detected signals.
+
+        Weights: ambiguous terms (0.1 each), context issues (0.2 each),
+        structural issues (0.15 each). Capped at 1.0.
+
+        Args:
+            ambiguous_terms: List of ambiguous terms identified.
+            context_issues: List of context-dependency issues identified.
+            structural_issues: List of structural ambiguity issues identified.
+
+        Returns:
+            Float ambiguity score in [0.0, 1.0].
+        """
         score = 0.0
         
         # Score for ambiguous terms
@@ -185,9 +226,19 @@ class AmbiguityChecker:
         return min(score, 1.0)  # Cap at 1.0
     
     def _generate_clarification_questions(self, claim: str, ambiguous_terms: List[str],
-                                        context_issues: List[str], 
+                                        context_issues: List[str],
                                         structural_issues: List[str]) -> List[str]:
-        """Generate specific clarification questions"""
+        """Generate up to three targeted clarification questions.
+
+        Args:
+            claim: The original claim text.
+            ambiguous_terms: Ambiguous terms detected in the claim.
+            context_issues: Context-dependency issues detected.
+            structural_issues: Structural ambiguity issues detected.
+
+        Returns:
+            List of at most three clarification question strings.
+        """
         questions = []
         
         # Questions for ambiguous terms
@@ -224,7 +275,17 @@ class AmbiguityChecker:
                                     context_issues: List[str],
                                     structural_issues: List[str],
                                     ambiguity_score: float) -> str:
-        """Generate reasoning for ambiguity assessment"""
+        """Generate a human-readable reasoning string for the ambiguity assessment.
+
+        Args:
+            ambiguous_terms: Ambiguous terms detected.
+            context_issues: Context-dependency issues detected.
+            structural_issues: Structural ambiguity issues detected.
+            ambiguity_score: Computed ambiguity score.
+
+        Returns:
+            A single sentence summarising the assessment findings.
+        """
         reasoning_parts = []
         
         if ambiguous_terms:

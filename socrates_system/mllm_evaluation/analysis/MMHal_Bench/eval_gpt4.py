@@ -91,6 +91,16 @@ if __name__ == '__main__':
     assert len(records) == 96
     
     def parse_rating_from_text(text: str) -> int:
+        """Parse a numeric rating from a GPT-4 judge response string.
+
+        Scans for ``'rating: N'`` patterns (case-insensitive) preferring higher values.
+
+        Args:
+            text: The raw GPT-4 judge response text.
+
+        Returns:
+            The highest found rating integer in [0, 6], or 0 if none found.
+        """
         text_low = text.lower()
         for s in range(6, -1, -1):  # prefer higher if multiple found
             if f"rating: {s}" in text_low:

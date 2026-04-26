@@ -148,13 +148,14 @@ def clear_cuda_cache():
         print("ℹ️  CUDA not available, nothing to clear")
 
 def main():
+    """Run the fixed LLaVA diagnostic suite: CUDA, transformers version, and model loading tests."""
     print("🚀 LLaVA Diagnostic Script")
     print("=" * 50)
-    
+
     # Test environment
     test_cuda_availability()
     test_transformers_version()
-    
+
     # Clear cache first
     clear_cuda_cache()
     

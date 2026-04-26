@@ -34,9 +34,24 @@ class CheckpointManager:
                 f.write("")
 
     def write_meta(self, meta: Dict[str, Any]) -> None:
+        """Write run metadata (merged with a UTC start timestamp) to the meta JSON file.
+
+        Args:
+            meta: Dict of key-value metadata to persist alongside the run.
+        """
         self._write_json(self.meta_path, {**meta, "start_time": utc_timestamp()})
 
     def append_result(self, record: Dict[str, Any], sample_id: Any, index: int) -> None:
+        """Append a single evaluation record to the results JSONL file and update the state.
+
+        If the record contains an ``'mmhal'`` key, its value is also mirrored to a
+        dedicated ``mmhal_results.jsonl`` file for use by downstream judge tools.
+
+        Args:
+            record: The evaluation result dict to persist.
+            sample_id: Stable identifier for the sample (used for resume detection).
+            index: Zero-based index of the sample in the dataset.
+        """
         # Append JSON line atomically and update state
         line = json.dumps(record, ensure_ascii=False)
         with open(self.results_path, "a", encoding="utf-8") as f:
@@ -58,6 +73,15 @@ class CheckpointManager:
         self._write_json(self.state_path, {"last_index": index, "last_sample_id": sample_id, "count": index + 1, "updated": utc_timestamp()})
 
     def load_processed_ids(self) -> Set[Any]:
+        """Load the set of already-processed sample IDs from checkpoint files.
+
+        Reads ``results.jsonl`` as the primary source, then falls back to
+        ``mmhal_results.jsonl`` and ``mmhal_results.with_ids.jsonl`` for older runs
+        that did not record ``sample_id`` in results.
+
+        Returns:
+            A set of sample ID values (strings, ints, or any hashable type).
+        """
         ids: Set[Any] = set()
         # Primary source: results.jsonl -> sample_id
         if os.path.exists(self.results_path):
@@ -101,6 +125,13 @@ class CheckpointManager:
         return ids
 
     def resume_info(self) -> Dict[str, Any]:
+        """Return the last-saved checkpoint state dict.
+
+        Returns:
+            A dict with ``'last_index'``, ``'last_sample_id'``, and ``'count'`` keys,
+            defaulting to ``{last_index: -1, last_sample_id: None, count: 0}`` when no
+            state file exists.
+        """
         if not os.path.exists(self.state_path):
             return {"last_index": -1, "last_sample_id": None, "count": 0}
         with open(self.state_path, "r", encoding="utf-8") as f:

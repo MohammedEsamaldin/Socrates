@@ -28,6 +28,18 @@ class LLaVAHFManager:
         system_prompt: str = None,
         images: Optional[List[str]] = None,
     ) -> str:
+        """Generate text, routing to LLaVA-HF for image inputs and to the inner LLM otherwise.
+
+        Args:
+            prompt: The text prompt to send to the model.
+            max_tokens: Maximum tokens to generate.
+            temperature: Sampling temperature.
+            system_prompt: Optional system-level instruction (forwarded to inner LLM only).
+            images: Optional list of image paths/URLs. When non-empty, LLaVA-HF is used.
+
+        Returns:
+            The generated text string.
+        """
         # If no images are provided, delegate to the inner text LLM for pipeline tasks
         if not images:
             return self._inner.generate_text(
