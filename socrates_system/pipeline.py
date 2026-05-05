@@ -103,8 +103,10 @@ def _has_negation(text: Optional[str]) -> bool:
     ]
     return any(t in s for t in neg_terms)
 
-# Setup basic logging for SocratesPipeline; honor SOC_LOG_LEVEL (e.g., DEBUG, INFO)
-_lvl_name = os.getenv('SOC_LOG_LEVEL', 'INFO').upper()
+from socrates_system.config import get_app_config
+
+# Setup basic logging; honor SOC_LOG_LEVEL via AppConfig
+_lvl_name = get_app_config().log_level
 _lvl = getattr(logging, _lvl_name, logging.INFO)
 logging.basicConfig(level=_lvl, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -164,7 +166,7 @@ class ConsoleColors:
             True if stdout is a TTY and the ``NO_COLOR`` env var is unset,
             False otherwise.
         """
-        if os.getenv('NO_COLOR'):
+        if get_app_config().no_color:
             return False
         try:
             return sys.stdout.isatty()
@@ -204,24 +206,25 @@ class SocratesPipeline:
     def __init__(self, llm_manager: any = None, factuality_enabled: bool = None, clarification_enabled: bool = None, clarification_dev_mode: bool = None, question_gen_enabled: bool = None, questions_per_category: int = None, qg_min_threshold: float = None, qg_max_complexity: float = None, qg_enable_fallback: bool = None, qg_prioritize_visual: bool = None, conflict_resolution_mode: str = None, factuality_context_mode: Optional[str] = None, factuality_context_max_items: Optional[int] = None, router_mode: Optional[str] = None, post_factuality_clarification_enabled: Optional[bool] = None):
         """Initializes the pipeline with all necessary components."""
         logging.info("Initializing Socrates Pipeline...")
+        _cfg = get_app_config()
         self.claim_extractor = ClaimExtractor(llm_manager=llm_manager)
         self.claim_categorizer = ClaimCategorizer(llm_manager=llm_manager)
         self.llm_manager = llm_manager
-        # Prepare per-module LLMs (env overrides -> new instance, else fallback to shared)
+        # Prepare per-module LLMs (AppConfig overrides -> new instance, else fallback to shared)
         self.llm_factual = self._make_module_llm(
-            os.getenv("FACTUALITY_LLM_PROVIDER"),
-            os.getenv("FACTUALITY_LLM_MODEL"),
+            _cfg.factuality_llm_provider,
+            _cfg.factuality_llm_model,
             llm_manager,
         )
         self.llm_self = self._make_module_llm(
-            os.getenv("SELF_LLM_PROVIDER"),
-            os.getenv("SELF_LLM_MODEL"),
+            _cfg.self_llm_provider,
+            _cfg.self_llm_model,
             llm_manager,
         )
-        
+
         # Session management for Knowledge Graph / self-consistency
         try:
-            self.session_id = os.getenv("SOC_SESSION_ID") or str(uuid.uuid4())
+            self.session_id = _cfg.session_id or str(uuid.uuid4())
             logging.info(f"Using session_id={self.session_id}")
         except Exception:
             self.session_id = str(uuid.uuid4())
@@ -263,9 +266,9 @@ class SocratesPipeline:
         except Exception as e:
             logging.warning(f"ConflictResolver unavailable: {e}")
             self.conflict_resolver = None
-        # Resolve conflict resolution mode (CLI/env)
+        # Resolve conflict resolution mode (CLI arg > AppConfig)
         try:
-            crm_raw = (conflict_resolution_mode or os.getenv("SOC_CONFLICT_MODE") or "auto")
+            crm_raw = (conflict_resolution_mode or _cfg.conflict_resolution_mode or "auto")
             crm_l = str(crm_raw).strip().lower()
             if crm_l in ("manual", "man", "interactive"):
                 self.conflict_resolution_mode = "manual"
@@ -283,9 +286,9 @@ class SocratesPipeline:
             VerificationMethod.DEFINITIONAL,
             VerificationMethod.CROSS_MODAL,
         }
-        # Resolve router mode (CLI/env) and initialize routers
+        # Resolve router mode (CLI arg > AppConfig) and initialize routers
         try:
-            rm_raw = (router_mode or os.getenv("SOC_ROUTER_MODE") or "llm")
+            rm_raw = (router_mode or _cfg.router_mode or "llm")
             rm_l = str(rm_raw).strip().lower()
             if rm_l in ("det", "deterministic"):
                 self.router_mode = "deterministic"
@@ -333,14 +336,14 @@ class SocratesPipeline:
             logging.warning(f"AGLAClient initialization failed: {e}")
             self.agla_client = None
 
-        # Factuality check toggle from CLI/env
+        # Factuality check toggle (CLI arg > AppConfig)
         if factuality_enabled is None:
-            factuality_enabled = os.getenv("FACTUALITY_ENABLED", "true").lower() == "true"
+            factuality_enabled = _cfg.factuality_enabled
         self.factuality_enabled = factuality_enabled
         self.external_checker = ExternalFactualityChecker(llm_manager=self.llm_factual) if self.factuality_enabled else None
         # Configure input context for external factuality LLM aggregation
         try:
-            mode_raw = (factuality_context_mode or os.getenv("FACTUALITY_CONTEXT_MODE") or "SOCRATIC_QUESTIONS")
+            mode_raw = (factuality_context_mode or _cfg.factuality_context_mode or "SOCRATIC_QUESTIONS")
             mode_up = str(mode_raw).strip().upper()
             if mode_up in ("SOCRATIC", "SOCRATIC_QUESTIONS"):
                 norm = "SOCRATIC_QUESTIONS"
@@ -355,15 +358,15 @@ class SocratesPipeline:
             self.factuality_context_mode = "SOCRATIC_QUESTIONS"
         try:
             self.factuality_context_max_items = int(
-                factuality_context_max_items if factuality_context_max_items is not None else os.getenv("FACTUALITY_CONTEXT_MAX_ITEMS", 6)
+                factuality_context_max_items if factuality_context_max_items is not None else _cfg.factuality_context_max_items
             )
         except Exception:
             self.factuality_context_max_items = 6
-        # Clarification module (optional)
+        # Clarification module (optional; CLI arg > AppConfig)
         if clarification_enabled is None:
-            clarification_enabled = os.getenv("CLARIFICATION_ENABLED", "true").lower() == "true"
+            clarification_enabled = _cfg.clarification_enabled
         if clarification_dev_mode is None:
-            clarification_dev_mode = os.getenv("CLARIFICATION_DEV_MODE", "false").lower() == "true"
+            clarification_dev_mode = _cfg.clarification_dev_mode
         self.clarification_enabled = clarification_enabled
         self.clarification_dev_mode = clarification_dev_mode
         if self.clarification_enabled:
@@ -374,11 +377,10 @@ class SocratesPipeline:
                 self.clarifier = None
         else:
             self.clarifier = None
-        # Resolve post-factuality clarifications toggle (defaults to enabled)
+        # Resolve post-factuality clarifications toggle (CLI arg > AppConfig)
         try:
             if post_factuality_clarification_enabled is None:
-                pf_raw = os.getenv("SOC_POST_FACTUALITY_CLAR", "true")
-                self.post_factuality_clarification_enabled = str(pf_raw).strip().lower() == "true"
+                self.post_factuality_clarification_enabled = _cfg.post_factuality_clarification
             else:
                 self.post_factuality_clarification_enabled = bool(post_factuality_clarification_enabled)
             logging.info(f"Post-factuality clarifications: {'ENABLED' if self.post_factuality_clarification_enabled else 'DISABLED'}")
@@ -386,9 +388,9 @@ class SocratesPipeline:
             self.post_factuality_clarification_enabled = True
         self._clarification_results: Dict[int, Any] = {}
 
-        # Socratic question generation toggle from CLI/env
+        # Socratic question generation toggle (CLI arg > AppConfig)
         if question_gen_enabled is None:
-            question_gen_enabled = os.getenv("QUESTION_GEN_ENABLED", "true").lower() == "true"
+            question_gen_enabled = _cfg.question_gen_enabled
         self.question_gen_enabled = question_gen_enabled
 
         # Initialize Socratic Question Generator if enabled
@@ -426,33 +428,18 @@ class SocratesPipeline:
                 if isinstance(qg_prioritize_visual, bool):
                     qg_config.update(prioritize_visual_grounding=bool(qg_prioritize_visual))
 
-                # Apply environment variable overrides (if present)
-                env_min = os.getenv("QG_MIN_CONFIDENCE_THRESHOLD")
-                if qg_min_threshold is None and env_min is not None:
-                    try:
-                        qg_config.update(min_confidence_threshold=float(env_min))
-                    except Exception:
-                        logging.warning("Invalid QG_MIN_CONFIDENCE_THRESHOLD env; ignoring")
-                env_max = os.getenv("QG_MAX_COMPLEXITY_RATIO")
-                if qg_max_complexity is None and env_max is not None:
-                    try:
-                        qg_config.update(max_question_complexity_ratio=float(env_max))
-                    except Exception:
-                        logging.warning("Invalid QG_MAX_COMPLEXITY_RATIO env; ignoring")
-                env_fb = os.getenv("QG_ENABLE_FALLBACK")
-                if qg_enable_fallback is None and env_fb is not None:
-                    qg_config.update(enable_fallback=(env_fb.lower() == "true"))
-                env_pv = os.getenv("QG_PRIORITIZE_VISUAL")
-                if qg_prioritize_visual is None and env_pv is not None:
-                    qg_config.update(prioritize_visual_grounding=(env_pv.lower() == "true"))
-                # Questions per category via env (only if CLI not provided)
+                # Apply AppConfig overrides (only when CLI arg was not supplied)
+                if qg_min_threshold is None and _cfg.qg_min_confidence is not None:
+                    qg_config.update(min_confidence_threshold=_cfg.qg_min_confidence)
+                if qg_max_complexity is None and _cfg.qg_max_complexity is not None:
+                    qg_config.update(max_question_complexity_ratio=_cfg.qg_max_complexity)
+                if qg_enable_fallback is None and _cfg.qg_enable_fallback is not None:
+                    qg_config.update(enable_fallback=_cfg.qg_enable_fallback)
+                if qg_prioritize_visual is None and _cfg.qg_prioritize_visual is not None:
+                    qg_config.update(prioritize_visual_grounding=_cfg.qg_prioritize_visual)
                 if not (isinstance(questions_per_category, int) and questions_per_category > 0):
-                    env_qpc = os.getenv("QG_QUESTIONS_PER_CATEGORY")
-                if qg_enable_fallback is None and env_fb is not None:
-                    try:
-                        qg_config.update(enable_fallback=(str(env_fb).strip().lower() == 'true'))
-                    except Exception:
-                        logging.warning("Invalid QG_ENABLE_FALLBACK env; ignoring")
+                    if _cfg.qg_questions_per_category is not None:
+                        qg_config.update(questions_per_category=_cfg.qg_questions_per_category)
                 # Build adapter and generator
                 adapter = LLMInterfaceAdapter(self.llm_manager)
                 self.question_generator = SocraticQuestionGenerator(qg_config, capabilities, adapter)
@@ -834,8 +821,7 @@ class SocratesPipeline:
                     self._clarification_results[i] = {"pre": clr_res}
                     if clr_res.corrected_claim and clr_res.corrected_claim.strip() and clr_res.corrected_claim.strip() != categorized_claim.text.strip():
                         proposed = clr_res.corrected_claim.strip()
-                        allow_flip_env = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
-                        if (not allow_flip_env) and (_has_negation(categorized_claim.text) != _has_negation(proposed)):
+                        if (not get_app_config().allow_polarity_flip) and (_has_negation(categorized_claim.text) != _has_negation(proposed)):
                             logging.info("Skipping pre-route correction due to polarity flip guard")
                         else:
                             logging.info("Applying corrected claim from clarification (pre-route)")
@@ -1067,7 +1053,7 @@ class SocratesPipeline:
                     # Evidence dump (capped)
                     try:
                         try:
-                            _max_ev = int(os.getenv("SOC_MAX_EVIDENCE_LOG", "2") or 2)
+                            _max_ev = get_app_config().max_evidence_log
                         except Exception:
                             _max_ev = 2
                         ev_list = result.get("evidence") or []
@@ -1159,8 +1145,7 @@ class SocratesPipeline:
                             self._clarification_results.setdefault(i, {})["post"] = clr_res_cm
                             if clr_res_cm.corrected_claim and clr_res_cm.corrected_claim.strip() and clr_res_cm.corrected_claim.strip() != categorized_claim.text.strip():
                                 proposed2 = clr_res_cm.corrected_claim.strip()
-                                allow_flip_env2 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
-                                if (not allow_flip_env2) and (_has_negation(categorized_claim.text) != _has_negation(proposed2)):
+                                if (not get_app_config().allow_polarity_flip) and (_has_negation(categorized_claim.text) != _has_negation(proposed2)):
                                     logging.info("Skipping post-factuality correction (cross-modal) due to polarity flip guard")
                                 else:
                                     categorized_claim.text = proposed2
@@ -1362,8 +1347,7 @@ class SocratesPipeline:
                             logging.warning(f"Failed to apply post-clarification routing override: {e}")
                         if clr_res2.corrected_claim and clr_res2.corrected_claim.strip() and clr_res2.corrected_claim.strip() != categorized_claim.text.strip():
                             proposed3 = clr_res2.corrected_claim.strip()
-                            allow_flip_env3 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
-                            if (not allow_flip_env3) and (_has_negation(categorized_claim.text) != _has_negation(proposed3)):
+                            if (not get_app_config().allow_polarity_flip) and (_has_negation(categorized_claim.text) != _has_negation(proposed3)):
                                 logging.info("Skipping post-factuality correction (external) due to polarity flip guard")
                             else:
                                 categorized_claim.text = proposed3
@@ -1514,8 +1498,7 @@ class SocratesPipeline:
                             # Optionally apply corrected claim text (no auto-rerun here to avoid loops)
                             if getattr(clr_res_final, 'corrected_claim', None) and clr_res_final.corrected_claim.strip() and clr_res_final.corrected_claim.strip() != categorized_claim.text.strip():
                                 proposed4 = clr_res_final.corrected_claim.strip()
-                                allow_flip_env4 = os.getenv("SOC_ALLOW_POLARITY_FLIP", "false").lower() == "true"
-                                if (not allow_flip_env4) and (_has_negation(categorized_claim.text) != _has_negation(proposed4)):
+                                if (not get_app_config().allow_polarity_flip) and (_has_negation(categorized_claim.text) != _has_negation(proposed4)):
                                     logging.info("Skipping final post-merge correction due to polarity flip guard")
                                 else:
                                     categorized_claim.text = proposed4
@@ -1815,49 +1798,43 @@ if __name__ == '__main__':
     parser.add_argument("--llava-timeout-sec", dest="llava_timeout_sec", type=int, default=None, help="Timeout seconds for LLaVA CLI calls (sets SOC_LLAVA_TIMEOUT_SEC)")
     args = parser.parse_args()
 
-    # Resolve factuality toggle from CLI overriding env
-    env_enabled = os.getenv("FACTUALITY_ENABLED", "true").lower() == "true"
+    _cfg = get_app_config()
+
+    # Resolve factuality toggle (CLI > AppConfig)
     if args.enable_factuality:
         factuality_enabled = True
     elif args.disable_factuality:
         factuality_enabled = False
     else:
-        factuality_enabled = env_enabled
-    # Resolve clarification toggles
-    env_clar = os.getenv("CLARIFICATION_ENABLED", "true").lower() == "true"
-    env_clar_dev = os.getenv("CLARIFICATION_DEV_MODE", "false").lower() == "true"
+        factuality_enabled = _cfg.factuality_enabled
+    # Resolve clarification toggles (CLI > AppConfig)
     if args.enable_clarification:
         clarification_enabled = True
     elif args.disable_clarification:
         clarification_enabled = False
     else:
-        clarification_enabled = env_clar
-    clarification_dev_mode = True if args.clar_dev else env_clar_dev
+        clarification_enabled = _cfg.clarification_enabled
+    clarification_dev_mode = True if args.clar_dev else _cfg.clarification_dev_mode
 
-    # Resolve question generation toggle
-    env_qg = os.getenv("QUESTION_GEN_ENABLED", "true").lower() == "true"
+    # Resolve question generation toggle (CLI > AppConfig)
     if args.enable_qg:
         question_gen_enabled = True
     elif args.disable_qg:
         question_gen_enabled = False
     else:
-        question_gen_enabled = env_qg
+        question_gen_enabled = _cfg.question_gen_enabled
 
-    # Resolve LLM selection (CLI overrides env)
-    selected_provider = args.llm_provider or os.getenv("SOC_LLM_PROVIDER")
-    selected_model = args.llm_model or os.getenv("SOC_LLM_MODEL")
-    # Apply LLaVA original toggles from CLI flags via env for LLMManager consumption
-    try:
-        if getattr(args, "llava_orig_use_cli", False):
-            os.environ["SOC_LLAVA_ORIG_USE_CLI"] = "true"
-        if getattr(args, "llava_conv_template", None):
-            os.environ["SOC_LLAVA_CONV_TEMPLATE"] = str(args.llava_conv_template)
-        if getattr(args, "llava_timeout_sec", None) is not None:
-            os.environ["SOC_LLAVA_TIMEOUT_SEC"] = str(int(args.llava_timeout_sec))
-    except Exception as _e:
-        logging.warning(f"Failed to apply LLaVA CLI/env overrides: {_e}")
-    # Instantiate LLMManager with selected provider/model
-    llm_manager = LLMManager(model_name=selected_model, provider=selected_provider)
+    # Resolve LLM selection (CLI > AppConfig)
+    selected_provider = args.llm_provider or _cfg.llm_provider
+    selected_model = args.llm_model or _cfg.llm_model
+    # Instantiate LLMManager with selected provider/model and LLaVA CLI flags
+    llm_manager = LLMManager(
+        model_name=selected_model,
+        provider=selected_provider,
+        llava_orig_use_cli=getattr(args, "llava_orig_use_cli", False) or None,
+        llava_conv_template=getattr(args, "llava_conv_template", None) or None,
+        llava_timeout_sec=getattr(args, "llava_timeout_sec", None),
+    )
     pipeline = SocratesPipeline(
         llm_manager=llm_manager,
         factuality_enabled=factuality_enabled,
@@ -1869,7 +1846,7 @@ if __name__ == '__main__':
         qg_max_complexity=args.qg_max_complexity,
         qg_enable_fallback=True if args.qg_enable_fallback else (False if args.qg_disable_fallback else None),
         qg_prioritize_visual=True if args.qg_prioritize_visual else (False if args.qg_deprioritize_visual else None),
-        conflict_resolution_mode=(args.conflict_mode or os.getenv("SOC_CONFLICT_MODE")),
+        conflict_resolution_mode=(args.conflict_mode or _cfg.conflict_resolution_mode),
         factuality_context_mode=args.factuality_context,
         factuality_context_max_items=args.fact_ctx_max_items,
         router_mode=args.router_mode,
@@ -2040,9 +2017,8 @@ if __name__ == '__main__':
             )
             print(line)
 
-    # Knowledge Graph display (toggle via CLI or env SOC_SHOW_KG=true)
-    env_show_kg = os.getenv("SOC_SHOW_KG", "false").lower() == "true"
-    show_kg = True if args.show_kg else env_show_kg
+    # Knowledge Graph display (toggle via CLI or AppConfig SOC_SHOW_KG)
+    show_kg = True if args.show_kg else get_app_config().show_kg
     if show_kg and getattr(pipeline, "kg_manager", None):
         try:
             print("\n" + ConsoleColors.c('summary', '--- Session Knowledge Graph ---'))
@@ -2058,7 +2034,7 @@ if __name__ == '__main__':
                 print(ConsoleColors.c('label', 'Query: ') + ConsoleColors.c('value', f"{args.kg_query}"))
                 print(ConsoleColors.c('label', 'Matched entities: ') + ConsoleColors.c('value', f"{', '.join(qres.get('query_entities', []) or [])}"))
                 if qres.get('results'):
-                    max_items = args.kg_max_items or int(os.getenv("SOC_KG_MAX_ITEMS", "10"))
+                    max_items = args.kg_max_items or get_app_config().kg_max_items
                     for idx, item in enumerate(qres['results'][:max_items], 1):
                         ent = item.get('entity', {})
                         print("  - " + ConsoleColors.c('entity', f"{ent.get('text', ent.get('id', ''))}") +
@@ -2074,7 +2050,7 @@ if __name__ == '__main__':
                 nodes = kg_export.get('nodes', {})
                 edges = kg_export.get('edges', [])
                 id_to_text = {nid: (ndata.get('text') or nid) for nid, ndata in nodes.items()}
-                max_items = args.kg_max_items or int(os.getenv("SOC_KG_MAX_ITEMS", "10"))
+                max_items = args.kg_max_items or get_app_config().kg_max_items
                 if nodes:
                     print(ConsoleColors.c('label', f"Entities (showing up to {max_items}):"))
                     for i, (nid, ndata) in enumerate(list(nodes.items())[:max_items], 1):

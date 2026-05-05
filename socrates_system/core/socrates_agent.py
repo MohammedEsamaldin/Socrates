@@ -3,9 +3,8 @@ Socrates Agent - The central coordinator for external hallucination detection
 Implements sophisticated Socratic dialogue methodology for claim verification
 """
 import logging
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
-from enum import Enum
 import json
 from datetime import datetime
 
@@ -19,9 +18,7 @@ from ..modules.claim_categorizer import ClaimCategorizer
 from ..modules.check_router import CheckRouter
 from ..modules.shared_structures import (
     ExtractedClaim,
-    ClaimCategory,
     ClaimCategoryType,
-    VerificationMethod,
 )
 from ..modules.llm_manager import get_llm_manager
 from ..modules.cross_alignment_checker import CrossAlignmentChecker
@@ -33,16 +30,9 @@ from ..modules.knowledge_graph_manager import KnowledgeGraphManager
 from ..modules.agla_client import AGLAClient
 from ..config import AGLA_API_URL, AGLA_API_VERIFY_PATH, AGLA_API_TIMEOUT
 from ..utils.logger import setup_logger
+from .verification_pipeline import CheckStatus, VerificationPipeline
 
 logger = setup_logger(__name__)
-
-class CheckStatus(Enum):
-    """Outcome states for a single verification check."""
-
-    PASS = "PASS"
-    FAIL = "FAIL"
-    PENDING = "PENDING"
-    SKIP = "SKIP"
 
 @dataclass
 class SocraticInquiry:
@@ -118,6 +108,16 @@ class SocratesAgent:
             except Exception as e:
                 logger.warning(f"Failed to configure AGLAClient: {e}")
                 self.agla_client = None
+
+        self.pipeline = VerificationPipeline(
+            cross_alignment_checker=self.cross_alignment_checker,
+            external_factuality_checker=self.external_factuality_checker,
+            self_contradiction_checker=self.self_contradiction_checker,
+            ambiguity_checker=self.ambiguity_checker,
+            kg_manager=self.kg_manager,
+            agla_client=self.agla_client,
+            clarification_handler=self.clarification_handler,
+        )
         
         # Session state
         self.session_id = None
@@ -222,210 +222,53 @@ class SocratesAgent:
             }
     
     def _verify_claim_socratically(self, claim: ExtractedClaim, original_input: str, image_path: Optional[str]) -> ClaimVerificationResult:
-        """Apply Socratic methodology to verify a single claim.
-
-        Dispatches to the appropriate checker(s) based on the claim's
-        verification route: cross-modal (AGLA or local alignment), external
-        factuality (Wikipedia/Wikidata/GFC), or knowledge-graph self-consistency.
-        Also runs an ambiguity pass and generates capability-aware Socratic
-        questions for every claim.
-
-        Args:
-            claim: The :class:`ExtractedClaim` to verify, including categories
-                and a routing decision if available.
-            original_input: The full original user text (used for ambiguity
-                context).
-            image_path: Local path to an uploaded image, or ``None`` for
-                text-only verification.
-
-        Returns:
-            A :class:`ClaimVerificationResult` containing the final status,
-            confidence, evidence, contradictions, and generated Socratic
-            questions.
-        """
         claim_text = claim.text if isinstance(claim, ExtractedClaim) else str(claim)
         logger.info(f"Verifying claim: {claim_text}")
-        
-        socratic_questions = []
-        evidence = []
-        contradictions = []
-        overall_status = CheckStatus.PASS
-        confidence = 1.0
-        clarification_needed = None
 
-        # Determine categories and routing
         categories = [cat.name for cat in (claim.categories or [])]
         route = getattr(claim, "verification_route", None)
 
-        # Handle unverifiable categories (SUBJECTIVE_OPINION, PROCEDURAL_DESCRIPTIVE)
         if any(cat in {ClaimCategoryType.SUBJECTIVE_OPINION, ClaimCategoryType.PROCEDURAL_DESCRIPTIVE} for cat in categories):
-            overall_status = CheckStatus.SKIP
-            confidence = getattr(route, "confidence", 1.0)
             return ClaimVerificationResult(
                 claim=claim_text,
-                status=overall_status,
-                confidence=confidence,
-                evidence=evidence,
-                contradictions=contradictions,
-                socratic_questions=socratic_questions,
-                clarification_needed=clarification_needed,
-                timestamp=datetime.now()
+                status=CheckStatus.SKIP,
+                confidence=getattr(route, "confidence", 1.0),
+                evidence=[],
+                contradictions=[],
+                socratic_questions=[],
+                clarification_needed=None,
+                timestamp=datetime.now(),
             )
 
-        # Generate capability-aware Socratic questions
+        socratic_questions = []
         try:
-            # If ambiguous, generator will handle disambiguation flow internally when asked per-category
             gen_results = self.socratic_generator.handle_multi_category_claims(
-                claim_text,
-                categories,
-                num_questions_per_category=1,
+                claim_text, categories, num_questions_per_category=1,
             ) if categories else {}
             socratic_questions.extend(self._map_socratic_questions(gen_results))
         except Exception as e:
-            logger.error(f"Error generating capability-aware Socratic questions: {e}")
+            logger.error(f"Error generating Socratic questions: {e}")
 
-        # Execute verification based on routing decision
-        # If no route is available fall back to original sequence
-        if route and route.method == VerificationMethod.CROSS_MODAL:
-            # Cross-modal verification requires an image; if missing, skip
-            if not image_path:
-                overall_status = CheckStatus.SKIP
-            else:
-                # Prefer remote AGLA API if configured; fallback to local AGLA, then cross-alignment
-                used_remote = False
-                if self.agla_client is not None:
-                    try:
-                        logger.info("Calling remote AGLA API for cross-modal verification...")
-                        # Pass the first Socratic question if available for context
-                        soc_q = socratic_questions[0].question if socratic_questions else None
-                        agla_out = self.agla_client.verify(
-                            image=image_path,
-                            claim=claim_text,
-                            socratic_question=soc_q,
-                            return_debug=False,
-                        )
-                        used_remote = True
-                        verdict = agla_out.get("verdict", "Uncertain")
-                        if verdict == "False":
-                            overall_status = CheckStatus.FAIL
-                            confidence *= 0.85
-                            truth = agla_out.get("truth") or ""
-                            if truth:
-                                contradictions.append(f"AGLA correction: {truth}")
-                            else:
-                                contradictions.append("AGLA indicates the claim is false.")
-                            clarification_inquiry = self._fallback_clarification_inquiry(
-                                claim_text, {"agla_verdict": verdict}
-                            )
-                            socratic_questions.append(clarification_inquiry)
-                        else:
-                            evidence.append(f"AGLA verdict: {verdict}")
-                    except Exception as e:
-                        logger.error(f"Remote AGLA API error: {e}")
-                        used_remote = False
+        result = self.pipeline.run(
+            claim_text,
+            route=route,
+            session_id=self.session_id,
+            image_path=image_path,
+            original_input=original_input,
+        )
 
-                if not used_remote:
-                    logger.info("Remote AGLA unavailable; skipping local fallback as configured. Performing cross-alignment check...")
-                    alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
-                    if alignment_result["status"] == CheckStatus.FAIL:
-                        overall_status = CheckStatus.FAIL
-                        confidence *= alignment_result["confidence"]
-                        contradictions.extend(alignment_result["contradictions"])
-                        clarification_inquiry = self._fallback_clarification_inquiry(claim_text, alignment_result)
-                        socratic_questions.append(clarification_inquiry)
-                        clarification_needed = self.clarification_handler.generate_clarification(
-                            claim_text, alignment_result.get("visual_description")
-                        )
-                    else:
-                        evidence.extend(alignment_result.get("evidence", []))
-
-        elif route and route.method == VerificationMethod.EXTERNAL_SOURCE:
-            logger.info("Performing cross-alignment check...")
-            # Optionally still do cross alignment first if image present and helpful
-            if image_path:
-                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
-                if alignment_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= alignment_result["confidence"]
-                    contradictions.extend(alignment_result["contradictions"])
-                else:
-                    evidence.extend(alignment_result.get("evidence", []))
-
-            if overall_status != CheckStatus.FAIL:
-                logger.info("Performing external factuality check...")
-                factuality_result = self.external_factuality_checker.verify_claim(claim_text)
-                if factuality_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= factuality_result["confidence"]
-                    contradictions.extend(factuality_result["contradictions"])
-                else:
-                    evidence.extend(factuality_result.get("evidence", []))
-
-        elif route and route.method == VerificationMethod.KNOWLEDGE_GRAPH:
-            logger.info("Performing self-contradiction (knowledge graph) check...")
-            contradiction_result = self.self_contradiction_checker.check_contradiction(
-                claim_text, self.session_id
-            )
-            if contradiction_result["status"] == CheckStatus.FAIL:
-                overall_status = CheckStatus.FAIL
-                confidence *= contradiction_result["confidence"]
-                contradictions.extend(contradiction_result["contradictions"])
-            else:
-                evidence.extend(contradiction_result.get("evidence", []))
-        elif route and route.method == VerificationMethod.EXPERT_VERIFICATION:
-            # Ambiguous: ask for clarification questions via ambiguity checker and generator
-            logger.info("Claim marked as ambiguous - generating clarification questions")
-            ambiguity_result = self.ambiguity_checker.check_ambiguity(claim_text, original_input)
-            clarification_needed = ambiguity_result.get("clarification_questions")
-        else:
-            # Fallback to original sequence if no routing info
-            if image_path:
-                logger.info("Performing cross-alignment check...")
-                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
-                if alignment_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= alignment_result["confidence"]
-                    contradictions.extend(alignment_result["contradictions"])
-                else:
-                    evidence.extend(alignment_result.get("evidence", []))
-            if overall_status != CheckStatus.FAIL:
-                logger.info("Performing external factuality check...")
-                factuality_result = self.external_factuality_checker.verify_claim(claim_text)
-                if factuality_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= factuality_result["confidence"]
-                    contradictions.extend(factuality_result["contradictions"])
-                else:
-                    evidence.extend(factuality_result.get("evidence", []))
-            if overall_status != CheckStatus.FAIL:
-                logger.info("Performing self-contradiction check...")
-                contradiction_result = self.self_contradiction_checker.check_contradiction(
-                    claim_text, self.session_id
-                )
-                if contradiction_result["status"] == CheckStatus.FAIL:
-                    overall_status = CheckStatus.FAIL
-                    confidence *= contradiction_result["confidence"]
-                    contradictions.extend(contradiction_result["contradictions"])
-                else:
-                    evidence.extend(contradiction_result.get("evidence", []))
-
-        # Ambiguity check (final pass) for non-ambiguous routed claims
-        if not (route and route.method == VerificationMethod.EXPERT_VERIFICATION):
-            logger.info("Performing ambiguity check...")
-            ambiguity_result = self.ambiguity_checker.check_ambiguity(claim_text, original_input)
-            if ambiguity_result["needs_clarification"]:
-                # Create a simple clarification inquiry
-                clarification_needed = clarification_needed or ambiguity_result["clarification_questions"]
+        if result.agla_context:
+            socratic_questions.append(self._fallback_clarification_inquiry(claim_text, result.agla_context))
 
         return ClaimVerificationResult(
             claim=claim_text,
-            status=overall_status,
-            confidence=confidence,
-            evidence=evidence,
-            contradictions=contradictions,
+            status=result.status,
+            confidence=result.confidence,
+            evidence=result.evidence,
+            contradictions=result.contradictions,
             socratic_questions=socratic_questions,
-            clarification_needed=clarification_needed,
-            timestamp=datetime.now()
+            clarification_needed=result.clarification_needed,
+            timestamp=datetime.now(),
         )
 
     def _map_socratic_questions(self, generated: Dict[str, List[Any]]) -> List[SocraticInquiry]:
@@ -469,24 +312,10 @@ class SocratesAgent:
         )
     
     def _update_knowledge_base(self, verification_results: List[ClaimVerificationResult]):
-        """Persist PASS-status claims from this turn into the session knowledge graph.
-
-        Args:
-            verification_results: List of :class:`ClaimVerificationResult` objects
-                from the current processing turn. Only results with status
-                ``CheckStatus.PASS`` are added to the knowledge graph.
-        """
         logger.info("Updating knowledge base...")
-        
         for result in verification_results:
             if result.status == CheckStatus.PASS:
-                # Add verified claim to knowledge graph
-                self.kg_manager.add_claim(
-                    claim=result.claim,
-                    evidence=result.evidence,
-                    confidence=result.confidence,
-                    session_id=self.session_id
-                )
+                self.pipeline.persist(result.claim, result.evidence, result.confidence, self.session_id)
                 self.verified_claims.append(result)
     
     def _compile_socratic_response(self, verification_results: List[ClaimVerificationResult],

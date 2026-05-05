@@ -83,36 +83,43 @@ class LLMManager:
                  openai_base_url: Optional[str] = None,
                  anthropic_api_key: Optional[str] = None,
                  anthropic_base_url: Optional[str] = None,
-                 max_concurrent: int = 3):
+                 max_concurrent: int = 3,
+                 llava_orig_use_cli: Optional[bool] = None,
+                 llava_conv_template: Optional[str] = None,
+                 llava_timeout_sec: Optional[int] = None):
         """
         Initialize Local LLM Manager
-        
+
         Args:
             model_name: Model name for the selected provider
             provider: One of {"ollama","openai","claude"} (or LLMProvider)
             base_url: Ollama server URL (if provider=ollama)
-            openai_api_key: OpenAI API key (or env OPENAI_API_KEY)
+            openai_api_key: OpenAI API key
             openai_base_url: OpenAI base URL (default https://api.openai.com/v1)
-            anthropic_api_key: Anthropic API key (or env ANTHROPIC_API_KEY)
+            anthropic_api_key: Anthropic API key
             anthropic_base_url: Anthropic base URL (default https://api.anthropic.com)
             max_concurrent: Maximum concurrent requests
+            llava_orig_use_cli: Force LLaVA-original CLI subprocess mode
+            llava_conv_template: Conversation template for LLaVA-original
+            llava_timeout_sec: Timeout for LLaVA-original CLI calls
         """
+        from socrates_system.config import get_app_config
+        cfg = get_app_config()
+
         # Resolve provider
-        prov_str = (provider.value if isinstance(provider, LLMProvider) else provider) or os.getenv("SOC_LLM_PROVIDER", "ollama").lower()
+        prov_str = (provider.value if isinstance(provider, LLMProvider) else provider) or cfg.llm_provider
         try:
             self.provider = LLMProvider(prov_str)
         except Exception:
             logger.warning(f"Unknown provider '{prov_str}', defaulting to 'ollama'")
             self.provider = LLMProvider.OLLAMA
 
-        # Resolve model
-        env_model = os.getenv("SOC_LLM_MODEL")
+        # Resolve model (explicit arg > AppConfig env > per-provider default)
         if model_name:
             self.model_name = model_name
-        elif env_model:
-            self.model_name = env_model
+        elif cfg.llm_model:
+            self.model_name = cfg.llm_model
         else:
-            # Reasonable defaults per provider
             if self.provider == LLMProvider.OLLAMA:
                 self.model_name = "llama3.1:8b"
             elif self.provider == LLMProvider.OPENAI:
@@ -120,17 +127,23 @@ class LLMManager:
             elif self.provider == LLMProvider.LLAVA_HF:
                 self.model_name = "llava-hf/llava-1.5-7b-hf"
             elif self.provider == LLMProvider.LLAVA_ORIGINAL:
-                # Use the original LLaVA implementation weights by default
                 self.model_name = "liuhaotian/llava-v1.5-7b"
             else:  # CLAUDE
                 self.model_name = "claude-3-haiku-20240307"
 
-        # Provider-specific endpoints/keys
-        self.base_url = base_url or os.getenv("OLLAMA_BASE_URL") or os.getenv("OLLAMA_URL") or "http://localhost:11434"
-        self.openai_api_key = openai_api_key or os.getenv("OPENAI_API_KEY")
-        self.openai_base_url = openai_base_url or os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE") or "https://api.openai.com/v1"
-        self.anthropic_api_key = anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
-        self.anthropic_base_url = anthropic_base_url or os.getenv("ANTHROPIC_BASE_URL") or "https://api.anthropic.com"
+        # Provider-specific endpoints/keys (explicit arg wins, then AppConfig)
+        self.base_url = base_url or cfg.ollama_base_url
+        self.openai_api_key = openai_api_key or cfg.openai_api_key or None
+        self.openai_base_url = openai_base_url or cfg.openai_base_url
+        self.anthropic_api_key = anthropic_api_key or cfg.anthropic_api_key or None
+        self.anthropic_base_url = anthropic_base_url or cfg.anthropic_base_url
+
+        # LLaVA toggles — stored for use in _load_llava_hf / _call_llava_original
+        self._llava_no_4bit = cfg.llava_no_4bit
+        self._llava_slow_tokenizer = cfg.llava_slow_tokenizer
+        self._llava_orig_use_cli = llava_orig_use_cli if llava_orig_use_cli is not None else cfg.llava_orig_use_cli
+        self._llava_conv_template = llava_conv_template or cfg.llava_conv_template
+        self._llava_timeout_sec = llava_timeout_sec if llava_timeout_sec is not None else cfg.llava_timeout_sec
 
         self.max_concurrent = max_concurrent
         self.executor = ThreadPoolExecutor(max_workers=max_concurrent)
@@ -511,12 +524,13 @@ Respond with only the required JSON object."""
         """
         # Lazy import to avoid heavy dependencies on module load
         from mllm_evaluation.providers.llava_hf import LlavaHFGenerator
-        # Environment toggles for local inference
-        no_4bit = str(os.getenv("SOC_LLAVA_NO_4BIT", "")).lower() in ("1", "true", "yes")
-        use_slow_tok = str(os.getenv("SOC_LLAVA_SLOW_TOKENIZER", "")).lower() in ("1", "true", "yes")
 
         image_path = images[0] if images else None
-        generator = LlavaHFGenerator.get(self.model_name, no_4bit=no_4bit, use_slow_tokenizer=use_slow_tok)
+        generator = LlavaHFGenerator.get(
+            self.model_name,
+            no_4bit=self._llava_no_4bit,
+            use_slow_tokenizer=self._llava_slow_tokenizer,
+        )
 
         loop = asyncio.get_event_loop()
         def _run():
@@ -539,10 +553,9 @@ Respond with only the required JSON object."""
         if not image_path:
             raise ValueError("llava_original requires at least one image for multimodal prompting")
 
-        # Environment toggles
-        use_cli = str(os.getenv("SOC_LLAVA_ORIG_USE_CLI", "")).lower() in ("1", "true", "yes")
-        conv_template = os.getenv("SOC_LLAVA_CONV_TEMPLATE", "llava_v1")
-        timeout_sec = int(os.getenv("SOC_LLAVA_TIMEOUT_SEC", "180"))
+        use_cli = self._llava_orig_use_cli
+        conv_template = self._llava_conv_template
+        timeout_sec = self._llava_timeout_sec
 
         # Prefer in-process Python API when possible; fallback to CLI if requested or import fails
         if not use_cli:

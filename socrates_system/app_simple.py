@@ -17,6 +17,7 @@ from modules.question_generator import QuestionGenerator
 from modules.clarification_handler import ClarificationHandler
 from config import UPLOAD_FOLDER, ALLOWED_EXTENSIONS, MAX_CONTENT_LENGTH
 from utils.logger import setup_logger
+from core.verification_pipeline import CheckStatus, VerificationPipeline
 
 logger = setup_logger(__name__)
 
@@ -36,7 +37,13 @@ class SimplifiedSocratesAgent:
         self.cross_alignment_checker = CrossAlignmentChecker()
         self.external_factuality_checker = ExternalFactualityChecker()
         self.clarification_handler = ClarificationHandler()
-        
+
+        self.pipeline = VerificationPipeline(
+            cross_alignment_checker=self.cross_alignment_checker,
+            external_factuality_checker=self.external_factuality_checker,
+            clarification_handler=self.clarification_handler,
+        )
+
         # Session state
         self.session_id = None
         self.conversation_history = []
@@ -112,75 +119,37 @@ class SimplifiedSocratesAgent:
             }
     
     def _verify_claim_socratically(self, claim, original_input: str, image_path: str = None) -> dict:
-        """Apply Socratic methodology to verify a single claim"""
         claim_text = claim.text if hasattr(claim, 'text') else str(claim)
         logger.info(f"Verifying claim: {claim_text}")
-        
+
         socratic_questions = []
-        evidence = []
-        contradictions = []
-        overall_status = "PASS"
-        confidence = 1.0
-        clarification_needed = None
-        
-        # Generate initial Socratic inquiry
         try:
             initial_inquiry = self.question_generator.generate_socratic_inquiry(claim_text, "verification")
             socratic_questions.append({
                 "question": initial_inquiry.question,
                 "reasoning": initial_inquiry.reasoning,
-                "confidence": initial_inquiry.confidence
+                "confidence": initial_inquiry.confidence,
             })
         except Exception as e:
-            logger.warning(f"Question generation failed: {str(e)}")
-        
-        # Check 1: Cross-alignment (if image provided)
-        if image_path:
-            logger.info("Performing cross-alignment check...")
-            try:
-                alignment_result = self.cross_alignment_checker.check_alignment(claim_text, image_path)
-                
-                if alignment_result["status"] == "FAIL":
-                    overall_status = "FAIL"
-                    confidence *= alignment_result["confidence"]
-                    contradictions.extend(alignment_result["contradictions"])
-                    clarification_needed = self.clarification_handler.generate_clarification(
-                        claim_text, alignment_result["visual_description"], "alignment"
-                    )
-                else:
-                    evidence.extend(alignment_result["evidence"])
-            except Exception as e:
-                logger.warning(f"Cross-alignment check failed: {str(e)}")
-        
-        # Check 2: External factuality
-        if overall_status != "FAIL":
-            logger.info("Performing external factuality check...")
-            try:
-                factuality_result = self.external_factuality_checker.verify_claim(claim_text)
-                
-                if factuality_result["status"] == "FAIL":
-                    overall_status = "FAIL"
-                    confidence *= factuality_result["confidence"]
-                    contradictions.extend(factuality_result["contradictions"])
-                    
-                    if not clarification_needed:
-                        clarification_needed = self.clarification_handler.generate_clarification(
-                            claim_text, factuality_result["external_facts"], "contradiction"
-                        )
-                else:
-                    evidence.extend(factuality_result["evidence"])
-            except Exception as e:
-                logger.warning(f"External factuality check failed: {str(e)}")
-        
+            logger.warning(f"Question generation failed: {e}")
+
+        result = self.pipeline.run(
+            claim_text,
+            route=None,
+            session_id=self.session_id,
+            image_path=image_path,
+            original_input=original_input,
+        )
+
         return {
             "claim": claim_text,
-            "status": overall_status,
-            "confidence": confidence,
-            "evidence": evidence,
-            "contradictions": contradictions,
+            "status": result.status.value,
+            "confidence": result.confidence,
+            "evidence": result.evidence,
+            "contradictions": result.contradictions,
             "socratic_questions": socratic_questions,
-            "clarification_needed": clarification_needed,
-            "timestamp": datetime.now().isoformat()
+            "clarification_needed": result.clarification_needed,
+            "timestamp": datetime.now().isoformat(),
         }
     
     def _compile_socratic_response(self, verification_results: list, original_input: str) -> dict:

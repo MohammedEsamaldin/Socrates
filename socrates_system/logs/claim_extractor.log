@@ -173674,3 +173674,367 @@ Exception: OpenAI API error: 429 - {
 2025-08-30 02:57:59,348 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.98): 'The vase is not on the right of the toothbrush' -> 'The vase is not on the right of the toothbrush.'
 2025-08-30 02:57:59,348 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
 2025-08-30 02:57:59,349 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:55:24,554 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:55:24,555 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:55:24,556 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:55:24,556 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:55:24,557 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:24,557 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"categories": ["EXTERNAL_KNOWLEDGE_REQUIRED"], "confidence": 0.9, "justification": "Location claim verifiable via external sources."}]'
+2026-05-04 23:55:24,558 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2026-05-04 23:55:24,558 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2026-05-04 23:55:24,558 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:24,559 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"categories": ["EXTERNAL_KNOWLEDGE_REQUIRED"], "confidence": 0.9, "justification": "Location claim verifiable via external sources."}]'
+2026-05-04 23:55:24,559 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2026-05-04 23:55:24,559 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:24,560 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"categories": ["SUBJECTIVE_OPINION"], "confidence": 0.9, "justification": "This is an opinion."}]'
+2026-05-04 23:55:24,561 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2026-05-04 23:55:24,561 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2026-05-04 23:55:24,588 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:24,588 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"categories": ["EXTERNAL_KNOWLEDGE_REQUIRED"], "confidence": 0.9, "justification": "Location claim verifiable via external sources."}]'
+2026-05-04 23:55:24,588 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2026-05-04 23:55:24,589 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2026-05-04 23:55:24,591 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:24,591 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"categories": ["EXTERNAL_KNOWLEDGE_REQUIRED"], "confidence": 0.9, "justification": "Location claim verifiable via external sources."}]'
+2026-05-04 23:55:24,591 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims using LLM.
+2026-05-04 23:55:24,591 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 0 claims
+2026-05-04 23:55:51,023 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:55:51,024 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:55:51,025 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:55:51,025 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:55:51,026 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:51,026 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:55:51,027 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:55:51,027 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:55:51,027 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:55:51,028 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:51,028 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:55:51,029 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:55:51,029 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:55:51,029 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:55:51,029 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:55:51,029 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:55:51,030 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:55:51,030 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:55:51,030 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:51,030 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:55:51,031 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:55:51,031 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:55:51,031 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:55:51,032 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:51,032 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:55:51,032 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:55:51,033 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:55:51,033 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:55:51,033 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:55:51,033 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:55:51,034 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:55:51,034 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:55:51,034 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,014 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:57:09,014 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:57:09,016 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:57:09,016 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:57:09,016 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:57:09,017 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:57:09,017 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:57:09,018 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:57:09,018 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,018 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:57:09,019 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:57:09,019 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:57:09,019 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:57:09,019 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,020 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:57:09,020 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:57:09,020 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:57:09,020 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:57:09,020 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:57:09,021 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:57:09,021 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:57:09,021 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:57:09,021 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,022 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:57:09,022 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:57:09,023 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:57:09,023 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:57:09,023 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,023 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:57:09,023 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:57:09,024 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:57:09,024 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:57:09,024 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:57:09,025 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:57:09,025 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:57:09,025 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:57:09,025 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:57:09,029 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:57:09,030 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:57:09,030 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:57:09,030 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:57:09,033 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:57:09,033 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:57:09,033 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:57:09,034 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:59:35,004 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:59:35,004 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:59:35,006 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:59:35,006 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:59:35,007 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:59:35,007 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:59:35,008 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:59:35,008 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:59:35,008 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:59:35,009 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:59:35,009 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:59:35,009 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:59:35,010 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:59:35,010 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:59:35,010 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:59:35,011 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:59:35,011 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:59:35,011 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:59:35,011 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:59:35,011 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:59:35,012 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:59:35,012 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:59:35,012 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:59:35,012 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:59:35,013 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:59:35,013 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:59:35,013 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:59:35,013 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:59:35,014 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-04 23:59:35,014 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-04 23:59:35,014 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-04 23:59:35,015 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-04 23:59:35,015 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-04 23:59:35,015 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:59:35,015 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:59:35,016 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:59:35,016 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:59:35,020 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:59:35,020 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:59:35,020 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:59:35,020 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-04 23:59:35,024 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-04 23:59:35,024 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-04 23:59:35,024 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-04 23:59:35,024 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 00:27:29,391 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 00:27:29,391 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 00:27:29,393 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 00:27:29,393 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 00:27:29,393 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 00:27:29,394 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 00:27:29,394 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 00:27:29,394 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 00:27:29,394 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 00:27:29,395 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 00:27:29,396 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 00:27:29,397 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 00:27:29,398 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 00:27:29,398 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 00:27:29,398 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 00:27:29,398 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 00:27:29,398 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 00:27:29,399 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 00:27:29,399 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 00:27:29,402 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 00:27:29,402 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 00:27:29,403 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 00:27:29,403 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 00:27:29,406 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 00:27:29,406 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 00:27:29,406 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 00:27:29,406 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:19,847 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:19,847 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:19,849 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:19,850 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:19,850 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:19,850 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:19,850 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:19,850 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:19,851 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:19,852 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:19,852 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:19,852 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:19,852 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:19,852 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:19,853 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:19,854 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:19,854 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:19,854 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:19,857 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:19,857 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:19,858 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:19,858 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:19,861 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:19,861 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:19,861 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:19,861 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:37,347 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:37,347 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:37,349 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:37,349 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:37,350 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:37,350 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:37,350 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:37,350 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:37,350 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:19:37,351 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:37,352 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:19:37,353 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,163 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:31:00,164 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:31:00,165 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:31:00,165 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,166 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:31:00,167 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,168 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:31:00,169 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:31:00,170 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:31:00,170 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:31:00,170 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:31:00,170 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:31:00,174 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:31:00,175 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:31:00,175 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:31:00,175 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:31:00,178 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:31:00,178 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:31:00,178 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:31:00,178 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:34:29,901 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:34:29,901 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:34:29,903 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:34:29,903 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:34:29,904 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:34:29,904 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:34:29,904 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:34:29,904 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:34:29,904 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:34:29,905 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:34:29,906 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Extracting claims from text: The Eiffel Tower is located in Berlin....
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - RAW LLM RESPONSE: '[{"claim_text": "The Eiffel Tower is located in Berlin.", "confidence": 0.95, "entities": [{"text": "The Eiffel Tower", "label": "LOC"}, {"text": "Berlin", "label": "GPE"}], "relationships": []}]'
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Matched LLM claim (score: 0.80): 'The Eiffel Tower is located in Berlin' -> 'The Eiffel Tower is located in Berlin.'
+2026-05-05 02:34:29,907 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims using LLM.
+2026-05-05 02:34:29,908 - socrates_system.modules.claim_extractor - INFO - Successfully extracted 1 claims
+2026-05-05 02:34:29,908 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:34:29,908 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:34:29,908 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:34:29,909 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:34:29,912 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:34:29,912 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:34:29,912 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:34:29,913 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully
+2026-05-05 02:34:29,916 - socrates_system.modules.claim_extractor - INFO - Initializing Claim Extractor...
+2026-05-05 02:34:29,916 - socrates_system.modules.claim_extractor - WARNING - spaCy not available or model 'en_core_web_trf' not found; using fallback sentence splitter. Error: No module named 'spacy'
+2026-05-05 02:34:29,916 - socrates_system.modules.claim_extractor - WARNING - sentence-transformers not available; disabling semantic matching. Error: No module named 'sentence_transformers'
+2026-05-05 02:34:29,916 - socrates_system.modules.claim_extractor - INFO - Claim Extractor initialized successfully

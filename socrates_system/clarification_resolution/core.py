@@ -15,6 +15,7 @@ import re
 import difflib
 from typing import Any, Callable, Dict, List, Optional
 
+from socrates_system.utils.parse_llm_json import parse_llm_json
 from .data_models import (
     ClarificationContext,
     ClarificationResult,
@@ -179,7 +180,7 @@ class ClarificationResolutionModule:
         )
         text = self.llm.generate_text(prompt=prompt, system_prompt=system_prompt, max_tokens=512, temperature=0.2)  # type: ignore
         try:
-            obj = self._parse_json_safely(text)
+            obj = parse_llm_json(text)
             # Allow direct list as output
             refined = obj.get("questions", obj if isinstance(obj, list) else [])
             out: List[SocraticQuestion] = []
@@ -298,61 +299,6 @@ class ClarificationResolutionModule:
         return ev_summaries
 
     # ------------------------ Parsing & text utils ------------------------
-    def _strip_code_fences(self, text: str) -> str:
-        """Remove Markdown code fences and language hints from LLM output.
-
-        Args:
-            text: Raw LLM text that may contain code fences.
-
-        Returns:
-            Stripped text with fences and leading ``json`` hints removed.
-        """
-        t = (text or "").strip()
-        # Remove backticks and leading language hints
-        # ```json ... ``` or ``` ... ```
-        if t.startswith("```"):
-            t = re.sub(r"^```[a-zA-Z]*\s*", "", t)
-            t = re.sub(r"```$", "", t).strip()
-        # Remove markdown inline code fences
-        t = t.strip("`")
-        # Remove leading `json\n`
-        if t.lower().startswith("json\n"):
-            t = t[5:]
-        return t.strip()
-
-    def _parse_json_safely(self, text: str) -> Any:
-        """Extract and parse JSON even if surrounded by prose or fences.
-        Tries direct parse, then searches for the first well-formed object/array.
-        Raises ValueError if parsing fails.
-        """
-        t = self._strip_code_fences(text)
-        # Direct attempt
-        try:
-            return json.loads(t)
-        except Exception:
-            pass
-
-        # Search for JSON objects/arrays by tracking brackets
-        candidates: List[str] = []
-        for open_ch, close_ch in (("{", "}"), ("[", "]")):
-            stack = 0
-            start_idx = None
-            for i, ch in enumerate(t):
-                if ch == open_ch:
-                    if stack == 0:
-                        start_idx = i
-                    stack += 1
-                elif ch == close_ch and stack > 0:
-                    stack -= 1
-                    if stack == 0 and start_idx is not None:
-                        candidates.append(t[start_idx : i + 1])
-                        start_idx = None
-        for cand in candidates:
-            try:
-                return json.loads(cand)
-            except Exception:
-                continue
-        raise ValueError("No valid JSON object/array found in LLM output")
 
     def _tokenize(self, text: str) -> List[str]:
         """Split text into word and punctuation tokens.
@@ -474,7 +420,7 @@ class ClarificationResolutionModule:
         prompt = f"Input JSON to evaluate (be strict, concise):\n{json.dumps(payload, ensure_ascii=False, indent=2)}\n"
         try:
             text = self.llm.generate_text(prompt=prompt, system_prompt=system, max_tokens=256, temperature=0.1)  # type: ignore
-            obj = self._parse_json_safely(text)
+            obj = parse_llm_json(text)
             consistency = (obj.get("consistency") or "").strip().upper()
             confidence = float(obj.get("confidence", 0.0) or 0.0)
             reasoning = (obj.get("reasoning") or "").strip()
@@ -542,7 +488,7 @@ class ClarificationResolutionModule:
 
         text = self.llm.generate_text(prompt=prompt, system_prompt=system, max_tokens=256, temperature=0.2)  # type: ignore
         try:
-            obj = self._parse_json_safely(text)
+            obj = parse_llm_json(text)
             corrected_claim = obj.get("corrected_claim")
             reasoning = obj.get("reasoning", "")
             if not corrected_claim or not isinstance(corrected_claim, str):

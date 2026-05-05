@@ -26,7 +26,6 @@ Design notes:
 """
 from __future__ import annotations
 
-import os
 import uuid
 import difflib
 import logging
@@ -51,16 +50,10 @@ from ..modules.llm_manager import LLMManager, LLMResponse
 # Cross-modal options (prefer remote AGLA if configured)
 try:
     from ..modules.agla_client import AGLAClient
-    from ..config import (
-        AGLA_API_URL,
-        AGLA_API_VERIFY_PATH,
-        AGLA_API_TIMEOUT,
-    )
+    from ..config import get_app_config as _get_cfg
 except Exception:  # pragma: no cover
     AGLAClient = None  # type: ignore
-    AGLA_API_URL = None  # type: ignore
-    AGLA_API_VERIFY_PATH = None  # type: ignore
-    AGLA_API_TIMEOUT = None  # type: ignore
+    _get_cfg = None  # type: ignore
 
 try:  # advanced cross-modal (fallback to simple inside checker)
     from ..modules.cross_alignment_checker import CrossAlignmentChecker as AdvancedCrossAlignmentChecker
@@ -207,12 +200,13 @@ class HallucinationMitM:
 
         # Cross-modal
         self.agla = None
-        if AGLAClient and (AGLA_API_URL or os.getenv("AGLA_API_URL")):
+        _mitm_cfg = _get_cfg() if _get_cfg is not None else None
+        if AGLAClient and _mitm_cfg is not None and _mitm_cfg.agla_api_url:
             try:
                 self.agla = AGLAClient(
-                    base_url=os.getenv("AGLA_API_URL", AGLA_API_URL),
-                    verify_path=os.getenv("AGLA_API_VERIFY_PATH", AGLA_API_VERIFY_PATH or "/verify"),
-                    timeout=float(os.getenv("AGLA_API_TIMEOUT", str(AGLA_API_TIMEOUT or 20))),
+                    base_url=_mitm_cfg.agla_api_url,
+                    verify_path=_mitm_cfg.agla_api_verify_path,
+                    timeout=float(_mitm_cfg.agla_api_timeout),
                 )
                 logger.info("MitM: Using remote AGLA for cross-modal verification")
             except Exception as e:  # pragma: no cover
@@ -221,7 +215,8 @@ class HallucinationMitM:
         self.cross_modal = AdvancedCrossAlignmentChecker() if AdvancedCrossAlignmentChecker else SimpleCrossAlignmentChecker()
 
         # Session
-        self.session_id = session_id or os.getenv("SOC_SESSION_ID") or str(uuid.uuid4())
+        _cfg_session = (_mitm_cfg.session_id if _mitm_cfg is not None else None)
+        self.session_id = session_id or _cfg_session or str(uuid.uuid4())
 
         # Ablation flags
         self.enable_external = enable_external

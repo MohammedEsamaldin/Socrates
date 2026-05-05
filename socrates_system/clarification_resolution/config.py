@@ -1,77 +1,28 @@
 """
 Configuration constants for the clarification resolution module.
 
-All settings can be overridden via environment variables.  The module reads
-them once at import time so that the rest of the package can reference plain
-module-level names.
+All values are sourced from the central AppConfig (which reads environment
+variables once at startup). Modules inside this package reference these
+names directly (e.g. ``clar_cfg.REFINE_QUESTIONS_WITH_LLM``).
 """
 from __future__ import annotations
 
-import os
+from socrates_system.config import get_app_config as _get_cfg
+
+def _cfg():
+    return _get_cfg()
 
 # Clarification module feature flag
-def _env_bool(key: str, default: bool) -> bool:
-    """Read a boolean from an environment variable.
-
-    Args:
-        key: Environment variable name.
-        default: Value to return when the variable is unset.
-
-    Returns:
-        True if the variable is one of ``1``, ``true``, ``yes``, ``on``
-        (case-insensitive), False otherwise, or ``default`` if unset.
-    """
-    v = os.getenv(key)
-    if v is None:
-        return default
-    return str(v).strip().lower() in {"1", "true", "yes", "on"}
-
-def _env_float(key: str, default: float) -> float:
-    """Read a float from an environment variable.
-
-    Args:
-        key: Environment variable name.
-        default: Value to return when the variable is unset or unparseable.
-
-    Returns:
-        Float value or ``default``.
-    """
-    v = os.getenv(key)
-    if v is None:
-        return default
-    try:
-        return float(v)
-    except Exception:
-        return default
-
-def _env_int(key: str, default: int) -> int:
-    """Read an integer from an environment variable.
-
-    Args:
-        key: Environment variable name.
-        default: Value to return when the variable is unset or unparseable.
-
-    Returns:
-        Integer value or ``default``.
-    """
-    v = os.getenv(key)
-    if v is None:
-        return default
-    try:
-        return int(v)
-    except Exception:
-        return default
-
-CLARIFICATION_ENABLED: bool = _env_bool("CLARIFICATION_ENABLED", True)
+CLARIFICATION_ENABLED: bool = _cfg().clarification_enabled
 
 # Development mode enables manual overrides and verbose logging
-DEV_MODE_DEFAULT: bool = _env_bool("CLARIFICATION_DEV_MODE", True)
+DEV_MODE_DEFAULT: bool = _cfg().clarification_dev_mode
 
-# Dialogue and timing
+# Dialogue and timing (hardcoded; not operator-tuneable via env)
 MAX_QUESTIONS_PER_SESSION: int = 1
 RESPONSE_TIMEOUT_SECONDS: int = 120
 
-# Confidence thresholds
+# Confidence thresholds (hardcoded algorithmic constants)
 MIN_RESOLUTION_CONFIDENCE: float = 0.6
 HIGH_CONFIDENCE_THRESHOLD: float = 0.8
 LOW_CONFIDENCE_THRESHOLD: float = 0.4
@@ -85,21 +36,16 @@ DEFAULT_NEXT_ACTION = {
 }
 
 # LLM prompt knobs
-REFINE_QUESTIONS_WITH_LLM: bool = _env_bool("REFINE_QUESTIONS_WITH_LLM", True)
-CORRECT_CLAIM_WITH_LLM: bool = _env_bool("CORRECT_CLAIM_WITH_LLM", True)
-REQUIRE_USER_REWRITE: bool = _env_bool("REQUIRE_USER_REWRITE", False)
+REFINE_QUESTIONS_WITH_LLM: bool = _cfg().clarification_refine_questions
+CORRECT_CLAIM_WITH_LLM: bool = _cfg().clarification_correct_claim
+REQUIRE_USER_REWRITE: bool = _cfg().clarification_require_user_rewrite
 
-# Safety and formatting
+# Safety and formatting (hardcoded)
 MAX_CORRECTED_CLAIM_TOKENS: int = 100
 
 # Selective token replacement controls
-SELECTIVE_TOKEN_REPLACEMENT: bool = _env_bool("SELECTIVE_TOKEN_REPLACEMENT", True)
-# How much the corrected claim can differ in characters before we reject wholesale replacement
-SELECTIVE_MAX_CHAR_DIFF_RATIO: float = _env_float("SELECTIVE_MAX_CHAR_DIFF_RATIO", 0.4)
-# Fraction of tokens in the original claim that may change (replace/delete/insert) before we reject
-SELECTIVE_MAX_TOKEN_CHANGE_RATIO: float = _env_float("SELECTIVE_MAX_TOKEN_CHANGE_RATIO", 0.5)
-# Allow insertions/deletions beyond direct replacements
-SELECTIVE_ALLOW_INSERTIONS: bool = _env_bool("SELECTIVE_ALLOW_INSERTIONS", False)
-# Ignore selective replacement for very short claims (token count below this)
-SELECTIVE_MIN_TOKENS: int = _env_int("SELECTIVE_MIN_TOKENS", 3)
-
+SELECTIVE_TOKEN_REPLACEMENT: bool = _cfg().clarification_selective_token_replacement
+SELECTIVE_MAX_CHAR_DIFF_RATIO: float = _cfg().clarification_max_char_diff_ratio
+SELECTIVE_MAX_TOKEN_CHANGE_RATIO: float = _cfg().clarification_max_token_change_ratio
+SELECTIVE_ALLOW_INSERTIONS: bool = _cfg().clarification_allow_insertions
+SELECTIVE_MIN_TOKENS: int = _cfg().clarification_min_tokens

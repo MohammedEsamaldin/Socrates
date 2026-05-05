@@ -8,17 +8,13 @@ stage of the Socrates Agent pipeline, focusing on identifying check-worthy factu
 import json
 import re
 import logging
-# demjson3 is optional; fall back to strict json if unavailable
-try:
-    import demjson3  # type: ignore
-except Exception:  # pragma: no cover
-    demjson3 = None  # type: ignore
 from typing import List, Dict, Any, Optional
 from dataclasses import asdict
 from socrates_system.modules.shared_structures import ExtractedClaim, ExtractedEntity, ExtractedRelationship, ClaimCategory, VerificationRoute
 from pathlib import Path
 
 from ..utils.logger import setup_logger
+from ..utils.parse_llm_json import parse_llm_json
 from socrates_system.config import ENTITY_MODEL_NAME, NLP_MODEL_NAME, SIMILARITY_THRESHOLD
 from socrates_system.modules.llm_manager import LLMManager  # Assuming LLMManager is available for LLM interactions
 
@@ -279,97 +275,7 @@ class ClaimExtractor:
     def _parse_llm_response(self, llm_response_str: str, doc) -> List[ExtractedClaim]:
         """Parse the JSON response from the LLM into a list of ExtractedClaim objects."""
         try:
-            response = llm_response_str.strip()
-            data = None
-            # IMPROVED SANITIZATION - Add this before any parsing attempts
-            def sanitize_json_string(json_str: str) -> str:
-                """Sanitize common JSON issues from LLM responses."""
-                # Remove escaped underscores that break JSON
-                json_str = json_str.replace('\\_', '_')
-                
-                # Remove other problematic escaping
-                json_str = json_str.replace('\\n', ' ')
-                json_str = json_str.replace('\n', ' ')
-                json_str = json_str.replace('\\t', ' ')
-                
-                # Clean up multiple spaces
-                json_str = re.sub(r'\s+', ' ', json_str)
-                
-                # Ensure proper JSON structure
-                json_str = json_str.strip()
-                if not json_str.startswith('[') and not json_str.startswith('{'):
-                    # Try to find the JSON part
-                    start_bracket = json_str.find('[')
-                    start_brace = json_str.find('{')
-                    if start_bracket != -1 and (start_brace == -1 or start_bracket < start_brace):
-                        json_str = json_str[start_bracket:]
-                    elif start_brace != -1:
-                        json_str = json_str[start_brace:]
-                        
-                return json_str
-
-            # Apply sanitization first
-            response = sanitize_json_string(response)
-            # Attempt 1: parse the whole response directly (handles top-level arrays or objects)
-            try:
-                if demjson3 is not None:
-                    data = demjson3.decode(response)
-                else:
-                    data = json.loads(response)
-            except Exception:
-                # Attempt 2: extract JSON array/object substring and sanitize
-                json_str = response
-                # Prefer arrays if present
-                lb, rb = json_str.find('['), json_str.rfind(']')
-                if lb != -1 and rb != -1 and lb < rb:
-                    json_str = json_str[lb:rb+1]
-                else:
-                    # Fallback to first balanced JSON object
-                    start = json_str.find('{')
-                    if start != -1:
-                        open_braces = 0
-                        end = -1
-                        for i, char in enumerate(json_str[start:]):
-                            if char == '{':
-                                open_braces += 1
-                            elif char == '}':
-                                open_braces -= 1
-                            if open_braces == 0:
-                                end = start + i
-                                break
-                        if end != -1:
-                            json_str = json_str[start:end+1]
-                        else:
-                            # Fallback for unterminated JSON, add the closing brace
-                            json_str = json_str[start:] + '}'
-                # Sanitize common LLM JSON mistakes (unquoted identifiers)
-                # Quote common confidence tokens
-                json_sanitized = re.sub(r'("confidence"\s*:\s*)(Low|Medium|High)(\s*[,}])', r'\1"\2"\3', json_str)
-                # Quote common enum-like fields (e.g., type_hint)
-                json_sanitized = re.sub(r'("type_hint"\s*:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', r'\1"\2"\3', json_sanitized)
-                # First parse attempt on sanitized content
-                try:
-                    if demjson3 is not None:
-                        data = demjson3.decode(json_sanitized)
-                    else:
-                        data = json.loads(json_sanitized)
-                except Exception:
-                    # General fallback: quote bare word identifiers after ':' unless true/false/null/number
-                    def _quote_bare_ident(m):
-                        leading, ident, trailing = m.group(1), m.group(2), m.group(3)
-                        low = ident.lower()
-                        if low in {"true", "false", "null"}:
-                            return f"{leading}{ident}{trailing}"
-                        # Leave numbers alone
-                        if re.fullmatch(r"-?\d+(?:\.\d+)?", ident):
-                            return f"{leading}{ident}{trailing}"
-                        return f"{leading}\"{ident}\"{trailing}"
-                    generic_sanitized = re.sub(r'(:\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*[,}])', _quote_bare_ident, json_sanitized)
-                    try:
-                        data = demjson3.decode(generic_sanitized) if demjson3 is not None else json.loads(generic_sanitized)
-                    except Exception:
-                        logger.error("Failed to decode LLM JSON even after sanitization")
-                        return []
+            data = parse_llm_json(llm_response_str)
 
             # Normalize to a list of claim dicts
             if isinstance(data, list):
@@ -387,7 +293,7 @@ class ClaimExtractor:
                 logger.error(f"Unexpected LLM JSON root type: {type(data)}")
                 return []
 
-        except (demjson3.JSONDecodeError, KeyError, AttributeError) as e:
+        except (ValueError, KeyError, AttributeError) as e:
             logger.error(f"Failed to decode or parse LLM JSON response: {e}\nResponse: '{llm_response_str}'")
             return []
 

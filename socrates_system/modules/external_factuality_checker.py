@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 from ..utils.logger import setup_logger
-from ..config import WIKIPEDIA_API_URL, CONFIDENCE_THRESHOLD
+from ..config import WIKIPEDIA_API_URL, CONFIDENCE_THRESHOLD, get_app_config
 from .llm_manager import LLMManager, get_llm_manager
 
 logger = setup_logger(__name__)
@@ -311,11 +311,12 @@ class ExternalFactualityChecker:
         logger.info("Initializing External Factuality Checker...")
 
         try:
-            # Config via env with sensible defaults
-            enable_clients = enable_clients if enable_clients is not None else (os.getenv("FACTUALITY_ENABLED", "true").lower() == "true")
-            self.max_retries = int(os.getenv("FACTUALITY_MAX_RETRIES", str(max_retries if max_retries is not None else 2)))
-            self.timeout = float(os.getenv("FACTUALITY_TIMEOUT", str(timeout if timeout is not None else 6.0)))
-            self.backoff_sec = float(os.getenv("FACTUALITY_BACKOFF", str(backoff_sec if backoff_sec is not None else 0.5)))
+            _cfg = get_app_config()
+            if enable_clients is None:
+                enable_clients = _cfg.factuality_enabled
+            self.max_retries = int(max_retries if max_retries is not None else _cfg.factuality_max_retries)
+            self.timeout = float(timeout if timeout is not None else _cfg.factuality_timeout)
+            self.backoff_sec = float(backoff_sec if backoff_sec is not None else _cfg.factuality_backoff)
 
             # Initialize LLM manager for factuality verdicts
             self.llm_manager = llm_manager or get_llm_manager()
@@ -616,7 +617,7 @@ class ExternalFactualityChecker:
         Env: GOOGLE_FACTCHECK_API_KEY
         File (optional): socrates_system/google_API_key.txt with a line like: google_API_key = "YOUR_KEY"
         """
-        key = os.getenv("GOOGLE_FACTCHECK_API_KEY")
+        key = get_app_config().google_factcheck_api_key
         if key:
             return key
         # Fallback to local file if exists
@@ -643,7 +644,7 @@ class ExternalFactualityChecker:
         """Use Tavily search as a fallback if free-tier yields nothing.
         Requires TAVILY_API_KEY in environment. If library not installed or key missing, returns None.
         """
-        api_key = os.getenv("TAVILY_API_KEY")
+        api_key = get_app_config().tavily_api_key
         if not api_key:
             logger.info("Tavily API key not set; skipping Tavily fallback")
             return None
@@ -677,7 +678,8 @@ class ExternalFactualityChecker:
         """Ask OpenAI to fact-check as a last-resort fallback.
         Requires OPENAI_API_KEY in environment. Uses chat completions API.
         """
-        api_key = os.getenv("OPENAI_API_KEY")
+        _fcfg = get_app_config()
+        api_key = _fcfg.openai_api_key
         if not api_key:
             logger.info("OpenAI API key not set; skipping OpenAI fallback")
             return None
@@ -686,7 +688,7 @@ class ExternalFactualityChecker:
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             }
-            model = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
+            model = _fcfg.openai_model
             prompt = (
                 "You are a fact-checking assistant. Determine if the following claim is true, false, or uncertain based on reliable knowledge. "
                 "Return only a JSON object with keys: status in [SUPPORTED, CONTRADICTED, INCONCLUSIVE], confidence (0-1), evidence (list of short strings), sources (list of URLs).\nClaim: "

@@ -14,6 +14,7 @@ import uuid
 import json
 
 from .data_models import ClarificationContext, SocraticQuestion, IssueType
+from socrates_system.utils.parse_llm_json import parse_llm_json
 
 # Try to access the project's LLM manager
 try:
@@ -144,10 +145,7 @@ def _llm_tailored_question(ctx: ClarificationContext) -> Optional[SocraticQuesti
 
     text = llm.generate_text(prompt=user_prompt, system_prompt=system_prompt, max_tokens=300, temperature=0.2)  # type: ignore
     try:
-        cleaned = text.strip().strip("`")
-        if cleaned.startswith("json\n"):
-            cleaned = cleaned[5:]
-        obj = json.loads(cleaned)
+        obj = parse_llm_json(text)
         q_text = (obj.get("question") or "").strip()
         expects = (obj.get("expects") or "rewrite_precise_claim").strip()
         justification = (obj.get("justification") or "").strip()

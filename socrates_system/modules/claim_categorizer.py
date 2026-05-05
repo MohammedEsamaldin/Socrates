@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from socrates_system.config import CATEGORIZATION_CONFIDENCE_THRESHOLD
 from socrates_system.modules.llm_manager import LLMManager
 from socrates_system.modules.shared_structures import ExtractedClaim, ClaimCategory, ClaimCategoryType
+from socrates_system.utils.parse_llm_json import parse_llm_json
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -111,18 +112,9 @@ class ClaimCategorizer:
                 temperature=0.2   # Lower temperature for more consistent results
             )
             
-            # Clean and parse the response
-            response_text = response.strip()
-            
-            # Handle potential markdown code blocks
-            if '```json' in response_text:
-                response_text = response_text.split('```json')[1].split('```')[0].strip()
-            elif '```' in response_text:
-                response_text = response_text.split('```')[1].strip()
-            
             # Parse the JSON response
             try:
-                categories_data = json.loads(response_text)
+                categories_data = parse_llm_json(response)
                 if not isinstance(categories_data, list) or not categories_data:
                     raise ValueError("Expected a non-empty list of categories")
                 
