@@ -1,4 +1,28 @@
-socrates_system/google_API_key.txt
+# Secrets
 *.env
+.env*
+socrates_system/google_API_key.txt
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+
+# Python build artefacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Runtime output
+*.log
+socrates_system/logs/
+socrates_system/data/*.db
+
+# Local tooling and OS files
+.DS_Store
+socrates_system/.agents/
+socrates_system/skills-lock.json
+
+# Experiments kept out of the repo
 graphrag/
-ragtest/
